@@ -1,0 +1,82 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "478472",
+  "question": "Map digital literacy rates in Southeast Asian nations.",
+  "submittedPrompt": "Map digital literacy rates in Southeast Asian nations.\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "I can’t make that map from this closed catalog.\n\nThe provided inventory shows a country boundaries layer (`GEO_CATALOG: Countries`), but it does not list any digital literacy rate dataset for Southeast Asian nations, and this task includes source inventory metadata rather than the actual observation files. The listed GDP, electricity, population, and similar layers are not valid substitutes for digital literacy.\n\nDelivered here: a source-availability check. Unanswered: the actual digital literacy rate map.\n\nNext step: add a country-level digital literacy table and join it to the country boundaries.\n\n### Limitations\n\n- This task provides a closed source inventory and does not provide actual observation files.\n- The provided inventory does not list any digital literacy rate dataset.\n- Not yet confirmed because the closed catalog inventory does not include a digital literacy rate dataset.\n- **Digital literacy:** The provided inventory does not list a digital literacy dataset.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T08:54:07.835927+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "da833099a331f88bf122a0d66f92d81bc16bb2ab1941a21e227594a676bcb112",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "32af3a59d2e246ec9f20ee1cd12e4c4eaedd793d905a6b2ed97cafad0d98cb0b",
+      "snapshotSha256AtReview": "628280e5e58dc2a549a65f6a30facd517d70e0003b5ccf7b9790b75862205912",
+      "evidenceReviewed": [
+        "Complete accepted replacement final answer; not the interrupted original",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies absent Southeast Asian digital-literacy rates and underlying observations despite country-boundary listings."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Explicitly rejects GDP, electricity and population as substitutes for digital literacy."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Limits absence to this closed metadata-only inventory, not worldwide data availability."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "States the rate map remains unanswered; four completed brief/help calls and no jobs/artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests a country digital-literacy table joined to the listed country boundaries."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:48:30.120621Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:40.261769Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:09.755704Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:27.413064Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "cd5d71b3533a7171e9258d3f50932bcb1a6a889729cb0a2753d7d7417c83094d",
+  "investigations": []
+}

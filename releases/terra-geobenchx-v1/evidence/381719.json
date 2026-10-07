@@ -1,0 +1,1020 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "381719",
+  "question": "Calculate the total population affected by floods in Peru during February 2018",
+  "submittedPrompt": "Calculate the total population affected by floods in Peru during February 2018\n\nTask conventions: Use the frozen 2018 Peru population raster and supplied event flood_peru. Population source values are people per original cell. Keep its entire original grid; no population resampling. Sample the original flood raster at each original population-cell centre by containing pixel (nearest alignment); no max/bilinear interpolation or inferred flooded fractions. GFD bands are 1 flooded (0/1), 2 duration in days, 3 clear-view count, 4 clear-view fraction, 5 permanent water (0/1). Observe a cell only if population is finite/unmasked, bands 1,3,5 are finite/unmasked, clear views >0, and permanent water=0. Observed band1=1 is flooded; observed band1=0 is non-flooded. Everything else is unknown/excluded, never non-flooded or zero population. Calculate original full geographic-cell WGS84 ellipsoidal meridian/parallel area in km2; density is counts/area and counts are density*area as appropriate. Sum original/derived population over flooded cells. For the density comparison use group population divided by group physical area, not an unweighted mean of densities. This explicitly defines affected as people in observed flooded cell centres, not proven personal impacts. The event covers only part of the country/month: report the observed-footprint result, never an exhaustive national total. The supplied Bangladesh event's footprint includes northern Bangladesh despite its Tibetan event label; inspect actual coverage. Permanent water, cloud gaps and unobserved regions do not establish absence of flooding. No current source substitutions. Internal benchmark only.\n\n\n\nPublish a full native-grid selected-population raster: people per cell for observed flooded cells, zero for observed non-flooded cells, NoData elsewhere. Also publish classification (1 flooded, 0 non-flooded, NoData unknown) on the same grid. End with fenced JSON {count:observed flooded cell count,unknown_count:all other unobserved/excluded population-grid cells,coverage_note:string,selection:{collectionId,itemId,assetKey},classification:{collectionId,itemId,assetKey},metrics:{selected_people:number,nonflood_people:number,selected_area_km2:number,nonflood_area_km2:number,selected_density:number,nonflood_density:number}}. Label classification unit as dimensionless and selected population as people per cell. Maps optional. Do not round machine-readable metrics to integers. Explicitly state incomplete country coverage and the 2018 source/event dates.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Peru population count, WorldPop 2018\",\n    \"edition\": \"2018 UN-adjusted population counts, aggregated to 1 km cells\",\n    \"units\": {\n      \"band1\": \"people per cell\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"GFD observed flood 4569, 2018-02-01 to 2018-02-21\",\n    \"edition\": \"Original five-band GFD v1 benchmark snapshot, not a current flood map; benchmark-only use\",\n    \"units\": {\n      \"band1\": \"binary flooded flag\",\n      \"band2\": \"days\",\n      \"band3\": \"observations\",\n      \"band4\": \"fraction\",\n      \"band5\": \"binary permanent-water flag\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "I found 2,659.59 people in 113 observed flooded cells in Peru, using the frozen WorldPop 2018 population grid and the supplied GFD event for 2018-02-01 to 2018-02-21.\n\nImportant limit: this is only the observed event footprint, not a full national February 2018 total. Another 3,326,582 population-grid cells were unknown or excluded, so non-observed areas were not counted as non-flooded. The selected-population and classification rasters are published on the map if you want to review them.\n\n### Limitations\n\n- The GFD event snapshot covers only part of Peru and only 2018-02-01 to 2018-02-21, so the result is an observed-footprint estimate rather than an exhaustive February 2018 national flood total.\n- Observed flooded population means people located in population cells whose centres fall in valid observed flooded pixels after the required exclusions; it does not prove personal impacts.\n- This raster is limited to the observed footprint of the supplied February 2018 event and leaves unobserved, cloud-gapped, and permanent-water cells as NoData.\n- This classification only describes valid observed cell-centre status within the supplied event footprint and does not treat unobserved areas as non-flooded.\n- Observed-footprint only: the supplied flood event covers only part of Peru and only 2018-02-01 to 2018-02-21, so this is not an exhaustive national February 2018 flood total.\n- Unknown or excluded cells include masked population cells, permanent water, zero-clear-view cells, and cells with missing flood observations; they are excluded rather than treated as non-flooded.\n- Affected here means people in observed flooded population-cell centres, not proven personal impacts.\n- Population values are people per original cell for 2018 and do not prove individual impacts.\n- The event footprint only covers part of Peru and only 2018-02-01 to 2018-02-21.\n- Cloud gaps, unobserved regions, and permanent-water exclusions remain unknown rather than non-flooded.\n- Flood status is sampled at each original population-cell centre from the original flood raster by nearest containing pixel.\n- Unknown and excluded cells remain NoData in the final rasters.\n- Physical area uses exact original geographic-cell WGS84 ellipsoidal area in km2.\n- Densities are group population divided by group physical area within observed valid cells only.\n- The final answer selects the published raster artifacts and reports observed-footprint metrics rather than an exhaustive national total.",
+  "checks": {
+    "expectedCount": 113,
+    "actualCount": 113,
+    "expectedMetrics": {
+      "selected_people": 2659.5894656293094,
+      "nonflood_people": 826501.1746531725,
+      "selected_area_km2": 92.91052422702717,
+      "nonflood_area_km2": 16624.819734452987,
+      "selected_density": 28.62527671386929,
+      "nonflood_density": 49.71489543073636
+    },
+    "actualMetrics": {
+      "nonflood_people": 826501.1746531725,
+      "selected_people": 2659.5894656293094,
+      "nonflood_density": 49.71489541397814,
+      "selected_density": 28.6252766519842,
+      "nonflood_area_km2": 16624.81974005699,
+      "selected_area_km2": 92.91052442789078
+    },
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:48:28.036670Z",
+      "title": "Progress update",
+      "detail": "I’ll set up the analysis brief, inspect the supplied sources, and run a small private test to confirm the native-grid method before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T06:48:37.370680Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:48:37.526762Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:48:39.251358Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:48:50.386555Z",
+      "title": "Progress update",
+      "detail": "I found the two supplied rasters. One practical wrinkle is important: the flood snapshot’s declared extent only overlaps part of Peru, so the result has to stay an observed-footprint estimate, not a countrywide February total. Next I’m defining the exact native-grid method and checking it on a small private run."
+    },
+    {
+      "at": "2026-10-07T06:49:16.555906Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:49:22.908658Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:49:23.178123Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:49:23.398875Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:49:23.839872Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:49:38.414287Z",
+      "title": "Progress update",
+      "detail": "I found a workable processor set: extract the needed flood bands, align them to the population grid with nearest sampling, build the observed/unknown logic in map algebra, compute exact cell area on the original geographic grid, and summarize the resulting rasters. I’m checking the exact schemas now so the trial uses the real native-grid contracts rather than guessed parameters."
+    },
+    {
+      "at": "2026-10-07T06:49:38.463811Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:49:38.486890Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:49:39.214564Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:49:53.884280Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:49:53.990005Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:49:54.360279Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:50:01.958053Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:50:09.408478Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:50:09.747901Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:50:26.455300Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:50:30.431635Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:50:45.302112Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:52:12.839473Z",
+      "title": "Progress update",
+      "detail": "The first trial call was just an argument-shape mistake, not a data problem. I corrected the request layout and am rerunning the same test."
+    },
+    {
+      "at": "2026-10-07T06:52:23.583138Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:52:40.724784Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:07:31.234862Z",
+      "title": "Progress update",
+      "detail": "The test run finished. Practical result first: the method does preserve the Peru population grid, keeps unknown cells out of the final rasters, and produces a valid flooded-cell selection. Important limitation: I still need the observed non-flooded totals from the same trial to confirm the full flooded-versus-non-flooded comparison before I save the production workflow. Next I’m inspecting those remaining trial outputs and then I’ll promote the tested method to the full Peru footprint."
+    },
+    {
+      "at": "2026-10-07T07:07:44.762798Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:07:52.725875Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:07:52.948511Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:07:52.971161Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:54.294836Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:54.296468Z",
+      "title": "Progress update",
+      "detail": "I have enough evidence that the cell matching works on the full Peru grid, including the key limitation that unknown cells stay out instead of becoming non-flooded. Next I’m pulling the full observed totals from the finished trial so I can lock the exact metrics into the production workflow and final assessment."
+    },
+    {
+      "at": "2026-10-07T07:08:54.324138Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:55.745945Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:02.031643Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:02.271539Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:39.269002Z",
+      "title": "Progress update",
+      "detail": "The trial answered the key method question: the final classification and selected-population outputs behave correctly on the full Peru grid, and the observed flooded/non-flooded totals can now be derived exactly. Next I’m recording that trial judgment and saving the production workflow from this tested computation."
+    },
+    {
+      "at": "2026-10-07T07:09:39.293858Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:39.988486Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:39.998378Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:47.916211Z",
+      "title": "Progress update",
+      "detail": "I’ve now confirmed the full observed totals from the trial, so the remaining work is no longer method design. The real next step is publishing this tested computation and checking the final artifact bindings."
+    },
+    {
+      "at": "2026-10-07T07:09:59.456215Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:33.751465Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:43.664962Z",
+      "title": "Progress update",
+      "detail": "The saved draft is close, but the compiler flagged only bookkeeping on the fixed parameter paths. That is a method-description mistake, not a data or capability problem. I’m correcting those paths on the saved draft now."
+    },
+    {
+      "at": "2026-10-07T07:10:45.887983Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:45.899796Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:53.938196Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:58.007164Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:11:18.760958Z",
+      "title": "revise_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:11:47.783052Z",
+      "title": "Progress update",
+      "detail": "The remaining blocker is clear now: the copied draft still carries the trial’s smaller source-area settings, even though the tested outputs already ran on the full Peru grid. I’m removing those leftover area limits and setting the workflow scope to the full Peru population grid."
+    },
+    {
+      "at": "2026-10-07T07:11:49.697803Z",
+      "title": "revise_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:11:57.290501Z",
+      "title": "Progress update",
+      "detail": "The method is now saved as a runnable full-Peru workflow. Important limitation stays the same: it still reports only the observed event footprint, not a national total. Next I’m running it and then I’ll inspect the published rasters and exact summary tables before I finalize the answer."
+    },
+    {
+      "at": "2026-10-07T07:12:00.376499Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:12.697130Z",
+      "title": "Progress update",
+      "detail": "The production run finished in the background. I’m inspecting the published rasters and summary tables now so the final answer uses the actual delivered artifacts, not the earlier trial copies."
+    },
+    {
+      "at": "2026-10-07T07:17:21.092474Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:41.109885Z",
+      "title": "Progress update",
+      "detail": "The published run is there. I’m checking the final raster previews and summary tables from that exact run now, so the answer uses the delivered artifacts and not the earlier trial."
+    },
+    {
+      "at": "2026-10-07T07:17:41.129977Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:41.138598Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:41.143731Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:41.155957Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:41.870692Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:42.119056Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:42.377268Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:18:16.810273Z",
+      "title": "Progress update",
+      "detail": "I already have the production outputs. I’m just finishing the last bounded inspections needed to lock the final artifact IDs and exact summary numbers before I assess the result."
+    },
+    {
+      "at": "2026-10-07T07:18:16.826337Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:18:16.831664Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:18:17.668088Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:18:17.965652Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:18:18.247054Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:18:18.534308Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:18:18.817703Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:18:20.409952Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:20:42.079385Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the final counts and the two published rasters. I’m making one last bounded check on the final area step so the density explanation is tied to the delivered run, not just the earlier trial."
+    },
+    {
+      "at": "2026-10-07T07:20:43.194194Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:22:04.704346Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the published rasters and summary tables from the final run. The result is ready to lock: 113 observed flooded population-grid cells, about 2,659.59 people in those cells, and 3,326,582 other grid cells left unknown or excluded. The real limitation is unchanged: this is only the observed footprint of the supplied 2018-02-01 to 2018-02-21 event, not a national February total."
+    },
+    {
+      "at": "2026-10-07T07:22:32.676137Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:22:56.078613Z",
+      "title": "Progress update",
+      "detail": "The result itself is done. I just need to restate the final checks in the exact acceptance-condition wording Terra expects, then I can lock the answer."
+    },
+    {
+      "at": "2026-10-07T07:23:18.999410Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:23:34.608342Z",
+      "title": "Progress update",
+      "detail": "Terra is being strict about matching the recorded acceptance text. I’m retrying with just the four exact metric conditions for this result."
+    },
+    {
+      "at": "2026-10-07T07:23:58.284413Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:25:32.374047Z",
+      "title": "Progress update",
+      "detail": "I’ve already locked the numeric answer. I’m now recording the two raster assessments Terra asked for, using the final published artifacts and the tested matching method they reproduce exactly."
+    },
+    {
+      "at": "2026-10-07T07:25:32.381878Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:25:33.197099Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "cell area",
+      "description": "Recorded raster-cell-area · succeeded"
+    },
+    {
+      "title": "class code",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "class final",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "class raw",
+      "description": "Recorded raster-reclassify · succeeded"
+    },
+    {
+      "title": "class stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "clear view",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "clear view align",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Observed flooded population raster",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Observed flood classification raster",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Observed flood classification summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Observed flooded population summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Observed flooded area summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Observed population summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Observed area summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Flood source",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "flood flag",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "flood flag align",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "observed area",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "observed area stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "observed mask",
+      "description": "Recorded raster-reclassify · succeeded"
+    },
+    {
+      "title": "observed pop",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "observed pop stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "perm water",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "perm water align",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Population source",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "selected area",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "selected area stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "selected pop",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "selected pop stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "cell area",
+      "description": "Recorded raster-cell-area · succeeded"
+    },
+    {
+      "title": "class code",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "class final",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "class raw",
+      "description": "Recorded raster-reclassify · succeeded"
+    },
+    {
+      "title": "class stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "clear view",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "clear view align",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Flood subset",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "flood flag",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "flood flag align",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "observed area",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "observed area stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "observed mask",
+      "description": "Recorded raster-reclassify · succeeded"
+    },
+    {
+      "title": "observed pop",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "observed pop stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "perm water",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "perm water align",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Population subset",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "selected area",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "selected area stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "selected pop",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "selected pop stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Population subset",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "selected area stats",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "observed pop stats",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "observed area stats",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "flood flag align",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "clear view align",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "perm water align",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "class code",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "class final",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "selected pop",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "class stats",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "selected pop stats",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "0dfbd5939e217d5d5a4196aa8154aacb3d438e0648a48a2f33bd196428540645",
+      "bytes": 45011673,
+      "finishedAt": "2026-10-07T06:53:03.667489+00:00"
+    },
+    {
+      "sha256": "3f085a13c7ef83d72672d9909812145fe34fd4f53c653989524e50c92e20e37c",
+      "bytes": 6931939,
+      "finishedAt": "2026-10-07T06:53:03.667489+00:00"
+    },
+    {
+      "sha256": "11c5daf3f32cf66d334bd0cae42e15d1dd1dbc539de44fba2373c48c8b688d41",
+      "bytes": 4753141,
+      "finishedAt": "2026-10-07T06:54:27.454641+00:00"
+    },
+    {
+      "sha256": "0360e5ba9659aec6530de25111688386137a45277d856af79c182898c1f1732f",
+      "bytes": 11246693,
+      "finishedAt": "2026-10-07T06:54:49.764159+00:00"
+    },
+    {
+      "sha256": "0bb1c7180681941036a1188bee750307af23c16bcf18517caec2af6c4e5790df",
+      "bytes": 1561062,
+      "finishedAt": "2026-10-07T06:56:20.052430+00:00"
+    },
+    {
+      "sha256": "90bbfa2712d2e3eb8835407d2e656fc861cfa21d4c12d4d6d467e2fa8340d7a6",
+      "bytes": 301953,
+      "finishedAt": "2026-10-07T06:56:42.977745+00:00"
+    },
+    {
+      "sha256": "ea15262bf2017c158455335e7a0679bcfdc64f96e7799b29239f4fa8cd9cc9a6",
+      "bytes": 117656,
+      "finishedAt": "2026-10-07T06:58:27.959430+00:00"
+    },
+    {
+      "sha256": "ccde818f44a0cee2ba6178c449aea9f83cffa01496417e83fcda67228eefd89e",
+      "bytes": 137313,
+      "finishedAt": "2026-10-07T06:58:52.885915+00:00"
+    },
+    {
+      "sha256": "4d759ddd78c108420d57a351fd7d0cbe11bfaf4080002d24ae80efd90d01f5fc",
+      "bytes": 92831,
+      "finishedAt": "2026-10-07T07:00:14.546833+00:00"
+    },
+    {
+      "sha256": "47aa1a1f66e5113ec3ad12ad8df1908496e790d6a773a155a0452f0df2f80d41",
+      "bytes": 61110,
+      "finishedAt": "2026-10-07T07:01:16.755059+00:00"
+    },
+    {
+      "sha256": "cc40ff02275c570b108cba11efa84bfc1a938eb71ceaacf92327e2c45f5e9e52",
+      "bytes": 61000,
+      "finishedAt": "2026-10-07T07:02:53.854040+00:00"
+    },
+    {
+      "sha256": "195fb57849656584debf6a27c3ed178e0436dd4cae3a0379ef269f9e580b6823",
+      "bytes": 59377,
+      "finishedAt": "2026-10-07T07:02:59.857146+00:00"
+    },
+    {
+      "sha256": "a5fcc2b29a3d8370e689fadce2639b0c9bc73eba10a5613a8848e6fb1904d15e",
+      "bytes": 61116,
+      "finishedAt": "2026-10-07T07:04:03.735062+00:00"
+    },
+    {
+      "sha256": "0be2e10619a3de6d5d9407bba0d6d828cc90e437aaf4d1b272b85285a2e16214",
+      "bytes": 192878,
+      "finishedAt": "2026-10-07T07:04:03.735062+00:00"
+    },
+    {
+      "sha256": "c35e9db8fd6b979cceda030efcd718ec576585247b6c3775bc9984d308f56aef",
+      "bytes": 88991,
+      "finishedAt": "2026-10-07T07:04:52.398010+00:00"
+    },
+    {
+      "sha256": "69f11b822d55d48e0dc97c100fa408e9cde9e58c7ecae3dabaa8688c182036b8",
+      "bytes": 62577,
+      "finishedAt": "2026-10-07T07:04:52.398010+00:00"
+    },
+    {
+      "sha256": "52ef12d52ad019c9204b64a3ab254cad5fbaba98e5081d9f2198f6fbbdfe8b85",
+      "bytes": 8723,
+      "finishedAt": "2026-10-07T07:05:32.373539+00:00"
+    },
+    {
+      "sha256": "a738e085f2f7052415ab45497d9b4905da7731369b52812f9c6c07e57e182301",
+      "bytes": 63031,
+      "finishedAt": "2026-10-07T07:05:32.373539+00:00"
+    },
+    {
+      "sha256": "2e48d81cc097d07495e253dcdb4a3aea4fb782b8d7db47b7bbc1242f895364ad",
+      "bytes": 8672,
+      "finishedAt": "2026-10-07T07:05:51.238514+00:00"
+    },
+    {
+      "sha256": "89da62c111bc27ef7abf9fedb73362402df5e1c79d6d19cc415c2bc8b9967c0a",
+      "bytes": 8733,
+      "finishedAt": "2026-10-07T07:05:51.238514+00:00"
+    },
+    {
+      "sha256": "8ecab3cc7d531da324b8914259cc4ae0c8f8a3139ad9566f985a9c394216515c",
+      "bytes": 8733,
+      "finishedAt": "2026-10-07T07:06:11.146702+00:00"
+    },
+    {
+      "sha256": "39c76ff78ff8d14b60465c0428e2d557833e771df05403b21dafab8a7922222b",
+      "bytes": 8672,
+      "finishedAt": "2026-10-07T07:06:24.070640+00:00"
+    },
+    {
+      "sha256": "0360e5ba9659aec6530de25111688386137a45277d856af79c182898c1f1732f",
+      "bytes": 11246693,
+      "finishedAt": "2026-10-07T07:13:25.311167+00:00"
+    },
+    {
+      "sha256": "11c5daf3f32cf66d334bd0cae42e15d1dd1dbc539de44fba2373c48c8b688d41",
+      "bytes": 4753141,
+      "finishedAt": "2026-10-07T07:13:25.311167+00:00"
+    },
+    {
+      "sha256": "90bbfa2712d2e3eb8835407d2e656fc861cfa21d4c12d4d6d467e2fa8340d7a6",
+      "bytes": 301953,
+      "finishedAt": "2026-10-07T07:14:11.584580+00:00"
+    },
+    {
+      "sha256": "0bb1c7180681941036a1188bee750307af23c16bcf18517caec2af6c4e5790df",
+      "bytes": 1561062,
+      "finishedAt": "2026-10-07T07:14:19.737484+00:00"
+    },
+    {
+      "sha256": "ccde818f44a0cee2ba6178c449aea9f83cffa01496417e83fcda67228eefd89e",
+      "bytes": 137313,
+      "finishedAt": "2026-10-07T07:14:53.855034+00:00"
+    },
+    {
+      "sha256": "ea15262bf2017c158455335e7a0679bcfdc64f96e7799b29239f4fa8cd9cc9a6",
+      "bytes": 117656,
+      "finishedAt": "2026-10-07T07:14:43.337099+00:00"
+    },
+    {
+      "sha256": "4d759ddd78c108420d57a351fd7d0cbe11bfaf4080002d24ae80efd90d01f5fc",
+      "bytes": 92831,
+      "finishedAt": "2026-10-07T07:15:13.206791+00:00"
+    },
+    {
+      "sha256": "47aa1a1f66e5113ec3ad12ad8df1908496e790d6a773a155a0452f0df2f80d41",
+      "bytes": 61110,
+      "finishedAt": "2026-10-07T07:15:31.908701+00:00"
+    },
+    {
+      "sha256": "cc40ff02275c570b108cba11efa84bfc1a938eb71ceaacf92327e2c45f5e9e52",
+      "bytes": 61000,
+      "finishedAt": "2026-10-07T07:15:45.713942+00:00"
+    },
+    {
+      "sha256": "195fb57849656584debf6a27c3ed178e0436dd4cae3a0379ef269f9e580b6823",
+      "bytes": 59377,
+      "finishedAt": "2026-10-07T07:15:53.255199+00:00"
+    },
+    {
+      "sha256": "a5fcc2b29a3d8370e689fadce2639b0c9bc73eba10a5613a8848e6fb1904d15e",
+      "bytes": 61116,
+      "finishedAt": "2026-10-07T07:16:09.180967+00:00"
+    },
+    {
+      "sha256": "0be2e10619a3de6d5d9407bba0d6d828cc90e437aaf4d1b272b85285a2e16214",
+      "bytes": 192878,
+      "finishedAt": "2026-10-07T07:16:09.180967+00:00"
+    },
+    {
+      "sha256": "52ef12d52ad019c9204b64a3ab254cad5fbaba98e5081d9f2198f6fbbdfe8b85",
+      "bytes": 8723,
+      "finishedAt": "2026-10-07T07:16:42.157660+00:00"
+    },
+    {
+      "sha256": "69f11b822d55d48e0dc97c100fa408e9cde9e58c7ecae3dabaa8688c182036b8",
+      "bytes": 62577,
+      "finishedAt": "2026-10-07T07:16:30.060556+00:00"
+    },
+    {
+      "sha256": "89da62c111bc27ef7abf9fedb73362402df5e1c79d6d19cc415c2bc8b9967c0a",
+      "bytes": 8733,
+      "finishedAt": "2026-10-07T07:16:42.157660+00:00"
+    },
+    {
+      "sha256": "c35e9db8fd6b979cceda030efcd718ec576585247b6c3775bc9984d308f56aef",
+      "bytes": 88991,
+      "finishedAt": "2026-10-07T07:16:30.060556+00:00"
+    },
+    {
+      "sha256": "a738e085f2f7052415ab45497d9b4905da7731369b52812f9c6c07e57e182301",
+      "bytes": 63031,
+      "finishedAt": "2026-10-07T07:16:37.729710+00:00"
+    },
+    {
+      "sha256": "8ecab3cc7d531da324b8914259cc4ae0c8f8a3139ad9566f985a9c394216515c",
+      "bytes": 8733,
+      "finishedAt": "2026-10-07T07:16:50.382751+00:00"
+    },
+    {
+      "sha256": "39c76ff78ff8d14b60465c0428e2d557833e771df05403b21dafab8a7922222b",
+      "bytes": 8672,
+      "finishedAt": "2026-10-07T07:16:56.243654+00:00"
+    },
+    {
+      "sha256": "2e48d81cc097d07495e253dcdb4a3aea4fb782b8d7db47b7bbc1242f895364ad",
+      "bytes": 8672,
+      "finishedAt": "2026-10-07T07:16:50.382751+00:00"
+    }
+  ],
+  "snapshotSha256": "4fc1a8c58d706d45287a7491426c20698abecf5b86691184725b8f77e5be8100",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:52:23.583138Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the native-grid method preserve the population grid, classify observed flooded versus non-flooded cells correctly with unknowns left out, and produce additive population and area summaries on a representative Peru overlap area?"
+    },
+    {
+      "at": "2026-10-07T07:09:39.293858Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The trial preserved the full original Peru population grid at 1522 by 2199 cells with 0.0083333333 degree resolution and aligned the flood, clear-view, and permanent-water bands to that grid with nearest resampling. Outside the observed event footprint the aligned flood bands remained missing. The intermediate class_code used -1 as an internal sentinel for unknown or excluded cells, and the reclassify step converted those cells to NoData in the final classification output. The final classification produced 20,296 observed cells, with 113 flooded cells and 20,183 observed non-flooded cells; 3,326,582 population-grid cells remained unknown or excluded. The selected-population raster retained people per cell only for flooded cells, wrote zero for observed non-flooded cells, and left unknown cells as NoData. Exact trial summaries provide additive totals for observed population and observed area, so non-flooded population and area can be derived by subtraction without changing the method.",
+      "limitations": [
+        "The event footprint and clear-view coverage remain incomplete, so the method supports only an observed-footprint result for 2018-02-01 to 2018-02-21, not an exhaustive national February flood total."
+      ],
+      "next_action": "Save a production workflow from this exact tested computation, publish the native-grid selection and classification rasters, then inspect the final outputs and assess the result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:22:32.676137Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The published native-grid outputs report 113 observed flooded population-grid cells in Peru for the supplied GFD observed flood 4569 event dated 2018-02-01 to 2018-02-21. Those flooded cells contain 2,659.5894656293094 people over 92.91052442789078 km2, for a flooded-group density of 28.6252766519842 people per km2. The observed non-flooded cells total 20,183 by subtraction from 20,296 observed valid cells, and they contain 826,501.1746531725 people over 16,624.81974005699 km2, for a non-flooded observed density of 49.71489541397814 people per km2. The remaining 3,326,582 cells on the full Peru population grid are unknown or excluded. Sources: Peru population count, WorldPop 2018 benchmark fixture (Terra-hosted WorldPop/CIESIN benchmark input; source revision not provided; retrieved 2026-10-07) and GFD observed flood 4569 benchmark fixture, 2018-02-01 to 2018-02-21 (Terra-hosted Global Flood Database/Cloud to Street benchmark input; source revision not provided; retrieved 2026-10-07).",
+      "limitations": [
+        "Observed-footprint only: the supplied flood event covers only part of Peru and only 2018-02-01 to 2018-02-21, so this is not an exhaustive national February 2018 flood total.",
+        "Unknown or excluded cells include masked population cells, permanent water, zero-clear-view cells, and cells with missing flood observations; they are excluded rather than treated as non-flooded.",
+        "Affected here means people in observed flooded population-cell centres, not proven personal impacts."
+      ],
+      "next_action": "Inspect the two published map layers if you want to review the observed flooded footprint and the flooded-versus-non-flooded classification on the map.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:23:18.999410Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The published native-grid outputs report 113 observed flooded population-grid cells in Peru for the supplied GFD observed flood 4569 event dated 2018-02-01 to 2018-02-21. Those flooded cells contain 2,659.5894656293094 people over 92.91052442789078 km2, for a flooded-group density of 28.6252766519842 people per km2. The observed non-flooded cells total 20,183 by subtraction from 20,296 observed valid cells, and they contain 826,501.1746531725 people over 16,624.81974005699 km2, for a non-flooded observed density of 49.71489541397814 people per km2. The remaining 3,326,582 cells on the full Peru population grid are unknown or excluded. Sources: Peru population count, WorldPop 2018 benchmark fixture (Terra-hosted WorldPop/CIESIN benchmark input; source revision not provided; retrieved 2026-10-07) and GFD observed flood 4569 benchmark fixture, 2018-02-01 to 2018-02-21 (Terra-hosted Global Flood Database/Cloud to Street benchmark input; source revision not provided; retrieved 2026-10-07).",
+      "limitations": [
+        "Observed-footprint only: the supplied flood event covers only part of Peru and only 2018-02-01 to 2018-02-21, so this is not an exhaustive national February 2018 flood total.",
+        "Unknown or excluded cells include masked population cells, permanent water, zero-clear-view cells, and cells with missing flood observations; they are excluded rather than treated as non-flooded.",
+        "Affected here means people in observed flooded population-cell centres, not proven personal impacts."
+      ],
+      "next_action": "Inspect the two published map layers if you want to review the observed flooded footprint and the flooded-versus-non-flooded classification on the map.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:23:58.284413Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published native-grid outputs report 113 observed flooded population-grid cells in Peru for the supplied GFD observed flood 4569 event dated 2018-02-01 to 2018-02-21. Those flooded cells contain 2,659.5894656293094 people over 92.91052442789078 km2, for a flooded-group density of 28.6252766519842 people per km2. The observed non-flooded cells total 20,183 by subtraction from 20,296 observed valid cells, and they contain 826,501.1746531725 people over 16,624.81974005699 km2, for a non-flooded observed density of 49.71489541397814 people per km2. The remaining 3,326,582 cells on the full Peru population grid are unknown or excluded. Sources: Peru population count, WorldPop 2018 benchmark fixture (Terra-hosted WorldPop/CIESIN benchmark input; source revision not provided; retrieved 2026-10-07) and GFD observed flood 4569 benchmark fixture, 2018-02-01 to 2018-02-21 (Terra-hosted Global Flood Database/Cloud to Street benchmark input; source revision not provided; retrieved 2026-10-07).",
+      "limitations": [
+        "Observed-footprint only: the supplied flood event covers only part of Peru and only 2018-02-01 to 2018-02-21, so this is not an exhaustive national February 2018 flood total.",
+        "Unknown or excluded cells include masked population cells, permanent water, zero-clear-view cells, and cells with missing flood observations; they are excluded rather than treated as non-flooded.",
+        "Affected here means people in observed flooded population-cell centres, not proven personal impacts."
+      ],
+      "next_action": "Inspect the two published map layers if you want to review the observed flooded footprint and the flooded-versus-non-flooded classification on the map.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:25:32.381878Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published selected-population raster is the required native-grid output over Peru. It preserves the frozen 2018 population grid and publishes people per cell for observed flooded cells, zero for observed non-flooded cells, and NoData elsewhere.",
+      "limitations": [
+        "This raster is limited to the observed footprint of the supplied February 2018 event and leaves unobserved, cloud-gapped, and permanent-water cells as NoData."
+      ],
+      "next_action": "Use the published map layer to review where observed flooded population cells occur on the Peru grid if needed.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:25:33.197099Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published classification raster is the required native-grid 1/0/NoData output over Peru. It preserves the original population grid and records observed flooded cells as 1, observed non-flooded cells as 0, and all unknown or excluded cells as NoData.",
+      "limitations": [
+        "This classification only describes valid observed cell-centre status within the supplied event footprint and does not treat unobserved areas as non-flooded."
+      ],
+      "next_action": "Use the published map layer to review the observed flooded versus observed non-flooded footprint if needed.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "d8e4eaef18f6e86b4c8ac938da08e3675f0aa6df364c8c8d2e256f4f931dd87e",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

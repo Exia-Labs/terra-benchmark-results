@@ -1,0 +1,92 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "719909",
+  "question": "Create a heatmap of seaport density in regions with maritime development plans.",
+  "submittedPrompt": "Create a heatmap of seaport density in regions with maritime development plans.\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "I can’t honestly create the heatmap from this closed catalog.\n\nWhat I can support is a source check: the inventory lists **GEO_CATALOG: Seaports of Latin America**, but it does **not** list any dataset for **maritime development plans**, and this environment provides **catalog listings rather than the observation files** needed to calculate density. The only seaport source also appears limited to **Latin America**.\n\nSo a seaport-density heatmap for plan regions is **not yet confirmed** here. If you provide the plan-region layer—or explicitly choose an allowed proxy boundary layer—and the actual observation files, the heatmap can then be computed for that scope.\n\n### Limitations\n\n- The supplied inventory describes source availability rather than the observation files needed to compute a heatmap.\n- The inventory does not list a dataset for maritime development plans.\n- The listed seaport source is limited to Latin America.\n- Not produced because the supplied inventory does not include maritime development plan regions and does not provide the observation files needed to compute density.\n- **Seaports:** The observation file is not provided here, so I cannot count or map ports.\n- **Plan areas:** No maritime development plan dataset is listed, so I cannot limit the heatmap to plan areas.\n- **Area:** The request does not name a study area, and the listed seaport source only mentions Latin America.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T07:45:41.068798+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "373d8a906e820f354fbb939202b36c091ca2314e23cb701f134d370605c41cb6",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "9b729278e4c0cbd426a7d298b7c1b09e2b665ee7db3097917caffbe7c877dbae",
+      "snapshotSha256AtReview": "ebbb709c6f92ddb308c2233f56ea78ccacc8f8833e9622cfca42a88bb5773b17",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies absent maritime-development-plan regions, missing observation files and Latin America-only port coverage."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Does not infer plan coverage from port locations; a proxy boundary is explicitly a user-authorized alternative."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Limits its conclusion to the supplied closed catalog and distinguishes listings from downloadable observations."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Clearly states no port-density heatmap or counts were produced; four context/brief calls and no jobs/artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests plan-region boundaries and actual port files with a confirmed study scope before computing density."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:43:04.763233Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:14.503335Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:37.083405Z",
+      "title": "Progress update",
+      "detail": "I’m recording the analytical goal and checking whether the current map gives a usable study area. Then I’ll update the brief with the real limitation from this closed catalog."
+    },
+    {
+      "at": "2026-10-07T07:43:49.023478Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the current map view is global. I’m now saving the brief so the record matches the actual supportable result: source availability can be described, but the heatmap cannot be computed from this closed catalog alone."
+    },
+    {
+      "at": "2026-10-07T07:43:53.572505Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:59.576521Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "2045a0dad915fad068f57ec2f6e9a3de116ecb339def5d14ee599ccbff6bbd5f",
+  "investigations": []
+}

@@ -1,0 +1,486 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "251255",
+  "question": "Make contour lines of snow accumulation for areas with railway stations in the USA",
+  "submittedPrompt": "Make contour lines of snow accumulation for areas with railway stations in the USA\n\nTask conventions: Use band 1 of the frozen snow raster at the original grid without resampling, smoothing or clipping. Draw the explicit contour levels [5, 10, 20, 40, 80, 160, 320] in inches. These levels are a disclosed evaluation convention, not a requested interval. Use piecewise-linear marching-squares isolines through pixel-center values, low-valued connectivity at ambiguous saddles. Respect the native mask, NoData and nonfinite cells; do not bridge holes or extrapolate at the outside edge. Apply any source scale and offset. NoData means unknown, never zero. Preserve source coverage; levels outside the observed range may have no line. Do not substitute a current raster. Count nonempty requested contour LEVELS, not polyline fragments. The population-count raster, where supplied, is people per original cell; do not label it population density. Overlay the supplied stations original geometries on the same map. Retain every original overlay row, including those outside the raster; disclose their lack of raster coverage. This is a visual spatial comparison; no invented causal correlation or extra buffer is requested. \n\n\n\nDeliver an inspectable vector contour artifact and add it to the map with a level/units legend. End with one fenced JSON object containing: count (number of nonempty requested levels), unknown_count (number of masked or nonfinite source pixels), coverage_note, selection: {collectionId,itemId,assetKey}, level_field, feature_count (actual contour feature rows), map_layer_id. Also include overlay: {selection: {collectionId,itemId,assetKey}, map_layer_id, count}, retaining original benchmark_row_id. Explain the source season/year, units, missing coverage, and visual relationship where an overlay is requested.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"US snowfall, 2024\\u201325 frozen season\",\n    \"edition\": \"2024-09-30 to 2025-05-20\",\n    \"units\": {\n      \"band1\": \"inches\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Amtrak railway stations\",\n    \"edition\": \"USDOT BTS frozen GeoBenchX 2025 snapshot\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the 2024-09-30 to 2025-05-20 snowfall contours and the Amtrak station overlay are on your map.\n\nBand 1 was used in inches, and all 7 requested contour levels produced lines. The contour layer has 3,396 line features. Missing raster coverage stays unknown: 1,032,876 source pixels are masked or nonfinite, and 52 station rows have no raster value at their locations. The station overlay kept all 1,020 original rows, including `benchmark_row_id`.\n\nVisually, stations appear across both lower- and higher-snow zones, with the tighter higher-value contours concentrated mainly in mountain and northern snow belts. If you want, I can also make a separate review layer for the 52 stations with unknown raster coverage.\n\n### Limitations\n\n- This is a visual spatial comparison only; it does not establish causation or service impact.\n- Masked or nonfinite raster cells remain unknown, not zero, and may split or open contour lines.\n- Contour feature_count counts line fragments, not requested levels or connected isolines.\n- Contour feature_count counts 3396 line fragments, not connected isolines.\n- Fifty-two station rows have unknown raster coverage at their point locations.",
+  "checks": {
+    "expectedCount": 7,
+    "actualCount": 7,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:16:44.677005Z",
+      "title": "Progress update",
+      "detail": "I’ll check what analysis state already exists, then look up the exact Terra tools for raster contours, inspection, map layers, and final result recording."
+    },
+    {
+      "at": "2026-10-07T06:16:53.973463Z",
+      "title": "Progress update",
+      "detail": "I found the core Terra analysis tools. Next I’ll read the retained analysis state, inspect the supplied raster and station source metadata, and discover the exact contour/vector processors before I build the method."
+    },
+    {
+      "at": "2026-10-07T06:16:54.009953Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:16:54.020159Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:16:54.033848Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:16:54.053879Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:16:55.990768Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:17:27.081051Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:17:27.157320Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:17:27.236216Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:17:27.270834Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:17:29.756201Z",
+      "title": "Progress update",
+      "detail": "I found the contour processor Terra already has. Now I’m checking the exact processor contracts so I can keep the original raster grid, levels, masking behavior, and a separate station overlay that preserves every row."
+    },
+    {
+      "at": "2026-10-07T06:17:52.464680Z",
+      "title": "Progress update",
+      "detail": "I’ve got the source metadata and the exact contour processor. I’m recording the analysis goal now, with final checks that match your contour rules and the required station overlay."
+    },
+    {
+      "at": "2026-10-07T06:18:00.140089Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:18:29.330292Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:18:37.421682Z",
+      "title": "Progress update",
+      "detail": "I’ve got enough to test the method directly. I expect the full-source trial to show three key things: the raster’s true data range and missing-cell count, contour lines only at requested levels that actually occur, and a station overlay that keeps every row while marking locations with unknown raster coverage."
+    },
+    {
+      "at": "2026-10-07T06:18:42.567705Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:11.595453Z",
+      "title": "Progress update",
+      "detail": "The method worked on the full supplied USA data: the raster stats came back, all 7 requested contour levels produced lines, and the station sample kept all 1,020 rows with 52 unknown raster values. I’m recording that trial, then I’ll save the tested production workflow and deliver the verified map layers."
+    },
+    {
+      "at": "2026-10-07T06:20:15.111727Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:19.234958Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:23.851537Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:23.919192Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:26.686257Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:27.892923Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:36.273675Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:36.290110Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:37.314550Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:44.584164Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:21:23.670712Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the method check. Next I’m saving the exact tested full-USA computation as the production workflow, with the same fixed raster, same contour levels, and a separate station overlay that keeps every row."
+    },
+    {
+      "at": "2026-10-07T06:21:33.578381Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:21:47.660656Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:17.653696Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:18.699676Z",
+      "title": "Progress update",
+      "detail": "The production run finished in the background. I’m inspecting the exact final outputs now so I can bind the right contour artifact, station overlay, and map layers to the accepted result."
+    },
+    {
+      "at": "2026-10-07T06:26:04.607637Z",
+      "title": "Progress update",
+      "detail": "I already have the finished workflow outputs and map layer IDs. I’m doing the last bounded inspections now so the accepted result uses the exact final contour artifact, the exact station overlay artifact, and the verified counts from this production run."
+    },
+    {
+      "at": "2026-10-07T06:26:04.662491Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:04.690945Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:04.714346Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:05.853939Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:07.495309Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:48.057180Z",
+      "title": "wait_for_jobs",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:27:50.745894Z",
+      "title": "Progress update",
+      "detail": "I have the final artifact IDs and map layer IDs. I’m letting the last bounded inspections finish now so the accepted result uses the exact final counts and current field checks from this production run."
+    },
+    {
+      "at": "2026-10-07T06:27:57.768213Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:57.806602Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:00.248215Z",
+      "title": "Progress update",
+      "detail": "The inspection jobs are finished. I’m fetching the final immutable receipts now: contour fields and preview, raster stats row, station preview, and a sample of the stations with unknown raster coverage."
+    },
+    {
+      "at": "2026-10-07T06:28:01.018079Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:02.876667Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:20.702881Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:20.746911Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:23.878833Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the current inspections. I’m checking the exact assess_result shape now so I can bind the final contour artifact, the station overlay artifact, and the machine-readable answer object in one accepted result."
+    },
+    {
+      "at": "2026-10-07T06:28:44.252016Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:46.654989Z",
+      "title": "Progress update",
+      "detail": "I’ve got everything needed for the final assessment. I’m refreshing the brief notes one last time so the retained analysis matches the finished evidence, then I’ll record the accepted result with the exact final artifact refs."
+    },
+    {
+      "at": "2026-10-07T06:28:48.099927Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:42.451035Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the final outputs against the requested contour rules and the overlay checks. I’m recording the accepted result now with the exact final contour artifact, the exact station overlay artifact, and the map layer IDs already bound on your map."
+    },
+    {
+      "at": "2026-10-07T06:29:54.227703Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:30:10.405248Z",
+      "title": "Progress update",
+      "detail": "Terra rejected the assessment because it wants the stored acceptance conditions addressed exactly. I’m correcting that now with the same evidence and the exact required condition list."
+    },
+    {
+      "at": "2026-10-07T06:30:20.402584Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Snowfall contours",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Amtrak stations with snowfall sample",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Snowfall raster statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Snowfall contour lines",
+      "description": "Recorded raster-contours · succeeded"
+    },
+    {
+      "title": "Supplied snowfall raster",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Whole-raster snow statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Stations with sampled snowfall",
+      "description": "Recorded raster-sample · succeeded"
+    },
+    {
+      "title": "Supplied Amtrak stations",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Snowfall contour lines",
+      "description": "Recorded raster-contours · succeeded"
+    },
+    {
+      "title": "Supplied snowfall raster",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Whole-raster snow statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Stations with sampled snowfall",
+      "description": "Recorded raster-sample · succeeded"
+    },
+    {
+      "title": "Supplied Amtrak stations",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Whole-raster snow statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Whole-raster snow statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Snowfall contour lines",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Snowfall contour lines",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Stations with sampled snowfall",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Stations with sampled snowfall",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "8b418f3c402abb1737aa9bca44d5030dd946ee6587df13726b4f45bb23371a5d",
+      "bytes": 6180538,
+      "finishedAt": "2026-10-07T06:18:55.099330+00:00"
+    },
+    {
+      "sha256": "1707883d56cf62e398dd20c736761ead05287fc48d30717a620032ff5f6eed8d",
+      "bytes": 125623,
+      "finishedAt": "2026-10-07T06:18:55.099330+00:00"
+    },
+    {
+      "sha256": "91bc1866fcf81ce8b11e04b0b821f9e80527bf9115945dd5136d2e134127db28",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T06:19:16.993639+00:00"
+    },
+    {
+      "sha256": "67488eab1c171d09b79a50547f2f44625ca73bffb0413825e2e53e4ed2109fd4",
+      "bytes": 1480781,
+      "finishedAt": "2026-10-07T06:19:42.428341+00:00"
+    },
+    {
+      "sha256": "f5e72f7a29aa8604b13cc97f8f249efe065658abbce2aff709ec063959e746c2",
+      "bytes": 171503,
+      "finishedAt": "2026-10-07T06:19:42.428341+00:00"
+    },
+    {
+      "sha256": "67488eab1c171d09b79a50547f2f44625ca73bffb0413825e2e53e4ed2109fd4",
+      "bytes": 1480781,
+      "finishedAt": "2026-10-07T06:23:11.647794+00:00"
+    },
+    {
+      "sha256": "91bc1866fcf81ce8b11e04b0b821f9e80527bf9115945dd5136d2e134127db28",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T06:23:11.647794+00:00"
+    },
+    {
+      "sha256": "f5e72f7a29aa8604b13cc97f8f249efe065658abbce2aff709ec063959e746c2",
+      "bytes": 171503,
+      "finishedAt": "2026-10-07T06:24:54.199904+00:00"
+    }
+  ],
+  "snapshotSha256": "9894e8c82b09d5e380ee15c62a8463187e51a8fd114f501658a70cf6e0f28ea1",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:18:42.567705Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full-source method produce inspectable snowfall contours at the requested inch levels while preserving every station row and explicitly showing unknown raster coverage at station locations?"
+    },
+    {
+      "at": "2026-10-07T06:20:44.584164Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-source trial answered the method question. Whole-raster band 1 statistics reported minimum 0.0 inches, maximum 809.6145629882812 inches, valid_count 510624, and missing_count 1032876 with scale 1 and offset 0. The contour output kept the requested explicit levels and produced nonempty lines at all 7 requested levels, with feature rows carrying contour_id and numeric level in inches. The station sampling output preserved all 1020 original point rows, retained benchmark_row_id, and left 52 sampled snow values null where raster coverage was unknown at the station location.",
+      "limitations": [
+        "Contour feature_count counts line fragments, not connected isolines or requested levels.",
+        "Masked or nonfinite raster cells remain unknown and can split or open contours at holes and edges.",
+        "This evidence supports visual spatial comparison only; it does not support causal claims."
+      ],
+      "next_action": "Save the tested full-USA method as the production workflow, execute it, inspect the final artifacts, add the contour and station layers to the map, and assess the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:29:54.227703Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "I delivered the requested inspectable contour vector and station overlay on the map. The contours use the supplied frozen-season snowfall raster from 2024-09-30 to 2025-05-20, band 1 in inches, and all 7 requested levels are nonempty. The contour artifact has 3396 line rows with level field 'level' in inches. The source raster has 1032876 masked or nonfinite unknown cells out of 1543500 total cells. The station overlay keeps all 1020 original rows and benchmark_row_id, and 52 station rows have unknown raster coverage at their point locations. Visually, stations span both low- and high-snow contour zones, with denser high-value contours concentrated in major mountain and northern snow belts.",
+      "limitations": [
+        "Masked or nonfinite raster cells remain unknown, not zero, and may split or open contour lines.",
+        "Contour feature_count counts 3396 line fragments, not connected isolines.",
+        "Fifty-two station rows have unknown raster coverage at their point locations.",
+        "This is a visual spatial comparison only; it does not establish causation or service impact."
+      ],
+      "next_action": "Review the 'Snowfall contours' and 'Amtrak stations with snowfall sample' layers on the map; if you want, I can also isolate the 52 stations with unknown raster coverage as a separate review layer.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:30:20.402584Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I delivered the requested inspectable contour vector and station overlay on the map. The contours use the supplied frozen-season snowfall raster from 2024-09-30 to 2025-05-20, band 1 in inches, and all 7 requested levels are nonempty. The contour artifact has 3396 line rows with level field 'level' in inches. The source raster has 1032876 masked or nonfinite unknown cells out of 1543500 total cells. The station overlay keeps all 1020 original rows and benchmark_row_id, and 52 station rows have unknown raster coverage at their point locations. Visually, stations span both low- and high-snow contour zones, with denser high-value contours concentrated in major mountain and northern snow belts.",
+      "limitations": [
+        "Masked or nonfinite raster cells remain unknown, not zero, and may split or open contour lines.",
+        "Contour feature_count counts 3396 line fragments, not connected isolines.",
+        "Fifty-two station rows have unknown raster coverage at their point locations.",
+        "This is a visual spatial comparison only; it does not establish causation or service impact."
+      ],
+      "next_action": "Review the 'Snowfall contours' and 'Amtrak stations with snowfall sample' layers on the map; if you want, I can also isolate the 52 stations with unknown raster coverage as a separate review layer.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "b6556a8eab71221c013e5053c7db823eabb1a28576e9d7b8fb93efb4860eb4a0",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

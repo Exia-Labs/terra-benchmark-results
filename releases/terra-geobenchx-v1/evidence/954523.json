@@ -1,0 +1,77 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "954523",
+  "question": "Map food insecurity levels by administrative districts in Southeast Asia?",
+  "submittedPrompt": "Map food insecurity levels by administrative districts in Southeast Asia?\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "Short answer: **not from this inventory alone**.\n\n- **Delivered:** from the listed source types, I can say there is a **Countries** layer and some broad context indicators such as **GDP per capita, rural population, agriculture, water use, and power use**.\n- **Main limitation:** the inventory does **not** list **Southeast Asia district boundaries** or any **direct food insecurity** dataset. Those broad indicators are context only, not food insecurity.\n- **Still unanswered:** actual **food insecurity levels by administrative district** in Southeast Asia. The inventory also names **source types only**, not the actual files, years, values, or confirmed subnational coverage.\n- **Next step:** add a **Southeast Asia district/province boundary layer** and a **district-level food insecurity source**, or agree on a clear proxy method.\n\n### Limitations\n\n- The supplied inventory lists source types only, not actual measurement files, years, values, or confirmed subnational coverage.\n- No Southeast Asia administrative-district boundary layer is listed in the supplied inventory.\n- No direct food insecurity dataset is listed in the supplied inventory.\n- Not yet supported from the supplied inventory alone because the inventory does not list Southeast Asia district boundaries or a direct food insecurity source.\n- **District boundaries:** The supplied inventory does not list Southeast Asia district or province boundaries.\n- **Food insecurity:** Broad indicators like GDP per capita, rural population, agriculture, water use, and power use are only context and do not measure food insecurity.\n- **Source scope:** The inventory does not confirm the actual files, years, or subnational coverage needed for mapping.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T08:27:54.443154+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "4e64ab0c7ea2f58d9b709e948333f930c2217c63c3fe50a67c8aaf80f48875a4",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "147ec626e19d40e987338aab89665b2b55e680acdef0e3d0f00c279984ac4fa7",
+      "snapshotSha256AtReview": "23492ea3f9b8f22d92b85f1ced320e2e829932adb393e59ad8d9cabefdeaeff3",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies missing Southeast Asian district boundaries and direct district-level food insecurity observations."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Explicitly labels GDP, agriculture, rural population and utility indicators as context rather than food insecurity."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Confines absence to source-type inventory and distinguishes it from available files, dates and verified subnational coverage."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "States the actual district map remains unanswered; two completed brief/read calls and no jobs/artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests district geography and food insecurity data; any proxy is separately proposed for agreement, not presented as an achieved result."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:16:09.842968Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:38.529656Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:39.988846Z",
+      "title": "Progress update",
+      "detail": "I’m recording the requested map and its current source limits from the supplied inventory, then I’ll give the concise answer."
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "87a8df2a2a714abdc8f68bab4b2d253dc29bb65ca7845773f0272bba0b858b14",
+  "investigations": []
+}

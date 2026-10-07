@@ -1,0 +1,573 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "356076",
+  "question": "Compare forest coverage between Continental and Maritime Southeast Asia.\n",
+  "submittedPrompt": "Compare forest coverage between Continental and Maritime Southeast Asia.\n\n\nTask conventions: Use the frozen country polygons and World Bank AG.LND.FRST.ZS 2021 column, in % of land area. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature in the declared geography and its benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. Geography is fixed to original country features with SUBREGION in [\"South-Eastern Asia\"]; retain all matching source geometries, and no others. Classification is calculated only over this geography. Membership reflects this disclosed benchmark edition, not current organization membership. Also compare unweighted means of known original country features by these fixed NAME_EN groups: {\"Continental\": [\"Myanmar\", \"Thailand\", \"Laos\", \"Cambodia\", \"Viet Nam\"], \"Maritime\": [\"Brunei\", \"East Timor\", \"Indonesia\", \"Malaysia\", \"Philippines\", \"Singapore\"]}. Do not treat missing values as zero. These are country comparisons, not basin-clipped or population-weighted estimates.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response. Include a metrics object in the final JSON with group-name keys and their numeric means (or null if no known members), and explain the comparison.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank AG.LND.FRST.ZS\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2021\",\n    \"units\": {\n      \"2021\": \"% of land area\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done. The 2021 country layer is on the map.\n\nUsing the frozen benchmark country rows and frozen World Bank AG.LND.FRST.ZS 2021 indicator (% of land area), Continental Southeast Asia is slightly higher than Maritime Southeast Asia in this fixed comparison: 49.13% vs 47.67% unweighted mean forest share. All 11 benchmark country features matched the 2021 indicator, so there are no No data countries in this geography.\n\nLegend: five quantile classes over the 11 selected countries, with breaks at 38.83, 44.83, 48.36, and 61.85 % of land area. A neutral No data category exists but is unused here.\n\nLimits: this is a frozen 2021 country-level benchmark comparison, not a subnational forest surface, and the Continental/Maritime comparison is not area-weighted or population-weighted.\n\nSources: Benchmark fixture · World Bank country boundaries (Terra; Collection [resource id withheld]; source revision not provided; retrieved 2026-10-07 07:11:39 UTC) and Benchmark fixture · World Bank AG.LND.FRST.ZS (Terra; Collection [resource id withheld]; source revision not provided; retrieved 2026-10-07 07:11:48 UTC).\n\n### Limitations\n\n- This uses the frozen benchmark country rows and the frozen 2021 World Bank country indicator.\n- It is a country-level comparison in % of land area, not a subnational forest surface or a new regional aggregation.\n- The Continental and Maritime comparison is an unweighted mean of benchmark country features, not an area-weighted or population-weighted estimate.\n- This is an unweighted comparison of benchmark country features using the frozen 2021 country indicator. It is not an area-weighted or population-weighted regional estimate.\n- Uses the frozen benchmark edition, not current membership changes.\n- Uses only the frozen 2021 World Bank country indicator in % of land area.\n- Quantile classes are calculated only across the 11 selected benchmark country features.\n- The comparison uses unweighted means of known country values, not area-weighted or population-weighted estimates.",
+  "checks": {
+    "expectedCount": 11,
+    "actualCount": 11,
+    "expectedMetrics": {
+      "Continental": 49.1320724908204,
+      "Maritime": 47.66707879487988
+    },
+    "actualMetrics": {
+      "Maritime": 47.6670787948799,
+      "Continental": 49.1320724908204
+    },
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:44:29.043254Z",
+      "title": "Progress update",
+      "detail": "I’ll check the current analysis state, inspect the two supplied datasets, and then build a small tested join before saving the full method."
+    },
+    {
+      "at": "2026-10-07T08:44:40.177351Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:44:47.139554Z",
+      "title": "Progress update",
+      "detail": "I found no saved brief yet. Next I’m reading the frozen boundary and indicator metadata so I can use the exact fields, item selections, and a valid test scope."
+    },
+    {
+      "at": "2026-10-07T08:44:47.148844Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:44:47.152029Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:44:51.287838Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:44:57.894938Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:44:57.900359Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:44:57.902026Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed both inputs are the fixed frozen fixtures. Now I’m sampling their actual columns and a few rows so I can match the exact join fields and 2021 value field without guessing."
+    },
+    {
+      "at": "2026-10-07T08:45:07.155394Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:13.036559Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:13.166727Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:13.173300Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:13.637089Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:13.654248Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:14.000704Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:22.073033Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:45.541402Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:49.925929Z",
+      "title": "Progress update",
+      "detail": "I’ve saved the requested result as the active brief. Next I’m running a tiny private trial that only materializes the two frozen inputs, so I can inspect their real fields before wiring the full join and legend."
+    },
+    {
+      "at": "2026-10-07T08:45:52.748254Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:38.539372Z",
+      "title": "Progress update",
+      "detail": "The source test succeeded. I now have the real field names for the join candidates, but I still need explicit row inspection to confirm the South-Eastern Asia member rows and the exact 2021 value column before I save the final workflow."
+    },
+    {
+      "at": "2026-10-07T08:46:38.558077Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:38.565032Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:56.118257Z",
+      "title": "Progress update",
+      "detail": "The first source trial worked. One follow-up table inspection failed because I asked for a field that may not exist in that file, so I’m correcting that request instead of treating it as missing data."
+    },
+    {
+      "at": "2026-10-07T08:47:15.870040Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:15.877201Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:16.434207Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the table failure was just an argument mistake. Now I’m re-reading the finished country row sample and a corrected table row sample so I can test the actual join with the exact fields."
+    },
+    {
+      "at": "2026-10-07T08:47:42.182227Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the benchmark geography rows: 11 original South-Eastern Asia country features with the expected names, row IDs, and ISO_A3 codes. I’m now reading the corrected indicator rows and then I’ll test the exact join and quantile classes on the full 11-country scope."
+    },
+    {
+      "at": "2026-10-07T08:47:42.928806Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:02.479149Z",
+      "title": "Progress update",
+      "detail": "I’ve now confirmed the exact 2021 field name too. Next I’m recording that source-check result, then I’ll run the full 11-country join-and-classify trial so the saved workflow is based on the tested output, not just schema wiring."
+    },
+    {
+      "at": "2026-10-07T08:48:02.857272Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:10.596107Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:32.381093Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the source check. Now I’m running the actual 11-country computation end to end: filter the benchmark geography, join the frozen 2021 values, and build the quantile classes that the final map will use."
+    },
+    {
+      "at": "2026-10-07T08:48:38.020485Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:48.698575Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:49.595478Z",
+      "title": "Progress update",
+      "detail": "The full join-and-classify trial succeeded. It kept all 11 benchmark country rows, matched all 11 on ISO_A3 to Country Code, and built a five-class result with no unknowns in this benchmark geography. I’m now inspecting the actual country values and class labels so I can save the final workflow and report the Continental and Maritime means from the checked output."
+    },
+    {
+      "at": "2026-10-07T08:50:08.629896Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:08.711406Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:51.429359Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:51.474378Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:52.770648Z",
+      "title": "Progress update",
+      "detail": "The result inspection jobs finished. I’m reading the checked country rows and preview now, then I’ll save the tested workflow, run the final artifact, add it to the map, and record the final comparison."
+    },
+    {
+      "at": "2026-10-07T08:51:13.608770Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:19.433312Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:24.063868Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:29.651622Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:11.431414Z",
+      "title": "Progress update",
+      "detail": "The tested method is confirmed. I’m recording that assessment now, then I’ll save the same computation as the production workflow so the final artifact matches the checked trial."
+    },
+    {
+      "at": "2026-10-07T08:52:13.662315Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:24.658060Z",
+      "title": "Progress update",
+      "detail": "I’ve replaced the stale setup notes with the real remaining limits: this is a fixed 2021 country indicator on frozen benchmark country rows. Next I’m saving the tested production workflow and final handoff notes."
+    },
+    {
+      "at": "2026-10-07T08:52:34.741408Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:40.765932Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:52.614686Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:18.368502Z",
+      "title": "Progress update",
+      "detail": "I’ve tested the exact computation. I’m saving that same method as the production workflow now so the final artifact and map layer come from the checked join and class logic, not a rebuilt variant."
+    },
+    {
+      "at": "2026-10-07T08:53:31.053766Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:37.333313Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:37.835398Z",
+      "title": "Progress update",
+      "detail": "The saved workflow is valid and matches the tested computation. I’m starting that exact final run now, then I’ll inspect the delivered artifact and bind the verified layer to the map."
+    },
+    {
+      "at": "2026-10-07T08:55:04.648012Z",
+      "title": "Progress update",
+      "detail": "The final workflow appears to have finished in the background. I’m inspecting its delivered outputs now, then I’ll bind the checked country layer to the map and record the final answer object from that exact artifact."
+    },
+    {
+      "at": "2026-10-07T08:55:21.524156Z",
+      "title": "Progress update",
+      "detail": "I’m checking the final workflow receipts so I can bind the exact final output, not the trial artifact, to the map and final answer."
+    },
+    {
+      "at": "2026-10-07T08:55:22.004897Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:55:39.912929Z",
+      "title": "Progress update",
+      "detail": "The final run is done in the background. I’m re-reading its exact outputs now, then I’ll add the verified country layer to the map and record the final result from that final artifact."
+    },
+    {
+      "at": "2026-10-07T08:55:41.847401Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:55:54.429105Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the final workflow output exists and the map already has the final country layer bound. I’m now checking the final rows and legend details from that final artifact before I record the result."
+    },
+    {
+      "at": "2026-10-07T08:55:54.466287Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:55:54.554435Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:35.103247Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:46.655122Z",
+      "title": "Progress update",
+      "detail": "I already have the final layer ID and final artifact identity. I’m just finishing one last bounded inspection for the final preview and summary so the result assessment cites the final artifact directly."
+    },
+    {
+      "at": "2026-10-07T08:56:46.663230Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:46.677129Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:57:34.157552Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:12.560927Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Classify joined 2021 values",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Frozen country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "2021 forest coverage by benchmark country",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Country values supporting the Continental and Maritime comparison",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Frozen forest indicator table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join frozen 2021 forest coverage",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Select South-Eastern Asia benchmark rows",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Classify joined 2021 values",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Frozen country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Frozen forest indicator table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join frozen 2021 forest coverage",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Select South-Eastern Asia benchmark rows",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Select South-Eastern Asia benchmark rows",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join frozen 2021 forest coverage",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify joined 2021 values",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Frozen country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Frozen forest indicator table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Frozen country boundaries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Frozen forest indicator table",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T08:45:57.636622+00:00"
+    },
+    {
+      "sha256": "595b2997fe9ecdcc9b70e118f3b95cdbda921aaa7c0a0e079a3d499eae72c2c5",
+      "bytes": 112649,
+      "finishedAt": "2026-10-07T08:45:57.636622+00:00"
+    },
+    {
+      "sha256": "cf493133f35f3806c7316535a69200bc891658275e853439708211c63b08f31e",
+      "bytes": 732258,
+      "finishedAt": "2026-10-07T08:49:04.849061+00:00"
+    },
+    {
+      "sha256": "0c7bed9250e550bc36c3fd402bb523a8be374e4a762a4a30b2c98a4029e1e15e",
+      "bytes": 730297,
+      "finishedAt": "2026-10-07T08:48:59.318842+00:00"
+    },
+    {
+      "sha256": "2b7b22d1bf39858714b3f7f22515b3f5fcb57c5edc2b1aa8538f2a5542ad5a75",
+      "bytes": 732840,
+      "finishedAt": "2026-10-07T08:49:17.040013+00:00"
+    },
+    {
+      "sha256": "cf493133f35f3806c7316535a69200bc891658275e853439708211c63b08f31e",
+      "bytes": 732258,
+      "finishedAt": "2026-10-07T08:54:37.654620+00:00"
+    },
+    {
+      "sha256": "0c7bed9250e550bc36c3fd402bb523a8be374e4a762a4a30b2c98a4029e1e15e",
+      "bytes": 730297,
+      "finishedAt": "2026-10-07T08:54:25.055529+00:00"
+    },
+    {
+      "sha256": "2b7b22d1bf39858714b3f7f22515b3f5fcb57c5edc2b1aa8538f2a5542ad5a75",
+      "bytes": 732840,
+      "finishedAt": "2026-10-07T08:54:48.101307+00:00"
+    }
+  ],
+  "snapshotSha256": "3a39e54ca5dea1c1c3ed90c4fa2257c851d57aa755eb965b5436b6e04e7aecbd",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:45:52.748254Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "What are the exact fields in the supplied frozen boundary and indicator files needed for the South-Eastern Asia filter, exact ISO_A3 to Country Code join, benchmark_row_id retention, and 2021 forest-share value?"
+    },
+    {
+      "at": "2026-10-07T08:48:10.596107Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The supplied boundary file exposes the needed benchmark fields, including SUBREGION, NAME_EN, ISO_A3, and benchmark_row_id. The supplied indicator table exposes Country Code and a numeric 2021 field. A corrected row inspection confirmed the exact 2021 field name is '2021'. The source-only trial succeeded, so the next computation can use the exact South-Eastern Asia filter and ISO_A3 to Country Code join instead of guessed field names.",
+      "limitations": [
+        "This trial confirmed field names and source access only. It did not yet verify join coverage, unknown rows, quantile breaks, or the final group means."
+      ],
+      "next_action": "Run the full South-Eastern Asia filter, exact left join, and quantile classification in one private trial and inspect all resulting country rows.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:48:38.020485Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full South-Eastern Asia benchmark workflow keep all 11 original country features, join ISO_A3 to Country Code exactly for the frozen 2021 forest-share values, and produce the requested quantile class field with unknowns retained as No data?"
+    },
+    {
+      "at": "2026-10-07T08:52:13.662315Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full benchmark computation answered the trial question. The South-Eastern Asia filter kept 11 original country features and preserved benchmark_row_id, NAME_EN, and ISO_A3. The exact left join matched all 11 features from ISO_A3 to Country Code, so there are no unknown 2021 values in this benchmark geography. The classified output retained the country geometries and attributes, added the forest_class field, and produced five quantile classes over the 11 selected country features.",
+      "limitations": [
+        "This is a country-level 2021 indicator in percent of land area. It is not a subnational forest surface or a new regional aggregation."
+      ],
+      "next_action": "Save the tested computation as the production workflow, execute it, inspect the final artifact and layer, and report the checked country comparison.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:57:34.157552Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The checked final country artifact supports the fixed group comparison. All 11 original South-Eastern Asia benchmark country features have known 2021 values in % of land area, so unknown_count is 0. Using the fixed NAME_EN groups and unweighted means of known country values only, Continental averages 49.1320724908204 and Maritime averages 47.6670787948799. Continental is therefore slightly higher by about 1.46 percentage points in this benchmark comparison.",
+      "limitations": [
+        "This is an unweighted comparison of benchmark country features using the frozen 2021 country indicator. It is not an area-weighted or population-weighted regional estimate."
+      ],
+      "next_action": null,
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:58:12.560927Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The final delivered map artifact is the checked South-Eastern Asia benchmark country layer on the current map. It contains all 11 original benchmark country features, preserves benchmark_row_id and geometry, joins all 11 frozen 2021 AG.LND.FRST.ZS values by exact ISO_A3 to Country Code matching, and adds the forest_class field. The class summary confirms five quantile classes over 11 known values with breaks at 38.8283192076572, 44.825968728756, 48.3619448681206, and 61.8493611297915 % of land area; class 0 is reserved for No data but is unused here because all 11 countries matched. From the checked final artifact, the unweighted mean is 49.1320724908204 for the fixed Continental group and 47.6670787948799 for the fixed Maritime group, so Continental is slightly higher by about 1.46 percentage points.",
+      "limitations": [
+        "This uses the frozen benchmark country rows and the frozen 2021 World Bank country indicator.",
+        "It is a country-level comparison in % of land area, not a subnational forest surface or a new regional aggregation.",
+        "The Continental and Maritime comparison is an unweighted mean of benchmark country features, not an area-weighted or population-weighted estimate."
+      ],
+      "next_action": "Review the added country layer on the map to inspect each country's 2021 value and quantile class.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "549b029e6421fd25a5dfa0ba3312915bb1fcb1af5361317643ea8f42edc142a4",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

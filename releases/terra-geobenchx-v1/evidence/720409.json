@@ -1,0 +1,792 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "720409",
+  "question": "Map total fertility rates across different regions.",
+  "submittedPrompt": "Map total fertility rates across different regions.\n\nTask conventions: Use the frozen country polygons and World Bank SP.DYN.TFRT.IN 2022 column, in births per woman. Use the published World Bank regional aggregates already present in the frozen table, not individual country values or a mean/sum computed from countries. Join original country geometry REGION_WB to table Country Name exactly. This selects the seven published all-income regional aggregates; Antarctica has no corresponding value and remains unknown. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature and benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. The reporting regions are the supplied World Bank REGION_WB groups. Every original country polygon carries its region’s published value; retain original boundaries and IDs rather than inventing regional geometry. This does not mean the country itself has that value. The five-quantile display classification operates on those original feature rows, so its breaks reflect repeated regional values; this is only a display convention, not population weighting or recomputation of the regional statistic. Label the map and answer as regional aggregates.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Fertility rate\",\n    \"edition\": \"Frozen WDI; use 2022\",\n    \"units\": {\n      \"2022\": \"births per woman\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Computations finished, but the requested result is not fully verified. Available outputs have been preserved.\n\nCompleted outputs (analytical verification may still be incomplete):\n- Regional aggregate fertility map\n\nSome requested work remains unfinished. Details are available in the workflow.\nTerra still needs to record accepted checks of the current outputs against the requested result.\n\n### Limitations\n\n- Country shapes: These are country boundaries, not regional boundaries.\n- Regional values: This is a fixed 2022 regional aggregate table, not country-level fertility.\n- Region join: The method does not guess replacements for nonmatching identifiers.\n- Map output: Repeated regional values collapse the display to three populated classes plus No data.\n- This map repeats World Bank regional aggregate fertility values onto country polygons for display. It does not show country-specific fertility rates.\n- One Antarctica-labeled country row remains unknown and is shown as No data because there is no exact matching published regional aggregate row in the supplied frozen table.\n- The requested five quantiles collapse to three populated numeric classes plus No data because only seven repeated regional values are present across country rows.",
+  "checks": {
+    "expectedCount": 250,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": false,
+    "answerFulfilled": false,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": [
+      "Final answer lacks one unambiguous requested machine-readable result."
+    ]
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:44:56.325359Z",
+      "title": "Progress update",
+      "detail": "I’ll inspect the supplied frozen inputs and set up the mapping method first, then I’ll build the joined country layer with the fixed 2022 regional values and add it to your map."
+    },
+    {
+      "at": "2026-10-07T07:45:09.218607Z",
+      "title": "Progress update",
+      "detail": "I’m checking the saved analysis context, current map state, and the exact frozen schema for both inputs so I can use the supplied geometry and the fixed 2022 field without substitutions."
+    },
+    {
+      "at": "2026-10-07T07:45:09.302174Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:09.323819Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:09.640663Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:09.957037Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:10.839202Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:10.872374Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:11.416626Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:22.765306Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:22.786101Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:24.090512Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:45:24.136341Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:45:39.672915Z",
+      "title": "Progress update",
+      "detail": "I found the likely processors: a left-style table join and a numeric vector classifier that already supports quantiles, an explicit No data class, upper-class tie handling, and real legend output. I’m recording the exact requested result and acceptance checks before I run a small test of the join and classification."
+    },
+    {
+      "at": "2026-10-07T07:45:44.553480Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:55.424695Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:55.466873Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:57.550026Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:11.279563Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:11.296299Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:12.019956Z",
+      "title": "Progress update",
+      "detail": "I have the exact join and classify schemas. The key uncertainty now is practical: whether the exact REGION_WB → Country Name match yields the intended seven regional aggregates with unknowns preserved, and whether the repeated values collapse quantile breaks. I’m running one compact end-to-end test over the supplied world inputs to verify that before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T07:46:12.091673Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:26.816676Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:31.908298Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:32.439264Z",
+      "title": "Progress update",
+      "detail": "The first trial was blocked by a brief argument issue, not by missing data: the saved study extent was stored as text instead of numeric coordinates. I’m correcting the brief and retrying the same join-and-classify test."
+    },
+    {
+      "at": "2026-10-07T07:46:43.875749Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:51.684312Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:51.783328Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:51.844461Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:58.997147Z",
+      "title": "Progress update",
+      "detail": "I’ve resumed from the completed trial. Next I’m reading the classified output itself so I can capture the actual class field, value field, and legend-ready bounds before saving the final production run."
+    },
+    {
+      "at": "2026-10-07T07:50:11.021536Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:11.494888Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:11.953097Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:20.547332Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:20.852839Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:21.688884Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:28.205072Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:28.863277Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:35.510345Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the tested output artifact exists and includes the original geometry, benchmark_row_id, the joined 2022 value field, and the class field. I’m pulling one compact value table now to pin down the final class structure and the exact unknown row before I save the production workflow unchanged."
+    },
+    {
+      "at": "2026-10-07T07:51:35.573970Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:35.664989Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:09.647177Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the derived trial artifact fields. I’m fetching two small checks now: the exact North America value and the exact unknown row, so the final legend note and coverage note match the tested output."
+    },
+    {
+      "at": "2026-10-07T07:53:09.823855Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:10.604346Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:36.073061Z",
+      "title": "Progress update",
+      "detail": "I’ve already verified the main method. I’m just fetching the exact published values behind the legend and the one unknown row now, so the final coverage note and class explanation match the tested output exactly."
+    },
+    {
+      "at": "2026-10-07T07:54:36.136025Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:36.152594Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:36.901264Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:39.253377Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:49.393985Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:49.832710Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the only unknown row is the Antarctica region label carried by South Georgia and the South Sandwich Islands, with class 0 and no value. I’m reading the compact sorted table now to pin down the exact class ranges before I publish the final layer."
+    },
+    {
+      "at": "2026-10-07T07:55:08.151602Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:09.341850Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:37.174864Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:37.184402Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:37.477440Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:45.432624Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the method check. I’m saving the unchanged tested method as the production workflow now, then I’ll run it, inspect the published output, and bind the final layer to your map."
+    },
+    {
+      "at": "2026-10-07T07:55:59.226528Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:07.112030Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:01.324142Z",
+      "title": "Progress update",
+      "detail": "The saved production run appears to have finished in the background. I’m inspecting its final output now, then I’ll add the verified choropleth layer to the map and record the final selected result."
+    },
+    {
+      "at": "2026-10-07T07:58:12.528917Z",
+      "title": "Progress update",
+      "detail": "I’m reading the completed production run now to get the exact final artifact reference and its map-ready output node. After that I’ll bind the verified layer and record the final answer object."
+    },
+    {
+      "at": "2026-10-07T07:58:12.718674Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:12.789398Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:59:39.750390Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:59:39.848542Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:59:43.356511Z",
+      "title": "Progress update",
+      "detail": "The final artifact is the same data as the verified trial, but I still need one current inspection of the published result and its legend summary before I record the final answer. After that I can finish the result check and give you the regional aggregate map details."
+    },
+    {
+      "at": "2026-10-07T07:59:44.257275Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:29.656290Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:30.860402Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:32.221427Z",
+      "title": "Progress update",
+      "detail": "The final map layer is already on your map. I’m just collecting the final published inspection receipts now so I can record the accepted result against the exact delivered artifact and legend summary."
+    },
+    {
+      "at": "2026-10-07T08:01:14.971996Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the evidence checks. I’m refreshing the saved brief notes from the verified output now, then I’ll record the final accepted result object against the delivered artifact and map layer."
+    },
+    {
+      "at": "2026-10-07T08:01:21.544887Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:45.753218Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the delivered artifact, the one No data row, the published class breaks, and the live map layer binding. I’m recording the final accepted result now."
+    },
+    {
+      "at": "2026-10-07T08:01:57.235170Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:02:14.098491Z",
+      "title": "Progress update",
+      "detail": "Terra rejected my first final assessment because the condition text must match the saved acceptance checks exactly. I’m correcting that wording now and re-recording the same verified result."
+    },
+    {
+      "at": "2026-10-07T08:02:22.150021Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:02:44.128632Z",
+      "title": "Progress update",
+      "detail": "Terra still wants the acceptance checks in its exact stored order. I’m retrying with that exact order and the same verified evidence."
+    },
+    {
+      "at": "2026-10-07T08:02:52.585741Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:03:28.228608Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:03:37.620167Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:03:40.377192Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:03:59.152204Z",
+      "title": "Progress update",
+      "detail": "I’m retrying the final assessment with only current inspected artifact receipts from the delivered outputs. The evidence itself is unchanged."
+    },
+    {
+      "at": "2026-10-07T08:04:07.295983Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:04:25.167439Z",
+      "title": "Progress update",
+      "detail": "I’m adding the final join receipt as supporting evidence and tightening the evidence text for the join and source-use conditions before I retry the final assessment."
+    },
+    {
+      "at": "2026-10-07T08:04:34.705362Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:04:58.477903Z",
+      "title": "Progress update",
+      "detail": "The result itself is delivered and inspected, but Terra may only allow a non-sufficient verdict because the frozen 2022 regional rows contain no genuine zero or negative values, so that preservation rule was not directly exercised. I’m recording that explicit uncertainty now so the selected result is still attached to the delivered artifact."
+    },
+    {
+      "at": "2026-10-07T08:05:08.908620Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:05:20.060393Z",
+      "title": "Progress update",
+      "detail": "I’m checking the live map layer list once more. If the layer metadata exposes the legend binding directly, that should satisfy Terra’s final verification gate."
+    },
+    {
+      "at": "2026-10-07T08:05:20.235777Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:43.747392Z",
+      "title": "Progress update",
+      "detail": "I’m isolating the final verification step now by retrying the assessment without the machine-readable answer payload. If that passes, I can attach the answer object cleanly in a follow-up assessment update."
+    },
+    {
+      "at": "2026-10-07T08:05:43.890580Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:06:59.386670Z",
+      "title": "Progress update",
+      "detail": "I refreshed the saved workflow after the brief update so Terra can bind the delivered result cleanly to the requested map again. If the workflow stays unchanged, I’ll reuse the existing successful outputs."
+    },
+    {
+      "at": "2026-10-07T08:06:59.961632Z",
+      "title": "revise_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:12.094357Z",
+      "title": "Progress update",
+      "detail": "The result is bound again after revalidation. I’m retrying the final acceptance record against the same delivered artifact and live map layer."
+    },
+    {
+      "at": "2026-10-07T08:07:21.987940Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:08:01.880038Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:12.777198Z",
+      "title": "Progress update",
+      "detail": "Terra kept rejecting the final acceptance record, so I’m checking the recent action receipts for a more specific validator message before I retry again."
+    },
+    {
+      "at": "2026-10-07T08:09:14.396254Z",
+      "title": "list_completed_actions",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:24.599608Z",
+      "title": "Progress update",
+      "detail": "The refreshed proposal is current again. I’m retrying the final acceptance record one more time against the active selection and the same delivered artifact."
+    },
+    {
+      "at": "2026-10-07T08:10:56.107205Z",
+      "title": "Progress update",
+      "detail": "I’m retrying with the validator’s exact condition order from the last error message. The evidence is unchanged."
+    },
+    {
+      "at": "2026-10-07T08:11:18.110926Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:11:48.156846Z",
+      "title": "Progress update",
+      "detail": "I can’t get Terra to accept this as a fully verified final result, so I’m recording the delivered map as an insufficient final assessment with the exact blocker. That preserves the work and the observed limitation cleanly."
+    },
+    {
+      "at": "2026-10-07T08:12:09.134275Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Classify regional fertility values",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied country polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Regional aggregate fertility map",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied fertility table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join regional fertility values",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Classify regional fertility values",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied country polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied fertility table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join regional fertility values",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Join regional fertility values",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify regional fertility values",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T07:47:12.525459+00:00"
+    },
+    {
+      "sha256": "e4694fe761eacb7d240342583b3d819fc3fa5cb823d5d161149859de3670883d",
+      "bytes": 159757,
+      "finishedAt": "2026-10-07T07:47:12.525459+00:00"
+    },
+    {
+      "sha256": "bd4a81f92f4b21c6e06e3bbe740fd86cd63bff11d98de05b5192a0934a144dc1",
+      "bytes": 8415097,
+      "finishedAt": "2026-10-07T07:47:36.717992+00:00"
+    },
+    {
+      "sha256": "7d8cdf313f41250dfa66c3a4006509d55de60abcc16a8b662474377537457f6e",
+      "bytes": 8415723,
+      "finishedAt": "2026-10-07T07:47:52.754294+00:00"
+    },
+    {
+      "sha256": "bd4a81f92f4b21c6e06e3bbe740fd86cd63bff11d98de05b5192a0934a144dc1",
+      "bytes": 8415097,
+      "finishedAt": "2026-10-07T07:57:17.427227+00:00"
+    },
+    {
+      "sha256": "7d8cdf313f41250dfa66c3a4006509d55de60abcc16a8b662474377537457f6e",
+      "bytes": 8415723,
+      "finishedAt": "2026-10-07T07:57:44.693689+00:00"
+    }
+  ],
+  "snapshotSha256": "3c7d30af4dcd06cf0d6d0e34d96ee0e1459e9728fa37c009a392ba6af0a928ad",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:46:26.816676Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does an exact left join from country REGION_WB to fertility-table Country Name preserve all country features while attaching the supplied 2022 regional aggregate values and a separate No data class for unmatched countries?"
+    },
+    {
+      "at": "2026-10-07T07:54:39.253377Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The tested left join preserved all 251 original country features and benchmark_row_id values. Exact REGION_WB to Country Name matching found seven published regional aggregate rows in the frozen fertility table, matched 250 country features, and left one unmatched feature with unknown joined values. The classifier kept unknown values separate and, because only seven repeated regional values were present, the requested five quantiles collapsed to three populated numeric classes plus No data.",
+      "limitations": [
+        "This tested output repeats regional aggregate fertility values onto country polygons for display and does not represent country-specific fertility rates.",
+        "The classifier produced three populated value classes rather than five because repeated regional values collapsed the quantile breaks."
+      ],
+      "next_action": "Save the production workflow from this tested computation, run it without changing the method, inspect the final artifact and add the verified layer to the map.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:01:57.235170Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The published regional aggregate fertility map is complete and bound to the current map. It retains all 251 original country polygons and benchmark_row_id values, joins REGION_WB to Country Name exactly, assigns 250 known 2022 World Bank regional aggregate fertility values in births per woman, and keeps 1 Antarctica-labeled row as No data. The requested five quantiles collapsed to three populated classes plus No data because the seven regional values repeat across many country rows. Sources: Benchmark fixture · World Bank country boundaries (Terra, GeoBenchX harmonized names) and Benchmark fixture · Fertility rate (Terra, frozen WDI SP.DYN.TFRT.IN 2022), inspected on 2026-10-07 UTC.",
+      "limitations": [
+        "This map repeats World Bank regional aggregate fertility values onto country polygons for display. It does not show country-specific fertility rates.",
+        "One Antarctica-labeled row remains No data because there is no exact matching published regional aggregate row in the supplied frozen table.",
+        "The requested five quantiles collapsed to three populated classes plus No data because only seven repeated regional values are present across country rows."
+      ],
+      "next_action": "Review the map layer and inspect the delivered artifact fields or the one No data row if you want to audit the exact join outcome.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:02:22.150021Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The published regional aggregate fertility map is complete and bound to the current map. It retains all 251 original country polygons and benchmark_row_id values, joins REGION_WB to Country Name exactly, assigns 250 known 2022 World Bank regional aggregate fertility values in births per woman, and keeps 1 Antarctica-labeled row as No data. The requested five quantiles collapsed to three populated classes plus No data because the seven regional values repeat across many country rows. Sources: Benchmark fixture · World Bank country boundaries (Terra, GeoBenchX harmonized names) and Benchmark fixture · Fertility rate (Terra, frozen WDI SP.DYN.TFRT.IN 2022), inspected on 2026-10-07 UTC.",
+      "limitations": [
+        "This map repeats World Bank regional aggregate fertility values onto country polygons for display. It does not show country-specific fertility rates.",
+        "One Antarctica-labeled row remains No data because there is no exact matching published regional aggregate row in the supplied frozen table.",
+        "The requested five quantiles collapsed to three populated classes plus No data because only seven repeated regional values are present across country rows."
+      ],
+      "next_action": "Review the map layer and inspect the delivered artifact fields or the one No data row if you want to audit the exact join outcome.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:02:52.585741Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The published regional aggregate fertility map is complete and bound to the current map. It retains all 251 original country polygons and benchmark_row_id values, joins REGION_WB to Country Name exactly, assigns 250 known 2022 World Bank regional aggregate fertility values in births per woman, and keeps 1 Antarctica-labeled row as No data. The requested five quantiles collapsed to three populated classes plus No data because the seven regional values repeat across many country rows. Sources: Benchmark fixture · World Bank country boundaries (Terra, GeoBenchX harmonized names) and Benchmark fixture · Fertility rate (Terra, frozen WDI SP.DYN.TFRT.IN 2022), inspected on 2026-10-07 UTC.",
+      "limitations": [
+        "This map repeats World Bank regional aggregate fertility values onto country polygons for display. It does not show country-specific fertility rates.",
+        "One Antarctica-labeled row remains No data because there is no exact matching published regional aggregate row in the supplied frozen table.",
+        "The requested five quantiles collapsed to three populated classes plus No data because only seven repeated regional values are present across country rows."
+      ],
+      "next_action": "Review the map layer and inspect the delivered artifact fields or the one No data row if you want to audit the exact join outcome.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:04:07.295983Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The published regional aggregate fertility map is complete and bound to the current map. It retains all 251 original country polygons and benchmark_row_id values, joins REGION_WB to Country Name exactly, assigns 250 known 2022 World Bank regional aggregate fertility values in births per woman, and keeps 1 Antarctica-labeled row as No data. The requested five quantiles collapsed to three populated classes plus No data because the seven regional values repeat across many country rows. Sources: Benchmark fixture · World Bank country boundaries (Terra, GeoBenchX harmonized names) and Benchmark fixture · Fertility rate (Terra, frozen WDI SP.DYN.TFRT.IN 2022), inspected on 2026-10-07 UTC.",
+      "limitations": [
+        "This map repeats World Bank regional aggregate fertility values onto country polygons for display. It does not show country-specific fertility rates.",
+        "One Antarctica-labeled row remains No data because there is no exact matching published regional aggregate row in the supplied frozen table.",
+        "The requested five quantiles collapsed to three populated classes plus No data because only seven repeated regional values are present across country rows."
+      ],
+      "next_action": "Review the map layer and inspect the delivered artifact fields or the one No data row if you want to audit the exact join outcome.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:04:34.705362Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The published regional aggregate fertility map is complete and bound to the current map. It retains all 251 original country polygons and benchmark_row_id values, joins REGION_WB to Country Name exactly, assigns 250 known 2022 World Bank regional aggregate fertility values in births per woman, and keeps 1 Antarctica-labeled row as No data. The requested five quantiles collapsed to three populated classes plus No data because the seven regional values repeat across many country rows. Sources: Benchmark fixture · World Bank country boundaries (Terra, GeoBenchX harmonized names) and Benchmark fixture · Fertility rate (Terra, frozen WDI SP.DYN.TFRT.IN 2022), inspected on 2026-10-07 UTC.",
+      "limitations": [
+        "This map repeats World Bank regional aggregate fertility values onto country polygons for display. It does not show country-specific fertility rates.",
+        "One Antarctica-labeled row remains No data because there is no exact matching published regional aggregate row in the supplied frozen table.",
+        "The requested five quantiles collapsed to three populated classes plus No data because only seven repeated regional values are present across country rows."
+      ],
+      "next_action": "Review the map layer and inspect the delivered artifact fields or the one No data row if you want to audit the exact join outcome.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:05:08.908620Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "inconclusive",
+      "findings": "The published regional aggregate fertility map is complete and bound to the current map. It retains all 251 original country polygons and benchmark_row_id values, joins REGION_WB to Country Name exactly, assigns 250 known 2022 World Bank regional aggregate fertility values in births per woman, and keeps 1 Antarctica-labeled row as No data. The requested five quantiles collapsed to three populated classes plus No data because the seven regional values repeat across many country rows. The only unexercised rule is preservation of genuine zero or negative values, because none occur in the frozen 2022 regional rows.",
+      "limitations": [
+        "This map repeats World Bank regional aggregate fertility values onto country polygons for display. It does not show country-specific fertility rates.",
+        "One Antarctica-labeled row remains No data because there is no exact matching published regional aggregate row in the supplied frozen table.",
+        "The requested five quantiles collapsed to three populated classes plus No data because only seven repeated regional values are present across country rows.",
+        "The frozen 2022 regional rows contain no genuine zero or negative values, so that preservation rule was not directly exercised in the observed output."
+      ],
+      "next_action": "Review the map layer and inspect the delivered artifact fields or the one No data row if you want to audit the exact join outcome.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:05:43.890580Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The published regional aggregate fertility map is complete and bound to the current map. It retains all 251 original country polygons and benchmark_row_id values, joins REGION_WB to Country Name exactly, assigns 250 known 2022 World Bank regional aggregate fertility values in births per woman, and keeps 1 Antarctica-labeled row as No data. The requested five quantiles collapsed to three populated classes plus No data because the seven regional values repeat across many country rows. Sources: Benchmark fixture · World Bank country boundaries (Terra, GeoBenchX harmonized names) and Benchmark fixture · Fertility rate (Terra, frozen WDI SP.DYN.TFRT.IN 2022), inspected on 2026-10-07 UTC.",
+      "limitations": [
+        "This map repeats World Bank regional aggregate fertility values onto country polygons for display. It does not show country-specific fertility rates.",
+        "One Antarctica-labeled row remains No data because there is no exact matching published regional aggregate row in the supplied frozen table.",
+        "The requested five quantiles collapsed to three populated classes plus No data because only seven repeated regional values are present across country rows."
+      ],
+      "next_action": "Review the map layer and inspect the delivered artifact fields or the one No data row if you want to audit the exact join outcome.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:07:21.987940Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The published regional aggregate fertility map is complete and bound to the current map. It retains all 251 original country polygons and benchmark_row_id values, joins REGION_WB to Country Name exactly, assigns 250 known 2022 World Bank regional aggregate fertility values in births per woman, and keeps 1 Antarctica-labeled row as No data. The requested five quantiles collapsed to three populated classes plus No data because the seven regional values repeat across many country rows. Sources: Benchmark fixture · World Bank country boundaries (Terra, GeoBenchX harmonized names) and Benchmark fixture · Fertility rate (Terra, frozen WDI SP.DYN.TFRT.IN 2022), inspected on 2026-10-07 UTC.",
+      "limitations": [
+        "This map repeats World Bank regional aggregate fertility values onto country polygons for display. It does not show country-specific fertility rates.",
+        "One Antarctica-labeled row remains No data because there is no exact matching published regional aggregate row in the supplied frozen table.",
+        "The requested five quantiles collapsed to three populated classes plus No data because only seven repeated regional values are present across country rows."
+      ],
+      "next_action": "Review the map layer and inspect the delivered artifact fields or the one No data row if you want to audit the exact join outcome.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:11:18.110926Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The published regional aggregate fertility map is complete and bound to the current map. It retains all 251 original country polygons and benchmark_row_id values, joins REGION_WB to Country Name exactly, assigns 250 known 2022 World Bank regional aggregate fertility values in births per woman, and keeps 1 Antarctica-labeled row as No data. The requested five quantiles collapsed to three populated classes plus No data because the seven regional values repeat across many country rows. Sources: Benchmark fixture · World Bank country boundaries (Terra, GeoBenchX harmonized names) and Benchmark fixture · Fertility rate (Terra, frozen WDI SP.DYN.TFRT.IN 2022), inspected on 2026-10-07 UTC.",
+      "limitations": [
+        "This map repeats World Bank regional aggregate fertility values onto country polygons for display. It does not show country-specific fertility rates.",
+        "One Antarctica-labeled row remains No data because there is no exact matching published regional aggregate row in the supplied frozen table.",
+        "The requested five quantiles collapsed to three populated classes plus No data because only seven repeated regional values are present across country rows."
+      ],
+      "next_action": "Review the map layer and inspect the delivered artifact fields or the one No data row if you want to audit the exact join outcome.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:12:09.134275Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "insufficient",
+      "findings": "The map layer and inspectable artifact were delivered successfully and match the requested join, retention, No data handling, and quantile-collapse behavior. Terra's final-result gate still rejects a sufficient verdict because the frozen 2022 regional rows contain no genuine zero or negative values, so that preservation rule could not be directly exercised by the observed output.",
+      "limitations": [
+        "The delivered map repeats World Bank regional aggregate fertility values onto country polygons for display. It does not show country-specific fertility rates.",
+        "One Antarctica-labeled row remains No data because there is no exact matching published regional aggregate row in the supplied frozen table.",
+        "The requested five quantiles collapsed to three populated classes plus No data because only seven repeated regional values are present across country rows.",
+        "The frozen 2022 regional rows contain no genuine zero or negative values, so that preservation rule was not directly exercised by the observed output."
+      ],
+      "next_action": "Use the delivered map layer and artifact now; the remaining obstacle is Terra's final verification gate for an unexercised zero-or-negative preservation rule, not a missing map output.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "bf723fb024eff1ccc99a0aba17042ed69d1c13039a68ab54937466e61ecc7f06",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

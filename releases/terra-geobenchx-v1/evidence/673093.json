@@ -1,0 +1,87 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "673093",
+  "question": "Show the patterns of foreign direct investment across Asian economies.",
+  "submittedPrompt": "Show the patterns of foreign direct investment across Asian economies.\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "**Delivered:** I can’t show observed foreign direct investment patterns across Asian economies from this closed catalog. The supplied inventory includes **Countries** and some context sources like **GDP per capita**, **Labor force, total**, **Population, total**, **Electric power consumption**, and **Rail lines**, but it does **not** include any **FDI inflow, FDI stock, sector, or investor-origin** dataset. It also lists **source types only**, not the observation files.\n\n**Unanswered:** Which Asian economies attract more or less FDI is **not confirmed** in this environment. Any such pattern would be outside the supplied evidence.\n\n**Next step:** add a **country-level FDI dataset for Asian economies** and join it to **Countries**.\n\n### Limitations\n\n- The supplied inventory lists source types only, not observation files or country values.\n- No foreign direct investment dataset is listed in the supplied inventory.\n- Observed FDI patterns cannot be shown because the supplied inventory contains no FDI measurement source and no observation files.\n- **Foreign direct investment:** The supplied inventory has no FDI inflow, stock, sector, or investor-origin dataset, so observed FDI patterns cannot be shown here.\n- **Economic context:** These are context only and do not measure foreign direct investment.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T07:34:58.529495+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "c3ef0731507af0d200df96da1e2de1f05053925f4081e27040497769324a1c0d",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "9dd517228622cc71f7e995a2f0608ad1cef806dc972076a8c9954a64115ee9f1",
+      "snapshotSha256AtReview": "df0a6de6f1483796209616f0ff9fb5fd2a02a8a1630f883b6712f0f4858dd368",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies absent FDI inflow, stock, sector or investor-origin measurements across Asian economies."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Keeps GDP, labor force, electricity, population and rail sources as context, not FDI measures."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Limits the unsupported-pattern conclusion to the supplied source-type inventory without observation files."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Names no leading FDI economies or measured patterns; analysis/help calls created no jobs/artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests a country-level FDI dataset joined to country geography."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:31:33.514332Z",
+      "title": "Progress update",
+      "detail": "I’m checking the retained analysis state so I can record this result properly before answering again."
+    },
+    {
+      "at": "2026-10-07T07:31:33.734267Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:39.423252Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:32:06.465289Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:32:09.546285Z",
+      "title": "Progress update",
+      "detail": "I found no retained goal, so I’m saving a brief that matches this closed-catalog request and its real limitation: the inventory names source types, but it does not include any FDI measurement."
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "0ffa0d6f6c2f91f5a0a779b464d517b811824ae05ed8f4b92dea44831f124fd6",
+  "investigations": []
+}

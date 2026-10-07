@@ -1,0 +1,529 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "348947",
+  "question": "Map total forest area in square kilometers by region.",
+  "submittedPrompt": "Map total forest area in square kilometers by region.\n\nTask conventions: Use the frozen country polygons and World Bank AG.LND.FRST.K2 2021 column, in km². Use the published World Bank regional aggregates already present in the frozen table, not individual country values or a mean/sum computed from countries. Join original country geometry REGION_WB to table Country Name exactly. This selects the seven published all-income regional aggregates; Antarctica has no corresponding value and remains unknown. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature and benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. The reporting regions are the supplied World Bank REGION_WB groups. Every original country polygon carries its region’s published value; retain original boundaries and IDs rather than inventing regional geometry. This does not mean the country itself has that value. The five-quantile display classification operates on those original feature rows, so its breaks reflect repeated regional values; this is only a display convention, not population weighting or recomputation of the regional statistic. Label the map and answer as regional aggregates.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank AG.LND.FRST.K2\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2021\",\n    \"units\": {\n      \"2021\": \"km\\u00b2\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Added to the map: the 2021 World Bank regional forest-area aggregates, in km², carried on the original country polygons.\n\nIt keeps all 251 country features. 250 have a known regional value. Antarctica is a neutral No data category.\n\nImportant limitation: this is a regional aggregate map repeated across country polygons, not country-level forest area.\n\nLegend: tied regional values collapsed the requested 5 quantiles to 4 actual classes, plus No data. Break values go into the upper class. The displayed ranges are 230,408.466–<6,231,790.779; 6,231,790.779–<6,648,558.5; 6,648,558.5–<9,295,696.966; and 9,295,696.966–10,576,123.193 km².\n\nSources: Benchmark fixture · World Bank country boundaries and Benchmark fixture · World Bank AG.LND.FRST.K2 (provider Terra; source revision not stated; retrieved 2026-10-07).\n\n### Limitations\n\n- This map shows published World Bank regional aggregates repeated across member country polygons. It does not show country-level forest area.\n- Repeated regional values collapse the requested five quantiles to four actual legend classes.\n- Antarctica has no matching published regional value in the supplied frozen table and remains No data.\n- This map shows published World Bank regional aggregates repeated across country polygons; it does not show country-level forest area.\n- Repeated regional values collapsed the requested five quantiles to four actual legend classes.\n- Antarctica has no matching published regional value in the frozen table and remains No data.",
+  "checks": {
+    "expectedCount": 250,
+    "actualCount": 250,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:40:01.795091Z",
+      "title": "Progress update",
+      "detail": "I’ll first inspect the supplied frozen inputs and test the exact join/classification on a small private draft, then I’ll save a work-in-progress method and only after that run the full map layer."
+    },
+    {
+      "at": "2026-10-07T06:40:13.443311Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:14.050344Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:14.250230Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:14.443865Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:24.834295Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:24.871892Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:26.516586Z",
+      "title": "Progress update",
+      "detail": "I found the two frozen inputs and their global extents. Next I’m checking their exact fields so I can use the fixed 2021 value and the exact join keys without guessing."
+    },
+    {
+      "at": "2026-10-07T06:40:44.658687Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:44.874153Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:44.915266Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:46.625020Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:58.267091Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:58.329015Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:05.647813Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:05.691310Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:14.438340Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:15.347372Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:28.848952Z",
+      "title": "Progress update",
+      "detail": "I’ve picked the exact join and classification processors. Now I’m running one private end-to-end draft on the frozen global inputs so I can verify the match counts, repeated regional values, and final class behavior before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T06:41:34.621127Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:47.028411Z",
+      "title": "Progress update",
+      "detail": "The method is still fine. The only issue was a numeric-format detail in the saved study extent, so I’m correcting that and rerunning the same draft."
+    },
+    {
+      "at": "2026-10-07T06:41:52.647889Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:46.407253Z",
+      "title": "Progress update",
+      "detail": "The draft worked, and it already shows one important limitation: repeated regional values collapsed the requested five quantiles to four classes, which is allowed here. I’m checking one more thing now—the exact break-edge behavior in the produced classes—before I save and run the full map layer."
+    },
+    {
+      "at": "2026-10-07T06:44:57.703065Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:57.727762Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:00.733911Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:01.304129Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:32.049637Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the test run kept all 251 country polygons and left only Antarctica unknown. Now I’m reading the exact class-edge rows and then I’ll save the tested full-extent method as the work-in-progress draft that produces the final map layer."
+    },
+    {
+      "at": "2026-10-07T06:45:32.085193Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:32.094398Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:32.110746Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:32.147649Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:33.634629Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:34.270508Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:34.351975Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:10.351822Z",
+      "title": "Progress update",
+      "detail": "The draft answers the method question: the exact join works, Antarctica stays unknown, and the repeated regional values collapse the display from five requested quantiles to four actual classes. I’m pulling the one No data row and the proposal schema now so I can save the checked production draft instead of rebuilding the method."
+    },
+    {
+      "at": "2026-10-07T06:46:10.386185Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:10.396739Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:12.340805Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:12.516054Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:30.703638Z",
+      "title": "Progress update",
+      "detail": "I’ve got the final method evidence I needed: the break-edge rows land in the upper class, and the one unknown row is Antarctica with class 0. I’m recording that draft result now, then I’ll save the exact tested computation as the production workflow and run it."
+    },
+    {
+      "at": "2026-10-07T06:46:31.545366Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:34.637356Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:34.775055Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:56.507566Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the method development. The production draft will be the exact full-extent computation I already tested, so I’m saving that checked draft now rather than rebuilding it."
+    },
+    {
+      "at": "2026-10-07T06:47:09.414750Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:47:22.900662Z",
+      "title": "Progress update",
+      "detail": "The draft saved, but the only problem was bookkeeping in the fixed parameter paths. I’m correcting those exact paths now; the tested computation itself does not change."
+    },
+    {
+      "at": "2026-10-07T06:47:34.481526Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:47:42.466120Z",
+      "title": "Progress update",
+      "detail": "The checked production draft is saved and ready. Next I’m running that exact workflow, then I’ll inspect the final artifact, add the delivered layer to the map, and verify the final counts and legend before I answer."
+    },
+    {
+      "at": "2026-10-07T06:47:47.209010Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:53:49.310789Z",
+      "title": "Progress update",
+      "detail": "I’m resuming from the current run receipts. The workflow appears to have finished in the background, so I’m inspecting the delivered outputs and map binding now rather than resubmitting anything."
+    },
+    {
+      "at": "2026-10-07T06:53:49.393370Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:53:49.421394Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:53:49.444079Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:39.001133Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the final workflow succeeded and the layer is already on the map. I’m doing the last bounded inspections on the delivered artifact and its legend summary now so I can record the final result with the exact output selection."
+    },
+    {
+      "at": "2026-10-07T06:54:39.023633Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:39.036584Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:41.630135Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:55:27.528973Z",
+      "title": "Progress update",
+      "detail": "I only need the final output receipts now: the delivered artifact preview, the one No data row, the legend summary, and the three break-edge checks on the final artifact. Then I can record the accepted result and finish."
+    },
+    {
+      "at": "2026-10-07T06:55:27.575616Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:55:27.584944Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:55:27.597898Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:55:27.606580Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:55:31.171124Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:55:31.517909Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:17.247983Z",
+      "title": "Progress update",
+      "detail": "I have the final layer, the final legend summary, and the final No data row. I’m fetching the three final break-edge rows one last time so the result assessment can rely on the delivered artifact itself."
+    },
+    {
+      "at": "2026-10-07T06:56:17.265487Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:17.271453Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:17.283700Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:45.627607Z",
+      "title": "Progress update",
+      "detail": "I’ve verified every requested final condition on the delivered artifact and map layer. I’m clearing the stale “remaining work” note in the brief, then I’ll record the accepted result with the exact output selection."
+    },
+    {
+      "at": "2026-10-07T06:56:50.628539Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:57:17.187468Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Quantile choropleth classes",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Name the 2021 value field",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Frozen country polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Regional forest area aggregates (2021, km²)",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Frozen World Bank forest table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join published regional values to countries",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Quantile choropleth classes",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Name the 2021 value field",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Frozen country polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Frozen World Bank forest table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join published regional values to countries",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Join published regional values to countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Quantile choropleth classes",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Quantile choropleth classes",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T06:42:14.184047+00:00"
+    },
+    {
+      "sha256": "db279c795b5f549e2b45ab57600a4e860bc75be5f60be3230215bf964062c6ba",
+      "bytes": 98864,
+      "finishedAt": "2026-10-07T06:42:14.184047+00:00"
+    },
+    {
+      "sha256": "98bedaca5d80c2a107e98258a2fccf83253718c2c01635e75441021ff9eb04f4",
+      "bytes": 8440988,
+      "finishedAt": "2026-10-07T06:43:01.292040+00:00"
+    },
+    {
+      "sha256": "cb66ddd012d3d6c7c1e195fe9984999ec6f6cca0c614d2ee4beb2e7b653171a4",
+      "bytes": 8434026,
+      "finishedAt": "2026-10-07T06:43:30.302909+00:00"
+    },
+    {
+      "sha256": "a057eac848d1e492fec58eaf6c8d3db36eebc8bbde6a5c079117e7b4e82a1fe0",
+      "bytes": 8437398,
+      "finishedAt": "2026-10-07T06:44:08.470075+00:00"
+    },
+    {
+      "sha256": "98bedaca5d80c2a107e98258a2fccf83253718c2c01635e75441021ff9eb04f4",
+      "bytes": 8440988,
+      "finishedAt": "2026-10-07T06:50:15.316344+00:00"
+    },
+    {
+      "sha256": "cb66ddd012d3d6c7c1e195fe9984999ec6f6cca0c614d2ee4beb2e7b653171a4",
+      "bytes": 8434026,
+      "finishedAt": "2026-10-07T06:52:00.191799+00:00"
+    },
+    {
+      "sha256": "a057eac848d1e492fec58eaf6c8d3db36eebc8bbde6a5c079117e7b4e82a1fe0",
+      "bytes": 8437398,
+      "finishedAt": "2026-10-07T06:53:28.329120+00:00"
+    }
+  ],
+  "snapshotSha256": "7595bb7e428b4bd6957849eebc0d2f373e48c698b115d380f94ffb1fa604f42f",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:41:34.621127Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does an exact left join from country REGION_WB to table Country Name preserve all supplied country polygons and benchmark_row_id values, keep unmatched rows unknown, and produce the requested quantile choropleth classes from the frozen 2021 AG.LND.FRST.K2 regional aggregates?"
+    },
+    {
+      "at": "2026-10-07T06:46:31.545366Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The exact left join preserved all 251 supplied country polygons and benchmark_row_id values. It matched 250 country features to 7 published World Bank regional aggregate rows and left exactly 1 unmatched feature, Antarctica, with null Country Name and null 2021 value. The workflow copied the frozen 2021 AG.LND.FRST.K2 value into forest_km2_2021 with units km². Quantile classification kept No data separate as class 0, requested 5 classes, and collapsed to 4 actual classes because repeated regional values reduced distinct quantile breaks. Break-edge checks show values equal to the reported breaks entered the upper class: 6231790.779 -> class 2, 6648558.5 -> class 3, and 9295696.966 -> class 4.",
+      "limitations": [
+        "This trial confirms the analytical method and full study extent, but it is still a private draft rather than the final published workflow output.",
+        "The map repeats published regional aggregates across country polygons; it does not represent country-level forest area."
+      ],
+      "next_action": "Save the tested full-extent computation as the production workflow draft, then execute it, inspect the final artifact and legend, add the final layer to the map, and assess the delivered result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:57:17.187468Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The final workflow succeeded and added the country layer to the map. The delivered artifact retains all 251 original country polygons and benchmark_row_id values. It carries the published 2021 World Bank regional forest-area aggregate in km² in field forest_km2_2021 and the map class in field forest_km2_qclass. There are 250 country polygons with a known numeric regional aggregate and 1 No data polygon, Antarctica. The requested five-quantile display collapsed to four actual legend classes because repeated regional values produced repeated breaks. The final legend breaks are 6231790.779, 6648558.5, and 9295696.966 km², with class counts 29, 56, 54, and 111 across classes 1-4 plus 1 No data row.",
+      "limitations": [
+        "This map shows published World Bank regional aggregates repeated across country polygons; it does not show country-level forest area.",
+        "Repeated regional values collapsed the requested five quantiles to four actual legend classes.",
+        "Antarctica has no matching published regional value in the frozen table and remains No data."
+      ],
+      "next_action": "Review the added layer on the map or inspect/export the retained artifact if you need the full country-level carrier geometry and attributes.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "7216938e0180f6caadebce0d57d3d8633e2217e9b97dc4c2a60e90840b8a541f",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

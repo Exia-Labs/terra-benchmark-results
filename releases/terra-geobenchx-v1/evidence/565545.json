@@ -1,0 +1,701 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "565545",
+  "question": "Create a heatmap of earthquakes magnitude in Indonesia, Malaysia and Phillippines",
+  "submittedPrompt": "Create a heatmap of earthquakes magnitude in Indonesia, Malaysia and Phillippines\n\nTask conventions: Use supplied countries with NAME_EN in [\"Indonesia\", \"Malaysia\", \"Philippines\"]. Weight the selected earthquake points by mag; magnitude is not energy. Use original point records strictly within the original selected country polygons; no clipped polygons, location guesses or current data. Unknown country indicators, nonpositive ratio denominators, missing geometry and missing/nonfinite weights are unknown, not zero. Known zero weights remain valid. Exclude valid points outside the specified geography. Include only eligible points with a finite nonnegative weight in the contributing artifact; report other potentially eligible points as unknown. Use this explicit geographic heatmap convention: grid={\"bounds\": [-18000000, -7325000, 18000000, 7325000], \"crs\": \"EPSG:6933\", \"resolutionX\": 25000, \"resolutionY\": 25000}, radius 150000 metres = three Gaussian standard deviations. First bin each point into its containing grid cell and sum its weight. Smooth using a normalized separable Gaussian, numerical support four standard deviations, constant-zero exterior; do not renormalize edges. Use both grid resolutions for the two axes; keep original grid alignment. This is a declared metric raster adaptation to the original interactive screen-pixel heatmap, not an equivalent zoom-dependent rendering. Output unit: sum of magnitude per grid cell. Zero cells are valid; this is not density per square kilometre. Do not rescale the values for presentation.\n\n\n\nAdd the heatmap raster to the map and retain an inspectable selected-point artifact with original geometry and benchmark_row_id. End with one fenced JSON object: {count: contributing point records, unknown_count: records with unknown eligibility or weight, unlocated_count: original points lacking valid geometry, coverage_note: string, selection: {collectionId,itemId,assetKey}, density: {collectionId,itemId,assetKey}, map_layer_id: heatmap_layer_id}. Explain the data edition, numerical weights, grid, smoothing and coverage limitations. The source-point artifact is not itself the requested heatmap.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Earthquake points, frozen 30-day snapshot\",\n    \"edition\": \"Archive labelled Feb142025; observed event timestamps 2025-01-16 through 2025-02-15 UTC\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": null,
+  "checks": {
+    "expectedCount": 29,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": false,
+    "answerFulfilled": false,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": [
+      "Approval policy: injected feature data is not permitted.",
+      "No accepted final answer was published."
+    ]
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:26:10.794221Z",
+      "title": "Progress update",
+      "detail": "I’m checking the available Terra actions first, then I’ll inspect the two supplied datasets and test the exact heatmap method before I submit anything to the map."
+    },
+    {
+      "at": "2026-10-07T07:26:16.855199Z",
+      "title": "Progress update",
+      "detail": "I found the core execution tools. Next I’m checking the exact processor names and input schemas so I can build the heatmap the way you specified, not a lookalike."
+    },
+    {
+      "at": "2026-10-07T07:26:29.626618Z",
+      "title": "Progress update",
+      "detail": "First I’m reading the existing analysis state, the map context, and the two supplied datasets so I can use their real fields and exact item selections."
+    },
+    {
+      "at": "2026-10-07T07:26:29.637949Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:29.648235Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:29.654435Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:30.216530Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:41.526026Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed both inputs are immutable Terra-generated vector items. Next I’m reading their exact item metadata and then sampling them in a small private trial so I can use the real field names and preserve `benchmark_row_id`."
+    },
+    {
+      "at": "2026-10-07T07:26:41.643102Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:41.658772Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:48.533467Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:48.537835Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:48.647352Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:48.960548Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:50.232183Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:27.243624Z",
+      "title": "Progress update",
+      "detail": "I found the likely chain: filter the three country polygons, keep earthquake points strictly within them, keep only finite nonnegative `mag` for the contributing point layer, then run `point-density` on the explicit EPSG:6933 grid with 150 km radius. I’m reading the exact processor schemas now so I can wire the strict-within and weight rules correctly."
+    },
+    {
+      "at": "2026-10-07T07:27:27.272992Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:27.278285Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:27.286990Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:27.969895Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:35.899229Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:36.011451Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:36.171599Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:52.131883Z",
+      "title": "Progress update",
+      "detail": "I’ve got the real fields: earthquake `mag` and country `NAME_EN`. I’m saving the analysis brief now with the exact requested method and final checks, then I’ll run one full-scope private test of the join, weight filter, and heatmap settings."
+    },
+    {
+      "at": "2026-10-07T07:28:59.599805Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:09.843684Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:50.032633Z",
+      "title": "Progress update",
+      "detail": "I’m running one full private test now. It uses the supplied frozen earthquake snapshot and the supplied World Bank boundaries only, so I can confirm the strict-within selection, the contributing-point count, and the exact EPSG:6933 heatmap settings before I save the final workflow."
+    },
+    {
+      "at": "2026-10-07T07:29:55.944022Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:32:15.756912Z",
+      "title": "Progress update",
+      "detail": "The private test finished successfully. I’m checking two remaining details before I promote it: whether any source point records were omitted before the strict-within join, and a visual preview of the final heatmap raster."
+    },
+    {
+      "at": "2026-10-07T07:32:15.832695Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:32:15.856267Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:32:17.141866Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:13.184481Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:13.669963Z",
+      "title": "Progress update",
+      "detail": "The test answered the method question: 29 original earthquake points fall strictly within the three selected country polygons, all 29 have finite nonnegative `mag`, and the heatmap matches the requested EPSG:6933 grid and 150 km Gaussian radius. I’m turning that tested computation into the final workflow now so I can add the verified raster to the map and record the result object."
+    },
+    {
+      "at": "2026-10-07T07:33:18.947010Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:18.965628Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:21.249788Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:21.515084Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:30.164974Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:30.324363Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:30.682881Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:31.024908Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:56.453423Z",
+      "title": "Progress update",
+      "detail": "The method test is now complete: the strict-within join kept 29 of 9,176 source points, none of the source points were dropped before the join for invalid or empty geometry, and all 29 matched points had usable nonnegative `mag` weights. I’m recording that trial result, then I’ll save the final workflow using the same tested computation."
+    },
+    {
+      "at": "2026-10-07T07:33:58.373716Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:33.052811Z",
+      "title": "Progress update",
+      "detail": "I’ve saved the trial assessment. Now I’m validating the production workflow with two deliverables: the final heatmap raster for the map, and the contributing earthquake points as an inspectable artifact."
+    },
+    {
+      "at": "2026-10-07T07:34:45.062966Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:07.442218Z",
+      "title": "Progress update",
+      "detail": "The draft is almost ready. Terra flagged one contract reference, not a data problem: I need to point the “Magnitude” requirement at the heatmap node’s source input instead of a literal parameter. I’m correcting that now and revalidating the same tested workflow."
+    },
+    {
+      "at": "2026-10-07T07:35:08.548733Z",
+      "title": "revise_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:23.568612Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:24.958525Z",
+      "title": "Progress update",
+      "detail": "The production workflow is ready and uses the same full-scope computation I tested. I’m running it now, then I’ll inspect the final artifacts and add the raster layer to your map."
+    },
+    {
+      "at": "2026-10-07T07:37:25.829863Z",
+      "title": "Progress update",
+      "detail": "The final workflow finished successfully in the background. I’m inspecting its two deliverables now so I can add the actual heatmap layer from the completed run and record the required answer object from the final artifacts."
+    },
+    {
+      "at": "2026-10-07T07:37:25.871609Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:25.884056Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:27.279224Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:38:40.582567Z",
+      "title": "Progress update",
+      "detail": "I’m doing the last verification pass now: a preview of the final raster and a field check on the final contributing-point artifact. That will let me confirm the map layer, the final item IDs, and whether the point artifact kept the requested benchmark row field name."
+    },
+    {
+      "at": "2026-10-07T07:38:40.602394Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:38:40.609156Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:38:41.385017Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:39:34.284832Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:39:35.562534Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:39:39.235568Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:39:41.981112Z",
+      "title": "Progress update",
+      "detail": "I’ve already confirmed the final run succeeded and the heatmap layer is on the map. I’m repeating the two finished inspections now to collect their exact receipts and verify the selected-point fields before I record the final answer."
+    },
+    {
+      "at": "2026-10-07T07:39:51.993826Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:35.549152Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:35.656349Z",
+      "title": "Progress update",
+      "detail": "I confirmed the final point artifact inspection finished. I’m reading its exact schema now to decide whether a small correction is needed to restore the requested `benchmark_row_id` field name on the selected-point deliverable."
+    },
+    {
+      "at": "2026-10-07T07:40:57.598474Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:08.866625Z",
+      "title": "Progress update",
+      "detail": "I found the exact defect: the selected-point deliverable keeps the source row ID as `benchmark_row_id_target`, because the country join also carries its own `benchmark_row_id`. I’m checking whether Terra has a small field-renaming or field-selection step so I can correct that deliverable without changing the heatmap itself."
+    },
+    {
+      "at": "2026-10-07T07:41:17.983595Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:18.006221Z",
+      "title": "Progress update",
+      "detail": "I found a likely clean fix: keep the existing selected points, then join the original earthquake table back onto them by a stable key so the source `benchmark_row_id` comes through with its original field name. I’m checking the exact join schema now before I revise anything."
+    },
+    {
+      "at": "2026-10-07T07:41:18.841904Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:41.207904Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:43.106817Z",
+      "title": "Progress update",
+      "detail": "I may be able to fix the point artifact without touching the heatmap: either by a tiny vector-to-vector attribute recovery step or, if Terra supports it, by rebuilding the 29 selected points from their original attributes. I’m checking the available processors for a safe exact-key path now."
+    },
+    {
+      "at": "2026-10-07T07:41:55.381710Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:36.041648Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:37.032036Z",
+      "title": "Progress update",
+      "detail": "I’ve already confirmed the final heatmap is correct and on the map. I’m reading a tiny preview of the selected-point artifact now to see whether Terra exposes exact point geometry in rows; if it does, I can repair the row-ID field name without touching the heatmap."
+    },
+    {
+      "at": "2026-10-07T07:42:56.817515Z",
+      "title": "Progress update",
+      "detail": "I found a workable correction path: Terra’s preview does expose the exact selected point geometries and the source row IDs, so I can rebuild the 29-point artifact with the requested `benchmark_row_id` field while leaving the heatmap unchanged. I’m checking the import schema first so I can do that safely."
+    },
+    {
+      "at": "2026-10-07T07:42:56.846403Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:56.858021Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:18.438952Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:18.478530Z",
+      "title": "get_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:18.648772Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:40.209229Z",
+      "title": "Progress update",
+      "detail": "I can correct this as a delivery fix. I’m reading the saved workflow nodes now so I can add one small import node for the selected points and switch only the point deliverable to that corrected artifact, while leaving the heatmap output unchanged."
+    },
+    {
+      "at": "2026-10-07T07:44:03.330688Z",
+      "title": "Progress update",
+      "detail": "I’ve got a clean correction plan: rebuild the 29 selected points from their own source attributes and coordinates, rename `benchmark_row_id_target` back to `benchmark_row_id`, and swap only the point deliverable. I’m pulling the full 29-row selection now so I can apply that exact fix."
+    },
+    {
+      "at": "2026-10-07T07:44:03.931272Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:24.421669Z",
+      "title": "Progress update",
+      "detail": "I’ve got the correction path. Now I’m reading the full 29 selected rows with their original earthquake attributes and exact point geometry so I can rebuild that point artifact with the requested `benchmark_row_id` field name."
+    },
+    {
+      "at": "2026-10-07T07:45:26.580348Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:16.896960Z",
+      "title": "Progress update",
+      "detail": "I have the full 29-row selection and exact point coordinates. I’m making one focused delivery correction now: rebuild those same 29 points with the source field renamed back to `benchmark_row_id`, then switch only the point deliverable to that corrected artifact. The heatmap itself will stay unchanged."
+    },
+    {
+      "at": "2026-10-07T07:46:17.511983Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:05.717706Z",
+      "title": "revise_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:29.452051Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:30.711497Z",
+      "title": "Progress update",
+      "detail": "The corrected workflow is ready. It leaves the heatmap unchanged and only replaces the selected-point artifact with the same 29 points rebuilt from their original point coordinates and source attributes, with `benchmark_row_id` restored. I’m running that correction now."
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Contributing points",
+      "description": "Recorded vector-filter · skipped"
+    },
+    {
+      "title": "Selected countries",
+      "description": "Recorded vector-filter · skipped"
+    },
+    {
+      "title": "Country boundaries",
+      "description": "Recorded source · skipped"
+    },
+    {
+      "title": "Earthquake magnitude heatmap",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "Contributing earthquake points",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "Magnitude heatmap",
+      "description": "Recorded point-density · skipped"
+    },
+    {
+      "title": "Points inside selected countries",
+      "description": "Recorded vector-spatial-join · skipped"
+    },
+    {
+      "title": "All points with country membership",
+      "description": "Recorded vector-spatial-join · skipped"
+    },
+    {
+      "title": "Earthquake snapshot",
+      "description": "Recorded source · skipped"
+    },
+    {
+      "title": "Corrected contributing earthquake points",
+      "description": "Recorded vector-import · skipped"
+    },
+    {
+      "title": "Contributing points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Selected countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Earthquake magnitude heatmap",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Contributing earthquake points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Magnitude heatmap",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "Points inside selected countries",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "All points with country membership",
+      "description": "Recorded vector-spatial-join · skipped"
+    },
+    {
+      "title": "Earthquake snapshot",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Contributing points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Selected countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Magnitude heatmap",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "Points inside selected countries",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "All points with country membership",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Earthquake snapshot",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Selected countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Points inside selected countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Contributing points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Magnitude heatmap",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Magnitude heatmap",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "All points with country membership",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T07:30:04.657270+00:00"
+    },
+    {
+      "sha256": "d65a70744c33156a86486daa0121936bb3cbaa710a6cee0ebeb1c5d343efaed0",
+      "bytes": 975661,
+      "finishedAt": "2026-10-07T07:30:04.657270+00:00"
+    },
+    {
+      "sha256": "5dd178dced8ad3305802fab30e8ad9af6fcbfde13360cc140d5ce633f188e3ec",
+      "bytes": 489780,
+      "finishedAt": "2026-10-07T07:30:15.295516+00:00"
+    },
+    {
+      "sha256": "ddb085864378dad294a32230b7ae3ab346f5835e15276d25a39c0cc082d98b80",
+      "bytes": 41243,
+      "finishedAt": "2026-10-07T07:30:38.978736+00:00"
+    },
+    {
+      "sha256": "94613d44d486d5b1cf2401306f8397cc07fe1d9b592cacafd8e5049dcc181cfb",
+      "bytes": 1274381,
+      "finishedAt": "2026-10-07T07:30:38.978736+00:00"
+    },
+    {
+      "sha256": "ddb085864378dad294a32230b7ae3ab346f5835e15276d25a39c0cc082d98b80",
+      "bytes": 41243,
+      "finishedAt": "2026-10-07T07:30:55.096709+00:00"
+    },
+    {
+      "sha256": "8da37f4f2485e8049f38129afcdb72a685c5834fd89ed6aa976bbbd0e74ecac4",
+      "bytes": 29869,
+      "finishedAt": "2026-10-07T07:31:00.990635+00:00"
+    },
+    {
+      "sha256": "5dd178dced8ad3305802fab30e8ad9af6fcbfde13360cc140d5ce633f188e3ec",
+      "bytes": 489780,
+      "finishedAt": "2026-10-07T07:36:20.539449+00:00"
+    },
+    {
+      "sha256": "ddb085864378dad294a32230b7ae3ab346f5835e15276d25a39c0cc082d98b80",
+      "bytes": 41243,
+      "finishedAt": "2026-10-07T07:36:32.855595+00:00"
+    },
+    {
+      "sha256": "ddb085864378dad294a32230b7ae3ab346f5835e15276d25a39c0cc082d98b80",
+      "bytes": 41243,
+      "finishedAt": "2026-10-07T07:37:01.086960+00:00"
+    },
+    {
+      "sha256": "8da37f4f2485e8049f38129afcdb72a685c5834fd89ed6aa976bbbd0e74ecac4",
+      "bytes": 29869,
+      "finishedAt": "2026-10-07T07:37:07.500391+00:00"
+    }
+  ],
+  "snapshotSha256": "fa01460bd1aad89d35afbafe412569e66d330b7e396c0c8d49e1e32c34e49c5f",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:29:55.944022Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full requested method select only original earthquake points strictly within the supplied Indonesia, Malaysia, and Philippines polygons, keep only finite nonnegative mag values in the contributing artifact, and produce the requested EPSG:6933 weighted heatmap?"
+    },
+    {
+      "at": "2026-10-07T07:33:58.373716Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-scope test answered the method question. Filtering the supplied country boundaries by NAME_EN returned exactly three original polygons: Indonesia, Malaysia, and Philippines. A strict within spatial join against the supplied frozen earthquake snapshot evaluated all 9,176 original point records, omitted none before the join for invalid or empty geometry, matched 29 points within the selected country polygons, and left 9,147 valid points outside the requested geography unmatched. The inside-country selection preserved original point geometry and benchmark_row_id_target from the source points. Filtering those matched points for non-null, nonnegative mag kept all 29 points, so the contributing artifact count is 29 and the inside-country unknown-weight count observed in this test is 0. The point-density output used the declared EPSG:6933 grid with bounds [-18000000,-7325000,18000000,7325000], 25,000 metre resolution on both axes, radius 150,000 metres, sigmaPixels [2.0,2.0], four-sigma kernel truncation, and output unit 'sum of magnitude per grid cell'. Total input weight was 132.1, outsideGridCount was 0, and the raster remained unscaled.",
+      "limitations": [
+        "This uses the supplied frozen 30-day earthquake snapshot labelled Feb142025, with observed event times 2025-01-16 through 2025-02-15 UTC; it is not current activity.",
+        "Magnitude is used exactly as requested as a numeric weight; magnitude is not earthquake energy.",
+        "Gaussian smoothing uses a constant-zero exterior and no edge renormalization, so cells near the grid edge can lose mass."
+      ],
+      "next_action": "Save a validated workflow based on this tested full-scope computation, execute it, inspect the final output artifacts, add the heatmap raster to the map, and assess the final result with the required answer object.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "184d318d57d5f5338e03a5a360d1bea55f0ebc5bdb07257864e9ae240de8d094",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

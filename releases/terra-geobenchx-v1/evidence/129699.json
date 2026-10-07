@@ -1,0 +1,582 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "129699",
+  "question": "How many lakes are within 10 km of the Canadian border?",
+  "submittedPrompt": "How many lakes are within 10 km of the Canadian border?\n\nTask conventions: Use all original CEC lake/reservoir polygons and the original country polygons with NAME_EN exactly Canada. The frozen interpretation of border is Canada's complete mapped polygon boundary, including coasts and islands, not just its international land boundary. Measure shortest planar distance from each entire lake geometry to the Canadian polygon boundary after transforming original vertices to EPSG:3978, strictly less than 10000 metres. This corrects the reference's buffered-polygon overlaps operation, which is not distance to a border. Do not replace lake polygons by centroids, silently include every interior Canadian lake, densify or simplify. Explicitly make-valid invalid lake polygons for measurement using linework in the original source CRS, retaining all polygon components; retain original IDs and geometry in the selected output. This is a generalized projected screening approximation, not a surveyed international-boundary calculation. Count original lakes once; all supplied lake/reservoir types count as the inventory. Unknown_count is missing/empty original lake geometry. Source and derived data are internal benchmark only.\n\n\n\nReturn an inspectable selected-feature artifact preserving original attributes, geometry and benchmark_row_id. End with one fenced JSON object: {count:integer,unknown_count:integer,coverage_note:string,selection:{collectionId,itemId,assetKey}}. Map optional. State the boundary interpretation and projected distance limitation.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"North American lakes, CEC 2023 frozen benchmark source\",\n    \"edition\": \"CEC North American Environmental Atlas version 4.0 (2023), original benchmark snapshot; benchmark-only use\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "I found **581** lake/reservoir polygons within 10 km of **Canada’s complete mapped polygon boundary**, including coasts and islands. **Unknown_count is 0.**\n\nThis uses the supplied CEC 2023 lake/reservoir benchmark snapshot and the supplied World Bank/GeoBenchX country polygons, retrieved on **2026-10-07**. The distance is the shortest **planar EPSG:3978** boundary distance, so it is a **projected screening approximation**, not a surveyed or geodesic legal-boundary measurement.\n\n### Limitations\n\n- The result is limited to the supplied frozen CEC lake/reservoir inventory and the supplied harmonized country polygons.\n- Projected planar distance in EPSG:3978 is an approximation and can differ from geodesic or legal boundary measurements.\n- Boundary means the complete mapped polygon boundary of the supplied Canada multipolygon, including coasts and islands, not only the international land boundary.\n- Distances are shortest 2D planar distances in EPSG:3978 after transforming original vertices, so this is a projected screening approximation, not a surveyed or geodesic legal-boundary measurement.\n- The result is limited to the supplied frozen CEC lake/reservoir benchmark inventory and the supplied harmonized country polygons.\n- Frozen benchmark inventory only.\n- Supplied harmonized country polygon only.\n- Projected planar screening in EPSG:3978.\n- Linework make-valid is for measurement only; output geometry remains the original source geometry.",
+  "checks": {
+    "expectedCount": 581,
+    "actualCount": 581,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:08:19.698549Z",
+      "title": "Progress update",
+      "detail": "I’m checking the retained analysis state and the supplied benchmark sources first, then I’ll test the exact border-distance method on a small private slice before I run the full count."
+    },
+    {
+      "at": "2026-10-07T06:08:25.725017Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:33.190079Z",
+      "title": "Progress update",
+      "detail": "I’ve got a clean slate, so I’m inspecting the two supplied benchmark sources next: first the lake and country schemas, then the processor options needed for make-valid, boundary extraction, projection, distance screening, and counting."
+    },
+    {
+      "at": "2026-10-07T06:08:33.196817Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:33.206235Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:38.727192Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:38.975456Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:45.601325Z",
+      "title": "Progress update",
+      "detail": "I found the exact source fields I need: `NAME_EN` on countries and `benchmark_row_id` on both datasets. I’m sampling the supplied rows now to confirm the lake inventory fields and the Canada name value before I choose the processing graph."
+    },
+    {
+      "at": "2026-10-07T06:08:45.615551Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:45.745831Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:04.310912Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:08.312379Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:08.819436Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:19.400470Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:23.396373Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:40.300211Z",
+      "title": "Progress update",
+      "detail": "I found a strong direct method: `vector-nearest-distance` already measures exact polygon-to-polygon-boundary distance in a projected CRS, keeps original lake geometry, and reports unknown geometry separately. I’m pulling the exact trial and proposal syntax now so I can test that method cleanly instead of approximating it with buffers."
+    },
+    {
+      "at": "2026-10-07T06:09:40.494025Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:40.495153Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:01.462929Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:05.754043Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:05.872244Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:05.875888Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:11.049263Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:11.072626Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:11.084287Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:15.468676Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:33.378865Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:33.668956Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:34.137316Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:50.599949Z",
+      "title": "Progress update",
+      "detail": "Expectation before the trial: the Canada filter should produce the supplied Canada polygon, the distance step should keep every lake row and original geometry while adding a projected boundary-distance field, and only lakes with distance `< 10000` should reach the selected output. Missing or empty original lake geometry should stay unselected and be countable as unknowns through null distances."
+    },
+    {
+      "at": "2026-10-07T06:10:57.404084Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:04.120285Z",
+      "title": "Progress update",
+      "detail": "The first trial was blocked by a brief argument issue, not by the data or method: the saved study bbox was recorded as text instead of numeric coordinates. I’m correcting that extent and retrying the same method."
+    },
+    {
+      "at": "2026-10-07T06:11:13.210511Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:16:58.497653Z",
+      "title": "Progress update",
+      "detail": "The trial finished in the background. I’m inspecting the actual Canada filter, distance output, and selected lakes now so I can confirm the method before I save the production result."
+    },
+    {
+      "at": "2026-10-07T06:16:58.801547Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:17:06.155402Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the preliminary counts from the trial. Next I’m checking the actual selected features and the measured distance field so I can verify that original lake rows were preserved and Canada’s full polygon boundary was the target."
+    },
+    {
+      "at": "2026-10-07T06:17:06.173032Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:17:06.177800Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:17:06.183840Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:17:35.643999Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:17:35.914719Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:17:38.467961Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:17:41.152361Z",
+      "title": "Progress update",
+      "detail": "The earlier inspections were still finishing when the turn was interrupted. I’m reopening those exact inspections now and then I’ll save the production workflow from the tested method instead of rebuilding it."
+    },
+    {
+      "at": "2026-10-07T06:18:00.562902Z",
+      "title": "Progress update",
+      "detail": "The method itself looks right so far: one Canada multipolygon, 13,135 lake rows kept through the distance step, and 581 selected rows with unique `benchmark_row_id`s. I’m checking the distance step’s own summary once before I lock the workflow, mainly to see whether it reports any make-valid repairs."
+    },
+    {
+      "at": "2026-10-07T06:18:01.094304Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:18:12.997908Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:18:18.398349Z",
+      "title": "Progress update",
+      "detail": "The trial answered the main method question: it used the exact boundary-distance settings you asked for, repaired 5 invalid lake polygons for measurement only, found 0 unknown geometries, and selected 581 unique original lake rows with distances all below 10 km. I’m recording that trial and saving the production workflow from this tested computation now."
+    },
+    {
+      "at": "2026-10-07T06:18:29.330674Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:18:41.819778Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:18:42.026844Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:18:53.385773Z",
+      "title": "Progress update",
+      "detail": "I’ve got a tested full-area method now, so I’m saving a production draft from that exact computation rather than rebuilding anything. It will deliver the inspectable selected lakes plus the supporting one-row count tables I need for the final answer object."
+    },
+    {
+      "at": "2026-10-07T06:19:07.729743Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:19:17.572974Z",
+      "title": "Progress update",
+      "detail": "The draft was close. Terra flagged one exact wiring choice because the measured distance branch also feeds the unknown-geometry check. I’m correcting that binding to point at the selected-lakes branch, not changing the science."
+    },
+    {
+      "at": "2026-10-07T06:19:28.384526Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:19:33.244726Z",
+      "title": "Progress update",
+      "detail": "The saved workflow is valid and matches the tested computation. I’m running that exact revision now and then I’ll inspect the final selected artifact and one-row counts before I record the answer."
+    },
+    {
+      "at": "2026-10-07T06:19:33.614573Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:39.425388Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:40.003385Z",
+      "title": "Progress update",
+      "detail": "The final saved workflow finished in the background. I’m inspecting its three delivered outputs now so I can bind the selected artifact and the final one-row counts to the answer object."
+    },
+    {
+      "at": "2026-10-07T06:26:24.778576Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:25.024323Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:25.776672Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:25.930856Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:20.826054Z",
+      "title": "Progress update",
+      "detail": "The last inspections were still finishing when the turn was interrupted. I’m reopening the exact final previews now, then I’ll record the final answer object from the completed outputs and their counts."
+    },
+    {
+      "at": "2026-10-07T06:28:21.276914Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:21.310881Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:24.549438Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:25.712314Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:40.519982Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:50.804054Z",
+      "title": "Progress update",
+      "detail": "I have the final selected artifact and both final count tables. I’m pulling one last compact receipt from the final distance step so the final assessment cites the actual EPSG:3978 boundary-distance settings and repair count from the completed run, not just the trial."
+    },
+    {
+      "at": "2026-10-07T06:29:17.199502Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the final selected artifact, the final one-row count tables, and the final distance-summary settings from the completed run. I’m recording the accepted result now with the explicit selected artifact identity the app asked for."
+    },
+    {
+      "at": "2026-10-07T06:29:25.865675Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Filter Canada",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Country boundaries benchmark",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Lakes within 10 km of Canada's full mapped boundary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected lake count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown geometry count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Measure lake distance to Canada boundary",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "CEC lakes benchmark",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Select lakes within 10 km",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Count selected lakes",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Count unknown rows",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Select unknown geometry rows",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Filter Canada",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Country boundaries benchmark",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Measure lake distance to Canada boundary",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "CEC lakes benchmark",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Select lakes within 10 km",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Count selected lakes",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Count selected lakes",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Count unknown rows",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Count unknown rows",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Select unknown geometry rows",
+      "description": "Recorded vector-filter · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T06:11:30.642410+00:00"
+    },
+    {
+      "sha256": "acdb56a19ddd4d7aafdd839def6379dbdeec2eb62e4c6c8859cb2b7fa2c6ad97",
+      "bytes": 115787112,
+      "finishedAt": "2026-10-07T06:11:30.642410+00:00"
+    },
+    {
+      "sha256": "6150cbf746a3d8daa9c15d750ac07e1d0f8671a861690f1f1a280ad1855f942e",
+      "bytes": 1114802,
+      "finishedAt": "2026-10-07T06:11:38.787873+00:00"
+    },
+    {
+      "sha256": "ccc9a9d59d1396ab84bd937b477f23b5b588ec32abba32a0af45080bded41c01",
+      "bytes": 118952683,
+      "finishedAt": "2026-10-07T06:13:47.387122+00:00"
+    },
+    {
+      "sha256": "0a25a10a9f138532da0c53058196d44e43b1522fcb90590e7bb50bcdad06473a",
+      "bytes": 22141392,
+      "finishedAt": "2026-10-07T06:14:48.601777+00:00"
+    },
+    {
+      "sha256": "2f5a0230e8d72b5242c07d56cdaa96455c1012c6ab5c0e728ca3bb5af674fae6",
+      "bytes": 10821,
+      "finishedAt": "2026-10-07T06:14:48.601777+00:00"
+    },
+    {
+      "sha256": "bff3e4e1a0a2507c285de0d4b0cad2ecf753bcf1ec7196a0abe4cd9a637d5abf",
+      "bytes": 1218,
+      "finishedAt": "2026-10-07T06:16:06.036820+00:00"
+    },
+    {
+      "sha256": "450b660a7abfeb19f3aea310f6f0625ddb64d1c3072d3d5490551651d837d1ef",
+      "bytes": 1282,
+      "finishedAt": "2026-10-07T06:16:12.351737+00:00"
+    },
+    {
+      "sha256": "6150cbf746a3d8daa9c15d750ac07e1d0f8671a861690f1f1a280ad1855f942e",
+      "bytes": 1114802,
+      "finishedAt": "2026-10-07T06:20:37.981258+00:00"
+    },
+    {
+      "sha256": "ccc9a9d59d1396ab84bd937b477f23b5b588ec32abba32a0af45080bded41c01",
+      "bytes": 118952683,
+      "finishedAt": "2026-10-07T06:22:23.224267+00:00"
+    },
+    {
+      "sha256": "0a25a10a9f138532da0c53058196d44e43b1522fcb90590e7bb50bcdad06473a",
+      "bytes": 22141392,
+      "finishedAt": "2026-10-07T06:23:44.663739+00:00"
+    },
+    {
+      "sha256": "2f5a0230e8d72b5242c07d56cdaa96455c1012c6ab5c0e728ca3bb5af674fae6",
+      "bytes": 10821,
+      "finishedAt": "2026-10-07T06:24:08.467715+00:00"
+    },
+    {
+      "sha256": "bff3e4e1a0a2507c285de0d4b0cad2ecf753bcf1ec7196a0abe4cd9a637d5abf",
+      "bytes": 1218,
+      "finishedAt": "2026-10-07T06:25:00.555373+00:00"
+    },
+    {
+      "sha256": "450b660a7abfeb19f3aea310f6f0625ddb64d1c3072d3d5490551651d837d1ef",
+      "bytes": 1282,
+      "finishedAt": "2026-10-07T06:25:15.996721+00:00"
+    }
+  ],
+  "snapshotSha256": "2aec848f0ca0d98f8fe8c02e5ab14e3ce0974c78ce11729db81e1eca71d7bb65",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:10:57.404084Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does a full-inventory workflow using NAME_EN='Canada', targetGeometry='boundary', EPSG:3978 distance, and onInvalidSource='make-valid' produce the requested near-border lake selection without centroid or buffer shortcuts?"
+    },
+    {
+      "at": "2026-10-07T06:18:12.997908Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The trial used the supplied country polygon filtered to NAME_EN exactly Canada and produced one valid Canada MultiPolygon with 410 parts, matching the requested full mapped polygon including coasts and islands. The vector-nearest-distance summary confirms boundary mode, distanceCrs EPSG:3978, onInvalidSource make-valid, onInvalidTargets error, targetCount 1, sourceCount 13135, measuredSourceCount 13135, unknownSourceCount 0, and repairedSourceCount 5. The distance result preserved 13,135 lake rows and original lake fields plus dist_canada_boundary_m in metres. Filtering dist_canada_boundary_m < 10000 produced 581 selected rows. The selected artifact has 581 distinct benchmark_row_id values, so the selected original lakes are counted once each. The selected distances range from 0.0 to 9999.358033808905 metres, which matches the strict less-than threshold.",
+      "limitations": [
+        "The measurement is a projected planar screen in EPSG:3978, not a surveyed or geodesic legal-boundary calculation.",
+        "The trial confirms the supplied benchmark inputs and this exact computation; it does not establish anything beyond those sources."
+      ],
+      "next_action": "Save a workflow from this tested full-inventory computation, execute it as the final production result, inspect the final deliverables, and assess the requested answer object.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:29:25.865675Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The completed final workflow selected 581 original lake and reservoir polygons whose shortest planar distance to the boundary of the single supplied Canada multipolygon is strictly less than 10,000 metres. The selected artifact preserves original source geometry, original source attributes, and benchmark_row_id, and includes dist_canada_boundary_m for inspection. The completed final count table reports 581 selected lakes, and the completed final unknown-count table reports 0 rows with missing or empty original geometry. The completed final distance summary confirms EPSG:3978, boundary-mode distance, linework make-valid for invalid lake measurement only, and 5 repaired source geometries.",
+      "limitations": [
+        "Boundary means the complete mapped polygon boundary of the supplied Canada multipolygon, including coasts and islands, not only the international land boundary.",
+        "Distances are shortest 2D planar distances in EPSG:3978 after transforming original vertices, so this is a projected screening approximation, not a surveyed or geodesic legal-boundary measurement.",
+        "The result is limited to the supplied frozen CEC lake/reservoir benchmark inventory and the supplied harmonized country polygons."
+      ],
+      "next_action": "Inspect or reuse the selected artifact for benchmark review if you want the individual lake polygons and measured distances.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "5e6ca2fd703e7ef4ef9948072ee4af5ee7cddb7524516bb1d08a2c4748e9b21e",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

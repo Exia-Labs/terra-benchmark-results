@@ -1,0 +1,454 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "169833",
+  "question": "Show water withdrawal patterns in Himalayan nations.\n",
+  "submittedPrompt": "Show water withdrawal patterns in Himalayan nations.\n\n\nTask conventions: Use the frozen country polygons and World Bank ER.H2O.FWTL.K3 2021 column, in billion m³ per year. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature in the declared geography and its benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. Geography is fixed to original country features with NAME_EN in [\"Nepal\", \"Bhutan\", \"India\", \"China\", \"Pakistan\"]; retain all matching source geometries, and no others. Classification is calculated only over this geography. Membership reflects this disclosed benchmark edition, not current organization membership.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank ER.H2O.FWTL.K3\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2021\",\n    \"units\": {\n      \"2021\": \"billion m\\u00b3 per year\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the layer is on your map.\n\nIt shows 2021 annual freshwater withdrawals for the 5 benchmark country features: Bhutan 0.3379, Nepal 9.4971, Pakistan 264.19, China 568.48, and India 647.5 billion m³ per year. The legend uses 5 quantile classes with breaks at 7.66526, 162.31284, 385.906, and 584.284 billion m³ per year; values on a break go into the higher class. All 5 selected countries have known 2021 values, so the No data category is available but not used here.\n\nKey limits: this is a frozen 2021 country-level indicator, not a subnational withdrawal surface or a new Himalayan regional total, and it follows the supplied GeoBenchX benchmark country rows exactly.\n\nSources: World Bank country boundaries benchmark fixture (Terra-hosted, GeoBenchX harmonized names, retrieved 2026-10-07) and World Bank ER.H2O.FWTL.K3 benchmark fixture (Terra-hosted frozen World Development Indicators snapshot for 2021, retrieved 2026-10-07).\n\n### Limitations\n\n- This is a country-level national indicator, not a subnational withdrawal surface or a new Himalayan regional aggregation.\n- The result is fixed to the supplied GeoBenchX boundary edition and the frozen World Bank ER.H2O.FWTL.K3 2021 snapshot.\n- This is a country-level national indicator map, not a subnational withdrawal surface or a new Himalayan regional aggregation.\n- All 5 selected country features have known 2021 values here, so the neutral No data category is defined but unused in this geography.\n- Membership is fixed to the supplied GeoBenchX boundary edition and its original source rows.\n- This is a country-level 2021 national indicator, not a within-country surface.\n- This geography has five known values, so the neutral No data category is defined by the method but unused in this subset.",
+  "checks": {
+    "expectedCount": 5,
+    "actualCount": 5,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:09:21.517114Z",
+      "title": "Progress update",
+      "detail": "I’ll build this from the supplied frozen country boundaries and the frozen 2021 World Bank withdrawal table, test the exact join and classing, then save and run the map workflow. The main limitation is that unmatched country codes and missing 2021 values must stay unknown, so I’ll verify that explicitly before I publish the layer."
+    },
+    {
+      "at": "2026-10-07T06:09:33.638229Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:33.663179Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:33.799585Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:33.864363Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:36.572415Z",
+      "title": "Progress update",
+      "detail": "I’ve got the Terra analysis tools. Next I’m checking the supplied datasets and the available join/classify/display processors so I can test the exact country-code match and the required legend behavior before I save the full workflow."
+    },
+    {
+      "at": "2026-10-07T06:09:36.585276Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:45.796650Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:46.828429Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:46.835804Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:02.350778Z",
+      "title": "Progress update",
+      "detail": "I found the right processors: one to keep only the benchmark country rows, one to do the exact ISO_A3 ↔ Country Code left join, and one that already supports the required quantile choropleth with a real legend and a distinct No data class. I’m now pulling the exact trial and proposal schemas so I can test the method cleanly instead of guessing node wiring."
+    },
+    {
+      "at": "2026-10-07T06:10:02.361895Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:02.384401Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:03.939449Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:03.945351Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:04.074149Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:04.923783Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:45.878150Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:51.128500Z",
+      "title": "Progress update",
+      "detail": "I’ve recorded the fixed goal and checks. Now I’m running one bounded private test over the supplied benchmark inputs to confirm three things at once: the exact country-row selection, the ISO_A3 ↔ Country Code left join, and the final quantile class output with No data handling."
+    },
+    {
+      "at": "2026-10-07T06:10:57.033288Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:12:36.125836Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:12:36.414419Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:12:46.422588Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:13:20.482162Z",
+      "title": "Progress update",
+      "detail": "The test already covered the full requested geography, so I’m reusing it as the basis for the production workflow instead of rebuilding it. I still need one more inspection pass to capture the exact country values, class assignments, and the published legend details before I add the final layer to the map."
+    },
+    {
+      "at": "2026-10-07T06:13:20.688860Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:13:20.703365Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:13:20.745304Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:13:22.726639Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:13:22.828103Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:13:46.861397Z",
+      "title": "Progress update",
+      "detail": "The trial answered the method question: the benchmark filter kept 5 original country features, the exact ISO_A3 ↔ Country Code left join matched all 5, and the classified output preserved the required fields. I’m recording that evidence, then I’ll save the production workflow from this tested computation instead of recomputing it from scratch."
+    },
+    {
+      "at": "2026-10-07T06:13:49.012110Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:13:58.069038Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:13:58.386064Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:13:58.983505Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:14:05.317547Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:14:28.883681Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the exact country set, the join, and the values. I’m refreshing the brief now so the saved workflow and final handoff keep only the real remaining limits: this is a frozen 2021 country-level indicator map, not a subnational analysis."
+    },
+    {
+      "at": "2026-10-07T06:14:34.692366Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:14:45.808521Z",
+      "title": "Progress update",
+      "detail": "The method is tested end to end, so I’m saving that exact computation as the final workflow now. The practical result should be one inspectable country layer for the five benchmark features, with the frozen 2021 value and class carried through to the final artifact and map."
+    },
+    {
+      "at": "2026-10-07T06:14:57.866813Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:15:08.754120Z",
+      "title": "Progress update",
+      "detail": "I found one drafting issue, not a data problem: the saved contract scope must match the tested workflow scope exactly. I’m correcting that now and keeping the same tested computation, join, and classing."
+    },
+    {
+      "at": "2026-10-07T06:15:18.183753Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:15:33.101151Z",
+      "title": "Progress update",
+      "detail": "The saved workflow is ready and it reuses the tested computation exactly. I’m launching that final run now; after it finishes I’ll inspect the delivered artifact, confirm the layer binding on the map, and then lock in the requested answer object."
+    },
+    {
+      "at": "2026-10-07T06:15:33.134799Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:19:56.493572Z",
+      "title": "Progress update",
+      "detail": "The final run finished in the background. I’m inspecting its exact output receipts now so I can bind the delivered artifact to the map, verify the final values and classes, and record the answer object against the correct final item."
+    },
+    {
+      "at": "2026-10-07T06:19:56.532186Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:19:56.541635Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:19:56.554168Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:30.629709Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:30.649535Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:30.693817Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:21:33.400341Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:21:33.960353Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:21:34.568277Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:22:31.720420Z",
+      "title": "Progress update",
+      "detail": "I’m only missing the final preview receipt now. That gives me the last current inspection I need before I record the result as complete."
+    },
+    {
+      "at": "2026-10-07T06:22:32.716117Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:23:03.081916Z",
+      "title": "Progress update",
+      "detail": "I’ve got the final artifact, the class summary, and the live layer ID. I’m recording the accepted result now with the exact published item selection and the requested answer fields."
+    },
+    {
+      "at": "2026-10-07T06:23:13.473176Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Quantile choropleth classes",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "2021 freshwater withdrawals in Himalayan nations",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Keep named benchmark countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join frozen 2021 withdrawal values",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Supplied World Bank withdrawal table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Quantile choropleth classes",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Keep named benchmark countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join frozen 2021 withdrawal values",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Keep named benchmark countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join frozen 2021 withdrawal values",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Quantile choropleth classes",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied World Bank withdrawal table",
+      "description": "Recorded source · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T06:11:03.829858+00:00"
+    },
+    {
+      "sha256": "59dc8930c3d22c86063ce406aa166847b4233fee91708aad1ba292db4d831ef7",
+      "bytes": 101111,
+      "finishedAt": "2026-10-07T06:11:03.829858+00:00"
+    },
+    {
+      "sha256": "1091f31af6ba6f61af03aaddc01a27a15ccfb578dee54d179691f0757967015f",
+      "bytes": 438845,
+      "finishedAt": "2026-10-07T06:11:17.923038+00:00"
+    },
+    {
+      "sha256": "11555169a14177e83e674973ab1d88455e70b2e8052c4a442244e822fae77242",
+      "bytes": 442024,
+      "finishedAt": "2026-10-07T06:11:24.911798+00:00"
+    },
+    {
+      "sha256": "a74cdbf6903f9f1876d7cb909c67258b3cb934b0c8c7e91828193a34d32fdbb0",
+      "bytes": 442643,
+      "finishedAt": "2026-10-07T06:11:36.235420+00:00"
+    },
+    {
+      "sha256": "1091f31af6ba6f61af03aaddc01a27a15ccfb578dee54d179691f0757967015f",
+      "bytes": 438845,
+      "finishedAt": "2026-10-07T06:17:30.126749+00:00"
+    },
+    {
+      "sha256": "11555169a14177e83e674973ab1d88455e70b2e8052c4a442244e822fae77242",
+      "bytes": 442024,
+      "finishedAt": "2026-10-07T06:18:39.565780+00:00"
+    },
+    {
+      "sha256": "a74cdbf6903f9f1876d7cb909c67258b3cb934b0c8c7e91828193a34d32fdbb0",
+      "bytes": 442643,
+      "finishedAt": "2026-10-07T06:19:32.871337+00:00"
+    }
+  ],
+  "snapshotSha256": "1016fcb0409383ba9783ecd11bd3817f04888b1cb739d6902bf6edf2c8181970",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:10:57.033288Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full-scope workflow keep exactly the benchmark country rows for Nepal, Bhutan, India, China, and Pakistan, join the frozen 2021 World Bank withdrawal values by exact ISO_A3 to Country Code, and produce the required quantile choropleth classes with a distinct No data category?"
+    },
+    {
+      "at": "2026-10-07T06:13:49.012110Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The tested computation kept exactly 5 benchmark country features whose NAME_EN values are Bhutan, Nepal, Pakistan, China, and India. The left join from boundary ISO_A3 to table Country Code matched all 5 filtered features with no unmatched inputs and preserved all rows. The joined 2021 values are 0.3379 for Bhutan, 9.4971 for Nepal, 264.19 for Pakistan, 568.48 for China, and 647.5 for India, all in billion m³ per year. The classifier produced a five-class quantitative choropleth over this fixed geography with output field withdrawal_class and no No data rows in this subset.",
+      "limitations": [
+        "This is a country-level national indicator only, not a subnational withdrawal surface or a new regional aggregate.",
+        "The tested subset contains no unmatched or missing 2021 rows, so the neutral No data category remains part of the method but is not populated in this geography."
+      ],
+      "next_action": "Save the exact tested computation as the production workflow, run it as the final deliverable, inspect the final artifact and legend-bearing map output, then add the resulting layer to the map.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:23:13.473176Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The final workflow produced the requested benchmark country choropleth and added it to the current map as layer [resource id withheld]. The delivered artifact contains 5 country features and preserves benchmark_row_id, geometry, the joined 2021 value field, and withdrawal_class. All 5 selected benchmark rows matched exactly by ISO_A3 to Country Code and have known 2021 values: Bhutan 0.3379 (class 1), Nepal 9.4971 (class 2), Pakistan 264.19 (class 3), China 568.48 (class 4), and India 647.5 (class 5). The classifier summary reports unit billion m³ per year, quantile breaks [7.66526, 162.31284, 385.906, 584.284], requestedClasses 5, classCount 5, classCounts of one feature in each class, missingCount 0, and boundaryConvention 'lower inclusive, upper exclusive; 0 denotes missing data'.",
+      "limitations": [
+        "This is a country-level national indicator map, not a subnational withdrawal surface or a new Himalayan regional aggregation.",
+        "The result is fixed to the supplied GeoBenchX boundary edition and the frozen World Bank ER.H2O.FWTL.K3 2021 snapshot.",
+        "All 5 selected country features have known 2021 values here, so the neutral No data category is defined but unused in this geography."
+      ],
+      "next_action": "Review the added layer on the current map; request a separate comparison if you want another year or a different benchmark geography.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "17ff9a9314b243024a77d4d96ea692fab8cfcb0aa23b5128602f25208b1fe366",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

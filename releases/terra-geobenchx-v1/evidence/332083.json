@@ -1,0 +1,416 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "332083",
+  "question": "How many mineral extraction facilities in Algeria are located within areas with population density over 1000 people per square km?",
+  "submittedPrompt": "How many mineral extraction facilities in Algeria are located within areas with population density over 1000 people per square km?\n\nTask conventions: Use the supplied facilities' Country=Algeria classification and the frozen WorldPop 2020 UN-adjusted population density raster, measured in people per square kilometre. The threshold is strictly greater than 1000. Sample the pixel containing each point; zero is valid and NoData or outside coverage is unknown. Count original facility records once using benchmark_row_id, not repeated business IDs. Separately report the number of Algeria facility records with unknown density.\n\n\n\nCompute the answer using only the supplied immutable fixtures. Save the selected features with their benchmark_row_id and original geometry as an inspectable data artifact. In your accepted final answer include one JSON code block with count (integer), unknown_count (integer), coverage_note (string), and selection (an object with collectionId, itemId, assetKey for that artifact). Maps are optional. Do not request clarification: the task conventions are fixed. Do not use live substitutes, shrink the study question, or use external benchmark answers.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"African mineral extraction facilities\",\n    \"edition\": \"USGS 2021 benchmark snapshot\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Algeria population density, WorldPop 2020\",\n    \"edition\": \"2020 UN-adjusted; 1 km grid\",\n    \"units\": {\n      \"band1\": \"people/km\\u00b2\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Using the supplied USGS 2021 facilities fixture and supplied WorldPop 2020 Algeria density raster, **53** Algeria facility records fall in pixels with population density **over 1,000 people/km²**. **1** Algeria facility record has **unknown** density because its sampled raster value is null, and the 53 selected records were saved in the attached inspectable selection artifact.\n\n### Limitations\n\n- Country membership follows the supplied facility fixture classification.\n- One Algeria facility record has unknown density because the sampled raster value is null in the supplied WorldPop raster (NoData or outside raster coverage).",
+  "checks": {
+    "expectedCount": 53,
+    "actualCount": 53,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:36:32.297621Z",
+      "title": "Progress update",
+      "detail": "I’ll check the two supplied fixtures, confirm the facility fields and raster coverage, then run a small private computation that filters Algeria facilities, samples the WorldPop 2020 pixel at each point, and saves the selected records as an inspectable artifact."
+    },
+    {
+      "at": "2026-10-07T06:36:50.540426Z",
+      "title": "Progress update",
+      "detail": "I found the Terra analysis tools. Next I’m reading the two supplied fixtures so I can use their exact field names and item selections, then I’ll choose the smallest sampling workflow that preserves original Algeria facility records."
+    },
+    {
+      "at": "2026-10-07T06:36:50.579240Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:50.587274Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:51.452717Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:00.323703Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:00.380857Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:01.639541Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:37:01.702831Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:37:07.495266Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:08.024087Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:08.138132Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:10.868499Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:22.324746Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:22.385959Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:23.937974Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:23.943997Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the fixtures and the needed field names. The key remaining method choice is how to sample the exact containing pixel and then count selected versus unknown records without changing the original point rows. I’m reading the exact processor schemas before I test that path."
+    },
+    {
+      "at": "2026-10-07T06:37:24.310490Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:30.285289Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:30.337718Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:13.945233Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:14.074974Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:16.696724Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:37.877023Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:50.601060Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:04.755041Z",
+      "title": "Progress update",
+      "detail": "The sampling trial finished successfully. It showed 139 Algeria facility records, preserved benchmark_row_id and geometry, and wrote the sampled raster value into a field named `density` with 1 null record for unknown coverage. I’m now turning that tested path into the final saved workflow that outputs the over-threshold selection artifact and a separate unknown selection for counting."
+    },
+    {
+      "at": "2026-10-07T06:41:05.672312Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:14.954355Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:24.533549Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:28.895870Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:55.096152Z",
+      "title": "Progress update",
+      "detail": "The trial answered the key uncertainty, so I’ve updated the method: use the sampled `density` field directly, treat null as unknown, and save three outputs from the final run — the full sampled Algeria set for verification, the strict `density > 1000` selection, and the unknown-density selection. Then I’ll inspect those outputs and record the final count."
+    },
+    {
+      "at": "2026-10-07T06:41:58.132032Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:06.762544Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:39.379850Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:52.870269Z",
+      "title": "Progress update",
+      "detail": "The final workflow is saved and validated. It reuses the tested Algeria filter and sampling steps, then adds only the two untested but simple final filters: `density > 1000` and `density is null`. I’m executing that exact workflow now and will inspect the three saved outputs before I give the count."
+    },
+    {
+      "at": "2026-10-07T06:43:00.013756Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:29.352973Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:31.185528Z",
+      "title": "Progress update",
+      "detail": "The run finished in the background while the turn was interrupted. I’m inspecting the saved outputs now to verify the exact counts, confirm benchmark_row_id is preserved on the selected records, and then I’ll record the final answer object against those inspected artifacts."
+    },
+    {
+      "at": "2026-10-07T06:47:01.942894Z",
+      "title": "Progress update",
+      "detail": "I have the exact output counts from the completed run: 53 over the threshold and 1 unknown. I’m doing one bounded inspection of the selected and unknown artifacts now so the final assessment cites the saved artifact identity and confirms benchmark_row_id is present with the original point geometry."
+    },
+    {
+      "at": "2026-10-07T06:47:02.003882Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:47:02.021004Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:47:02.688542Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:47:23.924336Z",
+      "title": "Progress update",
+      "detail": "The run results are already in hand. I’m refreshing the bounded artifact inspections now so the final assessment cites the inspected selection and supporting outputs directly, then I’ll record the accepted result."
+    },
+    {
+      "at": "2026-10-07T06:47:23.952597Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:47:23.964928Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:47:24.567573Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:47:38.026045Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the bounded inspections. They confirm the saved over-threshold artifact has 53 records with unique benchmark_row_id values and point geometry, the unknown artifact has 1 null-density record, and the full sampled Algeria artifact has 139 records with 1 null density. I’m updating the brief notes and recording the accepted final result now."
+    },
+    {
+      "at": "2026-10-07T06:47:42.241435Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:48:18.989715Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Algeria facilities",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Algeria facilities with sampled population density",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Algeria facilities with unknown sampled density",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Algeria facilities over 1000 people per square kilometre",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied density raster",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied facilities",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Over-threshold facilities",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Sample density",
+      "description": "Recorded raster-sample · succeeded"
+    },
+    {
+      "title": "Unknown-density facilities",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Algeria facilities",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Supplied density raster",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied facilities",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Sample density",
+      "description": "Recorded raster-sample · succeeded"
+    },
+    {
+      "title": "Algeria facilities",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Sample density",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "96b6621e69226f5b52ed62b3cdc8365b78f82a53608d3132ee491bcf3c205454",
+      "bytes": 13005103,
+      "finishedAt": "2026-10-07T06:39:17.447213+00:00"
+    },
+    {
+      "sha256": "a5818522a2c966354fb044df972b1793a62ae6d4de4955ff7948a953555fae94",
+      "bytes": 290677,
+      "finishedAt": "2026-10-07T06:39:17.447213+00:00"
+    },
+    {
+      "sha256": "3a5e8025429636a35a57602399c73cf7cf5b318363bba40c4d021c34a7116d20",
+      "bytes": 49480,
+      "finishedAt": "2026-10-07T06:39:37.774804+00:00"
+    },
+    {
+      "sha256": "382d679eb5e6bc708e213cc5427736b004e896448057683722b8de3d0125f2e3",
+      "bytes": 50946,
+      "finishedAt": "2026-10-07T06:40:00.898196+00:00"
+    },
+    {
+      "sha256": "3a5e8025429636a35a57602399c73cf7cf5b318363bba40c4d021c34a7116d20",
+      "bytes": 49480,
+      "finishedAt": "2026-10-07T06:43:56.695391+00:00"
+    },
+    {
+      "sha256": "382d679eb5e6bc708e213cc5427736b004e896448057683722b8de3d0125f2e3",
+      "bytes": 50946,
+      "finishedAt": "2026-10-07T06:45:11.176460+00:00"
+    },
+    {
+      "sha256": "1c06738019a702a264eaf5ade6b9351d2c2ee502a9e528482d1757c53fc98dfc",
+      "bytes": 35908,
+      "finishedAt": "2026-10-07T06:46:05.045470+00:00"
+    },
+    {
+      "sha256": "68bf3c13e3186ce6f48e88625558ce9c06be02423689bfecd199f1d5f5eeb2aa",
+      "bytes": 28847,
+      "finishedAt": "2026-10-07T06:46:11.639660+00:00"
+    }
+  ],
+  "snapshotSha256": "1091a29e1652c203e17a2bb4b95f1886a36bf3a818701b8707a28f96c38a8530",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:38:50.601060Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does filtering Country='Algeria' and sampling the supplied WorldPop 2020 density raster preserve the original facility rows and add a usable sampled density field with null for unknown coverage?"
+    },
+    {
+      "at": "2026-10-07T06:41:14.954355Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The trial preserved 139 original Algeria facility point records with benchmark_row_id and geometry, then added one sampled raster field named density. The sampled output still had 139 rows and the density field had 1 null value, which matches the required unknown handling for NoData or outside raster coverage rather than treating unknown as zero.",
+      "limitations": [
+        "This trial confirmed the sampling field name and null handling, but it did not yet materialize the final over-threshold selection artifact or separate unknown-count output."
+      ],
+      "next_action": "Save and run the final workflow that filters the sampled Algeria facilities into density > 1000 and density is-null outputs, then inspect those final artifacts for the reported counts.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:48:18.989715Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "Using the supplied Benchmark fixture · African mineral extraction facilities (Terra-hosted immutable USGS 2021 benchmark snapshot; metadata read 2026-10-07T06:00:15Z) and Benchmark fixture · Algeria population density, WorldPop 2020 (Terra-hosted immutable WorldPop/CIESIN 2020 UN-adjusted 1 km raster; metadata read 2026-10-07T06:00:17Z), the inspected final workflow sampled 139 Algeria facility records, found 53 original records with sampled density strictly greater than 1000 people per square kilometre, and found 1 Algeria record with unknown density because the sampled raster value is null. The saved final selection artifact contains the 53 over-threshold original facility records with benchmark_row_id and point geometry.",
+      "limitations": [
+        "Country membership follows the supplied facility fixture classification.",
+        "One Algeria facility record has unknown density because the sampled raster value is null in the supplied WorldPop raster (NoData or outside raster coverage)."
+      ],
+      "next_action": "Open the saved selection artifact to inspect the 53 selected benchmark_row_id records if needed.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "f61ca8934a3ec14a52521e81fa2f7e1a3d8ccb827084ae1733be0c7e1149786c",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

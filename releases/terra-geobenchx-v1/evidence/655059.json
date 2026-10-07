@@ -1,0 +1,636 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "655059",
+  "question": "Generate contour lines from Peru's population data and overlap with provincial borders and rivers in the country.",
+  "submittedPrompt": "Generate contour lines from Peru's population data and overlap with provincial borders and rivers in the country.\n\nTask conventions: Use band 1 of the frozen peru_population raster at the original grid without resampling, smoothing or clipping. Draw the explicit contour levels [100, 500, 1000, 5000, 10000] in people per cell. These levels are a disclosed evaluation convention, not a requested interval. Use piecewise-linear marching-squares isolines through pixel-center values, low-valued connectivity at ambiguous saddles. Respect the native mask, NoData and nonfinite cells; do not bridge holes or extrapolate at the outside edge. Apply any source scale and offset. NoData means unknown, never zero. Preserve source coverage; levels outside the observed range may have no line. Do not substitute a current raster. Count nonempty requested contour LEVELS, not polyline fragments. The population-count raster, where supplied, is people per original cell; do not label it population density. Overlay the supplied sa_rivers original geometries on the same map. Retain original overlay features matching predicate within against each original peru_provinces polygon; duplicated matches count once. Do not clip the line geometries. Do not dissolve the province polygons: within an individual province differs from within their union. This is a visual spatial comparison; no invented causal correlation or extra buffer is requested.  Also add all original Peru ADM2 province polygons as a separate visible boundary layer, not ADM1 regions. Values are 2018 people per original cell; this question does not request conversion to density. FAO-derived outputs are internal research only, not promotional publication.\n\n\n\nDeliver an inspectable vector contour artifact and add it to the map with a level/units legend. End with one fenced JSON object containing: count (number of nonempty requested levels), unknown_count (number of masked or nonfinite source pixels), coverage_note, selection: {collectionId,itemId,assetKey}, level_field, feature_count (actual contour feature rows), map_layer_id. Also include overlay: {selection: {collectionId,itemId,assetKey}, map_layer_id, count}, retaining original benchmark_row_id. Explain the source season/year, units, missing coverage, and visual relationship where an overlay is requested. Include context_layers: [{name:asset_name, selection:{collectionId,itemId,assetKey}, map_layer_id, count}] in the same final JSON.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Peru population count, WorldPop 2018\",\n    \"edition\": \"2018 UN-adjusted population counts, aggregated to 1 km cells\",\n    \"units\": {\n      \"band1\": \"people per cell\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"FAO AQUAmaps South American river segments\",\n    \"edition\": \"Frozen regional HydroSHEDS-derived rivers_samerica_37330; internal research only, no promotional sharing\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Peru province boundaries (ADM2)\",\n    \"edition\": \"IGN / OCHA COD-AB frozen 2020-07-14 release, 196 provinces\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the contour lines, river overlay, and Peru ADM2 boundaries are on your map. The contours use the supplied 2018 WorldPop band 1 values in people per cell; all 5 requested levels are present, but 1,814,410 masked cells remain unknown and contour feature counts are line fragments, not connected isolines. Visually, the retained rivers spread broadly across the eastern Amazon provinces while contour fragments cluster around localized populated corridors and urban areas; this is only a visual comparison, and the FAO river layer is internal research only. Next step: inspect the three layers together, or ask me for a province-by-province summary.\n\n### Limitations\n\n- Contour feature rows count line fragments, not connected isolines.\n- Masked or nonfinite raster cells remain unknown coverage and produce no contours.\n- The joined river overlay retains the original river benchmark identifier as benchmark_row_id_target because both joined inputs carried benchmark_row_id.\n- The FAO/HydroSHEDS-derived river overlay is for internal research use only, not promotional publication.\n- Contour feature_count counts line fragments, not connected isolines.\n- 1814410 masked source cells remain unknown coverage and produce no contours.\n- The river overlay preserves the original river benchmark ID under benchmark_row_id_target because both joined inputs contained benchmark_row_id.\n- The overlay supports visual comparison only and does not establish causal relation between rivers and population contours.",
+  "checks": {
+    "expectedCount": 5,
+    "actualCount": 5,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": false,
+    "answerFulfilled": false,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": [
+      "Contour map is missing a required context layer."
+    ]
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:28:25.168682Z",
+      "title": "Progress update",
+      "detail": "I’m checking the supplied Peru sources and the available processors first, then I’ll run a small private test to confirm the contour method matches your rules before I save and run the production workflow."
+    },
+    {
+      "at": "2026-10-07T07:28:52.630220Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:52.926009Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:53.312385Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:53.324487Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:53.981655Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:08.354953Z",
+      "title": "Progress update",
+      "detail": "I found the frozen Peru sources and their bounds. Next I’m checking the raster/value range and the vector schemas so I can match your contour levels, the province boundary layer, and the river selection rule exactly."
+    },
+    {
+      "at": "2026-10-07T07:29:08.374230Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:29:08.379116Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:29:08.384323Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:29:08.389750Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:29:19.872774Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:20.036762Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:20.557080Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:21.391583Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:33.834817Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:33.910251Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:50.527619Z",
+      "title": "Progress update",
+      "detail": "I found the exact contour processor the platform exposes, and it already matches your rules: explicit levels, linear interpolation between pixel centers, low-valued saddle connectivity, source scale/offset, and no extrapolation across holes or edges. I’m now checking the join schema so I can keep original river geometries and avoid duplicate matches."
+    },
+    {
+      "at": "2026-10-07T07:29:50.718008Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:50.741304Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:30:18.252980Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:30:18.644376Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:13.869146Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:15.746847Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:42.123185Z",
+      "title": "Progress update",
+      "detail": "I have enough processor detail to test the exact method end to end. I’m running one private full-scope trial now: raster statistics for unknown cells and range, the contour extraction at your five fixed levels, the within-province river selection, and small count tables for contours, rivers, and provinces."
+    },
+    {
+      "at": "2026-10-07T07:31:48.746064Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:59.463713Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:02.067804Z",
+      "title": "Progress update",
+      "detail": "The private test finished successfully. I’m reading its preview now to confirm the spatial pattern before I save the production workflow from this tested method."
+    },
+    {
+      "at": "2026-10-07T07:36:22.107948Z",
+      "title": "Progress update",
+      "detail": "The method is now tested at full Peru extent. I’m recording that judgment, then I’ll save the production draft from this exact computation so I can run the final map outputs and bind them to the map."
+    },
+    {
+      "at": "2026-10-07T07:36:22.350548Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:23.944730Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:29.838502Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the tested method and the key counts. Next I’m validating the saved workflow shape so the final run uses these exact sources and outputs, not a reconstructed variant."
+    },
+    {
+      "at": "2026-10-07T07:36:29.933344Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:30.004832Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:30.022058Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:30.043683Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:43.287827Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:43.568556Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:44.983643Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:33.601380Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:43.935845Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:26.019948Z",
+      "title": "Progress update",
+      "detail": "The saved workflow finished. I’m inspecting the final outputs and the current map bindings now so I can attach the exact result selections, counts, and layer IDs to the final assessment."
+    },
+    {
+      "at": "2026-10-07T07:40:26.064780Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:26.081134Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:26.092811Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:14.578547Z",
+      "title": "Progress update",
+      "detail": "I have the final output IDs and live layer bindings. I’m doing one bounded inspection pass now to confirm the current artifact fields, counts, and the retained benchmark ID field before I record the final result."
+    },
+    {
+      "at": "2026-10-07T07:41:14.641181Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:14.673809Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:16.563781Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:17.446450Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:19.042887Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:20.924529Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:24.952047Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:26.016307Z",
+      "title": "Progress update",
+      "detail": "The first inspection requests finished in the background. I’m re-reading those exact inspections now so I can lock the final counts, fields, and artifact references into the result assessment."
+    },
+    {
+      "at": "2026-10-07T07:42:26.069174Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:26.082724Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:26.393366Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:29.679293Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:30.103394Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:30.544501Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:31.346603Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:31.865507Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:25.135983Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:37.884671Z",
+      "title": "Progress update",
+      "detail": "I have the final inspected receipts. I’m refreshing the brief notes from the verified outputs, then I’ll record the final result with the exact artifact selections and map layer IDs."
+    },
+    {
+      "at": "2026-10-07T07:44:01.188555Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the final contour, overlay, and province layers and their counts. I’m recording the accepted result now with the exact selected artifacts and map layer IDs."
+    },
+    {
+      "at": "2026-10-07T07:44:19.816905Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:44:28.642352Z",
+      "title": "Progress update",
+      "detail": "Terra asked me to restate the final checks using the exact recorded acceptance conditions. I’m correcting that assessment now; the data selections and map bindings stay the same."
+    },
+    {
+      "at": "2026-10-07T07:44:40.682771Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Contour counts by level",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Peru population contours",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Rivers within Peru provinces",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Peru ADM2 province boundaries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Peru population raster statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Peru contour counts by level",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Peru river overlay count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Peru province count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Peru population count, WorldPop 2018",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Peru province boundaries ADM2",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Population contour lines",
+      "description": "Recorded raster-contours · succeeded"
+    },
+    {
+      "title": "Population raster statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Province feature count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "River overlay feature count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Rivers within Peru provinces",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "South American river segments",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Contour counts by level",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Peru population count, WorldPop 2018",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Peru province boundaries ADM2",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Population contour lines",
+      "description": "Recorded raster-contours · succeeded"
+    },
+    {
+      "title": "Population raster statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Province feature count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "River overlay feature count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Rivers within Peru provinces",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "South American river segments",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Population raster statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Population contour lines",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Population contour lines",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Rivers within Peru provinces",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Contour counts by level",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "River overlay feature count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Province feature count",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "3f085a13c7ef83d72672d9909812145fe34fd4f53c653989524e50c92e20e37c",
+      "bytes": 6931939,
+      "finishedAt": "2026-10-07T07:32:17.758494+00:00"
+    },
+    {
+      "sha256": "beb03197087e9a844ee0ce62a36863e8f75a70a1bd50e7a585250e6855917421",
+      "bytes": 10533390,
+      "finishedAt": "2026-10-07T07:32:17.758494+00:00"
+    },
+    {
+      "sha256": "0ed97842d2ffe36f603e38a57943d65c6bb31e4e83d3e2c4cf7df178f5ef28aa",
+      "bytes": 10478271,
+      "finishedAt": "2026-10-07T07:32:17.758494+00:00"
+    },
+    {
+      "sha256": "9f67411ba15c5eaecc447b9d3b95384a9c178eb0206e8f7fd25a8aff002c648d",
+      "bytes": 572804,
+      "finishedAt": "2026-10-07T07:33:03.373772+00:00"
+    },
+    {
+      "sha256": "964cd2782ccec87bd53867c0ab42b38965f6c658f82a8c0b87216213b267c25a",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T07:33:03.373772+00:00"
+    },
+    {
+      "sha256": "15b65ac915edd69644d36fa6d882ea560ab036e3e1d3aeee1c6360795725ca49",
+      "bytes": 1282,
+      "finishedAt": "2026-10-07T07:33:45.879778+00:00"
+    },
+    {
+      "sha256": "ad3a96961866bcaed02cfb83d2d0200254dcb972a882f440808dabe276c4b266",
+      "bytes": 726318,
+      "finishedAt": "2026-10-07T07:33:45.879778+00:00"
+    },
+    {
+      "sha256": "b0f6a0e2ede03e0eea2622284d4d57027a21c58fc177062ad8f72539e19fa51c",
+      "bytes": 1895,
+      "finishedAt": "2026-10-07T07:34:04.058879+00:00"
+    },
+    {
+      "sha256": "06a284871ccb52bba1ea64de884f0752a955d68f144794c559892b20a30a37f5",
+      "bytes": 1282,
+      "finishedAt": "2026-10-07T07:34:22.553438+00:00"
+    },
+    {
+      "sha256": "9f67411ba15c5eaecc447b9d3b95384a9c178eb0206e8f7fd25a8aff002c648d",
+      "bytes": 572804,
+      "finishedAt": "2026-10-07T07:38:40.122779+00:00"
+    },
+    {
+      "sha256": "964cd2782ccec87bd53867c0ab42b38965f6c658f82a8c0b87216213b267c25a",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T07:38:40.122779+00:00"
+    },
+    {
+      "sha256": "ad3a96961866bcaed02cfb83d2d0200254dcb972a882f440808dabe276c4b266",
+      "bytes": 726318,
+      "finishedAt": "2026-10-07T07:39:02.952952+00:00"
+    },
+    {
+      "sha256": "15b65ac915edd69644d36fa6d882ea560ab036e3e1d3aeee1c6360795725ca49",
+      "bytes": 1282,
+      "finishedAt": "2026-10-07T07:39:02.952952+00:00"
+    },
+    {
+      "sha256": "b0f6a0e2ede03e0eea2622284d4d57027a21c58fc177062ad8f72539e19fa51c",
+      "bytes": 1895,
+      "finishedAt": "2026-10-07T07:39:46.966144+00:00"
+    },
+    {
+      "sha256": "06a284871ccb52bba1ea64de884f0752a955d68f144794c559892b20a30a37f5",
+      "bytes": 1282,
+      "finishedAt": "2026-10-07T07:39:46.966144+00:00"
+    }
+  ],
+  "snapshotSha256": "7ae590decab70f26681595a536923eb3953089c869d1626a5ef78de0ca1abff1",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:31:48.746064Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the supplied frozen Peru inputs produce the requested band-1 population contours and a deduplicated within-province river overlay without clipping, resampling, smoothing, or density conversion?"
+    },
+    {
+      "at": "2026-10-07T07:36:22.350548Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-scope trial answered the method question. Band 1 of the supplied frozen Peru WorldPop raster produced contours only at the requested explicit levels [100,500,1000,5000,10000], with scale 1.0 and offset 0.0 and no resampling, smoothing, clipping, or density conversion. Raster statistics reported minimum 0.0, maximum 41051.18359375, total_cells 3346878, valid_count 1532468, missing_count 1814410, and nonfinite_count 0. The contour summary confirmed marching squares with linear interpolation between pixel centers, low-valued saddle connectivity, no extrapolation, open contours at raster edges and masked holes, and level counts for all five requested levels. The within spatial join kept original river geometries, used the original province polygons without clipping, matched 5607 river features, and retained the river source benchmark ID in the output as benchmark_row_id_target because both inputs carried benchmark_row_id.",
+      "limitations": [
+        "Feature count counts contour fragments, not connected isolines.",
+        "The join output retains the original river benchmark ID under benchmark_row_id_target rather than an unsuffixed benchmark_row_id because both joined inputs contain that field."
+      ],
+      "next_action": "Save a production workflow from this tested computation, execute it, inspect the final artifacts, and add the contour, river overlay, and province boundary layers to the map.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:44:19.816905Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "I delivered the requested Peru contour map and added the contour, river overlay, and ADM2 province boundary layers to the current map. The contour artifact uses the supplied 2018 WorldPop UN-adjusted Peru population count raster, band 1, in people per original cell. All five requested contour levels are present, and the final contour artifact contains 3185 line features; the level counts are 100: 2174, 500: 559, 1000: 321, 5000: 90, and 10000: 41. Raster statistics report minimum 0.0, maximum 41051.18359375, scale 1.0, offset 0.0, total_cells 3346878, valid_count 1532468, and 1814410 unknown cells from masked or nonfinite coverage (nonfinite_count is 0). The contour summary confirms marching squares with linear interpolation between pixel centers, low-valued saddle connectivity, and no extrapolation; masked holes and raster edges create open contours. The river overlay keeps 5607 original river geometries matched by within against individual Peru ADM2 provinces without clipping, and the province context layer shows all 196 original ADM2 polygons. Visually, the retained river segments spread broadly across eastern Amazon provinces, while contour fragments are localized around populated corridors and urban areas; this is a side-by-side spatial comparison only, not evidence of causation. Sources: WorldPop/CIESIN Peru population counts 2018, Terra-hosted benchmark fixture, retrieved 2026-10-07; FAO AQUAmaps HydroSHEDS-derived South America river segments, Terra-hosted benchmark fixture, retrieved 2026-10-07; Peru IGN/OCHA COD-AB ADM2 provinces frozen 2020-07-14, Terra-hosted benchmark fixture, retrieved 2026-10-07.",
+      "limitations": [
+        "Contour feature_count counts line fragments, not connected isolines.",
+        "1814410 masked source cells remain unknown coverage and produce no contours.",
+        "The river overlay preserves the original river benchmark ID under benchmark_row_id_target because both joined inputs contained benchmark_row_id.",
+        "The FAO/HydroSHEDS-derived river overlay is for internal research use only, not promotional publication.",
+        "The overlay supports visual comparison only and does not establish causal relation between rivers and population contours."
+      ],
+      "next_action": "Inspect the three map layers together, or ask for a province-by-province summary using the same frozen inputs.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:44:40.682771Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I delivered the requested Peru contour map and added the contour, river overlay, and ADM2 province boundary layers to the current map. The contour artifact uses the supplied 2018 WorldPop UN-adjusted Peru population count raster, band 1, in people per original cell. All five requested contour levels are present, and the final contour artifact contains 3185 line features; the level counts are 100: 2174, 500: 559, 1000: 321, 5000: 90, and 10000: 41. Raster statistics report minimum 0.0, maximum 41051.18359375, scale 1.0, offset 0.0, total_cells 3346878, valid_count 1532468, and 1814410 unknown cells from masked or nonfinite coverage (nonfinite_count is 0). The contour summary confirms marching squares with linear interpolation between pixel centers, low-valued saddle connectivity, and no extrapolation; masked holes and raster edges create open contours. The river overlay keeps 5607 original river geometries matched by within against individual Peru ADM2 provinces without clipping, and the province context layer shows all 196 original ADM2 polygons. Visually, the retained river segments spread broadly across eastern Amazon provinces, while contour fragments are localized around populated corridors and urban areas; this is a side-by-side spatial comparison only, not evidence of causation. Sources: WorldPop/CIESIN Peru population counts 2018, Terra-hosted benchmark fixture, retrieved 2026-10-07; FAO AQUAmaps HydroSHEDS-derived South America river segments, Terra-hosted benchmark fixture, retrieved 2026-10-07; Peru IGN/OCHA COD-AB ADM2 provinces frozen 2020-07-14, Terra-hosted benchmark fixture, retrieved 2026-10-07.",
+      "limitations": [
+        "Contour feature_count counts line fragments, not connected isolines.",
+        "1814410 masked source cells remain unknown coverage and produce no contours.",
+        "The river overlay preserves the original river benchmark ID under benchmark_row_id_target because both joined inputs contained benchmark_row_id.",
+        "The FAO/HydroSHEDS-derived river overlay is for internal research use only, not promotional publication.",
+        "The overlay supports visual comparison only and does not establish causal relation between rivers and population contours."
+      ],
+      "next_action": "Inspect the three map layers together, or ask for a province-by-province summary using the same frozen inputs.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "f5ee2041af3d9f03cf1e6c155df3c246b7b0df96c467a7e9dd89a12d2bedcea2",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

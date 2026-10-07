@@ -1,0 +1,677 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "394050",
+  "question": "Map global rural-urban population distribution.\n",
+  "submittedPrompt": "Map global rural-urban population distribution.\n\n\nTask conventions: Use the frozen country polygons and World Bank 2023 rural and total population columns, both measured in people. The derived map is in percent of population. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature and benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. The mapped quantity is 100 times 2023 rural population divided by 2023 total population, joined by the same country code. Missing numerator/denominator or zero denominator is unknown. For rural-urban distribution, the rural share is sufficient and urban share is its complement.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SP.RUR.TOTL\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SP.POP.TOTL\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the 2023 country layer is on the map.\n\nIt shows rural population share as a percent of total population by country. Known values cover 216 of 251 supplied country features; 35 are a separate No data category, not zero.\n\nLegend: No data, then five quantile classes for known values with breaks at 12.7659%, 28.4010%, 42.3010%, and 60.1690%; values on a break go into the upper class. Urban share is the complement of the mapped rural share.\n\nKey limits: this is a country-level 2023 indicator only, not a subnational surface or a new regional aggregation, and counts follow the 251 supplied boundary rows rather than deduplicated sovereign states.\n\nSources: Terra-hosted benchmark fixtures, source revision not provided, retrieved 2026-10-07 UTC — World Bank country boundaries (Collection `[resource id withheld]`), World Bank SP.RUR.TOTL 2023 (Collection `[resource id withheld]`), and World Bank SP.POP.TOTL 2023 (Collection `[resource id withheld]`).\n\n### Limitations\n\n- Country-level 2023 indicator from the supplied frozen World Bank inputs only; this is not a subnational population surface or a new regional aggregation.\n- Counts follow the 251 original supplied boundary features, not deduplicated sovereign states.\n- Unmatched country codes, missing 2023 values, and zero total population remain a neutral No data category rather than inferred values.\n- Country-level 2023 indicator only; this is not a subnational population surface or a new regional aggregation.\n- 35 countries remain No data because the exact join or the supplied 2023 measurements are unknown; these are shown as a separate neutral category rather than zero.\n- Boundary features are preserved even when joined values are unknown.\n- Unmatched country codes remain unknown rather than substituted.\n- Country-code sentinels such as -99 remain unmatched and unknown.\n- No data is a separate neutral class rather than zero.",
+  "checks": {
+    "expectedCount": 216,
+    "actualCount": 216,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:46:43.611611Z",
+      "title": "Progress update",
+      "detail": "I’ll inspect the supplied boundary and indicator files, then test a small join/classification method before saving the production workflow."
+    },
+    {
+      "at": "2026-10-07T08:46:52.291676Z",
+      "title": "Progress update",
+      "detail": "I found the Terra analysis tools. Next I’m checking the supplied files and the available join/classification processors so I can test the exact 2023 method before saving the full workflow."
+    },
+    {
+      "at": "2026-10-07T08:46:56.280597Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:56.421892Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:56.426028Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:56.969061Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:04.799921Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:04.963165Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:05.325144Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:13.114048Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the key fields: `ISO_A3` and `benchmark_row_id` on 251 country features, plus `Country Code` and `2023` on both World Bank tables. Now I’m finding the exact processors for join, formula, quantile classification, and layer-ready output."
+    },
+    {
+      "at": "2026-10-07T08:47:13.124230Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:13.126886Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:13.133987Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:13.601576Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:19.863706Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:20.002178Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:20.335120Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:20.345366Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:37.618584Z",
+      "title": "Progress update",
+      "detail": "I have the exact processor contracts. The risky part is not data access anymore; it’s whether the exact join and quantile rules behave as required on the full 251-row world file. I’m running that as one private test now so I can inspect the real counts before I save the final workflow."
+    },
+    {
+      "at": "2026-10-07T08:47:37.632959Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:37.652318Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:37.657789Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:13.596625Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:37.476160Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:53.473511Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:03.580339Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:09.545710Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:20.142407Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:20.491044Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:36.300987Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:47.618349Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:18.270755Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:31.381687Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:50:31.691219Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:50:31.825217Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:50:32.536722Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:36.865117Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · pending"
+    },
+    {
+      "at": "2026-10-07T08:52:39.300796Z",
+      "title": "Progress update",
+      "detail": "The first test found a simple field-name mistake after the second join, not a data gap. I’m inspecting the saved trial outputs now, then I’ll rerun only the corrected calculation and classification using the exact successful joined artifact."
+    },
+    {
+      "at": "2026-10-07T08:52:59.583883Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:59.684988Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:31.809988Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:38.195817Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:44.730097Z",
+      "title": "Progress update",
+      "detail": "I confirmed the joined file shape: `rural_2023` plus `2023_y` on all 251 original country rows, with 34 unmatched codes still null. I’m rerunning only the corrected percent and quantile steps on that exact joined artifact now."
+    },
+    {
+      "at": "2026-10-07T08:54:50.936721Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:57:31.071199Z",
+      "title": "Progress update",
+      "detail": "The corrected method finished successfully in the private test: 251 country rows retained, 216 known percentages, 35 No data, and five quantile classes with percent breaks. I’m recording that, then I’ll save the tested global workflow and run the final deliverable so I can add the verified layer to your map."
+    },
+    {
+      "at": "2026-10-07T08:57:40.650601Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:57:41.814105Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:57:41.832775Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:57:43.184219Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:57:51.298586Z",
+      "title": "Progress update",
+      "detail": "I have the successful test artifacts. I’m reading the proposal schema paths Terra expects so I can save the tested workflow cleanly, rather than guessing the contract shape."
+    },
+    {
+      "at": "2026-10-07T08:57:51.337418Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:57:51.350431Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:57:51.375173Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:57:55.187445Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:00.966441Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:01.112536Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:01.130398Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:01.584011Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:07.621351Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:59:39.607336Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:59:46.903845Z",
+      "title": "Progress update",
+      "detail": "The draft itself is valid. The only remaining gate is a required explanation that the earlier failed test was fixed by the later successful full-world trial. I’m recording that resolution now, then I can launch the final workflow."
+    },
+    {
+      "at": "2026-10-07T08:59:50.597944Z",
+      "title": "assess_plan",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:59:57.719508Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:08.532128Z",
+      "title": "Progress update",
+      "detail": "The final workflow finished. I’m inspecting the delivered country artifact and class summary now, then I’ll bind the verified choropleth to the map and record the final counts and layer ID."
+    },
+    {
+      "at": "2026-10-07T09:01:18.416030Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:34.060509Z",
+      "title": "Progress update",
+      "detail": "I’m resuming the finished run and pulling the final output receipts now. Next I’ll verify the country artifact and summary, then bind the choropleth layer to the map and record the final answer object."
+    },
+    {
+      "at": "2026-10-07T09:01:34.556418Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:48.782595Z",
+      "title": "Progress update",
+      "detail": "The map layer is already bound from the finished workflow, which is good. I’m doing one final artifact check now: value/class fields on the country layer plus the exact class breaks from the summary, so the final answer uses the delivered output rather than the earlier trial."
+    },
+    {
+      "at": "2026-10-07T09:01:48.800191Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:48.807095Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:02:07.184517Z",
+      "title": "Progress update",
+      "detail": "The last needed inspection finished. I’m reading the final country layer’s own value and class fields now so I can assess the delivered artifact itself, not just the workflow receipts."
+    },
+    {
+      "at": "2026-10-07T09:02:08.021349Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:02:45.769733Z",
+      "title": "Progress update",
+      "detail": "I have the final country layer and legend summary. I’m pulling the current run’s calculation summary too, so the final assessment can cite the delivered formula, not only the earlier trial."
+    },
+    {
+      "at": "2026-10-07T09:02:45.788403Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:02:47.075020Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:03:27.061524Z",
+      "title": "Progress update",
+      "detail": "The remaining check is narrow: I’m confirming a small sample of the final No data rows from the delivered output, so the final assessment can explicitly tie unknown countries to missing inputs rather than to a dropped row or map-only rendering."
+    },
+    {
+      "at": "2026-10-07T09:03:28.269736Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:04:52.641584Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Classify rural share percent",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "2023 rural population share by country",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join rural 2023 by country code",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Supplied rural population table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Rename rural 2023 value",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Join total 2023 by country code",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Supplied total population table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Calculate 2023 rural share percent",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Classify rural share percent",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Joined rural and total country values",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Calculate 2023 rural share percent",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Calculate 2023 rural share percent",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Calculate 2023 rural share percent",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify rural share percent",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify rural share percent",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Classify rural share percent",
+      "description": "Recorded vector-classify · skipped"
+    },
+    {
+      "title": "Join rural 2023 by country code",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Supplied rural population table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Rename rural 2023 value",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Join total 2023 by country code",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Supplied total population table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Calculate 2023 rural share percent",
+      "description": "Recorded vector-field-calculate · failed"
+    },
+    {
+      "title": "Join rural 2023 by country code",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Rename rural 2023 value",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Rename rural 2023 value",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join total 2023 by country code",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Calculate 2023 rural share percent",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "Calculate 2023 rural share percent",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "Classify rural share percent",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "Classify rural share percent",
+      "description": "Recorded output · skipped"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T08:50:49.466021+00:00"
+    },
+    {
+      "sha256": "e0e43ea828288c75af3a1081c9150d052e7327b4e99efde1fb6bfa0ab57c22b7",
+      "bytes": 164004,
+      "finishedAt": "2026-10-07T08:50:49.466021+00:00"
+    },
+    {
+      "sha256": "88594296e94fe36d2810fac2feb2672aa3b7fc3985d9617914ddbf11d4157626",
+      "bytes": 171501,
+      "finishedAt": "2026-10-07T08:50:49.466021+00:00"
+    },
+    {
+      "sha256": "edba2791ec6f98c511f950fcf83304385d7f14add4160d7a00d0321ea4d2506d",
+      "bytes": 8443345,
+      "finishedAt": "2026-10-07T08:51:23.915038+00:00"
+    },
+    {
+      "sha256": "cd2f1c1ad6fb8654e0f5069c2a4b8043c704cd829f82e687260f0810addb702b",
+      "bytes": 8437709,
+      "finishedAt": "2026-10-07T08:51:36.179216+00:00"
+    },
+    {
+      "sha256": "fab58abe25de50bb6290821d3498faa6913be70c03b9e20b96c8583041d2292f",
+      "bytes": 8444428,
+      "finishedAt": "2026-10-07T08:51:53.831369+00:00"
+    },
+    {
+      "sha256": "eb028c3fd0acf239eb60e831488df5aecf1a136170ec93c4245433401429c411",
+      "bytes": 8440213,
+      "finishedAt": "2026-10-07T08:56:02.847401+00:00"
+    },
+    {
+      "sha256": "2db983a803f24f8e250db8bdf14ac27b134b3fdeeefac94b868009cea312f21e",
+      "bytes": 8443864,
+      "finishedAt": "2026-10-07T08:57:07.724956+00:00"
+    },
+    {
+      "sha256": "edba2791ec6f98c511f950fcf83304385d7f14add4160d7a00d0321ea4d2506d",
+      "bytes": 8443345,
+      "finishedAt": "2026-10-07T09:00:24.392636+00:00"
+    },
+    {
+      "sha256": "cd2f1c1ad6fb8654e0f5069c2a4b8043c704cd829f82e687260f0810addb702b",
+      "bytes": 8437709,
+      "finishedAt": "2026-10-07T09:00:29.924627+00:00"
+    },
+    {
+      "sha256": "fab58abe25de50bb6290821d3498faa6913be70c03b9e20b96c8583041d2292f",
+      "bytes": 8444428,
+      "finishedAt": "2026-10-07T09:00:37.356127+00:00"
+    },
+    {
+      "sha256": "2db983a803f24f8e250db8bdf14ac27b134b3fdeeefac94b868009cea312f21e",
+      "bytes": 8443864,
+      "finishedAt": "2026-10-07T09:00:52.743544+00:00"
+    },
+    {
+      "sha256": "eb028c3fd0acf239eb60e831488df5aecf1a136170ec93c4245433401429c411",
+      "bytes": 8440213,
+      "finishedAt": "2026-10-07T09:00:44.134404+00:00"
+    }
+  ],
+  "snapshotSha256": "504ea6e199788eb24948c1cb89691b943ef6320c83cda7e83e65638c8d86dab6",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:50:18.270755Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the exact ISO_A3-to-Country Code method retain all supplied country rows, leave unmatched codes unknown, compute 2023 rural share percent correctly, and classify known values into quantiles with a separate No data class?"
+    },
+    {
+      "at": "2026-10-07T08:54:31.809988Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "insufficient",
+      "findings": "The exact left joins succeeded across the full 251 supplied boundary rows and kept 34 unmatched country codes as missing joined values. The rural value copy also succeeded, with 216 known rural 2023 values and 35 missing. The trial did not answer the full question because the final calculation referenced a non-existent field name after the second join; the total population field is 2023_y in the joined artifact, not 2023.",
+      "limitations": [
+        "The method was not fully tested until the rural-share calculation and quantile classification are rerun with the corrected total-population field reference."
+      ],
+      "next_action": "Reuse the successful total_join artifact, rerun the rural-share calculation with total field 2023_y, then inspect and assess the classified output.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:54:50.936721Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "With the corrected joined fields, does the full 251-country artifact produce the required 2023 rural-share percentages and quantile choropleth classes while keeping unknowns separate?"
+    },
+    {
+      "at": "2026-10-07T08:57:40.650601Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The corrected full-world trial produced the requested country percentage and quantile classification. It retained all 251 original boundary rows, calculated rural_share_pct for 216 countries, kept 35 countries as No data, and added rural_share_class for every row with class 0 representing No data. The quantile summary reported five classes with percent breaks at 12.765860545611877, 28.400999811886983, 42.30100047522213, and 60.16899940710874.",
+      "limitations": [
+        "This remains a country-level 2023 indicator map from the supplied frozen World Bank inputs, not a subnational population surface or a new aggregation."
+      ],
+      "next_action": "Save the tested computation as the final workflow, run it, inspect the delivered artifact, and add the verified country layer to the map.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T09:04:52.641584Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The delivered country layer meets the requested 2023 rural-share mapping method. It retains all 251 supplied country features, calculates a known rural-share percentage for 216 features, keeps 35 features as No data, classifies known values into five quantile classes, and is already bound to the map as layer [resource id withheld].",
+      "limitations": [
+        "Country-level 2023 indicator only; this is not a subnational population surface or a new regional aggregation.",
+        "Counts follow the 251 original supplied boundary features, not deduplicated sovereign states.",
+        "35 countries remain No data because the exact join or the supplied 2023 measurements are unknown; these are shown as a separate neutral category rather than zero."
+      ],
+      "next_action": null,
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "c5df0255738169df66a98f6b4bca5189e4a6e8eb77b23fd03133787899b3cf16",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

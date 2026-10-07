@@ -1,0 +1,833 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "620811",
+  "question": "Create contour lines of population density along major rivers in Brazil",
+  "submittedPrompt": "Create contour lines of population density along major rivers in Brazil\n\nTask conventions: First derive people/km2 from original WorldPop 2018 people-per-cell counts by dividing each valid count by its original full WGS84 ellipsoidal meridian/parallel cell area in km2; apply scale/offset, preserve zeros, grid and NoData. Use band 1 of the frozen brazil_population raster at the original grid without resampling, smoothing or clipping. Draw the explicit contour levels [500, 1000, 2000, 5000, 10000] in people/km2. These levels are a disclosed evaluation convention, not a requested interval. Use piecewise-linear marching-squares isolines through pixel-center values, low-valued connectivity at ambiguous saddles. Respect the native mask, NoData and nonfinite cells; do not bridge holes or extrapolate at the outside edge. Apply any source scale and offset. NoData means unknown, never zero. Preserve source coverage; levels outside the observed range may have no line. Do not substitute a current raster. Count nonempty requested contour LEVELS, not polyline fragments. Contour the derived density, NOT the original counts. Overlay the supplied sa_rivers original geometries on the same map. Retain original overlay features matching predicate intersects against each original countries polygon selected by NAME_EN='Brazil'; duplicated matches count once. Do not clip the line geometries. A dissolved union of the selected country polygons is equivalent for intersects. This is a visual spatial comparison; no invented causal correlation or extra buffer is requested. This is a visual comparison, not an estimate of population specifically living near rivers. FAO-derived outputs are internal research only, not promotional publication.\n\n\n\nDeliver an inspectable vector contour artifact and add it to the map with a level/units legend. End with one fenced JSON object containing: count (number of nonempty requested levels), unknown_count (number of masked or nonfinite source pixels), coverage_note, selection: {collectionId,itemId,assetKey}, level_field, feature_count (actual contour feature rows), map_layer_id. Also include overlay: {selection: {collectionId,itemId,assetKey}, map_layer_id, count}, retaining original benchmark_row_id. Explain the source season/year, units, missing coverage, and visual relationship where an overlay is requested.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Brazil population count, WorldPop 2018\",\n    \"edition\": \"2018 UN-adjusted population counts, 1 km aggregate\",\n    \"units\": {\n      \"band1\": \"people per cell\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"FAO AQUAmaps South American river segments\",\n    \"edition\": \"Frozen regional HydroSHEDS-derived rivers_samerica_37330; internal research only, no promotional sharing\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the 2018 Brazil population-density contours and the Brazil-intersecting river overlay are on your map. The contour layer uses the five requested people/km² levels, and the river layer keeps the original `benchmark_row_id`. WorldPop masked areas remain unknown, so contours stop at coverage gaps and the raster edge.\n\n### Limitations\n\n- Contours are derived from the supplied WorldPop 2018 UN-adjusted Brazil count raster and show only the requested density levels.\n- Masked WorldPop cells remain unknown and are not treated as zero.\n- The river overlay uses the supplied frozen FAO AQUAmaps/HydroSHEDS-derived South America dataset for internal research use only, not promotional publication.\n- The contour layer shows only the five requested density levels, not a full continuous density surface.\n- 15,190,206 masked source cells remain unknown, so contours stop at coverage gaps and the raster edge.\n- The river overlay is a visual comparison only, and the FAO-derived river layer is for internal research use rather than promotional publication.",
+  "checks": {
+    "expectedCount": 5,
+    "actualCount": 5,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:27:36.144538Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:42.074192Z",
+      "title": "Progress update",
+      "detail": "I’ve started by fixing the analysis goal and I’m checking the three supplied datasets plus the contour/vector processors. Next I’ll run a small method test on the original WorldPop grid so the full Brazil workflow uses a verified density-and-contour path, not just a guessed graph."
+    },
+    {
+      "at": "2026-10-07T07:27:51.319407Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:51.621244Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:51.654674Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:55.000088Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:12.178353Z",
+      "title": "Progress update",
+      "detail": "I found the key processors Terra already has for this job: a dedicated count-to-density conversion that preserves the source WGS84 grid and mask, plus a contour processor that matches the requested marching-squares behavior. I’m now checking the actual source fields, raster metadata, and the Brazil boundary selection before I wire the full workflow."
+    },
+    {
+      "at": "2026-10-07T07:28:12.665371Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:28:13.170165Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:28:13.230655Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:28:15.622187Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:28:28.106404Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:28.591896Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:28.732312Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:29.390226Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:36.453288Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:36.673333Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:36.692853Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:37.680826Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:42.568264Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:43.088414Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:51.943133Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:52.204183Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:52.835122Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:07.129675Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:15.508307Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:37.524164Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:53.198697Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:53.221650Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:30:19.547028Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:30:29.671104Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:30:50.931500Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the dedicated count-to-density and contour processors and I’m running one full-area private trial now. It will test the actual end-to-end method on the supplied Brazil raster and Brazil-intersecting rivers, including the counts I need for the final answer."
+    },
+    {
+      "at": "2026-10-07T07:31:00.047875Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:21.033928Z",
+      "title": "Progress update",
+      "detail": "The end-to-end trial finished successfully. I’m now checking the final inspected outputs and map-ready receipts so I can add the contour and river layers to the map and attach the exact delivered artifacts to the final result."
+    },
+    {
+      "at": "2026-10-07T07:35:26.440376Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:27.372530Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:52.249304Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:05.909815Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:30.132106Z",
+      "title": "Progress update",
+      "detail": "I found one delivery detail to tighten before I call this finished: the current river-overlay output preserves the original river IDs, but the join renamed them because the Brazil boundary also had a `benchmark_row_id`. I’m running one focused correction now so the final overlay keeps the river `benchmark_row_id` cleanly while preserving the same intersecting river geometries and count."
+    },
+    {
+      "at": "2026-10-07T07:37:39.903543Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:48.288813Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:47.821513Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the ID-field correction privately. The corrected river overlay still has 45,771 features, but now it keeps the river `benchmark_row_id` under its original field name. I’m checking the resulting artifact references and map binding now so I can return the exact final selections and layer IDs."
+    },
+    {
+      "at": "2026-10-07T07:41:47.915729Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:47.940776Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:51.913354Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:02.761317Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:42:18.208424Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:24.101580Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:29.910189Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:35.458626Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:41.480099Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:48.792619Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:53.475315Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:05.370177Z",
+      "title": "add_result_layer",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:43:33.715361Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:50.314421Z",
+      "title": "Progress update",
+      "detail": "The method is fully tested now, so I’m saving one final delivery workflow that combines the proven contour branch with the corrected river branch. Then I’ll execute that saved workflow and check whether Terra attaches both final map layers automatically."
+    },
+    {
+      "at": "2026-10-07T07:44:05.362836Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:44:21.261053Z",
+      "title": "Progress update",
+      "detail": "I corrected the workflow bindings Terra flagged. The contour and river counting nodes can stay in the workflow for inspection, but the requirement lineage for the final map deliverables has to point only to the processors that actually feed those delivered layers."
+    },
+    {
+      "at": "2026-10-07T07:44:33.924905Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:41.266820Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:50.584115Z",
+      "title": "Progress update",
+      "detail": "I’ve saved the runnable delivery workflow. Terra now wants one explicit plan assessment tying the earlier river-ID issue to the correction trial, so I’m recording that resolution and then I can execute the saved workflow."
+    },
+    {
+      "at": "2026-10-07T07:44:53.648505Z",
+      "title": "assess_plan",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:04.289775Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:08.574344Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:10.103280Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:17.885733Z",
+      "title": "Progress update",
+      "detail": "The saved delivery workflow finished, so I’m inspecting its two final outputs and the current map layers now. I need the exact delivered artifact IDs plus the actual map layer IDs before I can record the final answer object."
+    },
+    {
+      "at": "2026-10-07T07:48:56.461157Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:56.530198Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:01.133623Z",
+      "title": "Progress update",
+      "detail": "I have the contour layer and river layer on the map. I’m pulling the remaining final receipts now so the result record uses the exact delivered artifact IDs, map layer IDs, and the final counts from this completed workflow."
+    },
+    {
+      "at": "2026-10-07T07:49:11.944134Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:49:14.770631Z",
+      "title": "Progress update",
+      "detail": "I have the two final map layers. I’m doing one last bounded inspection to pull the final supporting counts—unknown cells, contour-level count, contour rows, river rows—and to confirm the final river output reference Terra attached for delivery."
+    },
+    {
+      "at": "2026-10-07T07:49:32.382046Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:32.398241Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:34.506988Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:07.716722Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:07.869251Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:51:18.688852Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:19.088163Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:19.137352Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:09.901397Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:10.289612Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:13.687208Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:20.087127Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:57:29.784079Z",
+      "title": "Progress update",
+      "detail": "I have all final evidence. Terra just needs the result assessment to use the exact saved acceptance-condition wording, so I’m resubmitting the same supported result against those exact condition texts."
+    },
+    {
+      "at": "2026-10-07T07:57:54.278340Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:58:02.654937Z",
+      "title": "Progress update",
+      "detail": "The result itself is complete. Terra still needs one final spatial preview on the delivered river layer before it accepts the assessment, so I’m pulling that now and then I can finish."
+    },
+    {
+      "at": "2026-10-07T07:58:03.724032Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:39.443255Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Brazil boundary selection",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Brazil dissolved boundary",
+      "description": "Recorded vector-dissolve · succeeded"
+    },
+    {
+      "title": "Contour legend layer",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Contour levels present",
+      "description": "Recorded table-group-statistics · skipped"
+    },
+    {
+      "title": "Density contours",
+      "description": "Recorded raster-contours · succeeded"
+    },
+    {
+      "title": "Contour feature total",
+      "description": "Recorded table-group-statistics · skipped"
+    },
+    {
+      "title": "Country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Brazil population-density contours",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Brazil river overlay",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Population density",
+      "description": "Recorded raster-count-density · succeeded"
+    },
+    {
+      "title": "Density statistics",
+      "description": "Recorded raster-statistics · skipped"
+    },
+    {
+      "title": "WorldPop Brazil 2018 counts",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Brazil-intersecting rivers",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "South America rivers",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "River feature total",
+      "description": "Recorded table-group-statistics · skipped"
+    },
+    {
+      "title": "Selected Brazil boundary",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Brazil dissolved boundary",
+      "description": "Recorded vector-dissolve · succeeded"
+    },
+    {
+      "title": "Brazil-intersecting rivers with original ID field",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Original South America rivers",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Corrected river count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Brazil-intersecting rivers with original ID field",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Corrected river count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Brazil boundary selection",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Contour legend layer",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Contour levels present",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Density contours",
+      "description": "Recorded raster-contours · succeeded"
+    },
+    {
+      "title": "Contour feature total",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Population density",
+      "description": "Recorded raster-count-density · succeeded"
+    },
+    {
+      "title": "Density statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "WorldPop Brazil 2018 counts",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Brazil-intersecting rivers",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "South America rivers",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "River feature total",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Density statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Density contours",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Contour levels present",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Contour feature total",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Brazil boundary selection",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Brazil-intersecting rivers",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "River feature total",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Contour legend layer",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T07:31:05.244043+00:00"
+    },
+    {
+      "sha256": "15d3deda72482680d494ec6d4d8add5102b58faa729bf6595ec267bb6638a164",
+      "bytes": 43610119,
+      "finishedAt": "2026-10-07T07:31:05.244043+00:00"
+    },
+    {
+      "sha256": "0ed97842d2ffe36f603e38a57943d65c6bb31e4e83d3e2c4cf7df178f5ef28aa",
+      "bytes": 10478271,
+      "finishedAt": "2026-10-07T07:31:05.244043+00:00"
+    },
+    {
+      "sha256": "dfd2033e79c4cd7226391a2ec8eabe6981d3e8b0dbb2119941155fc746f28d00",
+      "bytes": 198202,
+      "finishedAt": "2026-10-07T07:31:29.758524+00:00"
+    },
+    {
+      "sha256": "f70f4b564f37d764fd319c43b51becb4f10d961546f2be0cb07a03bddeae3ec8",
+      "bytes": 96010894,
+      "finishedAt": "2026-10-07T07:31:43.630522+00:00"
+    },
+    {
+      "sha256": "a780679d731104d145a21c08276365dca280d30dffc65b4cb3ae446cf0aca519",
+      "bytes": 8708,
+      "finishedAt": "2026-10-07T07:32:39.990642+00:00"
+    },
+    {
+      "sha256": "e7e2c06909e41ee2617cd535d8dad0595f69fdacd4c08f8c35bdea92a954fac9",
+      "bytes": 5405763,
+      "finishedAt": "2026-10-07T07:32:39.990642+00:00"
+    },
+    {
+      "sha256": "34f4f258c22865d8c8a0f07849a494570f051cfd4a8ef62672811f2ff26106f4",
+      "bytes": 4352071,
+      "finishedAt": "2026-10-07T07:33:20.219778+00:00"
+    },
+    {
+      "sha256": "dc40c1a51d8bff0973961bb606dd03530c4eac2df3f0b7be7e01ab79619ac129",
+      "bytes": 1282,
+      "finishedAt": "2026-10-07T07:33:20.219778+00:00"
+    },
+    {
+      "sha256": "87c1feeeaf0171da8e2cfb87f2e8454dc5627aebcf37c24a81c2978bde97acd2",
+      "bytes": 1893,
+      "finishedAt": "2026-10-07T07:34:00.145983+00:00"
+    },
+    {
+      "sha256": "122e579c8fbf4310bf273bf498c6dc49a9e02fd911245fb0148de1ae25f3ebf5",
+      "bytes": 1282,
+      "finishedAt": "2026-10-07T07:34:00.145983+00:00"
+    },
+    {
+      "sha256": "e6bdced996364a573459e94462b87f7f02ba62800bc7c4c8de94ee3d6cfa40b8",
+      "bytes": 4353349,
+      "finishedAt": "2026-10-07T07:34:17.136526+00:00"
+    },
+    {
+      "sha256": "15fc6b85e4290a6e1c337964dd509bd000382a3de5d9c821c880f63d0dfcd1f7",
+      "bytes": 186789,
+      "finishedAt": "2026-10-07T07:38:46.516910+00:00"
+    },
+    {
+      "sha256": "46d2a519a57ba4f8ae5b5be78e18ce44fd52f89c6669fcd76c6b00fa21fa855f",
+      "bytes": 5387019,
+      "finishedAt": "2026-10-07T07:39:27.013386+00:00"
+    },
+    {
+      "sha256": "dc40c1a51d8bff0973961bb606dd03530c4eac2df3f0b7be7e01ab79619ac129",
+      "bytes": 1282,
+      "finishedAt": "2026-10-07T07:40:27.994602+00:00"
+    },
+    {
+      "sha256": "dfd2033e79c4cd7226391a2ec8eabe6981d3e8b0dbb2119941155fc746f28d00",
+      "bytes": 198202,
+      "finishedAt": "2026-10-07T07:46:31.836116+00:00"
+    },
+    {
+      "sha256": "f70f4b564f37d764fd319c43b51becb4f10d961546f2be0cb07a03bddeae3ec8",
+      "bytes": 96010894,
+      "finishedAt": "2026-10-07T07:46:22.510795+00:00"
+    },
+    {
+      "sha256": "15fc6b85e4290a6e1c337964dd509bd000382a3de5d9c821c880f63d0dfcd1f7",
+      "bytes": 186789,
+      "finishedAt": "2026-10-07T07:47:12.485297+00:00"
+    },
+    {
+      "sha256": "34f4f258c22865d8c8a0f07849a494570f051cfd4a8ef62672811f2ff26106f4",
+      "bytes": 4352071,
+      "finishedAt": "2026-10-07T07:47:12.485297+00:00"
+    },
+    {
+      "sha256": "e6bdced996364a573459e94462b87f7f02ba62800bc7c4c8de94ee3d6cfa40b8",
+      "bytes": 4353349,
+      "finishedAt": "2026-10-07T07:47:34.138468+00:00"
+    },
+    {
+      "sha256": "46d2a519a57ba4f8ae5b5be78e18ce44fd52f89c6669fcd76c6b00fa21fa855f",
+      "bytes": 5387019,
+      "finishedAt": "2026-10-07T07:47:47.419424+00:00"
+    }
+  ],
+  "snapshotSha256": "5383dc23ac45ecffb042083cfcb7d93eee87601aabcc20df3da2f3ec48bef472",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:31:00.047875Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the supplied Brazil WorldPop 2018 count raster produce the requested population-density contours on its original grid, and can the supplied river geometries be retained once when they intersect Brazil without clipping?"
+    },
+    {
+      "at": "2026-10-07T07:37:39.903543Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "If I dissolve the selected Brazil boundary before the river intersects join, does the overlay keep the original river benchmark_row_id field without renaming while preserving the same intersecting river geometries and count?"
+    },
+    {
+      "at": "2026-10-07T07:37:48.288813Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "insufficient",
+      "findings": "The full-area trial confirmed the core method. The density conversion preserved zeros, applied scale=1 and offset=0, and reported 15,190,206 masked cells with 0 nonfinite cells. The derived density ranged from 0 to 66,775.29019584335 people/km2, and all five requested contour levels were nonempty, producing 29,110 contour features. The river overlay retained 45,771 original river geometries intersecting Brazil without clipping. However, the overlay output renamed the original river benchmark_row_id to benchmark_row_id_target because the Brazil join input also carried a benchmark_row_id field, so the final overlay does not yet cleanly retain the original river benchmark_row_id field name requested for delivery.",
+      "limitations": [
+        "The current overlay output keeps the original river IDs under benchmark_row_id_target rather than benchmark_row_id because of join-field collision."
+      ],
+      "next_action": "Run a focused correction that dissolves the selected Brazil boundary before the spatial join so the join side no longer contributes benchmark_row_id, then inspect that corrected overlay output and count.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:43:33.715361Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The focused correction worked. Dissolving the selected Brazil boundary before the intersects join preserved the same 45,771 intersecting river features and the same uncut river geometries, while the output now keeps the original river benchmark_row_id field name directly. This resolves the only delivery issue from the earlier full-area trial.",
+      "limitations": [],
+      "next_action": "Save a final workflow that combines the already-tested contour branch with the corrected river-overlay branch, execute it for map delivery, then inspect the attached map layers and final artifacts.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:57:20.087127Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "Delivered a map-ready contour layer from WorldPop/CIESIN Brazil 2018 UN-adjusted population counts, band 1 counts converted to people/km² on the original WGS84 grid, plus a river overlay from the supplied frozen FAO AQUAmaps South America river network derived from HydroSHEDS. The population source year is 2018; the river layer is a frozen reference network rather than a seasonal snapshot. The contour layer contains 29,110 line features across all five requested levels, and the river overlay contains 45,771 original intersecting river features with benchmark_row_id preserved. Missing coverage remains where the WorldPop raster is masked: 15,190,206 cells are unknown, so contours stop at coverage holes and the raster edge. Visually, the densest contours cluster around Brazil’s major urban areas and corridors; some clusters coincide with parts of the river network, while large stretches of the network cross low-density or no-contour areas. This remains a visual spatial comparison only, not an estimate of population living near rivers. Sources: WorldPop/CIESIN Brazil 2018 UN-adjusted counts, hosted as a supplied benchmark by Terra, source revision not stated, retrieved 2026-10-07; FAO AQUAmaps South America rivers derived from HydroSHEDS, hosted as a supplied benchmark by Terra, source revision not stated, retrieved 2026-10-07; World Bank country boundaries, hosted as a supplied benchmark by Terra, source revision not stated, retrieved 2026-10-07.",
+      "limitations": [
+        "The contour layer shows only the five requested density levels, not a full continuous density surface.",
+        "15,190,206 masked source cells remain unknown, so contours stop at coverage gaps and the raster edge.",
+        "The river overlay is a visual comparison only, and the FAO-derived river layer is for internal research use rather than promotional publication."
+      ],
+      "next_action": "Review the two added layers together on the map; ask if you want an export or a level-by-level summary next.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:57:54.278340Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "Delivered a map-ready contour layer from WorldPop/CIESIN Brazil 2018 UN-adjusted population counts, band 1 counts converted to people/km² on the original WGS84 grid, plus a river overlay from the supplied frozen FAO AQUAmaps South America river network derived from HydroSHEDS. The population source year is 2018; the river layer is a frozen reference network rather than a seasonal snapshot. The contour layer contains 29,110 line features across all five requested levels, and the river overlay contains 45,771 original intersecting river features with benchmark_row_id preserved. Missing coverage remains where the WorldPop raster is masked: 15,190,206 cells are unknown, so contours stop at coverage holes and the raster edge. Visually, the densest contours cluster around Brazil’s major urban areas and corridors; some clusters coincide with parts of the river network, while large stretches of the network cross low-density or no-contour areas. This remains a visual spatial comparison only, not an estimate of population living near rivers. Sources: WorldPop/CIESIN Brazil 2018 UN-adjusted counts, hosted as a supplied benchmark by Terra, source revision not stated, retrieved 2026-10-07; FAO AQUAmaps South America rivers derived from HydroSHEDS, hosted as a supplied benchmark by Terra, source revision not stated, retrieved 2026-10-07; World Bank country boundaries, hosted as a supplied benchmark by Terra, source revision not stated, retrieved 2026-10-07.",
+      "limitations": [
+        "The contour layer shows only the five requested density levels, not a full continuous density surface.",
+        "15,190,206 masked source cells remain unknown, so contours stop at coverage gaps and the raster edge.",
+        "The river overlay is a visual comparison only, and the FAO-derived river layer is for internal research use rather than promotional publication."
+      ],
+      "next_action": "Review the two added layers together on the map; ask if you want an export or a level-by-level summary next.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:58:39.443255Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "Delivered a map-ready contour layer from WorldPop/CIESIN Brazil 2018 UN-adjusted population counts, band 1 counts converted to people/km² on the original WGS84 grid, plus a river overlay from the supplied frozen FAO AQUAmaps South America river network derived from HydroSHEDS. The population source year is 2018; the river layer is a frozen reference network rather than a seasonal snapshot. The contour layer contains 29,110 line features across all five requested levels, and the river overlay contains 45,771 original intersecting river features with benchmark_row_id preserved. Missing coverage remains where the WorldPop raster is masked: 15,190,206 cells are unknown, so contours stop at coverage holes and the raster edge. Visually, the densest contours cluster around Brazil’s major urban areas and corridors; some clusters coincide with parts of the river network, while large stretches of the network cross low-density or no-contour areas. This remains a visual spatial comparison only, not an estimate of population living near rivers. Sources: WorldPop/CIESIN Brazil 2018 UN-adjusted counts, hosted as a supplied benchmark by Terra, source revision not stated, retrieved 2026-10-07; FAO AQUAmaps South America rivers derived from HydroSHEDS, hosted as a supplied benchmark by Terra, source revision not stated, retrieved 2026-10-07; World Bank country boundaries, hosted as a supplied benchmark by Terra, source revision not stated, retrieved 2026-10-07.",
+      "limitations": [
+        "The contour layer shows only the five requested density levels, not a full continuous density surface.",
+        "15,190,206 masked source cells remain unknown, so contours stop at coverage gaps and the raster edge.",
+        "The river overlay is a visual comparison only, and the FAO-derived river layer is for internal research use rather than promotional publication."
+      ],
+      "next_action": "Review the two added layers together on the map; ask if you want an export or a level-by-level summary next.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "4bccecd47987765dff76ef94ec494a2e1d842e9d44c45204617aafb78f6dc8d6",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

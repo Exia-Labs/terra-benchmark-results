@@ -1,0 +1,812 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "399319",
+  "question": "Map the renewable water resources per capita in Middle Eastern countries.",
+  "submittedPrompt": "Map the renewable water resources per capita in Middle Eastern countries.\n\nTask conventions: Use the frozen country polygons and World Bank 2021 freshwater withdrawals in billion m³/year, 2021 withdrawals as percent of internal resources, and 2021 total population in people. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature in the declared geography and its benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. Geography is fixed to original country features with SUBREGION in [\"Western Asia\"]; retain all matching source geometries, and no others. Classification is calculated only over this geography. Membership reflects this disclosed benchmark edition, not current organization membership.Use an explicitly derived estimate of INTERNAL renewable water resources: withdrawal volume times 1e9 divided by (withdrawal percentage / 100), then divide by population. This recovers the reported ratio denominator, not total renewable resources including external inflows, available drinking water or utility capacity. Rounding, different collection methods and intermittently updated national observations limit accuracy. Missing inputs or nonpositive percentage/population are unknown, not zero. Western Asia is the fixed country-level Middle East approximation. Label both the derived and internal-only nature on the map and in the answer.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank ER.H2O.FWTL.K3\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2021\",\n    \"units\": {\n      \"2021\": \"billion m\\u00b3 per year\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Freshwater withdrawals as percent of internal resources\",\n    \"edition\": \"Frozen World Development Indicators; use 2021\",\n    \"units\": {\n      \"2021\": \"percent of internal freshwater resources\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SP.POP.TOTL\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": null,
+  "checks": {
+    "expectedCount": 17,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": false,
+    "answerFulfilled": false,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": [
+      "Approval policy: explicit reduced or unavailable work is not preauthorized.",
+      "No accepted final answer was published."
+    ]
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:50:47.438815Z",
+      "title": "Progress update",
+      "detail": "I’m going to build this from the supplied frozen inputs only, test the join and classing on the Western Asia country rows, then save and run the full country-layer workflow."
+    },
+    {
+      "at": "2026-10-07T06:50:54.564831Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:50:54.580907Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:50:55.097780Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:04.217046Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:04.227491Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:04.232375Z",
+      "title": "Progress update",
+      "detail": "I found no saved work yet. Next I’m checking the exact source schemas so I can use the supplied fields and year columns without guessing."
+    },
+    {
+      "at": "2026-10-07T06:51:04.249854Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:04.280464Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:16.745541Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:51:16.795485Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:51:19.202573Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:51:19.260080Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:51:21.969445Z",
+      "title": "Progress update",
+      "detail": "The collections are immutable one-file snapshots, but the top-level metadata doesn’t list fields. I’m inspecting a few rows now to lock the exact column names before I build the join."
+    },
+    {
+      "at": "2026-10-07T06:51:27.447220Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:27.496631Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:27.583900Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:27.634964Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:37.650037Z",
+      "title": "Progress update",
+      "detail": "I can’t sample those snapshots directly until they’re brought into a private trial. I’m checking the processor catalog now for the exact join, field-calculation, and classing steps that fit this country-level map."
+    },
+    {
+      "at": "2026-10-07T06:51:37.738004Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:38.278643Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:38.722958Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:39.521050Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:39.539089Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:43.796824Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:44.016603Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:44.025723Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:56.565680Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:56.666426Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:52:02.173828Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:52:04.421861Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:52:04.442861Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:52:43.206900Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:52:57.233826Z",
+      "title": "Progress update",
+      "detail": "I’ve got the method pieces. First I’m running a tiny private source check. I expect to see the exact join fields and whether the population snapshot really contains the requested 2021 field or only a different year."
+    },
+    {
+      "at": "2026-10-07T06:53:00.221825Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:04.819090Z",
+      "title": "Progress update",
+      "detail": "The source check finished. It confirms the key fields exist, and the tables clearly have Country Code. I’m drilling into the retained outputs now to confirm the exact year columns and then I’ll test the full Western Asia join and classing."
+    },
+    {
+      "at": "2026-10-07T06:54:08.466509Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:08.479677Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:10.021600Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:10.484054Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:12.768918Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:46.949566Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the source snapshots exist. The remaining uncertainty is practical: repeated year columns like “2021” may collide across the three joins, and I still need to verify whether the supplied population file really includes 2021. I’m checking those exact fields before I lock the workflow."
+    },
+    {
+      "at": "2026-10-07T06:54:47.008927Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:47.053129Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:48.169527Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:48.773963Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:49.342429Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:55:37.281891Z",
+      "title": "Progress update",
+      "detail": "I’ve narrowed it down to one last schema check: whether the joined tables keep the year names cleanly enough to compute the value field. After that I can save the full country workflow and run it."
+    },
+    {
+      "at": "2026-10-07T06:55:37.366227Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:55:37.552385Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:55:37.575398Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:55:37.598663Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:14.798291Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the needed 2021 fields are present in all three tables, including population. Now I’m testing the full Western Asia computation end to end so I can see exactly how the repeated “2021” fields behave after successive joins."
+    },
+    {
+      "at": "2026-10-07T06:56:24.193439Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:32.077528Z",
+      "title": "Progress update",
+      "detail": "The source check answered its question: the exact keys exist, and all three indicator tables expose 2021, including population. I’m recording that now, then I can run the end-to-end Western Asia trial."
+    },
+    {
+      "at": "2026-10-07T06:56:34.143157Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:04:31.575583Z",
+      "title": "Progress update",
+      "detail": "The end-to-end test exposed a real join detail, not a data gap: after the second table join, the repeated year field becomes `2021_x` and `2021_y`. I’m inspecting that partial output now, then I’ll correct the field reference and rerun the trial instead of changing the data."
+    },
+    {
+      "at": "2026-10-07T07:04:49.426570Z",
+      "title": "Progress update",
+      "detail": "The full trial answered its question enough to fix the method: all 18 rows were retained, both joins matched, and the only failure was the expected `2021` field becoming `2021_y` after the second join. I’m recording that and rerunning from the retained join output so I don’t repeat the earlier work."
+    },
+    {
+      "at": "2026-10-07T07:04:51.516718Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:05:00.780865Z",
+      "title": "Progress update",
+      "detail": "I’m reusing the saved two-join output and correcting only the affected field reference. If this works, I’ll have the final formula and classing method verified without rebuilding the earlier joins."
+    },
+    {
+      "at": "2026-10-07T07:05:09.339871Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:41.983923Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:42.005757Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:42.053518Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:07.573780Z",
+      "title": "Progress update",
+      "detail": "The corrected branch succeeded. It kept all 18 country rows, added 2021 population, produced the derived numeric field, and returned a `value_class` field with one unknown country preserved as No data. I’m recording that success, then I’ll save the production workflow for the same Western Asia result."
+    },
+    {
+      "at": "2026-10-07T07:09:09.766544Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:26.868298Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:27.062057Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:27.336736Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:49.285738Z",
+      "title": "Progress update",
+      "detail": "I’ve got a tested method now: 17 known country values and 1 true unknown carried into No data. I’m saving the production workflow next, with the remaining real limitation kept explicit instead of hidden in the math."
+    },
+    {
+      "at": "2026-10-07T07:09:49.362917Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:49.584049Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:49.589643Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:14.191783Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:32.083664Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:32.367038Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:52.149142Z",
+      "title": "Progress update",
+      "detail": "I’ve compared the trials and the production version is straightforward now: same Western Asia filter, exact country-code joins, the corrected `2021_y` share field, then the derived value and quantile classing. I’m validating that saved workflow now."
+    },
+    {
+      "at": "2026-10-07T07:11:14.184716Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:11:30.921460Z",
+      "title": "Progress update",
+      "detail": "The validator caught a workflow wiring mistake, not a source problem: I had left the boundary source node disconnected. I’m correcting that so the saved workflow traces the final layer back to the supplied country polygons."
+    },
+    {
+      "at": "2026-10-07T07:11:42.017428Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:12:09.999500Z",
+      "title": "Progress update",
+      "detail": "The draft saved, but one requirement was still over-bound to collections it didn’t need. I’m trimming that bookkeeping so the proposal reflects the tested method cleanly before I mark the earlier finding as resolved."
+    },
+    {
+      "at": "2026-10-07T07:12:49.429727Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:13:01.046902Z",
+      "title": "Progress update",
+      "detail": "The saved workflow is now runnable; the only remaining blocker is review bookkeeping for the earlier field-name mistake. I’m resolving that against the successful correction trial so I can execute the exact saved proposal."
+    },
+    {
+      "at": "2026-10-07T07:13:07.679141Z",
+      "title": "assess_plan",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:13:24.120330Z",
+      "title": "Progress update",
+      "detail": "The method is now fully supported. I’m running the saved workflow for the final country layer, then I’ll inspect the delivered artifact, add the verified layer to the map, and record the final answer object."
+    },
+    {
+      "at": "2026-10-07T07:13:24.272712Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Boundary snapshot",
+      "description": "Recorded source · skipped"
+    },
+    {
+      "title": "Quantile classing",
+      "description": "Recorded vector-classify · skipped"
+    },
+    {
+      "title": "Western Asia internal renewable water resources per capita (2021)",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "Derived internal water per person",
+      "description": "Recorded vector-field-calculate · skipped"
+    },
+    {
+      "title": "Rename population",
+      "description": "Recorded vector-field-calculate · skipped"
+    },
+    {
+      "title": "Join population",
+      "description": "Recorded table-attribute-join · skipped"
+    },
+    {
+      "title": "Rename internal share",
+      "description": "Recorded vector-field-calculate · skipped"
+    },
+    {
+      "title": "Join internal share",
+      "description": "Recorded table-attribute-join · skipped"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · skipped"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · skipped"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · skipped"
+    },
+    {
+      "title": "Western Asia countries",
+      "description": "Recorded vector-filter · skipped"
+    },
+    {
+      "title": "Rename withdrawals",
+      "description": "Recorded vector-field-calculate · skipped"
+    },
+    {
+      "title": "Join withdrawals",
+      "description": "Recorded table-attribute-join · skipped"
+    },
+    {
+      "title": "Quantile classing",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Derived internal water per person",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Rename population",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Join population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Rename internal share",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Retained share-join output",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join population",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Derived internal water per person",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Quantile classing",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Retained share-join output",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Boundary snapshot",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Quantile classing",
+      "description": "Recorded vector-classify · skipped"
+    },
+    {
+      "title": "Derived internal water per person",
+      "description": "Recorded vector-field-calculate · skipped"
+    },
+    {
+      "title": "Rename population",
+      "description": "Recorded vector-field-calculate · skipped"
+    },
+    {
+      "title": "Join population",
+      "description": "Recorded table-attribute-join · skipped"
+    },
+    {
+      "title": "Rename internal share",
+      "description": "Recorded vector-field-calculate · failed"
+    },
+    {
+      "title": "Join internal share",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Western Asia countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join withdrawals",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join internal share",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Quantile classing",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "Boundary snapshot",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Western Asia countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Rename withdrawals",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Join withdrawals",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Boundary snapshot",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Population snapshot",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Internal share snapshot",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Boundary snapshot",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Withdrawals snapshot",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Internal share snapshot",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Population snapshot",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Withdrawals snapshot",
+      "description": "Recorded source · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T06:53:10.978059+00:00"
+    },
+    {
+      "sha256": "88594296e94fe36d2810fac2feb2672aa3b7fc3985d9617914ddbf11d4157626",
+      "bytes": 171501,
+      "finishedAt": "2026-10-07T06:53:10.978059+00:00"
+    },
+    {
+      "sha256": "7ad1675e724eea5166e37131840bb0a2d10ef1cf25313023ecaf542043641662",
+      "bytes": 101281,
+      "finishedAt": "2026-10-07T06:53:10.978059+00:00"
+    },
+    {
+      "sha256": "59dc8930c3d22c86063ce406aa166847b4233fee91708aad1ba292db4d831ef7",
+      "bytes": 101111,
+      "finishedAt": "2026-10-07T06:53:10.978059+00:00"
+    },
+    {
+      "sha256": "f0303e95bad2e19fbffebabdc4d72856acd68704d598162435d5524cc2029662",
+      "bytes": 258234,
+      "finishedAt": "2026-10-07T06:59:07.344632+00:00"
+    },
+    {
+      "sha256": "948312addff95f1f942848475c2e8d0abc73467f1060ba83c6d9a12372c0f4a1",
+      "bytes": 259571,
+      "finishedAt": "2026-10-07T07:00:26.106468+00:00"
+    },
+    {
+      "sha256": "a4865389d9657a0085958c42e07891373a8ac654e537c54e2d6f8f8fdbe9a06a",
+      "bytes": 260379,
+      "finishedAt": "2026-10-07T07:01:21.934650+00:00"
+    },
+    {
+      "sha256": "988e7be858ca051d48d13ad6be010720e615fa7e18cb64136a7151f32835a68b",
+      "bytes": 261772,
+      "finishedAt": "2026-10-07T07:03:05.577365+00:00"
+    },
+    {
+      "sha256": "70b09503da60038e05dc79d1b8f68ee08d12f52190e25913acda662348aedb02",
+      "bytes": 262600,
+      "finishedAt": "2026-10-07T07:05:56.548156+00:00"
+    },
+    {
+      "sha256": "1dce9db1dc902dcb14d829d787b31c973043b0f541df7d09a2bbe56728cbf830",
+      "bytes": 263934,
+      "finishedAt": "2026-10-07T07:06:16.175264+00:00"
+    },
+    {
+      "sha256": "97d87da0ea729d0f17b4a3ddeb215f470b1dc2e9afb1b6b0edef30b1ca185109",
+      "bytes": 265635,
+      "finishedAt": "2026-10-07T07:06:42.394521+00:00"
+    },
+    {
+      "sha256": "8967ecb1ef77da01f0b0dea0a249a147062c271a7d6a9b162e3b3b4fd09941b0",
+      "bytes": 264747,
+      "finishedAt": "2026-10-07T07:06:36.979815+00:00"
+    },
+    {
+      "sha256": "cce7fcc6c85b410f4961e2ac1297ee7fa406e7342bdae383d18428ebb5181956",
+      "bytes": 266224,
+      "finishedAt": "2026-10-07T07:06:47.973172+00:00"
+    }
+  ],
+  "snapshotSha256": "1890ba43b0b04efb8de6d7e0148c5d3b20cefa87e2e9378458236fe59d459e74",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:53:00.221825Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the supplied benchmark snapshots expose the expected country-code keys and year fields needed for the Western Asia join and the requested internal renewable water resources per capita formula?"
+    },
+    {
+      "at": "2026-10-07T06:56:24.193439Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Can the full Western Asia workflow preserve all 18 benchmark country rows, join the three 2021 country tables by exact code, derive the internal-only per-capita value, and classify it into quantiles with a separate No data category?"
+    },
+    {
+      "at": "2026-10-07T06:56:34.143157Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The supplied boundary snapshot exposes ISO_A3, SUBREGION, and benchmark_row_id, and filtering SUBREGION = Western Asia returns 18 benchmark country rows. The withdrawals and internal-share tables both expose Country Code plus a populated 2021 field. The supplied population snapshot also exposes Country Code and a populated 2021 field, so the user’s requested year is available in the supplied inputs despite the collection note mentioning a newer edition.",
+      "limitations": [
+        "This trial checked source keys and year fields only. It did not yet verify successive join behavior, the derived calculation, or the final quantile classing."
+      ],
+      "next_action": "Run the full Western Asia private trial to verify repeated year-field joins, the derived internal-only per-capita value, and the final No data-aware quantile classes.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:04:51.516718Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "insufficient",
+      "findings": "The Western Asia filter retained all 18 benchmark country rows. The withdrawals join matched all 18 rows by exact ISO_A3 to Country Code. The second join also matched all 18 rows, but it renamed the repeated year fields to 2021_x and 2021_y. The run then failed at share_field because it still referenced a nonexistent field named 2021 instead of the joined internal-share field 2021_y.",
+      "limitations": [
+        "This run stopped before the population join, derived value, and final classing because of the corrected field-name mistake."
+      ],
+      "next_action": "Run a focused correction from the retained share_join output, map internal_share_pct_2021 from 2021_y, then continue through population join, derived value, and quantile classification.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:05:09.339871Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "After correcting the internal-share field name to 2021_y on the retained two-join output, can the workflow complete the 2021 population join, derive the internal-only per-capita value, and produce the final five-quantile country classes with No data preserved?"
+    },
+    {
+      "at": "2026-10-07T07:09:09.766544Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The corrected method completed successfully from the retained two-join output. The internal-share field mapped from 2021_y without changing the 18 retained Western Asia country rows. The 2021 population join matched all 18 rows. The derived field internal_water_per_capita_m3py was created, and the final classified output retained all 18 rows with a value_class field ranging from 0 to 5. One country remained unknown in the derived value and classed into the separate No data category; the other 17 countries had known numeric values.",
+      "limitations": [
+        "This focused trial reused the retained two-join artifact from the earlier Western Asia join trial. The full production workflow still needs to be saved and executed as the final deliverable."
+      ],
+      "next_action": "Save the production workflow for the Western Asia country choropleth, execute it, inspect the final artifact and legend, add the verified final layer to the map, and record the final assessment.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "29239b5545d4300e7a4f3e09a0b6b8fa9928da387a59adbcf210c6df3b753b57",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

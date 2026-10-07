@@ -1,0 +1,97 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "811107",
+  "question": "What is the total length of railways in Brazilian states with GDP per capita above national average?",
+  "submittedPrompt": "What is the total length of railways in Brazilian states with GDP per capita above national average?\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "Not yet confirmed: I can’t give a supported total from this closed catalog alone.\n\nThe supplied inventory lists relevant source types — **GDP per capita (current US$)**, **Rail lines (total route-km)**, **Railways in Brazil**, and **Municipalities of Brazil** — but this environment does not expose the actual measurements, and it does not confirm the state-level Brazil GDP and rail-by-state data needed to do the sum. A closed-catalog check here also did not return usable matching collections.\n\nNext step: use actual **Brazilian state GDP-per-capita values** plus either **rail length by state** or **Brazil rail geometry with state boundaries**, then sum the railways in states above the national average.\n\nSource: supplied GeoBenchX source inventory; closed-catalog search in this environment (retrieved 2026-10-07).\n\n### Limitations\n\n- This closed-catalog task provides source-inventory names, not the underlying measurements needed for the calculation.\n- Not yet confirmed because the environment exposes source inventory names rather than the needed observed values or joinable collections.\n- **GDP per capita:** I do not have observed Brazilian state GDP-per-capita values or a confirmed state-level GDP source here.\n- **Railways:** I do not have observed railway lengths by Brazilian state in this environment.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T07:59:35.261561+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "e128dd53e23a070ca1e371070009d394d99c4d13e9c6452f986f82ff5b7c4ddc",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "2135d0eef584edfb29c62a591ad2900e4db63eb38e5ce844cbb0892d5324cd50",
+      "snapshotSha256AtReview": "b0af69288d84149440347ded5a62e701e16640d6ede133b2a76a9aee44ed50dd",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies missing Brazilian state GDP-per-capita values and rail length by state or matching state geometry."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Does not use national GDP or rail totals to select wealthy Brazilian states or invent a summed length."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Acknowledges relevant source types while distinguishing metadata and unsuccessful catalog discovery from actual measurements."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Reports no supported total or completed calculation; four completed tools and no jobs/artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Specifies state GDP and either state rail totals or rail geometry with state boundaries before summing qualifying states."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:55:00.069584Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:12.564970Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:25.327494Z",
+      "title": "Progress update",
+      "detail": "I’m checking whether the closed catalog supports this exactly, and whether the needed geography and GDP detail exist for Brazilian states."
+    },
+    {
+      "at": "2026-10-07T07:55:28.042456Z",
+      "title": "Progress update",
+      "detail": "I found no retained work yet. Next I’m checking the closed catalog itself to see whether it has the needed GDP and railway sources at Brazil state level, not just source names."
+    },
+    {
+      "at": "2026-10-07T07:55:29.277785Z",
+      "title": "Progress update",
+      "detail": "The first catalog search found no candidates, so I’m doing one broader check using the exact source titles from the closed inventory before I conclude what can and cannot be answered here."
+    },
+    {
+      "at": "2026-10-07T07:55:29.885116Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:42.659991Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "3af8c5f1cc84c486940d11129b14df00ba223695bd5bf712c19a5dfb3228da69",
+  "investigations": []
+}

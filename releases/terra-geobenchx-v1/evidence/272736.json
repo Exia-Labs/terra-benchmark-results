@@ -1,0 +1,704 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "272736",
+  "question": "Make a heatmap of tuberculosis cases in New York State",
+  "submittedPrompt": "Make a heatmap of tuberculosis cases in New York State\n\nTask conventions: Use only the frozen 2023 county TB tables for these states: {\"36\": \"tb_ny\"}. Select original Census county features by STATEFP before joining NAME to the corresponding table's County column. Use tb_ny '2023 cases' and tb_ma 'Number of Cases', not rates. Repeated county names across states must not mix; aggregate state/city totals and footnotes are not counties. Preserve genuine zero cases. Missing counts are unknown, never zero. Derive one geometric centroid per original county in EPSG:5070 and weight it by the published county case count. This represents county totals at geometric centroids, not patient locations or within-county disease density. No population-weighted centroid is claimed. Use a disclosed metric raster adaptation instead of the reference's screen-pixel radius: grid={\"bounds\": [-500000, 1000000, 3000000, 3500000], \"crs\": \"EPSG:5070\", \"resolutionX\": 5000, \"resolutionY\": 5000}, Gaussian radiusM=50000 is three sigma, kernel truncated at four sigma with constant-zero padding. Use weightField='case_count' and weightUnit='cases'. A cell measures smoothed case-count mass per cell, not cases/km². Preserve complete grid including zero cells; no normalization, resampling or extra clipping. The two-state task corrects the archived reference's joining of tables by county name without state disambiguation; no cases may be counted twice.\n\n\n\nAdd the heatmap and publish both its raster and an inspectable original-county polygon selection carrying case_count and benchmark_row_id. End with one fenced JSON: {count: number of counties with known counts, unknown_count: counties with unknown counts, coverage_note, selection:{collectionId,itemId,assetKey} for original county polygons with known counts, value_field:'case_count', density:{collectionId,itemId,assetKey} for the raster, map_layer_id: actual heatmap layer ID}. Clearly disclose centroid aggregation and frozen year.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"US county boundaries\",\n    \"edition\": \"Census TIGER/Line 2024\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"New York county tuberculosis cases and rates, 2019\\u20132023\",\n    \"edition\": \"NYSDOH 2024 report, frozen GeoBenchX transcription; use 2023 counts\",\n    \"units\": {\n      \"2023 cases\": \"cases\",\n      \"2023 cases per 100 000\": \"cases per 100,000 people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the heatmap is on your map, and the published county layer is ready too.\n\nI matched all 62 New York counties to the frozen 2023 county TB counts, with 0 unknown counties. The heatmap uses one geometric centroid per county, so it shows smoothed county-total mass, not patient locations or within-county disease density.\n\nUse the county layer with `case_count` and `benchmark_row_id` when you want exact county totals beside the smoothed surface.\n\n### Limitations\n\n- County totals are placed at one geometric centroid per county in EPSG:5070; this does not represent patient locations or within-county disease density.\n- Raster cells measure smoothed case-count mass per 5 km cell, not cases per square kilometre.\n- The workflow uses the frozen 2023 New York county table and published counts, not rates.\n- These polygons show county totals only and do not locate cases within counties.\n- The counts are the frozen published 2023 county totals, not rates.\n- The heatmap shows smoothed county-total mass around geometric county centroids, not patient locations or within-county disease density.\n- Each raster cell measures smoothed case-count mass per 5 km cell, not cases per square kilometre.\n- The outputs use the frozen 2023 New York county table and published counts, not rates.\n- These polygons and centroid locations represent county-level aggregation only; they do not locate cases within counties.\n- Uses the frozen published 2023 county counts only. It does not use rates or patient locations.",
+  "checks": {
+    "expectedCount": 62,
+    "actualCount": 62,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:29:30.376359Z",
+      "title": "Progress update",
+      "detail": "I’ll build this from the frozen 2023 New York county table, test the join and centroid-to-heatmap method on a small private trial, then save and run the full New York workflow. After that I’ll inspect the actual outputs, bind the heatmap layer, and return the final coverage counts and artifact references."
+    },
+    {
+      "at": "2026-10-07T06:29:39.294874Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:40.704538Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:40.726515Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:50.203789Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:51.096140Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:52.311957Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:58.009568Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the task starts from two immutable supplied inputs, not a live catalog search. Next I’m inspecting bounded samples so I can use the exact county and TB fields, then I’ll test the join and unknown-count handling before saving the statewide workflow."
+    },
+    {
+      "at": "2026-10-07T06:30:02.557236Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:02.890575Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:08.142515Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:08.367825Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:08.382115Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:08.559872Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:09.005526Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:17.847119Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:17.901015Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:17.929258Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:20.651154Z",
+      "title": "Progress update",
+      "detail": "I found the main preparation path: filter New York counties, join the frozen county table by county name after the state filter, convert the joined counties to centroids in EPSG:5070, then run point density with the exact metric grid and Gaussian settings the task specifies. I’m checking the exact processor schemas now so I can test a minimal slice without guessing field names or parameters."
+    },
+    {
+      "at": "2026-10-07T06:30:22.472514Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:22.527575Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:23.284270Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:15.036465Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:15.697681Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:32.952506Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:32.977845Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:33.961652Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:31:52.498543Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:07.060868Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:07.100402Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:07.580570Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:10.825411Z",
+      "title": "Progress update",
+      "detail": "I have enough schema detail to build the method without guessing. I’m using a full statewide private trial because the job is small: 62 counties and a fixed 5 km raster grid. That lets me verify the exact join, null handling, centroid projection, and final heatmap behavior before I publish anything."
+    },
+    {
+      "at": "2026-10-07T06:32:29.252407Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:54.285008Z",
+      "title": "Progress update",
+      "detail": "The statewide private test finished successfully. I’ve confirmed the New York county filter, the county-name join, the zero/null handling, and the exact 5 km EPSG:5070 heatmap settings. I’m checking the inspected outputs now, then I’ll promote this exact tested computation into the publishable workflow and add the heatmap to your map."
+    },
+    {
+      "at": "2026-10-07T06:35:55.676370Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:08.337406Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:08.663042Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:31.464696Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:31.810904Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:32.786383Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:03.124552Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:03.183438Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:03.438325Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:05.620962Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:07.025525Z",
+      "title": "Progress update",
+      "detail": "The method is confirmed. I’m updating the brief from that evidence now, then I’ll save the exact tested statewide computation as the final workflow instead of rebuilding it from scratch."
+    },
+    {
+      "at": "2026-10-07T06:39:11.995034Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the real zero-count counties too. There are 62 known-count counties, 0 unknown-count counties, and at least 30 counties with genuine zero published cases retained as zeros. Next I’m saving the tested workflow with those exact outputs."
+    },
+    {
+      "at": "2026-10-07T06:39:12.060634Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:12.136600Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:12.171498Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:41.054694Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:49.406796Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:01.558550Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:01.596641Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:01.700441Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:18.291553Z",
+      "title": "Progress update",
+      "detail": "I have the tested output choices. I’m checking the proposal contract fields now so I can record the fixed join, grid, and smoothing settings cleanly instead of leaving them implicit."
+    },
+    {
+      "at": "2026-10-07T06:40:35.024288Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:50.150972Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:51.048465Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:51.131648Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:55.344356Z",
+      "title": "Progress update",
+      "detail": "The draft saved, but Terra flagged one fix: the contract scope has to match the preserved tested workflow scope exactly. I’m correcting that now without changing the tested method."
+    },
+    {
+      "at": "2026-10-07T06:41:05.329794Z",
+      "title": "Progress update",
+      "detail": "I’m refreshing the draft with the exact preserved trial scope so Terra treats the saved workflow as the same tested method, not a changed extent."
+    },
+    {
+      "at": "2026-10-07T06:41:14.958592Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:24.789715Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:25.498200Z",
+      "title": "Progress update",
+      "detail": "The saved workflow is now valid and still matches the tested method. I’m starting the final run so I can inspect the publishable artifacts and bind the real heatmap layer, not just the private trial outputs."
+    },
+    {
+      "at": "2026-10-07T06:49:44.116663Z",
+      "title": "Progress update",
+      "detail": "The approved run appears to have finished in the background. I’m inspecting the actual final workflow outputs now so I can bind the real heatmap layer and select the final artifacts, not the earlier private trial copies."
+    },
+    {
+      "at": "2026-10-07T06:49:49.884851Z",
+      "title": "Progress update",
+      "detail": "The publishable run finished. I’m reading its exact output receipts next so I can attach the right final artifacts and the real map layer ID."
+    },
+    {
+      "at": "2026-10-07T06:49:49.973524Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:49:50.021200Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:50:43.642078Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:50:43.849949Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:50:44.388762Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:50:44.622724Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:51:32.112966Z",
+      "title": "Progress update",
+      "detail": "I already have the published item IDs and heatmap layer ID. I’m just finishing the final result check against the published outputs themselves so I can attach the correct answer object once, with no private trial artifacts mixed in."
+    },
+    {
+      "at": "2026-10-07T06:51:32.150531Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:32.175287Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:32.190339Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:32.229757Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:36.479126Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:53:51.886204Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the final published county layer and raster. I’m recording the county output first, then I’ll attach the final answer object to the heatmap result with the live heatmap layer ID."
+    },
+    {
+      "at": "2026-10-07T06:54:07.913607Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:16.797652Z",
+      "title": "Progress update",
+      "detail": "The county layer is accepted. I’m attaching the final answer object to the heatmap result now, using the published county layer and the live heatmap layer already on your map."
+    },
+    {
+      "at": "2026-10-07T06:54:38.158976Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:54:56.586707Z",
+      "title": "Progress update",
+      "detail": "Terra rejected the first pass because the heatmap assessment has to use the exact recorded acceptance-condition text. I’m resubmitting the same evidence with those exact condition labels now."
+    },
+    {
+      "at": "2026-10-07T06:55:15.852599Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Create case_count field",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "US county boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Derive county centroids",
+      "description": "Recorded vector-centroids · succeeded"
+    },
+    {
+      "title": "New York 2023 tuberculosis counties",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "New York 2023 tuberculosis heatmap",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join frozen county TB counts",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Keep counties with known counts",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Filter New York counties",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Build county-centroid heatmap",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "New York county TB table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Keep counties with unknown counts",
+      "description": "Recorded vector-filter · skipped"
+    },
+    {
+      "title": "Create case_count field",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "US county boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Derive county centroids",
+      "description": "Recorded vector-centroids · succeeded"
+    },
+    {
+      "title": "Join frozen county TB counts",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Keep counties with known counts",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Filter New York counties",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Build county-centroid heatmap",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "New York county TB table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Filter New York counties",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join frozen county TB counts",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Create case_count field",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Keep counties with known counts",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Keep counties with unknown counts",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Derive county centroids",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Build county-centroid heatmap",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Keep counties with unknown counts",
+      "description": "Recorded vector-filter · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "587f3dd3f8be86a8db7fe808d71205a207f00cdb77d9a4327464f17a5a23d880",
+      "bytes": 126729265,
+      "finishedAt": "2026-10-07T06:32:46.375401+00:00"
+    },
+    {
+      "sha256": "06be6e8be91618a9c861ee74913e275fc69a9209692592c4839940442d9ae3f5",
+      "bytes": 9576,
+      "finishedAt": "2026-10-07T06:32:46.375401+00:00"
+    },
+    {
+      "sha256": "2f8d9a4c0c730277be8e81b7ed1ef14c1de2638937496eb69d7ae2d14c8687ee",
+      "bytes": 1819487,
+      "finishedAt": "2026-10-07T06:33:53.251252+00:00"
+    },
+    {
+      "sha256": "394b9e3ce0b03af73505a013d4a21bea59d2e59930b8def1acf5b9c3f188fa6d",
+      "bytes": 1818781,
+      "finishedAt": "2026-10-07T06:33:35.014470+00:00"
+    },
+    {
+      "sha256": "782adb42847877550ba1a4c0bc1b02f56a68b3dfeb5d5d037275974dca0ddc85",
+      "bytes": 1816919,
+      "finishedAt": "2026-10-07T06:33:17.551226+00:00"
+    },
+    {
+      "sha256": "2f8d9a4c0c730277be8e81b7ed1ef14c1de2638937496eb69d7ae2d14c8687ee",
+      "bytes": 1819487,
+      "finishedAt": "2026-10-07T06:34:13.708270+00:00"
+    },
+    {
+      "sha256": "057752193597e9448df84dbd4ee1c5e86ae62a78dbc5f4149b1c18864d047357",
+      "bytes": 16363,
+      "finishedAt": "2026-10-07T06:34:13.708270+00:00"
+    },
+    {
+      "sha256": "a8842b77987138b47ace0d7b270fdbf26090efd300ae5d803845ed118249f694",
+      "bytes": 29797,
+      "finishedAt": "2026-10-07T06:34:34.007882+00:00"
+    },
+    {
+      "sha256": "03c0bd198680fa8803b251578b72a62731821181a93739bffb94cbc6a44ce882",
+      "bytes": 43038,
+      "finishedAt": "2026-10-07T06:34:53.296332+00:00"
+    },
+    {
+      "sha256": "782adb42847877550ba1a4c0bc1b02f56a68b3dfeb5d5d037275974dca0ddc85",
+      "bytes": 1816919,
+      "finishedAt": "2026-10-07T06:42:28.162941+00:00"
+    },
+    {
+      "sha256": "394b9e3ce0b03af73505a013d4a21bea59d2e59930b8def1acf5b9c3f188fa6d",
+      "bytes": 1818781,
+      "finishedAt": "2026-10-07T06:43:09.850869+00:00"
+    },
+    {
+      "sha256": "2f8d9a4c0c730277be8e81b7ed1ef14c1de2638937496eb69d7ae2d14c8687ee",
+      "bytes": 1819487,
+      "finishedAt": "2026-10-07T06:43:46.297797+00:00"
+    },
+    {
+      "sha256": "2f8d9a4c0c730277be8e81b7ed1ef14c1de2638937496eb69d7ae2d14c8687ee",
+      "bytes": 1819487,
+      "finishedAt": "2026-10-07T06:44:33.438725+00:00"
+    },
+    {
+      "sha256": "a8842b77987138b47ace0d7b270fdbf26090efd300ae5d803845ed118249f694",
+      "bytes": 29797,
+      "finishedAt": "2026-10-07T06:45:38.820214+00:00"
+    },
+    {
+      "sha256": "03c0bd198680fa8803b251578b72a62731821181a93739bffb94cbc6a44ce882",
+      "bytes": 43038,
+      "finishedAt": "2026-10-07T06:49:23.928974+00:00"
+    }
+  ],
+  "snapshotSha256": "bfa5a08d4903c358834f327dd9af2405139e1b0ba48ef6fa4bf5f7ab78e3da4e",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:32:29.252407Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full New York workflow correctly select original STATEFP='36' counties, join the frozen 2023 county table by NAME to County without double counting, preserve zero and null counts, derive geometric centroids in EPSG:5070, and produce the required metric heatmap grid?"
+    },
+    {
+      "at": "2026-10-07T06:39:49.406796Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The statewide test answered the method question. The county filter selected 62 original New York counties with STATEFP='36'. The NAME-to-County left join matched all 62 county features to 62 table rows with zero unmatched input features and no duplicate-key failure. The derived case_count field preserved genuine zeros: 30 counties have case_count=0, and the known-count selection still contains all 62 counties. The unknown-count selection is empty for this frozen 2023 New York input. Centroid output contains 62 point features derived from the original county polygons. The density raster uses the exact supplied EPSG:5070 grid bounds [-500000,1000000,3000000,3500000], 5000 m resolution, radiusM 50000, weightField case_count, weightUnit cases, complete 700x500 coverage, validFraction 1.0, nodataFraction 0.0, minimum 0 and no outside-grid points. The raster unit is smoothed case-count mass per grid cell, with constant-zero exterior and the processor's four-sigma kernel truncation.",
+      "limitations": [
+        "The tested heatmap is a centroid-based smoothing of county totals, not patient locations or within-county disease density.",
+        "The raster values are smoothed cases per 5 km cell, not cases per square kilometre.",
+        "This confirms the frozen 2023 New York input only."
+      ],
+      "next_action": "Save the exact tested statewide computation as the publishable workflow with the known_counties polygon selection and tb_heatmap raster deliverables, then inspect the final outputs and bind the heatmap to the map.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:54:07.913607Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published county output is sufficient. It contains all 62 original New York county polygons from the Census file, all with STATEFP='36', joined to the frozen 2023 New York TB table by county name. The join matched 62 of 62 county features to 62 table rows with no unmatched county features and no duplicate-key failure. The published polygons preserve benchmark_row_id and case_count, and genuine zeros remain valid: the final selection has case_count minimum 0, nullCount 0, and zero-count rows such as Allegany and Cattaraugus remain present. The supplied TB table contains 69 rows total, so 7 aggregate or non-county rows were not joined to counties.",
+      "limitations": [
+        "These polygons show county totals only and do not locate cases within counties.",
+        "The counts are the frozen published 2023 county totals, not rates."
+      ],
+      "next_action": "Use this inspectable county layer alongside the smoothed heatmap when you need exact county totals.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:54:38.158976Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The published heatmap result is sufficient. The final raster is on the map as layer [resource id withheld], and it matches the tested statewide method. It uses 62 county centroids derived from the original New York county polygons, weighted by the frozen 2023 published county case counts, and preserves the full fixed EPSG:5070 grid with valid zero cells. The published county companion layer contains all 62 New York counties with case_count and benchmark_row_id. Sources are the supplied U.S. Census Bureau TIGER/Line 2024 county boundaries and the supplied NYSDOH 2024 report frozen GeoBenchX transcription of county tuberculosis counts, retrieved from the Terra-hosted supplied collections on 2026-10-07.",
+      "limitations": [
+        "The heatmap shows smoothed county-total mass around geometric county centroids, not patient locations or within-county disease density.",
+        "Each raster cell measures smoothed case-count mass per 5 km cell, not cases per square kilometre.",
+        "The outputs use the frozen 2023 New York county table and published counts, not rates."
+      ],
+      "next_action": "Compare the county layer and heatmap together if you want exact county totals next to the smoothed statewide surface.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:55:15.852599Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published heatmap result is sufficient. The final raster is on the map as layer [resource id withheld], and it matches the tested statewide method. It uses 62 county centroids derived from the original New York county polygons, weighted by the frozen 2023 published county case counts, and preserves the full fixed EPSG:5070 grid with valid zero cells. The published county companion layer contains all 62 New York counties with case_count and benchmark_row_id. Sources are the supplied U.S. Census Bureau TIGER/Line 2024 county boundaries and the supplied NYSDOH 2024 report frozen GeoBenchX transcription of county tuberculosis counts, retrieved from the Terra-hosted supplied collections on 2026-10-07.",
+      "limitations": [
+        "The heatmap shows smoothed county-total mass around geometric county centroids, not patient locations or within-county disease density.",
+        "Each raster cell measures smoothed case-count mass per 5 km cell, not cases per square kilometre.",
+        "The outputs use the frozen 2023 New York county table and published counts, not rates."
+      ],
+      "next_action": "Compare the county layer and heatmap together if you want exact county totals next to the smoothed statewide surface.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "459e01338beeb94891a73d220c2d6847f30dfafbe9ba65d54f2e2000c318219d",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

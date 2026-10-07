@@ -1,0 +1,881 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "710732",
+  "question": "How many mineral extraction facilities in Africa are located in countries with rapid urbanization?",
+  "submittedPrompt": "How many mineral extraction facilities in Africa are located in countries with rapid urbanization?\n\nTask conventions: Rapid urbanization means rural population divided by total population in 2023 minus that same fraction in 2013 is strictly less than -0.03. This is a drop of more than three percentage points, not a 3% relative change. Use WDI SP.RUR.TOTL and SP.POP.TOTL for those exact years. Use original country polygons with CONTINENT=Africa. Use exact ISO_A3/Country Code matching. A point qualifies only when strictly within a qualifying original country polygon. Count original point records once, regardless of operational status. Missing observations, nonmatching country codes, nonpositive denominators and nonfinite derived values are unknown, never zero. Points in unknown-measurement countries and points without valid geometry are unknown. Valid points outside all selected geographical polygons do not qualify and are not counted as unknown. Do not infer locations from point country-name attributes or fetch live substitutes. Maps are optional.\n\n\n\nProduce an inspectable selected-point artifact retaining original geometry and benchmark_row_id. End with one fenced JSON object: {count: selected original point records, unknown_count: points with unknown eligibility under the stated coverage rule, unlocated_count: original point records lacking valid geometry, coverage_note: string, selection: {collectionId, itemId, assetKey}}. Explain the fixed years, threshold and coverage in the final answer.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"African mineral extraction facilities\",\n    \"edition\": \"USGS 2021 benchmark snapshot\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SP.RUR.TOTL\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SP.POP.TOTL\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "I found 1,675 mineral extraction facilities in Africa in rapidly urbanizing countries. I used the fixed 2013 and 2023 WDI rural-share change rule, counted a country only when 2023 rural share minus 2013 rural share was strictly below -0.03, and kept only original facility points strictly within original African country polygons. In this benchmark set, unknown eligibility was 0 and unlocated points were 0. Sources: USGS 2021 African mineral extraction facilities; World Bank country boundaries (GeoBenchX harmonized names); World Bank WDI SP.RUR.TOTL and SP.POP.TOTL frozen snapshots, retrieved in Terra on 2026-10-07.\n\n### Limitations\n\n- Exact for the supplied benchmark snapshots only; not later source updates.\n- Exact for the supplied benchmark snapshots only: USGS 2021 facilities, GeoBenchX-harmonized World Bank country polygons, and frozen WDI SP.RUR.TOTL/SP.POP.TOTL values retrieved in this run on 2026-10-07.\n- Uses the supplied GeoBenchX-harmonized World Bank country polygons.\n- Uses frozen SP.RUR.TOTL and SP.POP.TOTL benchmark values for 2013 and 2023.\n- Uses the supplied USGS 2021 benchmark facility snapshot.\n- Unknown eligibility is defined only by the stated benchmark rule and supplied snapshots.",
+  "checks": {
+    "expectedCount": 1675,
+    "actualCount": 1675,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:41:02.698583Z",
+      "title": "Progress update",
+      "detail": "I’ll inspect the saved analysis context and the supplied datasets first, then I’ll test the smallest full method that produces the selected points and counts."
+    },
+    {
+      "at": "2026-10-07T07:41:06.281801Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:16.577947Z",
+      "title": "Progress update",
+      "detail": "I found the Terra tools. Next I’m reading the exact metadata for the four supplied snapshots so I can use the original fields and choose the smallest valid computation."
+    },
+    {
+      "at": "2026-10-07T07:41:16.624929Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:16.812782Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:17.528123Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:19.135778Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:27.052803Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:32.172483Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:39.059770Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:39.096767Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:39.160810Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:40.685310Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:41.410161Z",
+      "title": "Progress update",
+      "detail": "I have the four exact snapshots. Now I’m checking their item profiles and small samples so I can use the original geometry and exact country-code fields instead of guessing names."
+    },
+    {
+      "at": "2026-10-07T07:41:59.180471Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:04.789325Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:11.343707Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:21.660954Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:34.139197Z",
+      "title": "Progress update",
+      "detail": "I have the source fields now. Next I’m reading the exact processor schemas for attribute filtering, joins, numeric field calculation, spatial joins, and row counting so I can build one compact end-to-end trial instead of guessing processor inputs."
+    },
+    {
+      "at": "2026-10-07T07:42:34.396326Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:36.019816Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:44.569777Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:24.564223Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:37.389114Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:45.202879Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:50.277575Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:57.260910Z",
+      "title": "Progress update",
+      "detail": "One uncertainty matters before the full count: how the two WDI joins name their year fields and whether unmatched codes stay visible as unknowns. I expect one row per African country, with separate joined year fields or an actionable collision error. I’m testing just that join chain now."
+    },
+    {
+      "at": "2026-10-07T07:44:09.124271Z",
+      "title": "Progress update",
+      "detail": "The first trial call was just an argument mistake: inspect_outputs belongs beside computation, not inside it. I’m correcting that now and rerunning the same join test."
+    },
+    {
+      "at": "2026-10-07T07:44:14.247267Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:41.381278Z",
+      "title": "Progress update",
+      "detail": "The join method is working. I confirmed 52 original African country polygons, exact ISO_A3 ↔ Country Code matches for all 52, and the joined year fields come through as 2013_x/2023_x for rural totals and 2013_y/2023_y for total population. I’m moving on to the full end-to-end trial now."
+    },
+    {
+      "at": "2026-10-07T07:46:41.644699Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:29.594043Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:26.547528Z",
+      "title": "Progress update",
+      "detail": "I’m running the full private computation now. It reuses the validated joined-country artifact, computes the exact 2013→2023 rural-share change, classifies qualifying and unknown countries, then builds the selected-point artifact and count tables in one pass."
+    },
+    {
+      "at": "2026-10-07T07:48:40.729532Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:46.328208Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:46.430244Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:46.863098Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:51.763441Z",
+      "title": "Progress update",
+      "detail": "I have the full trial outputs. Now I’m doing the final inspections: checking the selected-point artifact itself, confirming the strict threshold on the qualifying countries, and verifying the count tables before I record the final answer."
+    },
+    {
+      "at": "2026-10-07T07:52:53.246411Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:54.400723Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:29.667927Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:41.281643Z",
+      "title": "Progress update",
+      "detail": "I have the completed inspection jobs. I’m pulling their immutable receipts now so the final answer can cite the selected artifact and the checked count tables directly."
+    },
+    {
+      "at": "2026-10-07T07:54:41.694043Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:41.735728Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:43.633375Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:44.058859Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:45.127987Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:44.295321Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:55:57.522755Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:59.022480Z",
+      "title": "Progress update",
+      "detail": "The private trial answered the method, but Terra rejected it as the final selected artifact because final answers must point to a verified non-trial output. I’m promoting the tested computation into a final workflow now, then I’ll inspect that output and record the result."
+    },
+    {
+      "at": "2026-10-07T07:56:05.343857Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:13.662030Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:24.253690Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:30.729985Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:35.626227Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:45.051718Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:16.607352Z",
+      "title": "Progress update",
+      "detail": "I’ve got a tested full method. I’m saving it as the final workflow now so Terra can create a verified non-trial selected-point artifact for the final answer."
+    },
+    {
+      "at": "2026-10-07T07:57:25.168615Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:57:35.131926Z",
+      "title": "Progress update",
+      "detail": "The first proposal failed only on contract bindings, not on the method. I’m correcting the exact requirement references now and resubmitting the same tested workflow."
+    },
+    {
+      "at": "2026-10-07T07:57:42.766548Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:05.662080Z",
+      "title": "Progress update",
+      "detail": "The saved draft is still only “partial” because it reuses a joined trial artifact instead of the raw country and WDI sources in the contract. I’m replacing that with the full direct computation now so the final workflow cleanly references the original inputs the user required."
+    },
+    {
+      "at": "2026-10-07T07:58:26.928078Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:41.815696Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:42.592869Z",
+      "title": "Progress update",
+      "detail": "The final workflow is now valid and complete against the requested sources and rules. I’m executing it so the final answer can point to a verified non-trial selected-point artifact."
+    },
+    {
+      "at": "2026-10-07T08:02:34.882349Z",
+      "title": "Progress update",
+      "detail": "The approved workflow finished. I’m reading its exact output receipt now so the final answer can select the verified workflow artifact instead of the private trial artifact."
+    },
+    {
+      "at": "2026-10-07T08:02:36.537081Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:03:32.896869Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:03:33.043057Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:03:33.356107Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:03:33.895033Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:03:41.207558Z",
+      "title": "Progress update",
+      "detail": "I have the finished workflow run and its final selected-point output. I’m checking the final count tables and the current source/threshold receipts from this same run now, then I’ll record the accepted result."
+    },
+    {
+      "at": "2026-10-07T08:03:42.422246Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:03:45.884934Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:04:29.726383Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:29.734472Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:30.818053Z",
+      "title": "Progress update",
+      "detail": "The run finished, but a few follow-up inspections hit a refresh issue while Terra updated the saved workflow state. I’m refreshing the run and pulling the final output receipts again, then I’ll record the answer from the verified workflow artifact."
+    },
+    {
+      "at": "2026-10-07T08:04:54.188399Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:54.266987Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:00.617929Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:00.780674Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:06.567677Z",
+      "title": "Progress update",
+      "detail": "I already have the workflow receipts. I’m only pulling three bounded inspections now: the final selected points, the threshold edge on qualifying countries, and the source points’ geometry check. Then I can close this out cleanly."
+    },
+    {
+      "at": "2026-10-07T08:05:38.419391Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:44.003517Z",
+      "title": "Progress update",
+      "detail": "I have the final selected points, the threshold edge, and the source geometry check. I’m pulling one last current receipt for the joined country table and the current unknown-country branch so the final assessment uses only verified final-run evidence."
+    },
+    {
+      "at": "2026-10-07T08:06:59.907112Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "African countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join rural totals",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Ambiguous point count",
+      "description": "Recorded table-group-statistics · skipped"
+    },
+    {
+      "title": "Ambiguous overlap points",
+      "description": "Recorded vector-filter · skipped"
+    },
+    {
+      "title": "Original country polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Compute rural-share change",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Facilities in rapidly urbanizing African countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join total population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Original facility points",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Match points to African countries",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Match points to unknown countries",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Match points to qualifying countries",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "WDI population totals",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Qualifying countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "WDI rural totals",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Selected point count",
+      "description": "Recorded table-group-statistics · skipped"
+    },
+    {
+      "title": "Selected qualifying points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Unknown-measurement countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Unknown-country point count",
+      "description": "Recorded table-group-statistics · skipped"
+    },
+    {
+      "title": "Unknown-country points",
+      "description": "Recorded vector-filter · skipped"
+    },
+    {
+      "title": "Ambiguous point count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Ambiguous overlap points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Compute rural-share change",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "African countries with WDI joins",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Original facility points",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Match points to African countries",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Match points to unknown countries",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Match points to qualifying countries",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Qualifying countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Selected point count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Selected qualifying points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Original facility points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Ambiguous point count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Compute rural-share change",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Qualifying countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown-measurement countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Match points to unknown countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected qualifying points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown-country points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected point count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown-country point count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown-measurement countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Unknown-country point count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Unknown-country points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "African countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join total population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Join rural totals",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Original country polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "WDI population totals",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "WDI rural totals",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "African countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join rural totals",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join total population",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T07:44:19.014907+00:00"
+    },
+    {
+      "sha256": "88594296e94fe36d2810fac2feb2672aa3b7fc3985d9617914ddbf11d4157626",
+      "bytes": 171501,
+      "finishedAt": "2026-10-07T07:44:19.014907+00:00"
+    },
+    {
+      "sha256": "e0e43ea828288c75af3a1081c9150d052e7327b4e99efde1fb6bfa0ab57c22b7",
+      "bytes": 164004,
+      "finishedAt": "2026-10-07T07:44:19.014907+00:00"
+    },
+    {
+      "sha256": "a1c538b74b7265882452aab9f505274a889f7c7d3ecb5744879c3722fcc74cf3",
+      "bytes": 919098,
+      "finishedAt": "2026-10-07T07:44:41.250370+00:00"
+    },
+    {
+      "sha256": "5260406544006527451e010c9aa3f4a23d19c1a35182f874ce1100996fab8a23",
+      "bytes": 921788,
+      "finishedAt": "2026-10-07T07:44:47.919594+00:00"
+    },
+    {
+      "sha256": "7cb351f135f4fec2f8d163b68751703726939b9c0b04969f1d870c5051199e41",
+      "bytes": 924578,
+      "finishedAt": "2026-10-07T07:45:03.430500+00:00"
+    },
+    {
+      "sha256": "a5818522a2c966354fb044df972b1793a62ae6d4de4955ff7948a953555fae94",
+      "bytes": 290677,
+      "finishedAt": "2026-10-07T07:48:57.352354+00:00"
+    },
+    {
+      "sha256": "70e6c66d49c51fe7a9139d11c6a8e135b3c3f08128fc318ed05aeec30b70c717",
+      "bytes": 925672,
+      "finishedAt": "2026-10-07T07:49:36.458703+00:00"
+    },
+    {
+      "sha256": "5c3a7261738b110ea9bcb799c97b89225fbff330ec0819ad4b828ae4afe99f05",
+      "bytes": 365854,
+      "finishedAt": "2026-10-07T07:49:36.458703+00:00"
+    },
+    {
+      "sha256": "d9dce9c20ae88ccba645e6f91d70175855235b6b906ab5029e8c636fe6b7e886",
+      "bytes": 772875,
+      "finishedAt": "2026-10-07T07:49:44.454975+00:00"
+    },
+    {
+      "sha256": "3cd3de1b0883ae1fd1af3fa247efe1ad6be734a6ebd37d75ddcd0a9ba805fb75",
+      "bytes": 366653,
+      "finishedAt": "2026-10-07T07:50:15.138752+00:00"
+    },
+    {
+      "sha256": "c367943f0f53be38d34fd546c9c88bbc7d3380e92c91657f517827e8776f15fe",
+      "bytes": 21580,
+      "finishedAt": "2026-10-07T07:50:03.780410+00:00"
+    },
+    {
+      "sha256": "d33053fd766cbac3b355c4b6b56d813d517041952ef82894f7865c4b3cdd651b",
+      "bytes": 367270,
+      "finishedAt": "2026-10-07T07:50:25.835828+00:00"
+    },
+    {
+      "sha256": "b20b2367d5cba14221f9626af6fe6394843d3ebe9f3ce4773d13540aa443f72c",
+      "bytes": 263219,
+      "finishedAt": "2026-10-07T07:50:39.737590+00:00"
+    },
+    {
+      "sha256": "3dd29d50471d27ce4603478d91133c0709aceb97eaf880cf02361724756b16b3",
+      "bytes": 22329,
+      "finishedAt": "2026-10-07T07:50:39.737590+00:00"
+    },
+    {
+      "sha256": "3dd29d50471d27ce4603478d91133c0709aceb97eaf880cf02361724756b16b3",
+      "bytes": 22329,
+      "finishedAt": "2026-10-07T07:50:56.280952+00:00"
+    },
+    {
+      "sha256": "75da2e94bfdb88695055aa2be5f1d72dfe21afaaa301f0607be9fb645bbeb9f4",
+      "bytes": 1286,
+      "finishedAt": "2026-10-07T07:50:56.280952+00:00"
+    },
+    {
+      "sha256": "ba5194685ea23612ead92561bf669703f5f4bd054fbc5437e1ebb294bce8a239",
+      "bytes": 1290,
+      "finishedAt": "2026-10-07T07:51:27.491038+00:00"
+    },
+    {
+      "sha256": "5f53b55107cdc59772c7e1002985280bae540aa08d1575454b45c46e76aa00fc",
+      "bytes": 1346,
+      "finishedAt": "2026-10-07T07:51:27.491038+00:00"
+    },
+    {
+      "sha256": "a1c538b74b7265882452aab9f505274a889f7c7d3ecb5744879c3722fcc74cf3",
+      "bytes": 919098,
+      "finishedAt": "2026-10-07T07:59:30.164477+00:00"
+    },
+    {
+      "sha256": "5260406544006527451e010c9aa3f4a23d19c1a35182f874ce1100996fab8a23",
+      "bytes": 921788,
+      "finishedAt": "2026-10-07T07:59:47.039808+00:00"
+    },
+    {
+      "sha256": "7cb351f135f4fec2f8d163b68751703726939b9c0b04969f1d870c5051199e41",
+      "bytes": 924578,
+      "finishedAt": "2026-10-07T08:00:00.301222+00:00"
+    },
+    {
+      "sha256": "70e6c66d49c51fe7a9139d11c6a8e135b3c3f08128fc318ed05aeec30b70c717",
+      "bytes": 925672,
+      "finishedAt": "2026-10-07T08:00:32.253828+00:00"
+    },
+    {
+      "sha256": "5c3a7261738b110ea9bcb799c97b89225fbff330ec0819ad4b828ae4afe99f05",
+      "bytes": 365854,
+      "finishedAt": "2026-10-07T08:00:32.253828+00:00"
+    },
+    {
+      "sha256": "3cd3de1b0883ae1fd1af3fa247efe1ad6be734a6ebd37d75ddcd0a9ba805fb75",
+      "bytes": 366653,
+      "finishedAt": "2026-10-07T08:01:23.265495+00:00"
+    },
+    {
+      "sha256": "d9dce9c20ae88ccba645e6f91d70175855235b6b906ab5029e8c636fe6b7e886",
+      "bytes": 772875,
+      "finishedAt": "2026-10-07T08:01:08.507882+00:00"
+    },
+    {
+      "sha256": "c367943f0f53be38d34fd546c9c88bbc7d3380e92c91657f517827e8776f15fe",
+      "bytes": 21580,
+      "finishedAt": "2026-10-07T08:01:08.507882+00:00"
+    },
+    {
+      "sha256": "b20b2367d5cba14221f9626af6fe6394843d3ebe9f3ce4773d13540aa443f72c",
+      "bytes": 263219,
+      "finishedAt": "2026-10-07T08:01:53.545624+00:00"
+    },
+    {
+      "sha256": "d33053fd766cbac3b355c4b6b56d813d517041952ef82894f7865c4b3cdd651b",
+      "bytes": 367270,
+      "finishedAt": "2026-10-07T08:01:40.564868+00:00"
+    }
+  ],
+  "snapshotSha256": "ff0fcf491a313613bbc3abeb6f9efc31f7eb88d9f54b74da736155892b001875",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:44:14.247267Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Can I join the supplied rural and population WDI tables to original African country polygons with exact ISO_A3/Country Code matching while preserving one row per country and inspect the resulting year fields for the urbanization calculation?"
+    },
+    {
+      "at": "2026-10-07T07:47:29.594043Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The trial preserved one row per African country after both joins. All 52 African country polygons matched exact ISO_A3 to Country Code values in both WDI tables. The second join exposed distinct year fields with suffixes: 2013_x and 2023_x for rural totals, and 2013_y and 2023_y for total population. No unmatched African country codes were observed in this benchmark scope.",
+      "limitations": [
+        "This trial confirmed the country join and field naming, but it did not yet compute the qualifying-point artifact or the final counts."
+      ],
+      "next_action": "Use the validated joined field names in an end-to-end trial that computes qualifying countries, selected points, unknown points and final counts.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:48:40.729532Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Using the validated African-country join, can I produce the final selected-point artifact and counts under the exact rule: rural share in 2023 minus rural share in 2013 is strictly less than -0.03, points qualify only when strictly within qualifying original African country polygons, and unknown eligibility is tracked separately for unknown-country points and unlocated points?"
+    },
+    {
+      "at": "2026-10-07T07:54:29.667927Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-scope trial produced the requested selected-point artifact and the needed counts under the exact rule. The country calculation created rural_share_change from 2023_x/2023_y minus 2013_x/2013_y for all 52 African countries, with no null derived values and no unknown-country records. Forty countries met the strict threshold, and the largest qualifying rural_share_change was -0.030489985590557878, which is still strictly less than -0.03. The selected-point artifact contains 1,675 original point records with Point geometry and benchmark_row_id present. The unknown-country point count is 0, the ambiguous overlap count is 0, and the source point inspection reported 2,408 valid Point geometries with invalidCount 0, so unlocated_count is 0.",
+      "limitations": [
+        "This result is exact for the supplied benchmark snapshots and the stated rule, not for later source updates."
+      ],
+      "next_action": "Record the final result with the selected-point artifact, count 1675, unknown_count 0 and unlocated_count 0.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:55:44.295321Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "I found 1,675 original mineral extraction facility point records that are strictly within African countries whose rural-population share fell by more than three percentage points from 2013 to 2023 under the exact rule (2023 rural share minus 2013 rural share < -0.03). All 52 African country polygons had exact ISO_A3 to Country Code matches and usable 2013/2023 WDI values in this benchmark scope, so there were no unknown-measurement countries. The selected-point artifact preserves original point geometry and benchmark_row_id, and the checked counts show unknown_count 0 and unlocated_count 0.",
+      "limitations": [
+        "This result is exact for the supplied benchmark snapshots only: USGS 2021 facilities, GeoBenchX-harmonized World Bank country polygons, and frozen WDI SP.RUR.TOTL/SP.POP.TOTL values retrieved in this run on 2026-10-07."
+      ],
+      "next_action": "Open the selected artifact to inspect the 1,675 included facilities, or ask for a country-by-country breakdown if you want the count split by qualifying country.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:06:59.907112Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I found 1,675 original mineral extraction facility point records that are strictly within African countries whose rural-population share fell by more than three percentage points from 2013 to 2023 under the exact rule: (SP.RUR.TOTL/SP.POP.TOTL in 2023) minus the same fraction in 2013 is strictly less than -0.03. The verified final workflow output preserves original point geometry and benchmark_row_id. Current workflow evidence shows 52 original African country polygons, exact ISO_A3 to Country Code matches for all 52 countries in both WDI joins, 40 qualifying countries, 1,675 strictly matched qualifying points, 733 valid points outside qualifying countries, 0 unknown-country points, and 0 invalid or missing point geometries. Under the stated coverage rule, unknown_count is 0 and unlocated_count is 0.",
+      "limitations": [
+        "Exact for the supplied benchmark snapshots only: USGS 2021 facilities, GeoBenchX-harmonized World Bank country polygons, and frozen WDI SP.RUR.TOTL/SP.POP.TOTL values retrieved in this run on 2026-10-07."
+      ],
+      "next_action": "Open the selected map layer to inspect the 1,675 included facilities, or ask for a country-by-country breakdown.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "1c55580daeeb22c8289ff5bdb37b6996d8fb65d3d7f6f644cf71002c011200a9",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

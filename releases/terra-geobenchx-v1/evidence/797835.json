@@ -1,0 +1,443 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "797835",
+  "question": "Visualize fertility rates across Sub-Saharan Africa",
+  "submittedPrompt": "Visualize fertility rates across Sub-Saharan Africa\n\nTask conventions: Use the frozen country polygons and World Bank SP.DYN.TFRT.IN 2022 column, in births per woman. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature in the declared geography and its benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. Geography is fixed to original country features with SUBREGION in [\"Western Africa\", \"Middle Africa\", \"Southern Africa\", \"Eastern Africa\"]; retain all matching source geometries, and no others. Classification is calculated only over this geography. Membership reflects this disclosed benchmark edition, not current organization membership.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Fertility rate\",\n    \"edition\": \"Frozen WDI; use 2022\",\n    \"units\": {\n      \"2022\": \"births per woman\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — I added the 2022 fertility-rate country layer to your map.\n\nIt uses the frozen World Bank fertility indicator in births per woman, keeps all 49 benchmark country features in the declared Sub-Saharan geography, and shows 48 known values plus 1 separate No data country.\n\nLegend:\n- 1.32–3.3524\n- >3.3524–3.9048\n- >3.9048–4.3186\n- >4.3186–4.803\n- >4.803–6.749\n- No data\n\nKey limits: this is a country-level 2022 indicator from the supplied frozen benchmark sources, not a subnational surface, and one unmatched benchmark feature remains No data.\n\nSource: supplied frozen World Bank SP.DYN.TFRT.IN 2022 table and supplied World Bank country boundaries benchmark, hosted by Terra and retrieved in this run on 2026-10-07.\n\n### Limitations\n\n- This is a country-level indicator map. It does not show within-country variation.\n- The workflow uses only the supplied frozen benchmark boundaries and the frozen World Bank SP.DYN.TFRT.IN 2022 table.\n- One benchmark country feature does not have an exact fertility-code match and remains No data.",
+  "checks": {
+    "expectedCount": 48,
+    "actualCount": 48,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:53:30.197747Z",
+      "title": "Progress update",
+      "detail": "I’ll build this from the supplied frozen boundaries and frozen 2022 fertility table, test the join and classification on a small private run, then save a full workflow that keeps unknown countries visible as “No data.”"
+    },
+    {
+      "at": "2026-10-07T07:53:40.642975Z",
+      "title": "Progress update",
+      "detail": "I found the execution tools. Next I’m checking the two supplied datasets and the available processors so I can test the exact country-code join and the five-quantile classification before saving the full map workflow."
+    },
+    {
+      "at": "2026-10-07T07:53:44.129742Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:51.407183Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:51.615282Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:00.325890Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:00.553564Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:00.566827Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:54:01.365909Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:54:08.755333Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:08.932021Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:17.618516Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:21.617323Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:25.274949Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:33.955887Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:34.046485Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:35.978908Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:44.008208Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:48.587798Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:12.733047Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:45.699754Z",
+      "title": "Progress update",
+      "detail": "I have the exact fields and processor contracts now. I’m running one full-extent private test because the inputs are small enough: filter the frozen benchmark geography, left-join the frozen 2022 fertility values by exact code, then classify the result into quantiles and inspect the counts and class breaks."
+    },
+    {
+      "at": "2026-10-07T07:55:53.434167Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:33.023917Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:36.554375Z",
+      "title": "Progress update",
+      "detail": "The private full-extent test worked. I found 49 original boundary features in the declared benchmark geography, 48 exact fertility-code matches, and 1 unknown that stays as No data. I’m saving the tested computation as the final workflow draft now, with the legend and country layer wired to the derived result rather than the source inputs."
+    },
+    {
+      "at": "2026-10-07T07:58:44.796376Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:51.297743Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:51.310937Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:52.924293Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:53.223831Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:59:00.382105Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:59:15.067257Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:59:40.681537Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:05.277676Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:24.690342Z",
+      "title": "Progress update",
+      "detail": "Validation showed my last draft changed the tested scope bookkeeping. I’m correcting that now by saving the exact tested computation from the successful trial, so the final workflow matches the method I already checked."
+    },
+    {
+      "at": "2026-10-07T08:00:30.876998Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:44.887952Z",
+      "title": "Progress update",
+      "detail": "I found two draft issues: the analysis contract scope had to match the executable trial scope, and my fixed-parameter paths needed to be relative to each node’s inputs. I’m correcting both now instead of treating that as a data problem."
+    },
+    {
+      "at": "2026-10-07T08:00:53.003733Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:14.830865Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:43.462501Z",
+      "title": "Progress update",
+      "detail": "The saved workflow finished in the background. I’m inspecting the delivered artifact now, then I’ll bind that exact classified country output to the map and record the final answer object from the inspected result."
+    },
+    {
+      "at": "2026-10-07T08:02:51.083445Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:03:41.336151Z",
+      "title": "Progress update",
+      "detail": "I have the final classified country artifact and its map layer ID. I’m doing one last bounded inspection of the delivered dataset and the classification summary so the final answer object points to the exact derived output, with the known and unknown country counts verified from the finished workflow."
+    },
+    {
+      "at": "2026-10-07T08:03:41.439087Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:03:41.696159Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:05.904598Z",
+      "title": "Progress update",
+      "detail": "I already have the finished layer on the map. I’m just refreshing the final artifact inspection so the accepted answer points to the exact delivered dataset, not the earlier trial copy."
+    },
+    {
+      "at": "2026-10-07T08:04:06.002400Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:31.820926Z",
+      "title": "Progress update",
+      "detail": "The last inspection finished. I’m reading that exact deliverable preview now so the final assessment can cite the finished country dataset, the class field, and the live map layer that already shows it."
+    },
+    {
+      "at": "2026-10-07T08:04:33.020577Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:59.180637Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:04.277144Z",
+      "title": "Progress update",
+      "detail": "The final preview job is done. I’m pulling that exact deliverable inspection now, then I can close this out with the verified country counts, fields, and map layer ID from the finished workflow."
+    },
+    {
+      "at": "2026-10-07T08:05:38.692258Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:44.537644Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the finished artifact and legend. I’m refreshing the saved brief so its visible notes match what was actually delivered, then I’ll record the accepted result with the exact derived dataset and layer ID."
+    },
+    {
+      "at": "2026-10-07T08:06:01.222347Z",
+      "title": "Progress update",
+      "detail": "The data checks are done. I’m confirming the current map still has the classified layer ID before I file the final assessment, so the selected answer points to the live layer you can already inspect."
+    },
+    {
+      "at": "2026-10-07T08:06:01.415700Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:25.720313Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Frozen country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Sub-Saharan Africa fertility rates, 2022",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Frozen fertility table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Quantile fertility choropleth",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Filter declared Sub-Saharan benchmark geography",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join frozen 2022 fertility by exact country code",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Frozen country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Frozen fertility table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Quantile fertility choropleth",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Filter declared Sub-Saharan benchmark geography",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join frozen 2022 fertility by exact country code",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Filter declared Sub-Saharan benchmark geography",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join frozen 2022 fertility by exact country code",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Quantile fertility choropleth",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Quantile fertility choropleth",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T07:56:05.877756+00:00"
+    },
+    {
+      "sha256": "e4694fe761eacb7d240342583b3d819fc3fa5cb823d5d161149859de3670883d",
+      "bytes": 159757,
+      "finishedAt": "2026-10-07T07:56:05.877756+00:00"
+    },
+    {
+      "sha256": "cfd715c90dea56a9be7c12eed9a7c9168308fb68e326a3c8d95402eb52e78363",
+      "bytes": 825922,
+      "finishedAt": "2026-10-07T07:56:16.812167+00:00"
+    },
+    {
+      "sha256": "83d627ba6b0c7a5d755bd23cb7f3d473178e73e985fda07678b51370aabc1256",
+      "bytes": 827683,
+      "finishedAt": "2026-10-07T07:57:06.066978+00:00"
+    },
+    {
+      "sha256": "f36efb22ada7f2f9d1d5599b468b68a2e647d3129c25f773d8fced05f04dcb98",
+      "bytes": 828308,
+      "finishedAt": "2026-10-07T07:57:37.992778+00:00"
+    },
+    {
+      "sha256": "cfd715c90dea56a9be7c12eed9a7c9168308fb68e326a3c8d95402eb52e78363",
+      "bytes": 825922,
+      "finishedAt": "2026-10-07T08:01:53.305313+00:00"
+    },
+    {
+      "sha256": "f36efb22ada7f2f9d1d5599b468b68a2e647d3129c25f773d8fced05f04dcb98",
+      "bytes": 828308,
+      "finishedAt": "2026-10-07T08:02:21.851355+00:00"
+    },
+    {
+      "sha256": "83d627ba6b0c7a5d755bd23cb7f3d473178e73e985fda07678b51370aabc1256",
+      "bytes": 827683,
+      "finishedAt": "2026-10-07T08:02:10.356885+00:00"
+    }
+  ],
+  "snapshotSha256": "5cbdf92e155c052c9f5f2a53159b0adb77637ac5a3129e7a7f95b3187ab8e300",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:55:53.434167Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full benchmark computation keep every original country feature in the declared Sub-Saharan geography, join the frozen 2022 fertility value only by exact ISO_A3 to Country Code, and classify known values into up to five quantile classes with a separate No data category?"
+    },
+    {
+      "at": "2026-10-07T07:58:44.796376Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-extent trial answered the method question. Filtering the supplied benchmark boundaries by SUBREGION produced 49 original country features and retained benchmark_row_id for all 49. The exact left join from ISO_A3 to Country Code preserved all 49 features, matched 48, and left 1 feature unmatched with null Country Code and null 2022 value; the reported unmatched example was SHN, which remains unknown rather than being guessed or dropped. Quantile classification on field 2022 produced 5 data classes with breaks at 3.3524, 3.9048, 4.3186, and 4.803 births per woman, plus class 0 for No data. The summary reported knownCount 48, missingCount 1, and class counts 10, 9, 10, 9, 10 across classes 1-5. The reported lower-inclusive, upper-exclusive bin convention means a value equal to a break enters the upper class, which matches the requested rule.",
+      "limitations": [
+        "This trial uses the supplied frozen benchmark edition and frozen 2022 fertility table only.",
+        "The result remains a country-level indicator map and does not show within-country variation."
+      ],
+      "next_action": "Save the tested computation as the production workflow, run it, inspect the final artifact and layer binding, then assess the delivered result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:06:25.720313Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I delivered the requested country-level choropleth for the supplied Sub-Saharan benchmark geography and added it to the map. The finished artifact retains all 49 original benchmark country features, including 1 unknown No data feature, and classifies the 48 known frozen 2022 fertility values into five quantile classes. The legend breaks are 1.32–3.3524, >3.3524–3.9048, >3.9048–4.3186, >4.3186–4.803, and >4.803–6.749 births per woman, with No data shown separately.",
+      "limitations": [
+        "This is a country-level indicator map. It does not show within-country variation.",
+        "The workflow uses only the supplied frozen benchmark boundaries and the frozen World Bank SP.DYN.TFRT.IN 2022 table.",
+        "One benchmark country feature does not have an exact fertility-code match and remains No data."
+      ],
+      "next_action": "Use the map layer to review the legend and countries, or inspect the derived artifact for the retained benchmark_row_id, 2022 value, and fertility_class fields.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "13c90c54d7f914bca0232677f077330d89686d1abcd3a4131c8dfedac8ae2c35",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

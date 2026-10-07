@@ -1,0 +1,108 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "677223",
+  "question": "Show the distribution of renewable energy production by country.",
+  "submittedPrompt": "Show the distribution of renewable energy production by country.\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "I can’t show the distribution of renewable energy production by country from this catalog. **Data not found.**\n\nI checked the closed catalog and found no source for **country-level renewable energy production**. The supplied inventory lists **GEO_CATALOG: Countries** and **GEO_CATALOG: Power stations in Africa**, but those do not provide renewable production totals by country, and this environment provides source-availability metadata rather than the measurement files themselves. A Terra catalog search on 2026-10-07 also found no matching renewable-production-by-country collection.\n\nSo the delivered work is the catalog check; the unanswered part is the actual country-by-country renewable production distribution.\n\nIf you want, I can help restate the question to fit this catalog’s available sources.\n\n### Limitations\n\n- This environment provides source-availability metadata rather than the underlying observation files.\n- After two broad catalog searches, no matching renewable-production-by-country source was found.\n- The requested renewable production measure is not available in this catalog, so no supported country distribution can be shown.\n- **Renewable production:** I did not find a renewable energy production by country dataset in this catalog.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T07:42:43.409002+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "f115c14204b82b281c534bfd1f9752d9913b4a2df27041698d00b217d75e634c",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "57a32fb4c02cc9241c03a2168430c9cce0c484c1383cd847ec55ac4284fd2ee2",
+      "snapshotSha256AtReview": "7820b10ad45ed7363dd10cbc04b06c587981709bedaf7a7b7745cdd2e3195d64",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies absent country-level renewable energy production totals, despite country and African power-station source listings."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Does not substitute power-station presence or electricity consumption for renewable production."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Confines the finding to the supplied closed, metadata-only inventory and two catalog searches."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Reports a catalog check, not a computed country distribution or map; three completed calls produced no jobs/artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Identifies the country-level renewable-production dataset needed for the unanswered distribution; the optional restatement is explicitly separate, not a substituted result."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:32:42.921167Z",
+      "title": "Progress update",
+      "detail": "I’ll check what this catalog actually includes for country-level energy evidence, then I’ll give the shortest supported answer."
+    },
+    {
+      "at": "2026-10-07T07:32:48.116349Z",
+      "title": "Progress update",
+      "detail": "I found the Terra catalog tools. Next I’m checking whether this catalog has any country-level renewable production source, and what the closest fallback sources are."
+    },
+    {
+      "at": "2026-10-07T07:32:50.706170Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:32:55.412142Z",
+      "title": "Progress update",
+      "detail": "The first broad search found nothing, so I’m doing one broader pass for country boundaries and any energy-generation source. If that also comes back empty, the honest answer is that this catalog cannot support the requested distribution."
+    },
+    {
+      "at": "2026-10-07T07:32:56.309449Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:28.825926Z",
+      "title": "Progress update",
+      "detail": "I’ve already established that the catalog lacks a renewable-production-by-country source. I’m checking whether there is any retained analysis brief to update so the result is recorded cleanly before I answer."
+    },
+    {
+      "at": "2026-10-07T07:33:42.057433Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the evidence check. There’s no supported renewable-production-by-country source here, so I’m recording that as the outcome and then I’ll give you the direct answer."
+    },
+    {
+      "at": "2026-10-07T07:33:45.375713Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [],
+  "snapshotSha256": "660c0629b6dbac74c4b4a8e0867e68421b5de88eb444828aeea164fccd1715d1",
+  "investigations": [],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "35be96289ad9d794952e84a48015fcedf65df09130636ce1dfbca7f1574cb550",
+    "changes": [
+      "Product-name normalization"
+    ]
+  }
+}

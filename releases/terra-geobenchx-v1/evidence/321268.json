@@ -1,0 +1,888 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "321268",
+  "question": "Find areas in the USA where population density exceeds 1000 people per square kilometer and snow accumulation was over 15 inches in 2023-2024",
+  "submittedPrompt": "Find areas in the USA where population density exceeds 1000 people per square kilometer and snow accumulation was over 15 inches in 2023-2024\n\nTask conventions: Use frozen WorldPop USA 2020 counts and NOAA 2023-09-30 to 2024-09-30 snow in inches, original band 1. WorldPop is people PER CELL; derive people/km2 by dividing scaled counts by the full original WGS84 ellipsoidal meridian/parallel cell area. To limit memory, a lossless population crop uses these EXACT native-grid edges around the whole snow footprint: [-127.52624950980558, 18.432916768446546, -64.51791642850557, 57.64124994494655], width 7561 height 4705. Retain that original population grid: do not resample or interpolate population. Sample original snow at each population cell centre by containing pixel (nearest on aligned pixel centres), no bilinear averages. A cell qualifies only if density STRICTLY >1000 people/km2 AND sampled snow STRICTLY >15 inches. Both must be observed. Source masks/nonfinite values or outside the snow grid are unknown, not a failed threshold. Unobserved USA outside the supplied snow footprint is also unknown, not proof of no qualifying areas. Valid nonqualifying cells are zero; qualifying are one; missing either input is NoData. This native-cell allocation is a spatial screening convention, not within-cell uniformity or simultaneous observation in 2020 and 2023–24.\n\n\n\nPublish the full cropped 0/1/NoData result raster and add it to the map, showing selected cells and unknown coverage distinctly. End with fenced JSON {count:qualifying cells,unknown_count:missing-either-input cells within the specified crop,coverage_note:string,selection:{collectionId,itemId,assetKey},map_layer_id:string}. Explain 2020 population, 2023–24 snow, strict thresholds, and incomplete geographic coverage.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"USA population count, WorldPop 2020\",\n    \"edition\": \"2020 UN-adjusted population counts aggregated to 1 km cells\",\n    \"units\": {\n      \"band1\": \"people per cell\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"US snowfall, 2023\\u201324 frozen season\",\n    \"edition\": \"2023-09-30 to 2024-09-30\",\n    \"units\": {\n      \"band1\": \"inches\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — I found 34,217 qualifying cells.\n\nThe map now includes the published layer “Dense population + snow screen.” It uses 2020 WorldPop population and 2023–24 NOAA snow with strict thresholds of >1000 people/km² and >15 inches. Within the exact crop, 23,857,845 cells remain unknown because one input is missing or outside the observed snow footprint, so this is not complete USA coverage.\n\n### Limitations\n\n- USA outside the supplied snow footprint remains unknown in this screening.\n- Population is from 2020, while snow is from 2023-09-30 to 2024-09-30.\n- Population is from WorldPop 2020, while snow is from NOAA 2023-09-30 to 2024-09-30.\n- Cells with missing population or snow, including USA outside the supplied snow footprint, remain NoData and therefore unknown.\n- This is a native-cell screening convention and does not imply within-cell uniformity or simultaneous observation.\n- Population evidence is fixed to WorldPop USA 2020 counts.\n- Snow evidence is limited to the supplied NOAA 2023-09-30 to 2024-09-30 footprint and band 1 values.\n- Missing population or snow stays NoData in the final raster.",
+  "checks": {
+    "expectedCount": 34217,
+    "actualCount": 34217,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:36:22.028095Z",
+      "title": "Progress update",
+      "detail": "I’ll confirm the saved context and inspect the supplied rasters so I can build the native-cell screening exactly as requested."
+    },
+    {
+      "at": "2026-10-07T06:36:26.598693Z",
+      "title": "Progress update",
+      "detail": "I found the core Terra analysis tools. Next I’m checking the retained brief, then I’ll inspect the two supplied rasters and the available raster processors before testing the method on a small slice."
+    },
+    {
+      "at": "2026-10-07T06:36:26.627246Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:26.641695Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:27.474080Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:28.249272Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:36.095750Z",
+      "title": "Progress update",
+      "detail": "I have the trial and proposal schemas. Now I’m inspecting the exact input items and the processor contracts for density conversion, alignment, thresholding, and raster statistics so I can keep the grid and NoData rules exact."
+    },
+    {
+      "at": "2026-10-07T06:36:36.121113Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:36.132467Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:36.777104Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:37.325792Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:36:37.352261Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:51.348302Z",
+      "title": "Progress update",
+      "detail": "The two input collections are the exact supplied WorldPop and NOAA rasters. Next I’m checking their item metadata and exact grid properties so I can keep the crop, alignment, and NoData handling consistent with the benchmark rules."
+    },
+    {
+      "at": "2026-10-07T06:36:51.469611Z",
+      "title": "list_items",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:51.490140Z",
+      "title": "list_items",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:52.381294Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:11.599304Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:11.614794Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:12.685204Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:12.765027Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:13.482965Z",
+      "title": "Progress update",
+      "detail": "I found a safer way to preserve unknown cells: threshold each input into a 0/1/NoData mask first, then multiply the two masks. That should keep missing population or missing snow as NoData instead of falsely turning them into zero. I’m checking that contract now."
+    },
+    {
+      "at": "2026-10-07T06:37:18.237645Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:18.281071Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:19.403245Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:19.478424Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:59.142943Z",
+      "title": "Progress update",
+      "detail": "I’ve pinned down the method: crop the WorldPop raster to the exact supplied bbox, convert cropped counts to people/km² on that unchanged grid, nearest-sample snow onto that grid, threshold each input separately, then multiply the two 0/1 masks so missing stays missing. I’m recording that goal and the final checks now."
+    },
+    {
+      "at": "2026-10-07T06:38:06.363329Z",
+      "title": "Progress update",
+      "detail": "The brief update just needed the required spatial scope field. I’m correcting that and then moving into a small trial that checks the exact native-grid logic before I scale it to the full crop."
+    },
+    {
+      "at": "2026-10-07T06:38:08.961753Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:44.569272Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:49.996796Z",
+      "title": "Progress update",
+      "detail": "The trial finished successfully. It confirmed the local grid handling and, importantly, that multiplying the two threshold masks preserved missing snow or population as NoData instead of turning unknown cells into zero. I’m reading the visual report now, then I’ll save the full-country crop workflow."
+    },
+    {
+      "at": "2026-10-07T06:42:53.809041Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:05.683301Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:36.629494Z",
+      "title": "Progress update",
+      "detail": "I’ve got a tested method now, so I’m saving the full production workflow for the exact supplied crop and the exact strict-threshold rules. I’m also including a summary output so the final answer can use exact qualifying and unknown cell counts from the finished raster, not estimates."
+    },
+    {
+      "at": "2026-10-07T06:43:56.137795Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:44:16.407957Z",
+      "title": "Progress update",
+      "detail": "The workflow is almost valid. Terra just asked me to point the population criterion at its actual final-use branch instead of the crop grid it also helps define. I’m correcting that binding now, and I’ll do the same for snow to keep the contract explicit."
+    },
+    {
+      "at": "2026-10-07T06:44:19.743846Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:56.238496Z",
+      "title": "Progress update",
+      "detail": "The saved full workflow hit a real scaling limit in the clip step: it would read the entire WorldPop source before clipping, which is too large. I’m testing the needed fix now: bind the exact crop at the source step first, then run the same density, nearest-snow, threshold, and summary logic on that bounded crop. If that works, I can save the runnable production workflow without changing the requested method."
+    },
+    {
+      "at": "2026-10-07T06:45:12.362905Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:58:36.492178Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:58:41.304718Z",
+      "title": "Progress update",
+      "detail": "The source-bounded trial finished, and it showed the area field on an exact source selection did not crop the raster. That means it is not the right production method. I’m reading that evidence now, then I’ll switch to a crop step that clips inside a raster processor instead of relying on source selection."
+    },
+    {
+      "at": "2026-10-07T06:58:45.573909Z",
+      "title": "Progress update",
+      "detail": "The full-scope source-bound test did what I needed it to do: it ruled out that shortcut. The output stayed at the full WorldPop extent, so it cannot satisfy the exact crop requirement. I’m recording that and moving to a processor-based crop that should honor the requested grid edges inside the computation itself."
+    },
+    {
+      "at": "2026-10-07T06:58:47.173801Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:59:09.675521Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:59:10.422212Z",
+      "title": "Progress update",
+      "detail": "I’m testing the likely fix now: a pass-through raster algebra crop on the population raster itself, using the exact supplied native-grid edges. I expect that to produce the requested 7561×4705 crop, after which the already-tested density, nearest-snow, and 0/1/NoData logic can run unchanged."
+    },
+    {
+      "at": "2026-10-07T06:59:42.260555Z",
+      "title": "Progress update",
+      "detail": "I found a stronger candidate: align the population raster to an explicit grid that exactly matches the requested native crop. Because the source and target grid are both EPSG:4326 with the same 0.0083333333° spacing and aligned edges, nearest sampling should act as an exact window rather than a real resample. I’m testing that full path now."
+    },
+    {
+      "at": "2026-10-07T06:59:49.796302Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:17.720363Z",
+      "title": "Progress update",
+      "detail": "The new full-scope trial looks promising: it hit the exact crop bounds and the exact 7561×4705 grid. I’m reading the trial report now so I can record that method as the tested production path, then I’ll save the runnable workflow from this exact full-scope trial."
+    },
+    {
+      "at": "2026-10-07T07:06:24.545611Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:40.673959Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:55.557249Z",
+      "title": "Progress update",
+      "detail": "I now have an exact full-scope tested computation. I’m saving that exact trial as the production workflow, with one final raster deliverable and one exact summary deliverable for the counts used in the accepted answer."
+    },
+    {
+      "at": "2026-10-07T07:07:07.965752Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:07:15.909634Z",
+      "title": "Progress update",
+      "detail": "The workflow is technically ready. The last remaining step before execution is a plan review note: I need to formally resolve the one rejected crop shortcut and show that the saved workflow uses the tested exact-crop method instead."
+    },
+    {
+      "at": "2026-10-07T07:07:16.139291Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:07:28.943104Z",
+      "title": "assess_plan",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:07:38.707938Z",
+      "title": "Progress update",
+      "detail": "The method is now fully supported. I’m starting the saved production workflow, then I’ll inspect the final raster and exact counts, add the raster to your map, and attach the verified answer object to the final result."
+    },
+    {
+      "at": "2026-10-07T07:07:46.709349Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:28.285489Z",
+      "title": "Progress update",
+      "detail": "The workflow has finished in the background. I’m checking the published outputs now so I can verify the raster and counts, then I’ll add the final raster to the map and record the selected answer."
+    },
+    {
+      "at": "2026-10-07T07:10:28.800264Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:57.174237Z",
+      "title": "Progress update",
+      "detail": "I have a completed workflow run. Next I’m reading the exact published raster and summary outputs so I can verify the final counts and bind the correct layer on your map."
+    },
+    {
+      "at": "2026-10-07T07:10:57.650511Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:11:16.001206Z",
+      "title": "Progress update",
+      "detail": "I have the published raster and the published summary table. I’m doing one final preview check on the raster and reading the exact counts row from the summary before I bind the raster to the map."
+    },
+    {
+      "at": "2026-10-07T07:11:16.028012Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:11:16.036045Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:11:53.054655Z",
+      "title": "Progress update",
+      "detail": "The inspection jobs finished. I’m reading the final raster preview and the exact summary row now, then I’ll add the raster to the map and lock in the final answer object with the verified counts."
+    },
+    {
+      "at": "2026-10-07T07:11:53.108394Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:11:53.158999Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:12:20.388478Z",
+      "title": "add_catalog_layer",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:12:21.745531Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:12:28.729426Z",
+      "title": "Progress update",
+      "detail": "I have the verified final counts. I’m adding the published raster to the map now and checking the accepted-result schema one last time so I can attach the exact answer object cleanly."
+    },
+    {
+      "at": "2026-10-07T07:12:32.403903Z",
+      "title": "Progress update",
+      "detail": "The raster is on the map now as a classified layer. I’m confirming the layer binding, then I’ll record the final result with the exact qualifying and unknown counts from the published outputs."
+    },
+    {
+      "at": "2026-10-07T07:12:32.619261Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:12:45.444300Z",
+      "title": "Progress update",
+      "detail": "I’m pulling the remaining current-run receipts so the final assessment can point to the exact production snow-band and threshold steps, not just the earlier trial."
+    },
+    {
+      "at": "2026-10-07T07:12:45.842451Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:13:35.757235Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the published raster, the exact count table, and the live map layer. I’m recording the final result now with the selected raster artifact and the exact answer fields you requested."
+    },
+    {
+      "at": "2026-10-07T07:13:57.724248Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Combine the strict threshold masks",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "USA dense population and snow screening raster",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "USA dense population and snow screening counts",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Summarize the finished cropped raster",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Align population to the exact native crop grid",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Convert cropped population counts to density",
+      "description": "Recorded raster-count-density · succeeded"
+    },
+    {
+      "title": "Apply the strict population threshold",
+      "description": "Recorded raster-reclassify · succeeded"
+    },
+    {
+      "title": "Align snow to the cropped population grid",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Use snow band 1",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Apply the strict snow threshold",
+      "description": "Recorded raster-reclassify · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Combine the strict threshold masks",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Summarize the finished cropped raster",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Align population to the exact native crop grid",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Convert cropped population counts to density",
+      "description": "Recorded raster-count-density · succeeded"
+    },
+    {
+      "title": "Apply the strict population threshold",
+      "description": "Recorded raster-reclassify · succeeded"
+    },
+    {
+      "title": "Align snow to the cropped population grid",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Use snow band 1",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Apply the strict snow threshold",
+      "description": "Recorded raster-reclassify · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Align population to the exact native crop grid",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Convert cropped population counts to density",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Align snow to the cropped population grid",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Combine the strict threshold masks",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Summarize the finished cropped raster",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Combine the threshold masks",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Summarize the finished full-crop raster",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Convert bounded population counts to density",
+      "description": "Recorded raster-count-density · succeeded"
+    },
+    {
+      "title": "Apply the strict population threshold",
+      "description": "Recorded raster-reclassify · succeeded"
+    },
+    {
+      "title": "Population source cropped at selection",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Align snow to the bounded population grid",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Use snow band 1",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Apply the strict snow threshold",
+      "description": "Recorded raster-reclassify · succeeded"
+    },
+    {
+      "title": "Snow source cropped at selection",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Population source cropped at selection",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Convert bounded population counts to density",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Align snow to the bounded population grid",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Combine the threshold masks",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Summarize the finished full-crop raster",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Combine strict threshold masks",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Clip population to local test area",
+      "description": "Recorded spatial-clip · succeeded"
+    },
+    {
+      "title": "Convert counts to density",
+      "description": "Recorded raster-count-density · succeeded"
+    },
+    {
+      "title": "Apply population threshold",
+      "description": "Recorded raster-reclassify · succeeded"
+    },
+    {
+      "title": "Align snow to population grid",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Use snow band 1",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Apply snow threshold",
+      "description": "Recorded raster-reclassify · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Clip population to local test area",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Convert counts to density",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Align snow to population grid",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Apply population threshold",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Apply snow threshold",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Combine strict threshold masks",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "0b75ab7c839bfa81439fafa204f0fba930f15467993c574694be98831fcafb94",
+      "bytes": 51821771,
+      "finishedAt": "2026-10-07T06:39:11.137018+00:00"
+    },
+    {
+      "sha256": "2d96b3a969d53fdfe4b53753ea5f8e1005bc55d9054d4a1cc7ffff4b7bd04fef",
+      "bytes": 6180538,
+      "finishedAt": "2026-10-07T06:39:11.137018+00:00"
+    },
+    {
+      "sha256": "c74415a453acfdfa692bac59d886bbfdc4c7f42db2703cb0e450c4975457f0c2",
+      "bytes": 68861,
+      "finishedAt": "2026-10-07T06:39:31.939997+00:00"
+    },
+    {
+      "sha256": "3d4344efa5e8873e5b572cbc63e3aef0ea338a4497016967359f8afb9538b940",
+      "bytes": 2448681,
+      "finishedAt": "2026-10-07T06:39:31.939997+00:00"
+    },
+    {
+      "sha256": "40373225011ba2bd1092995a47b1d79acea43ae9f2ae2fc9e722deb385152df9",
+      "bytes": 139772,
+      "finishedAt": "2026-10-07T06:39:51.860165+00:00"
+    },
+    {
+      "sha256": "2b7a6dbb675149bad44c0d185488dce43948f9109a767f39be7ea9ec9f731d46",
+      "bytes": 8515,
+      "finishedAt": "2026-10-07T06:39:51.860165+00:00"
+    },
+    {
+      "sha256": "1b68a9a39195e14f34bfd68af2b65e3510c2b0035ece4a8cc58f8e5f7a23aa88",
+      "bytes": 3114,
+      "finishedAt": "2026-10-07T06:40:42.181901+00:00"
+    },
+    {
+      "sha256": "c484e7c31e7763b06ad67a5bb401a2a3b991eaa76a72f57269d4d12d7f028bc8",
+      "bytes": 2458,
+      "finishedAt": "2026-10-07T06:40:42.181901+00:00"
+    },
+    {
+      "sha256": "2406f04b558538659d17331cc2d3c5fb498355042faf901f6f6f2dd13d664741",
+      "bytes": 2925,
+      "finishedAt": "2026-10-07T06:41:28.837518+00:00"
+    },
+    {
+      "sha256": "3d4344efa5e8873e5b572cbc63e3aef0ea338a4497016967359f8afb9538b940",
+      "bytes": 2448681,
+      "finishedAt": "2026-10-07T06:49:08.005549+00:00"
+    },
+    {
+      "sha256": "3a8162cee81c85be777d0ee33ba739583fa4baf3eb63d7dd6acd29bfa2d7356b",
+      "bytes": 106485718,
+      "finishedAt": "2026-10-07T06:50:53.955873+00:00"
+    },
+    {
+      "sha256": "ce5c2ac85bbe593336f53e6a57de1cbf665a5c47f463c51f6fda314512878039",
+      "bytes": 12180427,
+      "finishedAt": "2026-10-07T06:51:33.755889+00:00"
+    },
+    {
+      "sha256": "4e855888de25b456aa76955b7a1337ae10b2737a8f01f02fd2175fdff0160020",
+      "bytes": 2165029,
+      "finishedAt": "2026-10-07T06:52:55.130678+00:00"
+    },
+    {
+      "sha256": "7d396bd9df0cfc2dd4c6c429cd3ee7652ce81e5f1c2509dd255e08f184abc580",
+      "bytes": 1922387,
+      "finishedAt": "2026-10-07T06:53:22.751706+00:00"
+    },
+    {
+      "sha256": "78dab106702a986f61af306683ed2aea1d7e4fa21a8e4d96e4c9224277e7eeb8",
+      "bytes": 1881960,
+      "finishedAt": "2026-10-07T06:55:36.701088+00:00"
+    },
+    {
+      "sha256": "d9f91e361da21771a356250afc5810fd8d85030b538a49caeba8e89e5c8dbe1a",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T06:57:13.036348+00:00"
+    },
+    {
+      "sha256": "8bdeddcab0f5b9716779f30f8929f7ef98b6e6369abca8a30773047fcf47568b",
+      "bytes": 43751050,
+      "finishedAt": "2026-10-07T07:01:16.750304+00:00"
+    },
+    {
+      "sha256": "3d4344efa5e8873e5b572cbc63e3aef0ea338a4497016967359f8afb9538b940",
+      "bytes": 2448681,
+      "finishedAt": "2026-10-07T07:01:09.021936+00:00"
+    },
+    {
+      "sha256": "ac3ed7959e5e6de930fcc05af14302931b06cffaca7569b3bcade3f9febc71ef",
+      "bytes": 91649251,
+      "finishedAt": "2026-10-07T07:02:37.782388+00:00"
+    },
+    {
+      "sha256": "f3b26957339293280902a5d98b471bc8fa8e136c25ef9925cb6dc2f7bc18f2b1",
+      "bytes": 8116127,
+      "finishedAt": "2026-10-07T07:02:49.578058+00:00"
+    },
+    {
+      "sha256": "67d784f0b0fc4f3373d31c23bb82b22ba1a86ba7c69ca9caf045f8672df8176d",
+      "bytes": 600199,
+      "finishedAt": "2026-10-07T07:04:00.437345+00:00"
+    },
+    {
+      "sha256": "f5870611f29abbdceb40a7465dbe7f0b2610b7bc1df3562bbfcbd87ab5ea0dc7",
+      "bytes": 510283,
+      "finishedAt": "2026-10-07T07:04:00.437345+00:00"
+    },
+    {
+      "sha256": "3f4c1478fbb1d28bc2bb79cb8ef96613e5a4234d65520d4425384384870d1e08",
+      "bytes": 468864,
+      "finishedAt": "2026-10-07T07:04:45.363176+00:00"
+    },
+    {
+      "sha256": "c729d85f44a757a6ee5048d7924c6dbcd2113b2c1dfdeb04edb45f224eca191c",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T07:05:21.914180+00:00"
+    },
+    {
+      "sha256": "8bdeddcab0f5b9716779f30f8929f7ef98b6e6369abca8a30773047fcf47568b",
+      "bytes": 43751050,
+      "finishedAt": "2026-10-07T07:08:25.268437+00:00"
+    },
+    {
+      "sha256": "3d4344efa5e8873e5b572cbc63e3aef0ea338a4497016967359f8afb9538b940",
+      "bytes": 2448681,
+      "finishedAt": "2026-10-07T07:08:15.536282+00:00"
+    },
+    {
+      "sha256": "ac3ed7959e5e6de930fcc05af14302931b06cffaca7569b3bcade3f9febc71ef",
+      "bytes": 91649251,
+      "finishedAt": "2026-10-07T07:09:03.549240+00:00"
+    },
+    {
+      "sha256": "f3b26957339293280902a5d98b471bc8fa8e136c25ef9925cb6dc2f7bc18f2b1",
+      "bytes": 8116127,
+      "finishedAt": "2026-10-07T07:08:58.578445+00:00"
+    },
+    {
+      "sha256": "f5870611f29abbdceb40a7465dbe7f0b2610b7bc1df3562bbfcbd87ab5ea0dc7",
+      "bytes": 510283,
+      "finishedAt": "2026-10-07T07:09:12.377783+00:00"
+    },
+    {
+      "sha256": "67d784f0b0fc4f3373d31c23bb82b22ba1a86ba7c69ca9caf045f8672df8176d",
+      "bytes": 600199,
+      "finishedAt": "2026-10-07T07:09:24.299862+00:00"
+    },
+    {
+      "sha256": "3f4c1478fbb1d28bc2bb79cb8ef96613e5a4234d65520d4425384384870d1e08",
+      "bytes": 468864,
+      "finishedAt": "2026-10-07T07:09:39.821085+00:00"
+    },
+    {
+      "sha256": "c729d85f44a757a6ee5048d7924c6dbcd2113b2c1dfdeb04edb45f224eca191c",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T07:09:53.667855+00:00"
+    }
+  ],
+  "snapshotSha256": "dfc989d2899b15fb541ffab30147ba6f811717c1cca131ae84c74a274e563b6a",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:38:44.569272Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the proposed native-cell method preserve the cropped WorldPop grid, apply strict >1000 people/km2 and >15 inch thresholds separately, and keep missing inputs as NoData when the two masks are combined?"
+    },
+    {
+      "at": "2026-10-07T06:43:05.683301Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The trial preserved one native WorldPop grid from clip through density, thresholding, and final combination. The aligned snow output matched that grid with nearest resampling from the original 0.04 degree snow raster. The threshold masks contained only 0, 1, and NoData values. The combined mask had validOutputWithMissingInputCount equal to 0, so missing population or missing snow did not turn into false zeros. The preview showed both qualifying and nonqualifying observed cells in the test area.",
+      "limitations": [
+        "This trial covered only a local slice, so it does not by itself verify the exact full-crop dimensions, counts, or map display for the production result.",
+        "In this local slice all observed snow values were above 15 inches, so the trial confirmed the strict threshold mechanics but not a mixed snow-pass and snow-fail pattern."
+      ],
+      "next_action": "Save the production workflow for the full supplied crop, include an exact summary of the final 0/1/NoData raster, execute it, and inspect the final raster and counts.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:45:12.362905Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Can an area-bounded source selection produce the exact full requested crop on the native WorldPop grid without the full-source clip limit, while preserving the same density, nearest-snow, strict-threshold, and NoData behavior?"
+    },
+    {
+      "at": "2026-10-07T06:58:47.173801Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "insufficient",
+      "findings": "The area-bounded exact source selection did not crop the WorldPop raster. The population output remained at the full source extent with width 43072 and height 6298, and the aligned snow and final mask inherited that full grid. This method therefore does not satisfy the required exact crop extent or dimensions, even though the downstream thresholding and NoData behavior remained consistent.",
+      "limitations": [
+        "The source-step area field is not a valid way to enforce the requested exact crop for these supplied raster items.",
+        "The qualifying and unknown counts from this trial apply to the full WorldPop extent and cannot answer the requested cropped result."
+      ],
+      "next_action": "Test a processor-based crop that executes on the raster itself, then revise the saved workflow to use that exact crop branch if the resulting dimensions match the requested 7561 by 4705 grid.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:59:09.675521Z",
+      "tool": "run_trial",
+      "status": "failed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does a processor-based raster crop using pass-through map algebra honor the exact supplied native-grid crop and allow the full requested screening result to be produced at 7561 by 4705 cells?"
+    },
+    {
+      "at": "2026-10-07T06:59:49.796302Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Can raster-align crop the population raster to the exact requested native grid without changing aligned cell values, so the full screening result can be produced at 7561 by 4705 cells?"
+    },
+    {
+      "at": "2026-10-07T07:06:40.673959Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "This full-scope trial produced the requested crop bounds [-127.52624950980558, 18.432916768446546, -64.51791642850557, 57.64124994494655] at width 7561 and height 4705 on EPSG:4326 with 0.0083333333 degree cells. The downstream density raster and the nearest-aligned snow raster shared that exact grid. The combined raster preserved missing inputs as NoData, with validOutputWithMissingInputCount equal to 0, and its exact statistics reported 34217 qualifying cells and 23857845 missing-either-input cells. The expected total cell count in the trial question was misstated: 7561 multiplied by 4705 equals 35574505, which matches the observed total_cells exactly.",
+      "limitations": [
+        "This method uses raster-align with nearest to extract the exact crop grid. Because the output grid matches the original population CRS and cell spacing, it acts as a bounded native-grid extraction rather than a coarsening or interpolated population surface.",
+        "The result remains a screening product that combines 2020 population with 2023-09-30 to 2024-09-30 snow and leaves areas outside the supplied snow footprint as unknown."
+      ],
+      "next_action": "Save the production workflow from this exact trial computation, execute it, inspect the published raster and summary outputs, add the raster to the map, and assess the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:13:57.724248Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I published the requested cropped screening raster and exact count table. The final raster matches the requested crop bounds and 7561 by 4705 native-grid dimensions, uses 2020 WorldPop counts converted to people per square kilometre on the original grid, samples NOAA 2023-09-30 to 2024-09-30 snow band 1 by nearest onto that grid, applies strict >1000 people/km² and >15 inch thresholds, and preserves missing population or snow as NoData. The exact final counts are 34217 qualifying cells and 23857845 missing-either-input cells. The published raster is added to the map as layer [resource id withheld] with a classified-raster display.",
+      "limitations": [
+        "Population is from WorldPop 2020, while snow is from NOAA 2023-09-30 to 2024-09-30.",
+        "Cells with missing population or snow, including USA outside the supplied snow footprint, remain NoData and therefore unknown.",
+        "This is a native-cell screening convention and does not imply within-cell uniformity or simultaneous observation."
+      ],
+      "next_action": "Review the added map layer; if useful, I can also extract the qualifying cells as polygons or summarize them by state or metro area.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "640d16987225c4a09048c51923e55c78bf8527feb65728e500f76161b3b97a1d",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

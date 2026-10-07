@@ -1,0 +1,77 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "214430",
+  "question": "Create a map of urban population density in major cities.",
+  "submittedPrompt": "Create a map of urban population density in major cities.\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "Delivered: a source-availability check. No map was created.\n\nWhy: this environment gives only catalog metadata, not the actual observation files. The inventory includes some country population rasters such as “USA population 2020, people, resolution 1 km” and “Algeria population density per 1 km 2020, 1 km resolution,” plus “Cities and Towns of the United States, 2014,” but it does not include a general urban-boundary or major-city dataset.\n\nUnanswered requirement: the actual map of urban population density in major cities.\n\nNext step: provide the real population raster plus city or urban boundaries for a chosen country, and define what counts as a major city.\n\n### Limitations\n\n- The available information is a source inventory, not the measurement files.\n- The listed sources do not include a general urban-boundary or major-city dataset.\n- Population rasters are listed for only some countries and are not consistently paired with city boundaries.\n- Not supported here because only catalog metadata is available and no general urban-boundary or major-city source is listed.\n- **Urban population density:** This environment provides metadata only, and the listed sources do not define major-city urban areas.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T06:12:38.114608+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "ac0cdb191dade21273328017bd0ece5f0a3dc00749252f59aed0e0628c518e9d",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "1130b4c90f96dfeae31e939807f678f47eba429cf0ed1a16981e9a15f324419b",
+      "snapshotSha256AtReview": "98c97f9045f6ebec15bcd3ab9851953e813d2c143281bbb9967b554ff46d61fa",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies incomplete country population coverage and absent general major-city or urban-boundary geography."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Does not turn national density or US town points into worldwide urban population-density areas."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Acknowledges the listed country rasters and US towns but limits its conclusion to the supplied metadata."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Says only a source-availability check was delivered, not a map; no jobs or artifacts exist."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests actual population and city/urban boundaries for a chosen country plus a major-city definition."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:10:33.360872Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:54.813738Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:58.420381Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "7ca980ffb2834e53d56bea7183fd58d9eda1c4ebaea112686dfe77d8315a7af1",
+  "investigations": []
+}

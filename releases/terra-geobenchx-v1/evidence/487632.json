@@ -1,0 +1,72 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "487632",
+  "question": "Map drought resilience indicators in semi-arid countries.",
+  "submittedPrompt": "Map drought resilience indicators in semi-arid countries.\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "**Delivered:** a source-availability answer, not a finished map.\n\nUsing only the supplied GeoBenchX inventory, the strongest drought-resilience indicators are **Countries** plus country-level entries for **annual freshwater withdrawals** (total and % of internal resources), **agriculture value added (% of GDP)**, **GDP per capita**, **forest area**, **electric power consumption**, **population**, and **rural population**. Those could support a rough country screen for water stress, adaptive capacity, and exposure, but several are only proxies.\n\n**Main limitation:** this environment gives **catalog metadata only**, not the actual values needed to draw the map. It also has **no source that identifies semi-arid countries** and no direct drought layers such as **aridity/rainfall, soil moisture, groundwater, irrigation, storage, or drought history**. Africa-only infrastructure layers are regional context only, not a global drought-resilience basis.\n\n**Next step:** add a **semi-arid/aridity layer** and the actual country indicator tables, then join them to **Countries** and map the indicators separately before considering any combined resilience score.\n\n### Limitations\n\n- The supplied inventory lists source types but does not provide the measurement tables or raster values needed to populate a real map.\n- The supplied inventory does not include a source that identifies which countries are semi-arid.\n- The supplied inventory does not include direct drought-condition layers such as aridity, rainfall, soil moisture, groundwater, irrigation, reservoir storage, or drought history.\n- Not yet supported in this environment because the supplied inventory does not include a semi-arid-country source or the actual indicator values needed to populate the map.\n- **Semi-arid countries:** The supplied inventory includes Countries boundaries but no semi-arid or aridity layer.\n- **Drought resilience indicators:** These are metadata entries here, not usable values, and several are only rough proxies for resilience.\n- **Direct drought evidence:** The supplied inventory does not include direct drought-condition data.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T08:54:08.054730+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "2513633d2a1c15e04d123bf2f4d1ccee014dd4c2cafe72e4db0a24f040a7ac76",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "438dd2f0571c286fccfba04abeb0aacea8d9cbe676240981a7cb029a144d7050",
+      "snapshotSha256AtReview": "dadbaf72a6adff1a0ae8dd258328bf42bc0a3dba5b577f715a33f59ba72a6425",
+      "evidenceReviewed": [
+        "Complete accepted replacement final answer; not the interrupted original",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies missing semi-arid classification, direct drought observations and usable underlying indicator values."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Labels economic/water-use indicators as rough proxies and suggests mapping them separately before any combined resilience score; claims no measured resilience."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Confines the finding to source metadata and notes Africa-only infrastructure cannot support a global resilience assessment."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Explicitly says no finished map was delivered; two completed brief/read calls and no jobs/artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests an aridity layer and actual indicator tables, retaining the distinction between direct drought evidence and proxy context."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:51:05.344242Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:45.193014Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "4b1db70b646bbc498dfa796ef9bce036290faceab01a8b9e5153135453f5bbc4",
+  "investigations": []
+}

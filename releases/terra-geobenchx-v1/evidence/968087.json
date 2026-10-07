@@ -1,0 +1,741 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "968087",
+  "question": "Generate a heatmap of earthquake occurrences near railway lines in Canada.",
+  "submittedPrompt": "Generate a heatmap of earthquake occurrences near railway lines in Canada.\n\nTask conventions: Use the original point and line fixtures with the following precise near-rail convention. Select original earthquake points at planar distance strictly less than 10,000 metres from original railway features whose COUNTRY is CA. Transform original vertices to EPSG:3978 (Canada Atlas Lambert); segments are straight in that projection, with no densification. This explicitly fixes the archived reference's unspecified 10 km buffer projection; it is not an exact geodesic or travel-distance measurement. Include points near Canadian rail even if across an international boundary, matching the railway-buffer selection. Use one unit per event to show occurrences, not magnitude weights: the frozen event file contains negative magnitudes, so this is an explicitly disclosed count-weight adaptation of the archived heatmap. Use original January–February 2025 events, not current earthquakes. Use original point records and the declared attribute/raster selection; do not infer a separate geographic boundary. Unknown country indicators, nonpositive ratio denominators, missing geometry and missing/nonfinite weights are unknown, not zero. Known zero weights remain valid. Exclude valid points outside the specified geography. Include only eligible points with a finite nonnegative weight in the contributing artifact; report other potentially eligible points as unknown. Use this explicit geographic heatmap convention: grid={\"bounds\": [-18000000, -7325000, 18000000, 7325000], \"crs\": \"EPSG:6933\", \"resolutionX\": 25000, \"resolutionY\": 25000}, radius 150000 metres = three Gaussian standard deviations. First bin each point into its containing grid cell and sum its weight. Smooth using a normalized separable Gaussian, numerical support four standard deviations, constant-zero exterior; do not renormalize edges. Use both grid resolutions for the two axes; keep original grid alignment. This is a declared metric raster adaptation to the original interactive screen-pixel heatmap, not an equivalent zoom-dependent rendering. Output unit: events per grid cell. Zero cells are valid; this is not density per square kilometre. Do not rescale the values for presentation.\n\n\n\nAdd the heatmap raster to the map and retain an inspectable selected-point artifact with original geometry and benchmark_row_id. End with one fenced JSON object: {count: contributing point records, unknown_count: records with unknown eligibility or weight, unlocated_count: original points lacking valid geometry, coverage_note: string, selection: {collectionId,itemId,assetKey}, density: {collectionId,itemId,assetKey}, map_layer_id: heatmap_layer_id}. Explain the data edition, numerical weights, grid, smoothing and coverage limitations. The source-point artifact is not itself the requested heatmap.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Earthquake points, frozen 30-day snapshot\",\n    \"edition\": \"Archive labelled Feb142025; observed event timestamps 2025-01-16 through 2025-02-15 UTC\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"North American Rail Network Lines, frozen GeoBenchX snapshot\",\n    \"edition\": \"Original pinned GeoBenchX NARN/FRA/BTS snapshot, not a live network\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the heatmap is on the map, and I kept the selected earthquake points with original geometry and `benchmark_row_id` for inspection.\n\nIt uses 16 archived Jan–Feb 2025 earthquake events near rail features with `COUNTRY=CA`, with 0 unknown-eligibility records and 0 unlocated source points.\n\nImportant limitation: this is based on the frozen USGS earthquake snapshot labeled Feb142025 and the frozen GeoBenchX NARN/FRA/BTS rail snapshot, using the declared EPSG:3978 strict `<10 km` planar rule and a fixed EPSG:6933 smoothed raster in events per 25 km cell — not current earthquakes, not geodesic distance, and not the old zoom-dependent screen heatmap.\n\nNext: inspect the saved points and the map layer, or ask me for an export or an unsmoothed version.\n\n### Limitations\n\n- Uses the supplied frozen earthquake snapshot labelled Feb142025 with observed event timestamps 2025-01-16 through 2025-02-15 UTC and the original pinned GeoBenchX rail snapshot, not current data.\n- Near-rail selection follows the declared EPSG:3978 planar <10000 metre convention on original transformed vertices with straight segments and no densification; it is not geodesic or travel distance.\n- The heatmap is a fixed EPSG:6933 metric raster with 25000 metre cells and Gaussian smoothing radius 150000 metres; values are events per grid cell and the display is not zoom-dependent screen rendering.\n- Uses the archived earthquake snapshot labelled Feb142025 with observed event timestamps 2025-01-16 through 2025-02-15 UTC and the frozen GeoBenchX rail snapshot, not current data.\n- Near-rail means strict planar distance less than 10000 metres in EPSG:3978 on original transformed vertices with straight segments and no densification; it is not geodesic, travel, or engineering distance.\n- The heatmap is a fixed EPSG:6933 metric raster with 25000 metre cells and Gaussian smoothing radius 150000 metres; values are events per grid cell, not density per square kilometre, and the display is not the original zoom-dependent screen heatmap.",
+  "checks": {
+    "expectedCount": 16,
+    "actualCount": 16,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:19:39.631126Z",
+      "title": "Progress update",
+      "detail": "I’m checking the saved analysis context, the map state, and the exact source/processor options so I can build the heatmap with the requested fixed projection and grid rules."
+    },
+    {
+      "at": "2026-10-07T08:19:51.190602Z",
+      "title": "Progress update",
+      "detail": "I found the Terra analysis tools. Next I’m reading the saved context and the two frozen source datasets so I can match the exact archived-style selection and raster rules before I build anything."
+    },
+    {
+      "at": "2026-10-07T08:19:51.281727Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:19:51.334279Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:19:52.005848Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:19:53.015693Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:19:53.791089Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:07.656038Z",
+      "title": "Progress update",
+      "detail": "I have the two frozen collections. Now I’m pulling small bounded samples so I can confirm the real field names, geometry handling, and whether the archived identifiers needed in the output are present."
+    },
+    {
+      "at": "2026-10-07T08:20:07.981356Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:08.011812Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:14.717051Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:15.224047Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:32.280506Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:32.347562Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:37.384574Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:37.730959Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:37.765269Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the real source fields: earthquakes include `benchmark_row_id`, `mag`, `longitude`, `latitude`; rail lines include `COUNTRY` and `benchmark_row_id`. Now I’m finding the exact processors for distance selection, point binning, and Gaussian smoothing."
+    },
+    {
+      "at": "2026-10-07T08:20:53.409828Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:54.204598Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:07.191674Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:07.382083Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:10.224671Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:43.416313Z",
+      "title": "Progress update",
+      "detail": "I have enough source evidence to record the brief. I’m saving the goal now with the exact archived-style constraints so the trial and final checks use the same fixed rules."
+    },
+    {
+      "at": "2026-10-07T08:21:52.347560Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:56.462249Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:56.759934Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:22:59.313990Z",
+      "title": "Progress update",
+      "detail": "Before I build the final selection, I’m checking one important uncertainty: whether the frozen rail snapshot actually contains unknown `COUNTRY` values. If it doesn’t, unknown eligibility will come only from missing earthquake geometry in this task."
+    },
+    {
+      "at": "2026-10-07T08:23:03.188205Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:08.443953Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:23:15.052482Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:18.784895Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:24.858857Z",
+      "title": "Progress update",
+      "detail": "Terra rejected the stored scope format, so I’m correcting the brief to the exact CRS84 form and then retrying the evidence check. The analysis itself hasn’t run yet."
+    },
+    {
+      "at": "2026-10-07T08:23:32.033025Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:24:54.641559Z",
+      "title": "Progress update",
+      "detail": "The first check is back: the rail snapshot shows only `CA`, `MX`, and `US`, with no null or blank `COUNTRY` values in this frozen file. That means the remaining unknowns should come from earthquake geometry, not rail-country coding. I’m recording that and moving to a full selection-to-heatmap trial."
+    },
+    {
+      "at": "2026-10-07T08:24:54.731572Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:00.152657Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:28.063824Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:28.747075Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:29.768750Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the rail-country edge case. Next I’m running the full private method on the real frozen inputs: Canadian rail filter, EPSG:3978 strict <10 km point selection, explicit unknown-point count, and the fixed EPSG:6933 Gaussian heatmap."
+    },
+    {
+      "at": "2026-10-07T08:25:46.731840Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:27:54.681083Z",
+      "title": "Progress update",
+      "detail": "The full trial succeeded. It found 16 contributing earthquake points, 0 unknown-eligibility points, and a valid global EPSG:6933 heatmap on the requested 25 km grid. I’m recording that result, then I’ll save the exact tested method as the production workflow and run it for delivery."
+    },
+    {
+      "at": "2026-10-07T08:27:57.385758Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:20.007884Z",
+      "title": "Progress update",
+      "detail": "I’ve got a tested full-area method now. I’m reading the proposal schema for the exact fields, then I’ll save the workflow from this trial without changing the science."
+    },
+    {
+      "at": "2026-10-07T08:28:20.033417Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:20.041864Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:20.054171Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:20.072757Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:24.920652Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:25.146278Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:47.091261Z",
+      "title": "Progress update",
+      "detail": "The method is tested, so I’m saving that exact computation as the production workflow now. I’m keeping the user’s fixed projection, strict `<10 km` rule, count weighting, and declared grid unchanged."
+    },
+    {
+      "at": "2026-10-07T08:28:59.503613Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:29:06.928845Z",
+      "title": "Progress update",
+      "detail": "The draft failed because one fixed-parameter path was malformed. I’m correcting the contract paths and resaving the same workflow draft now."
+    },
+    {
+      "at": "2026-10-07T08:29:18.106296Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:29:38.099597Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:00.470537Z",
+      "title": "Progress update",
+      "detail": "The saved workflow appears to have finished in the background after the interruption. I’m inspecting the delivered outputs now, then I’ll bind the heatmap to the map and finalize the result."
+    },
+    {
+      "at": "2026-10-07T08:31:00.493136Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:00.499374Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:00.506755Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:34.983073Z",
+      "title": "Progress update",
+      "detail": "I have the finished outputs and the heatmap layer ID from the workflow receipt. I’m doing the last bounded inspections now: selected points, final raster, the count tables, and the live map layer list."
+    },
+    {
+      "at": "2026-10-07T08:31:35.012365Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:35.022606Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:35.028483Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:31:35.046729Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:31:36.038522Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:32:09.835192Z",
+      "title": "Progress update",
+      "detail": "I’m refreshing the finished artifacts directly by their saved identities so I can verify the selected points, the raster values, and the live layer binding without relying on stale workflow state."
+    },
+    {
+      "at": "2026-10-07T08:32:09.860103Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:32:09.868388Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:32:09.876658Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:32:09.887751Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:32:10.792792Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:32:47.766354Z",
+      "title": "Progress update",
+      "detail": "I already have the final deliverables and map layer, but I’m fetching the two count tables from the finished workflow so the final response uses the delivered run’s own counts, not the earlier trial."
+    },
+    {
+      "at": "2026-10-07T08:32:48.012868Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:33:07.002664Z",
+      "title": "Progress update",
+      "detail": "I’ve resolved the planning uncertainties, so I’m refreshing the brief to match what the evidence actually established before I record the final assessment."
+    },
+    {
+      "at": "2026-10-07T08:33:15.307359Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:25.678105Z",
+      "title": "Progress update",
+      "detail": "I’m pulling the finished inspection receipts now so the final assessment attaches the current selected points, heatmap raster, and supporting count evidence."
+    },
+    {
+      "at": "2026-10-07T08:33:25.862263Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:26.012473Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:26.063018Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:26.137109Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:45.972642Z",
+      "title": "Progress update",
+      "detail": "I have the point and raster inspections. I’m fetching the nearest-distance summary once more from the delivered run so the final assessment can state the unlocated-point count from the actual published workflow context."
+    },
+    {
+      "at": "2026-10-07T08:33:46.639559Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:34:54.168744Z",
+      "title": "Progress update",
+      "detail": "I’m recording the selected-point result first, then I’ll record the heatmap result with the final answer object attached."
+    },
+    {
+      "at": "2026-10-07T08:34:59.952895Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:35:09.804513Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:35:25.385103Z",
+      "title": "Progress update",
+      "detail": "I’m recording the final heatmap result now, with the answer object bound to the delivered point artifact, raster artifact, and live map layer."
+    },
+    {
+      "at": "2026-10-07T08:35:37.480557Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "ca rail",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Selected earthquakes near Canadian rail",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Earthquakes near Canadian rail heatmap",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "heatmap density",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "quake distance",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "quake points",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "rail lines",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "selected count",
+      "description": "Recorded table-group-statistics · skipped"
+    },
+    {
+      "title": "selected points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "unknown count",
+      "description": "Recorded table-group-statistics · skipped"
+    },
+    {
+      "title": "unknown points",
+      "description": "Recorded vector-filter · skipped"
+    },
+    {
+      "title": "ca rail",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "heatmap density",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "quake distance",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "quake points",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "rail lines",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "selected count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "selected points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "quake distance",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "selected points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "selected count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "unknown count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "heatmap density",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "heatmap density",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "unknown count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "unknown points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "rail country counts",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "rail country counts",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "55424fbafc274a23b172e4f5b8ae4f1ccc9415ad660df6f6ae3b1ab98feaa8a8",
+      "bytes": 84810186,
+      "finishedAt": "2026-10-07T08:23:43.017881+00:00"
+    },
+    {
+      "sha256": "9dc487493dd672448ec61b20869c22a4346bd8c0af698a28b6c884d7e2d6aae6",
+      "bytes": 1778,
+      "finishedAt": "2026-10-07T08:23:52.280357+00:00"
+    },
+    {
+      "sha256": "d65a70744c33156a86486daa0121936bb3cbaa710a6cee0ebeb1c5d343efaed0",
+      "bytes": 975661,
+      "finishedAt": "2026-10-07T08:25:57.934500+00:00"
+    },
+    {
+      "sha256": "b6962d924501bcc81f56b565d49a9fa02c5562dd306bb94af13ab34cbfbfd257",
+      "bytes": 19099289,
+      "finishedAt": "2026-10-07T08:26:29.022306+00:00"
+    },
+    {
+      "sha256": "3e5f07fed009abcfbaf19aa652dba14ab03d4d13a43f52aa6f76aa9f0ffe8883",
+      "bytes": 1345437,
+      "finishedAt": "2026-10-07T08:26:44.177537+00:00"
+    },
+    {
+      "sha256": "fa877f4479f284db0960839194099769a840579d456e327f36223ec32aca3b5d",
+      "bytes": 24700,
+      "finishedAt": "2026-10-07T08:26:50.950493+00:00"
+    },
+    {
+      "sha256": "435f42b399ce43dbe3400d2aee21ba82a09191908bb1d107115492584ef4e61b",
+      "bytes": 16394,
+      "finishedAt": "2026-10-07T08:27:03.628210+00:00"
+    },
+    {
+      "sha256": "e74092cc0abfd43e83541fbb15cc22cd1ab864f51b1466bc7a4d999f45405ad0",
+      "bytes": 1314,
+      "finishedAt": "2026-10-07T08:26:57.495425+00:00"
+    },
+    {
+      "sha256": "450b660a7abfeb19f3aea310f6f0625ddb64d1c3072d3d5490551651d837d1ef",
+      "bytes": 1282,
+      "finishedAt": "2026-10-07T08:27:03.628210+00:00"
+    },
+    {
+      "sha256": "67a6c910e21017cc8ed48985afcec0403f2309c4ba51d7a7b8a2e5665c4ad84e",
+      "bytes": 17104,
+      "finishedAt": "2026-10-07T08:26:57.495425+00:00"
+    },
+    {
+      "sha256": "b6962d924501bcc81f56b565d49a9fa02c5562dd306bb94af13ab34cbfbfd257",
+      "bytes": 19099289,
+      "finishedAt": "2026-10-07T08:30:16.369285+00:00"
+    },
+    {
+      "sha256": "3e5f07fed009abcfbaf19aa652dba14ab03d4d13a43f52aa6f76aa9f0ffe8883",
+      "bytes": 1345437,
+      "finishedAt": "2026-10-07T08:30:35.677280+00:00"
+    },
+    {
+      "sha256": "fa877f4479f284db0960839194099769a840579d456e327f36223ec32aca3b5d",
+      "bytes": 24700,
+      "finishedAt": "2026-10-07T08:30:41.280472+00:00"
+    },
+    {
+      "sha256": "435f42b399ce43dbe3400d2aee21ba82a09191908bb1d107115492584ef4e61b",
+      "bytes": 16394,
+      "finishedAt": "2026-10-07T08:30:46.724001+00:00"
+    }
+  ],
+  "snapshotSha256": "f53f7aadfcf5f6e03e0b1f49840f1854834dfb53a43ddb3335033cae4d19a15c",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:23:08.443953Z",
+      "tool": "run_trial",
+      "status": "failed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the original rail COUNTRY values include any unknown indicators that would make earthquake eligibility unknown?"
+    },
+    {
+      "at": "2026-10-07T08:23:15.052482Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the original rail COUNTRY values include any unknown indicators that would make earthquake eligibility unknown?"
+    },
+    {
+      "at": "2026-10-07T08:25:00.152657Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The grouped COUNTRY values in the frozen rail snapshot are CA=64,537, MX=2,529, and US=235,426. The observed COUNTRY field has no null values and no unexpected blank/unknown indicator in this fixture, so COUNTRY-based unknown eligibility is not observed for this task.",
+      "limitations": [
+        "This check only answers the rail COUNTRY uncertainty. Earthquake geometry validity and the end-to-end selection and heatmap method still need testing."
+      ],
+      "next_action": "Run an end-to-end trial that filters COUNTRY=CA rail, measures nearest earthquake-to-rail distance in EPSG:3978, selects points with distance <10000 metres, and builds the declared EPSG:6933 heatmap.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:25:46.731840Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full method on the frozen fixtures produce the requested selected-point artifact and fixed-grid heatmap using strict EPSG:3978 <10 km distance to COUNTRY=CA rail and count weighting?"
+    },
+    {
+      "at": "2026-10-07T08:27:57.385758Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full trial reproduced the requested method on the frozen fixtures. It filtered rail lines to COUNTRY=CA, measured strict planar nearest distance in EPSG:3978 from every earthquake point to original Canadian rail geometry, selected points with dist_ca_rail_m < 10000, and built a point-density raster on the declared EPSG:6933 grid with 25000 metre x/y resolution and radiusM=150000. The selected-point artifact contains 16 original earthquake point records with original geometry and benchmark_row_id preserved, and the measured distances range from 345.62 m to 8985.17 m. The unknown_count table returned 0, and the nearest-distance summary reported unknownSourceCount=0, so no original earthquake points lacked valid geometry in this frozen fixture. The heatmap summary shows pointCount=16, usedPointCount=16, outsideGridCount=0, unknownWeightCount=0, sigmaPixels=[2.0,2.0], and unit='events per grid cell'.",
+      "limitations": [
+        "This trial establishes the scientific method and counts on the requested full extent, but the trial outputs are private and not yet the delivered map layer.",
+        "The raster is still the declared fixed-grid metric adaptation, not the original zoom-dependent screen heatmap."
+      ],
+      "next_action": "Save this exact tested computation as the production workflow, execute it, inspect the delivered artifacts, add the heatmap raster to the map, and assess the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:34:59.952895Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The delivered selected-point artifact is sufficient. It contains 16 original earthquake point records near Canadian rail, keeps original point geometry and benchmark_row_id, and every selected record has a measured EPSG:3978 distance below 10 km to COUNTRY=CA rail.",
+      "limitations": null,
+      "next_action": "Record the heatmap result and attach the final answer object.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:35:09.804513Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The delivered selected-point artifact is sufficient. It contains 16 original earthquake point records near Canadian rail, keeps original point geometry and benchmark_row_id, and every selected record has a measured EPSG:3978 distance below 10 km to COUNTRY=CA rail.",
+      "limitations": null,
+      "next_action": "Record the heatmap result and attach the final answer object.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:35:37.480557Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "Delivered the requested heatmap raster and kept the contributing point artifact for inspection. The delivered selection contains 16 original earthquake point records with benchmark_row_id preserved. The delivered raster uses the declared global EPSG:6933 25 km grid, smooths the selected events with radius 150 km Gaussian support, and is already bound to the current map as layer [resource id withheld]. The delivered selection also includes cross-border eligible events near Canadian rail, matching the distance-to-rail rule rather than a separate Canada boundary.",
+      "limitations": [
+        "Uses the archived earthquake snapshot labelled Feb142025 with observed event timestamps 2025-01-16 through 2025-02-15 UTC and the frozen GeoBenchX rail snapshot, not current data.",
+        "Near-rail means strict planar distance less than 10000 metres in EPSG:3978 on original transformed vertices with straight segments and no densification; it is not geodesic, travel, or engineering distance.",
+        "The heatmap is a fixed EPSG:6933 metric raster with 25000 metre cells and Gaussian smoothing radius 150000 metres; values are events per grid cell, not density per square kilometre, and the display is not the original zoom-dependent screen heatmap."
+      ],
+      "next_action": "Use the map layer and selected points for inspection, or ask for a variant such as unsmoothed counts or an export.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "8988386536fc9f8f6883d7243af96e1affbc4f121d556615706e6904c3a00247",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

@@ -1,0 +1,741 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "631643",
+  "question": "Make a map visualizing relationship between fertility rate and net migration (normalized by total population) across the World.",
+  "submittedPrompt": "Make a map visualizing relationship between fertility rate and net migration (normalized by total population) across the World.\n\nTask conventions: Use the frozen country boundaries and the 2022 column of every supplied indicator. X is fertility (births per woman); Y is migration (net migrants per person). Y is net migration divided by total population, NOT multiplied by 100 or 1000. Join ISO_A3 to Country Code exactly. Keep every original country feature and benchmark_row_id, including unknowns and repeated country identities. Do not guess missing values or substitute years. A missing numerator or missing/zero denominator is unknown. Make one bivariate choropleth: three quantile classes on each axis, computed over rows where BOTH measurements are known. Collapse tied breaks; equality enters the upper class. Combined class is (yClass-1)*xClasses+xClass with 1-based axes. Missing either measurement is neutral class zero. Retain the numeric X and Y values even when only one is missing. The legend must distinguish joint classes with both ranges and units. These are disclosed evaluation conventions, not live-data replacements or proof of causation.\n\n\n\nAdd the quantitative joint-class layer to the map and retain its complete vector artifact. End with one fenced JSON object: {count: rows with both measurements known, unknown_count: rows missing either, coverage_note: string, selection: {collectionId,itemId,assetKey}, value_field: X numeric column, y_value_field: Y numeric column, class_field: joint class column, map_layer_id: delivered layer ID}. Explain year, units, missing coverage and the relationship without claiming causality.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Fertility rate\",\n    \"edition\": \"Frozen WDI; use 2022\",\n    \"units\": {\n      \"2022\": \"births per woman\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Net migration, World Development Indicators\",\n    \"edition\": \"2024-11-13 snapshot; use 2023\",\n    \"units\": {\n      \"2023\": \"people (net migration)\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SP.POP.TOTL\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the bivariate country layer is on the map and the retained final vector artifact is selected.\n\nIt uses fertility 2022 on X in births per woman, and 2023 net migration divided by 2023 population on Y in net migrants per person. 210 country features have both values known; 41 are neutral class 0 because one or both values are unknown after the exact ISO_A3-to-Country Code join. The pattern is descriptive only and does not show causality.\n\n### Limitations\n\n- The map is descriptive only. It shows how countries fall into joint classes in these supplied snapshots, not causation.\n- Countries with missing fertility, missing net migration, or missing or zero population remain unknown and use neutral class 0.\n- The relationship is descriptive only and does not show causality.\n- 41 of 251 country features are neutral class 0 because fertility or normalized migration is unknown after the required exact join.\n- 34 exact ISO_A3 codes remain unmatched in at least one indicator join, and repeated country identities remain repeated.\n- Repeated country identities stay repeated.\n- Exact unmatched codes remain unknown rather than being repaired.\n- 41 country features have no fertility value after the required exact join and stay neutral-class unknowns.\n- 34 country features have unknown Y after the required exact join because the numerator or denominator is unavailable through that key.\n- The class boundaries summarize these supplied snapshots only and do not imply causation.",
+  "checks": {
+    "expectedCount": 210,
+    "actualCount": 210,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": false,
+    "answerFulfilled": false,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": [
+      "Artifact measurement values differ from the frozen source calculation."
+    ]
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:27:27.465476Z",
+      "title": "Progress update",
+      "detail": "I’ll inspect the supplied sources first, then build a small tested method for the join, 2022/2023 values, and bivariate classes before I save the full map workflow."
+    },
+    {
+      "at": "2026-10-07T07:27:51.510216Z",
+      "title": "Progress update",
+      "detail": "I found the analysis tools. Next I’m checking the saved analysis context and the exact schemas of the four supplied inputs so I can join the right fields without dropping countries."
+    },
+    {
+      "at": "2026-10-07T07:27:51.597082Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:51.610581Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:54.999928Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:55.056812Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:56.185480Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:05.853020Z",
+      "title": "Progress update",
+      "detail": "The supplied collections are fixed snapshots. I’ve confirmed the editions. Now I’m reading the actual columns and a few sample rows so I can use the exact join keys and year fields the data really contains."
+    },
+    {
+      "at": "2026-10-07T07:28:06.176631Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:28:06.200119Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:28:07.625952Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:28:08.544097Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:28:19.988290Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:20.009431Z",
+      "title": "Progress update",
+      "detail": "The direct artifact inspect is not allowed for raw inputs, so I’m switching to item metadata and bounded source inspection instead. That should still expose the exact fields and sample values I need."
+    },
+    {
+      "at": "2026-10-07T07:28:20.050377Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:21.449652Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:21.503207Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:28.133311Z",
+      "title": "Progress update",
+      "detail": "I have the exact source columns now: boundaries use `ISO_A3`, indicators use `Country Code`, and all four snapshots include the year columns. Next I’m finding the processors for join, field calculation, and classing."
+    },
+    {
+      "at": "2026-10-07T07:28:28.516522Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:28.526982Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:29.885782Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:30.580222Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:39.685649Z",
+      "title": "Progress update",
+      "detail": "I found a direct bivariate-classify processor, which is a good fit because it already preserves all features, handles neutral class 0 for unknowns, collapses tied quantile breaks, and publishes a legend with ranges and units. I’m checking its exact inputs and the join/calculate schemas before I test the whole chain."
+    },
+    {
+      "at": "2026-10-07T07:28:39.694970Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:39.698645Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:49.349916Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:49.634262Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:49.976606Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:11.371042Z",
+      "title": "Progress update",
+      "detail": "There’s one practical wrinkle: both migration and population use a raw `2023` column name. I need to avoid a field-name collision before I can compute net migrants per person cleanly. I’m checking whether Terra has a table-side rename or join option; otherwise I’ll use a tested workaround."
+    },
+    {
+      "at": "2026-10-07T07:29:11.382961Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:11.387004Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:11.809189Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:23.671550Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:24.642981Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:35.517857Z",
+      "title": "Progress update",
+      "detail": "I found a better workaround: if the table statistics processor can alias fields, I can rename each raw `2023` column on the table side before joining. That would keep the joins exact and avoid any risky overwrite behavior."
+    },
+    {
+      "at": "2026-10-07T07:30:05.990099Z",
+      "title": "Progress update",
+      "detail": "I’m saving the analysis brief now. I’m treating the years named in the immutable inputs as authoritative for the computation: fertility 2022, migration 2023, and population 2023. If the trial shows a problem, I’ll revise before I save the final workflow."
+    },
+    {
+      "at": "2026-10-07T07:30:18.765039Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:30:49.196818Z",
+      "title": "Progress update",
+      "detail": "I’ve got a tested path in mind now: alias each indicator’s year field on the table side, left-join them to the frozen countries, compute net migrants per person, then let the bivariate classifier make the joint classes and legend. I’m running that exact chain as a private trial over the whole world because the dataset is small enough that the trial can be representative, not just a toy subset."
+    },
+    {
+      "at": "2026-10-07T07:31:06.165439Z",
+      "title": "Progress update",
+      "detail": "The first trial submission had a schema mistake only: `inspect_outputs` belongs at the request level, not inside `computation`. I’m correcting that now and retrying the same test."
+    },
+    {
+      "at": "2026-10-07T07:31:12.718585Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:05.847355Z",
+      "title": "Progress update",
+      "detail": "The private test succeeded. It preserved all 251 country features, kept `benchmark_row_id`, computed normalized migration as a per-person ratio, and produced 3x3 quantile breaks from the 210 countries where both values are known. I’m reading the saved trial report and the proposal schema now so I can turn this tested method into the final map workflow without changing the science."
+    },
+    {
+      "at": "2026-10-07T07:36:05.859633Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:05.863421Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:06.366104Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:09.874860Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:25.639952Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the tested method and I’m doing one more check on the edge cases: a few rows where the joint class is 0 should still keep the numeric X or Y value that is available. That lets me verify the “keep numeric values even when one side is missing” rule before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T07:36:25.725340Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:25.761604Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:27.222916Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:27.627129Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:07.477290Z",
+      "title": "Progress update",
+      "detail": "The method is holding up. I’m finishing the production draft from the tested full-world run, then I’ll publish the map layer and final artifact after one last value check on the neutral class rows."
+    },
+    {
+      "at": "2026-10-07T07:37:21.860051Z",
+      "title": "Progress update",
+      "detail": "I’ve got the neutral-class checks queued. While those finish, I’m pulling the workflow contract schema so the saved production draft will document the exact sources, joins, and class method that were tested."
+    },
+    {
+      "at": "2026-10-07T07:37:21.927247Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:21.939582Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:21.953106Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:25.605522Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:38:14.375476Z",
+      "title": "Progress update",
+      "detail": "The trial answered the main method question: 210 countries have both measurements known, 41 are neutral-class unknowns, and at least some neutral rows still keep a numeric migration value when fertility is missing. I’m updating the saved brief to remove stale “test this later” notes, then I’ll save the production workflow from this exact tested computation."
+    },
+    {
+      "at": "2026-10-07T07:38:15.308402Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:38:21.445430Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:38:23.387313Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:38:40.093033Z",
+      "title": "Progress update",
+      "detail": "I’ve updated the brief with the tested counts and limitations. Next I’m saving the exact full-world method as the production workflow so I can run the final deliverable without changing sources, years, joins, or class rules."
+    },
+    {
+      "at": "2026-10-07T07:38:53.202326Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:39:02.397243Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:39:03.541200Z",
+      "title": "Progress update",
+      "detail": "The production draft validated cleanly and matches the tested computation exactly. I’m running that saved workflow now, then I’ll inspect the final artifact, add the layer to the map, and record the final answer object against the delivered output."
+    },
+    {
+      "at": "2026-10-07T07:42:57.207655Z",
+      "title": "Progress update",
+      "detail": "The saved workflow has finished. I’m inspecting the final output now so I can bind the delivered vector artifact, add the map layer, and record the final answer against the actual production result rather than the private trial."
+    },
+    {
+      "at": "2026-10-07T07:42:57.510674Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:29.000779Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:30.249974Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:33.090275Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:57.845439Z",
+      "title": "Progress update",
+      "detail": "I’m verifying the final production artifact against the edge-case rules now: the saved workflow should match the trial, but I still need the final artifact receipt, a couple of neutral-class examples, and the exact layer binding before I can finish."
+    },
+    {
+      "at": "2026-10-07T07:44:57.874031Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:57.884068Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:58.892363Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:58.980070Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:59.849035Z",
+      "title": "list_processor_jobs",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:00.905505Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:00.938726Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:01.704395Z",
+      "title": "Progress update",
+      "detail": "I’ve got the final artifact and class summary. I’m pulling the last neutral-class sample rows now, then I’ll add the bivariate layer to the map and record the final answer object against the delivered production output."
+    },
+    {
+      "at": "2026-10-07T07:46:02.279233Z",
+      "title": "add_result_layer",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:47:06.989654Z",
+      "title": "Progress update",
+      "detail": "I’m checking the live map bindings now. If the final layer is already on the map, I’ll reuse that layer ID; otherwise I’ll add the exact saved output item and then finish the result assessment."
+    },
+    {
+      "at": "2026-10-07T07:47:07.023204Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:07.220094Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:24.579309Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:24.614553Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:27.529329Z",
+      "title": "Progress update",
+      "detail": "I have the final vector item and the live map layer ID. I’m checking the exact `assess_result` example once so I pass the final artifact references in the format Terra expects, then I’ll record the accepted answer object."
+    },
+    {
+      "at": "2026-10-07T07:47:45.077118Z",
+      "title": "Progress update",
+      "detail": "The workflow already exposed a matching map layer, but I’m also adding the exact saved output item directly so the final answer can point to an authoritative layer binding for this vector artifact."
+    },
+    {
+      "at": "2026-10-07T07:47:45.716219Z",
+      "title": "add_catalog_layer",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:20.263616Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:20.573460Z",
+      "title": "Progress update",
+      "detail": "I’ve added the exact output item to the map and I’m doing one last layer check so the final answer can point to the live delivered layer ID, not just the saved vector item."
+    },
+    {
+      "at": "2026-10-07T07:49:38.153496Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Calculate normalized migration",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Create bivariate classes",
+      "description": "Recorded vector-bivariate-classify · succeeded"
+    },
+    {
+      "title": "World fertility and net migration bivariate choropleth",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Alias fertility 2022",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Join fertility",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Join migration",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Join population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Alias migration 2023",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Alias population 2023",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Calculate normalized migration",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Create bivariate classes",
+      "description": "Recorded vector-bivariate-classify · succeeded"
+    },
+    {
+      "title": "Alias fertility 2022",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Join fertility",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Join migration",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Join population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Alias migration 2023",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Alias population 2023",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join population",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Calculate normalized migration",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Create bivariate classes",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Create bivariate classes",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "e4694fe761eacb7d240342583b3d819fc3fa5cb823d5d161149859de3670883d",
+      "bytes": 159757,
+      "finishedAt": "2026-10-07T07:31:29.450532+00:00"
+    },
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T07:31:29.450532+00:00"
+    },
+    {
+      "sha256": "f80ac51aa813bae2e14b0dcab21097697cf7d936ccd9ed0ce7d74bf56191c5f7",
+      "bytes": 151811,
+      "finishedAt": "2026-10-07T07:31:29.450532+00:00"
+    },
+    {
+      "sha256": "88594296e94fe36d2810fac2feb2672aa3b7fc3985d9617914ddbf11d4157626",
+      "bytes": 171501,
+      "finishedAt": "2026-10-07T07:31:29.450532+00:00"
+    },
+    {
+      "sha256": "916c725d0357f3ff91cba7795e735bdf4a8a5d8db86ff63855b4a316568e172d",
+      "bytes": 5012,
+      "finishedAt": "2026-10-07T07:32:13.472768+00:00"
+    },
+    {
+      "sha256": "c2398d83b8c89a5b57a28fb87b346e844ae286e20ae9576510c5e47b77d4c69c",
+      "bytes": 4288,
+      "finishedAt": "2026-10-07T07:32:13.472768+00:00"
+    },
+    {
+      "sha256": "55fa22a77bd3f2189a052a0fe7e0499b50728cca9673b4f37b2a2d750636961e",
+      "bytes": 8417420,
+      "finishedAt": "2026-10-07T07:32:57.693619+00:00"
+    },
+    {
+      "sha256": "0a94453f0e80e375276b1f558e6ade20542412d61116a9b9bc8740db2fe2df8e",
+      "bytes": 4919,
+      "finishedAt": "2026-10-07T07:32:57.693619+00:00"
+    },
+    {
+      "sha256": "e7e984c7ccb7da28c0e71561854cd512131ce06ce37669864870358b9b5c3d62",
+      "bytes": 8421537,
+      "finishedAt": "2026-10-07T07:33:36.428819+00:00"
+    },
+    {
+      "sha256": "d8e730033519379463faafa95e26036e142c7f4d28aface2452b03f71209ea76",
+      "bytes": 8426223,
+      "finishedAt": "2026-10-07T07:34:10.673507+00:00"
+    },
+    {
+      "sha256": "cc78835873f141a7dfc5016b2c86d6ddda0c6b5c09570e5ae89a7ee165e18bd9",
+      "bytes": 8428704,
+      "finishedAt": "2026-10-07T07:34:28.678642+00:00"
+    },
+    {
+      "sha256": "9cf21283af53d704f9d4970783c2a2b39884111ec9990865e64051043c7084d8",
+      "bytes": 8430756,
+      "finishedAt": "2026-10-07T07:34:38.920714+00:00"
+    },
+    {
+      "sha256": "916c725d0357f3ff91cba7795e735bdf4a8a5d8db86ff63855b4a316568e172d",
+      "bytes": 5012,
+      "finishedAt": "2026-10-07T07:40:34.144576+00:00"
+    },
+    {
+      "sha256": "55fa22a77bd3f2189a052a0fe7e0499b50728cca9673b4f37b2a2d750636961e",
+      "bytes": 8417420,
+      "finishedAt": "2026-10-07T07:40:51.011823+00:00"
+    },
+    {
+      "sha256": "c2398d83b8c89a5b57a28fb87b346e844ae286e20ae9576510c5e47b77d4c69c",
+      "bytes": 4288,
+      "finishedAt": "2026-10-07T07:40:34.144576+00:00"
+    },
+    {
+      "sha256": "0a94453f0e80e375276b1f558e6ade20542412d61116a9b9bc8740db2fe2df8e",
+      "bytes": 4919,
+      "finishedAt": "2026-10-07T07:40:51.011823+00:00"
+    },
+    {
+      "sha256": "e7e984c7ccb7da28c0e71561854cd512131ce06ce37669864870358b9b5c3d62",
+      "bytes": 8421537,
+      "finishedAt": "2026-10-07T07:41:25.644255+00:00"
+    },
+    {
+      "sha256": "d8e730033519379463faafa95e26036e142c7f4d28aface2452b03f71209ea76",
+      "bytes": 8426223,
+      "finishedAt": "2026-10-07T07:41:40.315998+00:00"
+    },
+    {
+      "sha256": "cc78835873f141a7dfc5016b2c86d6ddda0c6b5c09570e5ae89a7ee165e18bd9",
+      "bytes": 8428704,
+      "finishedAt": "2026-10-07T07:42:02.322212+00:00"
+    },
+    {
+      "sha256": "9cf21283af53d704f9d4970783c2a2b39884111ec9990865e64051043c7084d8",
+      "bytes": 8430756,
+      "finishedAt": "2026-10-07T07:42:36.255040+00:00"
+    }
+  ],
+  "snapshotSha256": "66d75a94327aa3e8805a4d4f22824e5bd3d1325391cba0d94784727571770581",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:31:12.718585Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do aliased year fields, exact ISO_A3-to-Country Code left joins, net migration normalization, and 3x3 quantile bivariate classification produce a full-world country artifact that preserves every boundary feature, keeps numeric X and Y values, and assigns neutral class 0 to unknowns?"
+    },
+    {
+      "at": "2026-10-07T07:38:15.308402Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-world trial succeeded with the exact supplied sources and years. Left joins preserved all 251 boundary features and benchmark_row_id values. The joined output kept 217 matched migration/population rows and 217 computed net_mig_per_person values; 34 rows stayed unknown because the exact ISO_A3-to-Country Code join left them unmatched. The classifier used 210 paired known rows, produced 3 x-axis classes and 3 y-axis classes, and assigned neutral class 0 to 41 rows where either value was unknown. The class summary reports xBreaks 1.65 and 2.711 births per woman, yBreaks -0.00084714204 and 0 net migrants per person, and the documented code formula (yClass - 1) * xClasses + xClass. Inspection of neutral rows shows numeric net_mig_per_person values were retained for some rows with missing fertility, such as San Marino and Monaco.",
+      "limitations": [
+        "The unmatched features remain unknown under the required exact ISO_A3-to-Country Code join; they are not filled or substituted.",
+        "This trial is descriptive only. The resulting classes show relative position in the supplied snapshots, not causation."
+      ],
+      "next_action": "Save the tested computation as the production workflow, execute it, add the final joint-class layer to the map, and assess the delivered artifact.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:49:38.153496Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The final production output matches the tested world method. The selected vector artifact preserves all 251 supplied country features, keeps fertility_2022 in births per woman and net_mig_per_person in net migrants per person, and classifies the 210 countries with both values known into a 3 by 3 quantile bivariate scheme with class 0 for the 41 unknowns. X uses the supplied fertility 2022 snapshot. Y uses the supplied 2023 net migration snapshot divided by the supplied 2023 population snapshot, exactly as computed in the saved workflow. Countries in higher X classes have higher fertility, and countries in higher Y classes have more positive net migration per person relative to the observed breaks, but the map is descriptive only and does not establish causation.",
+      "limitations": [
+        "The relationship is descriptive only and does not show causality.",
+        "41 of 251 country features are neutral class 0 because fertility or normalized migration is unknown after the required exact join.",
+        "34 exact ISO_A3 codes remain unmatched in at least one indicator join, and repeated country identities remain repeated."
+      ],
+      "next_action": "Use class 0 as unknown rather than low-low when comparing countries in the map.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "00262076011bd5e444a26fe46de6091dd0d6a39a9e1345e4d3cc1cd154d4c3bb",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

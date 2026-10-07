@@ -1,0 +1,252 @@
+{
+  "benchmarkRevision": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+  "source": "https://github.com/Solirinai/GeoBenchX/blob/0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb/geobenchx/tools.py",
+  "datasets": [
+    {
+      "kind": "DATA_CATALOG",
+      "title": "Forest area (sq. km)",
+      "filename": "API_AG.LND.FRST.K2_DS2_en_csv_v2_2627"
+    },
+    {
+      "kind": "DATA_CATALOG",
+      "title": "Forest area (% of land area)",
+      "filename": "API_AG.LND.FRST.ZS_DS2_en_csv_v2_102"
+    },
+    {
+      "kind": "DATA_CATALOG",
+      "title": "Electric power consumption (kWh per capita)",
+      "filename": "API_EG.USE.ELEC.KH.PC_DS2_en_csv_v2_2767"
+    },
+    {
+      "kind": "DATA_CATALOG",
+      "title": "Annual freshwater withdrawals, total (billion cubic meters)",
+      "filename": "API_ER.H2O.FWTL.K3_DS2_en_csv_v2_8364"
+    },
+    {
+      "kind": "DATA_CATALOG",
+      "title": "Annual freshwater withdrawals, total (% of internal resources)",
+      "filename": "API_ER.H2O.FWTL.ZS_DS2_en_csv_v2_7098"
+    },
+    {
+      "kind": "DATA_CATALOG",
+      "title": "Agriculture, value added (% of GDP)",
+      "filename": "API_NV.AGR.TOTL.ZS_DS2_en_csv_v2_4614"
+    },
+    {
+      "kind": "DATA_CATALOG",
+      "title": "GDP per capita (current US$)",
+      "filename": "API_NY.GDP.PCAP.CD_DS2_en_csv_v2_77536"
+    },
+    {
+      "kind": "DATA_CATALOG",
+      "title": "Labor force, total",
+      "filename": "API_SL.TLF.TOTL.IN_DS2_en_csv_v2_4341"
+    },
+    {
+      "kind": "DATA_CATALOG",
+      "title": "Net migration",
+      "filename": "API_SM.POP.NETM_DS2_en_csv_v2_91"
+    },
+    {
+      "kind": "DATA_CATALOG",
+      "title": "Fertility rate, births per woman",
+      "filename": "API_SP.DYN.TFRT.IN_DS2_en_csv_v2_821"
+    },
+    {
+      "kind": "DATA_CATALOG",
+      "title": "Population, total",
+      "filename": "API_SP.POP.TOTL_DS2_en_csv_v2_56"
+    },
+    {
+      "kind": "DATA_CATALOG",
+      "title": "Rural population, total",
+      "filename": "API_SP.RUR.TOTL_DS2_en_csv_v2_6835"
+    },
+    {
+      "kind": "DATA_CATALOG",
+      "title": "Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents ",
+      "filename": "GHG_emissions_OWID_wide.csv"
+    },
+    {
+      "kind": "DATA_CATALOG",
+      "title": "CO2 emissions per capita, tons",
+      "filename": "per-capita-co-emissions_OWID_tons.csv"
+    },
+    {
+      "kind": "DATA_CATALOG",
+      "title": "Incidence of Tuberculosis Disease, 2023, Massachusetts Counties",
+      "filename": "Incidence of Tuberculosis Disease 2023 Massachusetts Counties.csv"
+    },
+    {
+      "kind": "DATA_CATALOG",
+      "title": "Incidence of Tuberculosis Disease, 2023, New York State Counties",
+      "filename": "NYS TB cases 2023.csv"
+    },
+    {
+      "kind": "DATA_CATALOG",
+      "title": "Rail lines (total route-km)",
+      "filename": "API_IS.RRS.TOTL.KM_DS2_en_csv_v2_1937"
+    },
+    {
+      "kind": "DATA_CATALOG",
+      "title": "Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles",
+      "filename": "Regional GDPs Peru.csv"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Countries",
+      "filename": "WB_countries_Admin0_10m.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Amtrak railway stations",
+      "filename": "Amtrak_Stations.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Railway lines in Bangladesh",
+      "filename": "Bangladesh_gis_osm_railways_free_1.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Cities and Towns of the United States, 2014",
+      "filename": "bx729wr3020.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Railway Network of North America",
+      "filename": "North_American_Rail_Network_Lines.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Current Wildland Fire Incident Locations, size in acres",
+      "filename": "Incidents.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Rivers in North America",
+      "filename": "northamerica_rivers_cec_2023.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Lakes in North America",
+      "filename": "northamerica_lakes_cec_2023.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "USA counties borders",
+      "filename": "tl_2024_us_county.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "USA states borders",
+      "filename": "tl_2024_us_state.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Earthquakes occurences and magnitude March 15- February 14 2025",
+      "filename": "earthquakes_30_days_Feb142025.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Rivers in South America",
+      "filename": "rivers_samerica_37330.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Seaports of Latin America",
+      "filename": "Ports_Latin_America.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Railways in Brazil",
+      "filename": "hotosm_bra_railways_lines_shp.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Mineral extraction facilities in Africa",
+      "filename": "Africa mineral facilities.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Power stations in Africa",
+      "filename": "Africa Power Stations.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Railways in Africa",
+      "filename": "Africa railways.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Municipalities of Brazil",
+      "filename": "bra_admbnda_adm2_ibge_2020.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Regions of Peru",
+      "filename": "per_admbnda_adm1_ign_20200714.shp"
+    },
+    {
+      "kind": "GEO_CATALOG",
+      "title": "Provinces of Peru",
+      "filename": "per_admbnda_adm2_ign_20200714.shp"
+    },
+    {
+      "kind": "RASTER_CATALOG",
+      "title": "Accumulated snow cover season 2023-2024, USA, inches",
+      "filename": "sfav2_CONUS_2023093012_to_2024093012_processed.tif"
+    },
+    {
+      "kind": "RASTER_CATALOG",
+      "title": "Accumulated snow cover season 2024-2025, USA, inches",
+      "filename": "sfav2_CONUS_2024093012_to_2025052012_processed.tif"
+    },
+    {
+      "kind": "RASTER_CATALOG",
+      "title": "Tibetan Plato South Asia flood extent, August 2018",
+      "filename": "DFO_4665_From_20180802_to_20180810.tif"
+    },
+    {
+      "kind": "RASTER_CATALOG",
+      "title": "Bangladesh population, 2018, people, resolution 1 km",
+      "filename": "bgd_pd_2018_1km_UNadj.tif"
+    },
+    {
+      "kind": "RASTER_CATALOG",
+      "title": "USA population 2020, people, resolution 1 km",
+      "filename": "usa_ppp_2020_1km_Aggregated_UNadj.tif"
+    },
+    {
+      "kind": "RASTER_CATALOG",
+      "title": "Chile population, 2020, people, resolution 1 km",
+      "filename": "chl_ppp_2020_1km_Aggregated_UNadj.tif"
+    },
+    {
+      "kind": "RASTER_CATALOG",
+      "title": "Angola population, 2020, people, resolution 1 km",
+      "filename": "ago_ppp_2020_1km_Aggregated_UNadj.tif"
+    },
+    {
+      "kind": "RASTER_CATALOG",
+      "title": "Peru, Bolivia, Argentina, Chile flood, February 2018",
+      "filename": "DFO_4569_From_20180201_to_20180221.tif"
+    },
+    {
+      "kind": "RASTER_CATALOG",
+      "title": "Peru population, 2018, 1 km resolution",
+      "filename": "per_ppp_2018_1km_Aggregated_UNadj.tif"
+    },
+    {
+      "kind": "RASTER_CATALOG",
+      "title": "Brazil population, 2018, 1 km resolution",
+      "filename": "bra_ppp_2018_1km_Aggregated_UNadj.tif"
+    },
+    {
+      "kind": "RASTER_CATALOG",
+      "title": "Algeria population density per 1 km 2020, 1 km resolution",
+      "filename": "dza_pd_2020_1km_UNadj.tif"
+    }
+  ],
+  "scope": "Exact source titles and file identifiers, factual availability metadata only; not measured observations or solutions."
+}

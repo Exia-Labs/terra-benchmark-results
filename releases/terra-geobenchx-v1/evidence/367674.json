@@ -1,0 +1,562 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "367674",
+  "question": "Make a heatmap showing population concentration in earthquake-affected zones",
+  "submittedPrompt": "Make a heatmap showing population concentration in earthquake-affected zones\n\nTask conventions: Use the frozen raster to select source points. Use the released reference's explicit US-raster method, not a global damage assessment: sample the original USA 2020 WorldPop population-count band at each original frozen earthquake point, using its containing original cell with no interpolation or resampling. Eligible points have a finite count at least zero. Include valid zero counts; off-grid, masked or nonfinite samples are unknown, not zero. Weight each eligible event by its sampled people-per-source-cell count. Repeated events can weight the same population repeatedly: this is an event-location population context heatmap, NOT unique affected population, casualty estimates, shaking extent or a claim that all residents experienced damage. The event file is the original 2025-01-16 through 2025-02-15 snapshot; the raster is 2020. This US coverage and the meaning of affected zones are explicit benchmark-derived adaptations of the vague question. Use original point records and the declared attribute/raster selection; do not infer a separate geographic boundary. Unknown country indicators, nonpositive ratio denominators, missing geometry and missing/nonfinite weights are unknown, not zero. Known zero weights remain valid. Exclude valid points outside the specified geography. Include only eligible points with a finite nonnegative weight in the contributing artifact; report other potentially eligible points as unknown. Use this explicit geographic heatmap convention: grid={\"bounds\": [-18000000, -7325000, 18000000, 7325000], \"crs\": \"EPSG:6933\", \"resolutionX\": 25000, \"resolutionY\": 25000}, radius 150000 metres = three Gaussian standard deviations. First bin each point into its containing grid cell and sum its weight. Smooth using a normalized separable Gaussian, numerical support four standard deviations, constant-zero exterior; do not renormalize edges. Use both grid resolutions for the two axes; keep original grid alignment. This is a declared metric raster adaptation to the original interactive screen-pixel heatmap, not an equivalent zoom-dependent rendering. Output unit: sum of people per grid cell. Zero cells are valid; this is not density per square kilometre. Do not rescale the values for presentation.\n\n\n\nAdd the heatmap raster to the map and retain an inspectable selected-point artifact with original geometry and benchmark_row_id. End with one fenced JSON object: {count: contributing point records, unknown_count: records with unknown eligibility or weight, unlocated_count: original points lacking valid geometry, coverage_note: string, selection: {collectionId,itemId,assetKey}, density: {collectionId,itemId,assetKey}, map_layer_id: heatmap_layer_id}. Explain the data edition, numerical weights, grid, smoothing and coverage limitations. The source-point artifact is not itself the requested heatmap.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Earthquake points, frozen 30-day snapshot\",\n    \"edition\": \"Archive labelled Feb142025; observed event timestamps 2025-01-16 through 2025-02-15 UTC\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"USA population count, WorldPop 2020\",\n    \"edition\": \"2020 UN-adjusted population counts aggregated to 1 km cells\",\n    \"units\": {\n      \"band1\": \"people per cell\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the heatmap is on your map as **Population-context heatmap**. It uses **7,270** contributing earthquake points, and I kept the contributing-point artifact so you can inspect each original point with its geometry, `benchmark_row_id`, and sampled population weight. **0** source points lacked valid geometry.\n\nImportant limitation: this is **2020 WorldPop people-per-cell sampled at 2025 earthquake event locations**. It is **not** unique affected population, casualties, shaking extent, damage, or density per square kilometre. **1,906** original points had unknown USA-raster coverage or weight and were excluded, and edge smoothing can taper totals near the grid boundary.\n\nNext action: review the heatmap on the map, then inspect the contributing points if you want to trace individual event weights.\n\nSources: **USGS earthquake snapshot** (archive labelled **Feb142025**; events **2025-01-16 to 2025-02-15 UTC**) and **WorldPop USA 2020** UN-adjusted population counts.\n\n### Limitations\n\n- WorldPop counts are 2020 1 km people-per-cell values, while the earthquake events are from 2025-01-16 through 2025-02-15 UTC.\n- The heatmap shows event-location population context, not unique affected population, casualties, shaking extent, or damage.\n- Points with off-grid, masked, or nonfinite sampled values are unknown and are excluded from the contributing artifact and heatmap.\n- The fixed-grid Gaussian method uses constant-zero exterior and no edge renormalization, so smoothed totals can taper near the grid boundary.\n- This is an event-location population context heatmap, not unique affected population, casualties, shaking extent, or damage.\n- 1,906 original points had unknown sampled coverage or weight under the USA raster convention and were excluded from the contributing artifact and heatmap.\n- Heatmap values are summed people per grid cell, not people per square kilometre.",
+  "checks": {
+    "expectedCount": 7270,
+    "actualCount": 7270,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": false,
+    "answerFulfilled": false,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": [
+      "Heatmap units do not match the declared weights per cell."
+    ]
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:45:33.807052Z",
+      "title": "Progress update",
+      "detail": "I’ll set up the heatmap method, test the key sampling and smoothing steps on the supplied earthquake points and WorldPop raster, then save and run the full map result."
+    },
+    {
+      "at": "2026-10-07T08:45:56.555595Z",
+      "title": "Progress update",
+      "detail": "I’ve got the exact inputs and method. Next I’m checking the saved analysis context, the current map, the source schemas, and the available processors so I can test the method without guessing fields or tool names."
+    },
+    {
+      "at": "2026-10-07T08:45:56.572193Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:56.576336Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:56.580301Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:56.593046Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:57.288161Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:57.297716Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:57.322665Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:05.407747Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:05.536107Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:05.540304Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:05.634023Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:12.126984Z",
+      "title": "Progress update",
+      "detail": "I found likely processors for the job. Now I’m reading their exact schemas so I can match the user’s fixed method: original raster sampling at the original earthquake points, then weighted point heatmap on the declared metric grid."
+    },
+    {
+      "at": "2026-10-07T08:46:12.442485Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:17.684872Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:53.234402Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:00.906085Z",
+      "title": "Progress update",
+      "detail": "I’ve saved the analysis brief. Before I build the full run, I’m doing a small private check on the earthquake file itself so I can use the real field names for eligibility and preserve the required row ID."
+    },
+    {
+      "at": "2026-10-07T08:47:02.601237Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:47:07.161159Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:41.537068Z",
+      "title": "Progress update",
+      "detail": "The point file inspection finished. It confirms 9,176 original point records, all with point geometry and benchmark_row_id. Next I’m testing the raster sampling itself so I can verify how off-grid or masked samples appear before I run the full heatmap."
+    },
+    {
+      "at": "2026-10-07T08:47:48.109154Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:58.563440Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:08.638467Z",
+      "title": "Progress update",
+      "detail": "I confirmed the source points are usable and that eligibility will come from geometry plus the sampled WorldPop value, not a country field in the event file. I’m now checking the released benchmark guidance and then testing the actual raster sampling behavior on the points."
+    },
+    {
+      "at": "2026-10-07T08:48:08.648443Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:13.338000Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:41.921400Z",
+      "title": "Progress update",
+      "detail": "The raster sampling finished. It added a `population` field, with valid zeros present and 1,906 null samples. I’m checking a few sampled rows and then I’ll test the full fixed-grid heatmap with only finite nonnegative weights."
+    },
+    {
+      "at": "2026-10-07T08:49:41.954950Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:41.969429Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:48.622219Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:08.343946Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:08.710539Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:25.404544Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:37.443888Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:55.490533Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:59.535824Z",
+      "title": "Progress update",
+      "detail": "The vertical slice worked: 7,270 contributing points and a nonempty 25 km EPSG:6933 heatmap. I’m recording that result, then I’ll save the exact tested method as the production workflow and run it so the final raster can be added to your map."
+    },
+    {
+      "at": "2026-10-07T08:54:08.044781Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:11.846851Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:12.242424Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:18.269487Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:26.295232Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:30.880031Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:55:07.119710Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:55:07.354875Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:55:41.960705Z",
+      "title": "Progress update",
+      "detail": "The method is now tested end to end. I’m saving a production workflow that reruns the same logic from the supplied earthquake points and WorldPop raster, so the final heatmap is a normal map result rather than a private trial artifact."
+    },
+    {
+      "at": "2026-10-07T08:56:04.476359Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:16.266029Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:16.991350Z",
+      "title": "Progress update",
+      "detail": "I saved the runnable workflow. It still needs a live execution from the original sources, because the saved version reruns sampling instead of reusing the private sampled-point trial artifact. I’m running that now and will inspect the final outputs before I add the heatmap layer."
+    },
+    {
+      "at": "2026-10-07T08:59:22.008470Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:59:22.035291Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:59:24.151106Z",
+      "title": "Progress update",
+      "detail": "The production run appears to have finished in the background. I’m inspecting its two final outputs now, then I’ll bind the heatmap layer to the map and record the final checked answer."
+    },
+    {
+      "at": "2026-10-07T08:59:45.085905Z",
+      "title": "Progress update",
+      "detail": "I’ve already got a map layer named “Population-context heatmap.” I’m checking the final workflow outputs and their identities now so I can verify that layer and lock the checked result to the exact finished artifacts."
+    },
+    {
+      "at": "2026-10-07T08:59:45.555494Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:59:57.746798Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the final run produced the checked point artifact and heatmap, and the heatmap layer was added to the map. I’m doing one last bounded inspection of those final outputs now so the final answer can reference the exact finished artifacts and verified layer."
+    },
+    {
+      "at": "2026-10-07T08:59:57.776704Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:59:57.786594Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:59:58.617132Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:31.688513Z",
+      "title": "Progress update",
+      "detail": "I’m pulling the final preview receipts for the checked point artifact and the raster so the final answer can cite the exact finished outputs instead of the earlier trial copies."
+    },
+    {
+      "at": "2026-10-07T09:00:31.705311Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:31.710778Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:09.704176Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the computation. I’m refreshing the saved brief so it matches the evidence now, then I’ll record the final checked result with the exact point artifact, raster artifact, and map layer."
+    },
+    {
+      "at": "2026-10-07T09:01:19.811595Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:50.449469Z",
+      "title": "Progress update",
+      "detail": "I’ve got the final checked artifacts and the verified map layer. I’m recording the result now with the exact point selection, raster selection, counts, and layer ID."
+    },
+    {
+      "at": "2026-10-07T09:02:07.422592Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Contributing earthquake points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Population-context heatmap",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Eligible sampled points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Population-context heatmap",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "Frozen earthquake points",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Sample population onto points",
+      "description": "Recorded raster-sample · succeeded"
+    },
+    {
+      "title": "WorldPop USA 2020",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Eligible sampled points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Population-context heatmap",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "Sampled earthquake points",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Eligible sampled points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Population-context heatmap",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Frozen earthquake points",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Sample population onto points",
+      "description": "Recorded raster-sample · succeeded"
+    },
+    {
+      "title": "Sample population onto points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "WorldPop USA 2020",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Frozen earthquake points",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Frozen earthquake points",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d65a70744c33156a86486daa0121936bb3cbaa710a6cee0ebeb1c5d343efaed0",
+      "bytes": 975661,
+      "finishedAt": "2026-10-07T08:47:11.812972+00:00"
+    },
+    {
+      "sha256": "0b75ab7c839bfa81439fafa204f0fba930f15467993c574694be98831fcafb94",
+      "bytes": 51821771,
+      "finishedAt": "2026-10-07T08:48:31.328264+00:00"
+    },
+    {
+      "sha256": "3ae6d50f9eea0b68b1f2085d1fcd8311aeb89bed898113c4e75dda9b726cd8fd",
+      "bytes": 1280911,
+      "finishedAt": "2026-10-07T08:48:50.914039+00:00"
+    },
+    {
+      "sha256": "2eb278324987df15bbbcab02cacb5bffce758abefcbcdcc27bcd24712ee1bd0e",
+      "bytes": 983272,
+      "finishedAt": "2026-10-07T08:53:13.870825+00:00"
+    },
+    {
+      "sha256": "62f8c7458d702cb6708cf89e5b862a21f56a69897a110aeca2aec7821c5b990b",
+      "bytes": 84046,
+      "finishedAt": "2026-10-07T08:53:22.417769+00:00"
+    },
+    {
+      "sha256": "3ae6d50f9eea0b68b1f2085d1fcd8311aeb89bed898113c4e75dda9b726cd8fd",
+      "bytes": 1280911,
+      "finishedAt": "2026-10-07T08:57:44.421955+00:00"
+    },
+    {
+      "sha256": "2eb278324987df15bbbcab02cacb5bffce758abefcbcdcc27bcd24712ee1bd0e",
+      "bytes": 983272,
+      "finishedAt": "2026-10-07T08:58:23.022609+00:00"
+    },
+    {
+      "sha256": "62f8c7458d702cb6708cf89e5b862a21f56a69897a110aeca2aec7821c5b990b",
+      "bytes": 84046,
+      "finishedAt": "2026-10-07T08:59:00.850479+00:00"
+    }
+  ],
+  "snapshotSha256": "f01bac8f3e04255a5ad9f15c2f468e44fc41e95493d6354e0679bb3cf7b82ab7",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:47:02.601237Z",
+      "tool": "run_trial",
+      "status": "failed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "What fields are present on the frozen earthquake points for benchmark eligibility and row identity?"
+    },
+    {
+      "at": "2026-10-07T08:47:07.161159Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "What fields are present on the frozen earthquake points for benchmark eligibility and row identity?"
+    },
+    {
+      "at": "2026-10-07T08:47:58.563440Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The frozen source has 9,176 original point records, all with valid Point geometry and benchmark_row_id populated. The inspected schema shows 23 fields, including benchmark_row_id, longitude and latitude. I did not observe a separate country-indicator or ratio-denominator field in this source sample, so the benchmark eligibility test should rely on the original point geometry plus the sampled WorldPop value rather than an added geographic attribute filter.",
+      "limitations": [
+        "This trial did not yet test how off-grid or masked raster samples are represented on the points."
+      ],
+      "next_action": "Sample the USA WorldPop raster onto the original earthquake points and inspect the sampled field values, null behavior, and point coverage.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:48:13.338000Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "How does original-cell WorldPop sampling appear on the earthquake points, including off-grid or unknown cases?"
+    },
+    {
+      "at": "2026-10-07T08:52:37.443888Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "Sampling the original WorldPop USA 2020 raster onto the original earthquake points added a numeric `population` field to all 9,176 records. The sampled field has a minimum of 0.0, a maximum of 6862.3154296875, and 1,906 null values. Sample rows show off-coverage or masked locations remain null rather than being filled with zero, while the distribution confirms valid zero-valued samples are present. This supports using finite nonnegative sampled values as eligible weights and treating null sampled values as unknown.",
+      "limitations": [
+        "This trial did not yet inspect the final fixed-grid heatmap output on the declared EPSG:6933 grid."
+      ],
+      "next_action": "Run one vertical-slice trial that filters to finite nonnegative sampled weights and creates the weighted point-density heatmap on the declared fixed grid.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:52:55.490533Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full fixed-grid method produce the required contributing-point selection and weighted heatmap from finite nonnegative sampled values?"
+    },
+    {
+      "at": "2026-10-07T08:54:08.044781Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full fixed-grid method produced both requested analytical objects. Filtering the sampled points with population not null and population >= 0 yielded 7,270 contributing records with Point geometry, benchmark_row_id present, and population values ranging from 0.0 to 6862.3154296875. This exactly matches 9,176 total source points minus 1,906 unknown sampled points, so no negative finite weights were observed. The weighted point-density output used the declared EPSG:6933 grid, 25,000 metre cells, and radius 150,000 metres, producing a nonempty raster with valid zero cells, full-grid valid coverage, and producer observations that match the required point-density interpretation and edge behavior.",
+      "limitations": [
+        "This trial used the full requested extent and method, but the outputs are still private trial artifacts rather than final deliverables on the map."
+      ],
+      "next_action": "Save this exact tested computation as the production workflow and execute it so the final heatmap can be added to the map and assessed.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T09:02:07.422592Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I produced the requested fixed-grid population-context heatmap and the inspectable contributing-point artifact. Data edition: the earthquake source is the frozen USGS earthquake snapshot labelled Feb142025 with observed event timestamps 2025-01-16 through 2025-02-15 UTC, hosted by Terra and retrieved in this run from the supplied immutable item at 2026-10-07T07:11:39Z; the population source is the supplied WorldPop USA 2020 UN-adjusted population-count raster, hosted by Terra from WorldPop/CIESIN and retrieved in this run at 2026-10-07T07:11:44Z. Numerical weights: each original earthquake point was weighted by the sampled WorldPop 2020 people-per-source-cell value from the containing original raster cell, with valid zero values retained. Coverage and eligibility: 7,270 original earthquake points had finite nonnegative sampled values and contributed; 1,906 original points remained unknown under the USA raster coverage rule and did not contribute; 0 original points lacked valid geometry. Heatmap method: the final raster uses the declared EPSG:6933 grid with bounds [-18000000,-7325000,18000000,7325000], 25,000 metre cells, and Gaussian smoothing radius 150,000 metres interpreted as three sigma with four-sigma numerical support, constant-zero exterior, and no edge renormalization. The final heatmap artifact is on the map as 'Population-context heatmap' layer [resource id withheld].",
+      "limitations": [
+        "WorldPop counts are 2020 1 km people-per-cell values, while the earthquake events are from 2025-01-16 through 2025-02-15 UTC.",
+        "This is an event-location population context heatmap, not unique affected population, casualties, shaking extent, or damage.",
+        "1,906 original points had unknown sampled coverage or weight under the USA raster convention and were excluded from the contributing artifact and heatmap.",
+        "The fixed-grid Gaussian method uses constant-zero exterior and no edge renormalization, so smoothed totals can taper near the grid boundary.",
+        "Heatmap values are summed people per grid cell, not people per square kilometre."
+      ],
+      "next_action": "Review the heatmap layer on the map and inspect the contributing points artifact if you want to trace individual event weights.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "bdd4f7db4cbd4cc2ae079c5ff69f80ceb343bd4c227236c17815d32cf60545cf",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

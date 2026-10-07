@@ -1,0 +1,483 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "535461",
+  "question": "Display water stress levels in Middle Eastern and North African countries. ",
+  "submittedPrompt": "Display water stress levels in Middle Eastern and North African countries. \n\nTask conventions: Use the frozen country polygons and World Bank ER.H2O.FWTL.ZS 2021 column, in % of internal resources. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature in the declared geography and its benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. Geography is fixed to original country features with SUBREGION in [\"Northern Africa\", \"Western Asia\"]; retain all matching source geometries, and no others. Classification is calculated only over this geography. Membership reflects this disclosed benchmark edition, not current organization membership.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Freshwater withdrawals as percent of internal resources\",\n    \"edition\": \"Frozen World Development Indicators; use 2021\",\n    \"units\": {\n      \"2021\": \"percent of internal freshwater resources\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Added the water stress country layer to your map.\n\nIt shows the frozen 2021 World Bank ER.H2O.FWTL.ZS values, in **percent of internal freshwater resources**, for the fixed benchmark set of **24** country features in **Northern Africa** and **Western Asia**. **23** countries have known values and **1** country is shown as **No data**. The legend uses **five quantile classes** plus a neutral **No data** category, with breaks at about **39.14**, **111.79**, **174.97**, and **759.64 percent**.\n\nImportant limit: this is a **country-level 2021 indicator**, not a subnational water-stress surface, and it follows the supplied benchmark geography rather than current membership rules.\n\nNext step: you can inspect the derived artifact or export it if you want the original geometry, `benchmark_row_id`, 2021 value, and class for each country.\n\n### Limitations\n\n- This result maps one frozen country-level 2021 indicator and does not imply subnational variation or a new regional summary.\n- Countries without a frozen 2021 measurement remain No data rather than zero.\n- This is a country-level 2021 indicator and does not show subnational variation within countries.\n- One country in the fixed benchmark geography has no frozen 2021 measurement and remains No data.\n- The geography follows the supplied benchmark edition, not current membership or a deduplicated sovereign-state list.",
+  "checks": {
+    "expectedCount": 23,
+    "actualCount": 23,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:02:12.950293Z",
+      "title": "Progress update",
+      "detail": "I’ll inspect the saved inputs and available geospatial steps, then test the exact country join and quantile classification on the fixed MENA country rows before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T07:02:26.428148Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:02:33.316602Z",
+      "title": "Progress update",
+      "detail": "I found the saved inputs. Next I’m checking their declared fields and exact input selections so the join uses the frozen country rows and the frozen 2021 indicator column only."
+    },
+    {
+      "at": "2026-10-07T07:02:33.570530Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:02:34.604023Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:02:41.471261Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:02:41.805147Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:02:47.786161Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:02:55.154951Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:02:55.176666Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:02:55.333787Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:02:56.098999Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:03:04.149336Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:03:04.433777Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:03:05.046225Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:03:17.946216Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the exact fields we need: `SUBREGION`, `ISO_A3`, `benchmark_row_id`, and the frozen WDI `2021` column. Now I’m testing the exact left join and quantile choropleth on just the fixed MENA source rows, including unmatched `-99` style codes as unknown."
+    },
+    {
+      "at": "2026-10-07T07:03:20.578282Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:03:26.619288Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:03:26.983117Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:03:31.423077Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:03:31.438637Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:03:32.198635Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:03:32.380953Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:03:44.465903Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:03:46.264978Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:03:53.380250Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:03:54.006952Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:04:22.177071Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:07:06.526748Z",
+      "title": "Progress update",
+      "detail": "The trial finished in the background and it looks good so far: 24 benchmark country rows were kept, all 24 matched the frozen table, and 1 of those 24 has no 2021 value so it stayed unknown. I’m inspecting the final classified output now for the legend bounds, retained fields, and exact artifact selection before I save and deliver the final map layer."
+    },
+    {
+      "at": "2026-10-07T07:07:10.429045Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:07:17.466702Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:07:18.175161Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:50.201089Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:50.242989Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:53.672949Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:31.777838Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the trial method against the full fixed geography. Next I’m promoting that tested method into a saved workflow, then I’ll run the deliverable version, inspect the final artifact, and add the verified country layer to your map."
+    },
+    {
+      "at": "2026-10-07T07:09:41.319294Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:50.211862Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:14.162956Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:29.351206Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the analytical method. Now I’m saving that exact tested computation as the deliverable workflow, with the same fixed geography, exact join, and 2021-only classification."
+    },
+    {
+      "at": "2026-10-07T07:10:37.839681Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:45.420334Z",
+      "title": "Progress update",
+      "detail": "The saved workflow is ready and matches the tested full-scope method. I’m running that deliverable version now so I can bind the published layer to your map and record the exact output IDs."
+    },
+    {
+      "at": "2026-10-07T07:10:46.257840Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:11:56.620208Z",
+      "title": "Progress update",
+      "detail": "The deliverable run finished in the background. I’m inspecting its final output now, then I’ll bind that verified country layer to the map and record the final answer with the exact artifact and layer IDs."
+    },
+    {
+      "at": "2026-10-07T07:12:01.060879Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:12:36.163226Z",
+      "title": "Progress update",
+      "detail": "The final deliverable is there and already added to the map. I’m checking the published rows and legend details now so I can record the exact counts, layer ID, and final artifact selection against the requested conditions."
+    },
+    {
+      "at": "2026-10-07T07:12:36.287850Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:12:36.307366Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:12:36.317636Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:12:36.343087Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:13:17.217419Z",
+      "title": "Progress update",
+      "detail": "The final map layer is already bound on the map. I’m refreshing the published output rows now so I can record the exact known and unknown counts, then I’ll finish the final assessment with the selected artifact and layer IDs."
+    },
+    {
+      "at": "2026-10-07T07:13:20.188010Z",
+      "title": "Progress update",
+      "detail": "I’ve got the class breaks and the map layer ID. I’m pulling the final published rows once more so the accepted result uses the deliverable artifact itself, not the private trial copy."
+    },
+    {
+      "at": "2026-10-07T07:13:20.460066Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:13:50.831765Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the delivered artifact and its class summary. I’m refreshing the brief one last time so the final handoff keeps only the real remaining limits, then I’ll record the accepted result."
+    },
+    {
+      "at": "2026-10-07T07:13:57.928932Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:14:49.532517Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:14:56.488295Z",
+      "title": "Progress update",
+      "detail": "Terra needs one final spatial preview on the published artifact before it will accept the result. I’m doing that now, then I can close this out."
+    },
+    {
+      "at": "2026-10-07T07:14:56.859491Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:15:25.113932Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:15:44.524584Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Benchmark country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Classify 2021 water stress",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "MENA water stress 2021",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join frozen 2021 water stress field",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Keep benchmark MENA country rows",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Frozen WDI water stress table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Benchmark country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Classify 2021 water stress",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Join frozen 2021 water stress field",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Keep benchmark MENA country rows",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Keep benchmark MENA country rows",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join frozen 2021 water stress field",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify 2021 water stress",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Frozen WDI water stress table",
+      "description": "Recorded source · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T07:04:41.206108+00:00"
+    },
+    {
+      "sha256": "7ad1675e724eea5166e37131840bb0a2d10ef1cf25313023ecaf542043641662",
+      "bytes": 101281,
+      "finishedAt": "2026-10-07T07:04:41.206108+00:00"
+    },
+    {
+      "sha256": "55b9f39fa5d116e58da3b5d4cc0b3799bcd7c178945f9deb4426fe8497fe5d93",
+      "bytes": 361809,
+      "finishedAt": "2026-10-07T07:05:16.990893+00:00"
+    },
+    {
+      "sha256": "adf23e2aa42d97bab042c05485f114d7b17530efc865d6d033adef133a3ea69c",
+      "bytes": 363216,
+      "finishedAt": "2026-10-07T07:05:41.762571+00:00"
+    },
+    {
+      "sha256": "341c5aa70d412fa36f25d647ddb83dd4b49f6a7f31456d9edac6b090fb7026fc",
+      "bytes": 363865,
+      "finishedAt": "2026-10-07T07:06:06.349856+00:00"
+    },
+    {
+      "sha256": "55b9f39fa5d116e58da3b5d4cc0b3799bcd7c178945f9deb4426fe8497fe5d93",
+      "bytes": 361809,
+      "finishedAt": "2026-10-07T07:11:08.801327+00:00"
+    },
+    {
+      "sha256": "adf23e2aa42d97bab042c05485f114d7b17530efc865d6d033adef133a3ea69c",
+      "bytes": 363216,
+      "finishedAt": "2026-10-07T07:11:18.357750+00:00"
+    },
+    {
+      "sha256": "341c5aa70d412fa36f25d647ddb83dd4b49f6a7f31456d9edac6b090fb7026fc",
+      "bytes": 363865,
+      "finishedAt": "2026-10-07T07:11:36.188915+00:00"
+    }
+  ],
+  "snapshotSha256": "227911b7de4519e53c1613b4600c9b97ae47401d13e1c580790a5436d3453c6d",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:04:22.177071Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the exact left join from ISO_A3 to Country Code over the fixed Northern Africa and Western Asia source rows preserve every original benchmark feature, keep unmatched rows as unknown, and produce the requested 2021 quantile choropleth with a distinct No data class?"
+    },
+    {
+      "at": "2026-10-07T07:09:50.211862Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-scope trial retained 24 original benchmark country rows with SUBREGION limited to Northern Africa and Western Asia. The exact left join from ISO_A3 to Country Code matched all 24 filtered rows without key substitution. The joined 2021 field contained 23 known numeric values and 1 unknown value. The classified output preserved all 24 geometries and benchmark_row_id values, used the frozen 2021 percentage field, and assigned class 0 to the unknown row while keeping numeric classes 1 through 5 for known values.",
+      "limitations": [
+        "This trial confirms the method on the fixed benchmark geography, but the trial artifact itself remains private and cannot serve as the final delivered map layer.",
+        "The mapped value is a country-level 2021 indicator only and does not show subnational variation."
+      ],
+      "next_action": "Promote this tested computation into a saved workflow, run the deliverable output, inspect the final artifact, add the verified layer to the map, and record the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:14:49.532517Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "I delivered the requested fixed-geography country choropleth and added it to the map. The final artifact keeps 24 original benchmark country features for Northern Africa and Western Asia, preserves benchmark_row_id, carries the frozen 2021 ER.H2O.FWTL.ZS value in percent of internal freshwater resources, and includes the water_stress_class field. There are 23 countries with known numeric values and 1 country with No data. The published legend uses five quantile classes over the 23 known values with breaks at 39.14261083743844, 111.79335944151227, 174.96936677082516, and 759.6357142857144 percent, plus a distinct No data class. The map layer bound to this artifact is layer [resource id withheld].",
+      "limitations": [
+        "This is a country-level 2021 indicator and does not show subnational variation within countries.",
+        "One country in the fixed benchmark geography has no frozen 2021 measurement and remains No data.",
+        "The geography follows the supplied benchmark edition, not current membership or a deduplicated sovereign-state list."
+      ],
+      "next_action": "The layer is on the map and the derived artifact is ready to inspect or export.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:15:44.524584Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I delivered the requested fixed-geography country choropleth and added it to the map. The final published artifact keeps 24 original benchmark country features for Northern Africa and Western Asia, preserves benchmark_row_id, carries the frozen 2021 ER.H2O.FWTL.ZS value in percent of internal freshwater resources, and includes the water_stress_class field. There are 23 countries with known numeric values and 1 country with No data. The published legend uses five quantile classes over the 23 known values with breaks at 39.14261083743844, 111.79335944151227, 174.96936677082516, and 759.6357142857144 percent, plus a distinct No data class. The published layer bound to this artifact is MENA water stress 2021 with layer ID [resource id withheld].",
+      "limitations": [
+        "This is a country-level 2021 indicator and does not show subnational variation within countries.",
+        "One country in the fixed benchmark geography has no frozen 2021 measurement and remains No data.",
+        "The geography follows the supplied benchmark edition, not current membership or a deduplicated sovereign-state list."
+      ],
+      "next_action": "The layer is on the map and the derived artifact is ready to inspect or export.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "f722dca2a136063c35ba3a83d50ae2fa6953a114f4a73775d5a558651dec482e",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

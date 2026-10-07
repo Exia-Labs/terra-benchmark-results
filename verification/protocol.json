@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "benchmarkRevision": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+  "attemptsPerTask": 1,
+  "taskSeconds": 2400,
+  "approvalPolicy": "authorized-scope-v1",
+  "concurrency": 20,
+  "reasoningEffort": "xhigh",
+  "mode": "act",
+  "tasks": {
+    "333321": {
+      "title": "Towns in deep snow",
+      "question": "How many US towns with population over 5000 are located in areas with snow cover exceeding 3 feet?",
+      "bbox": [
+        -180,
+        17,
+        180,
+        72
+      ],
+      "clarification": "Use the source's 2010 population field and the frozen 2024-09-30 through 2025-05-20 snowfall raster, measured in inches. Both thresholds are strictly greater than. Count source records, retaining benchmark_row_id; repeated GNIS IDs are not a deduplication instruction. Sample the pixel containing each point. Report the count supported by valid snowfall cells, and separately the number of population-eligible records whose snowfall is unknown (outside coverage or NoData). Do not claim complete nationwide coverage."
+    },
+    "130168": {
+      "title": "Facilities in negative-migration countries",
+      "question": "How many mineral extraction facilities in Africa are located in countries with negative net migration?",
+      "bbox": [
+        -26,
+        -36,
+        58,
+        38
+      ],
+      "clarification": "Use 2023 net migration and countries classified as Africa in the provided boundaries. Count source facility records once, retaining benchmark_row_id; repeated FeatureUID values are not a deduplication instruction. Use point-within-polygon membership (boundary points are excluded). Resolve country identity using the supplied fields; differing country-name spellings are not evidence that migration data is missing. Report any records in countries with unresolved migration as unknown. Offshore or otherwise outside-country points do not satisfy within."
+    }
+  },
+  "outputContract": "Compute the answer using only the supplied immutable fixtures. Save the selected features with their benchmark_row_id and original geometry as an inspectable data artifact. In your accepted final answer include one JSON code block with count (integer), unknown_count (integer), coverage_note (string), and selection (an object with collectionId, itemId, assetKey for that artifact). Maps are optional. Do not request clarification: the task conventions are fixed. Do not use live substitutes, shrink the study question, or use external benchmark answers.",
+  "adaptations": [
+    "Each measured task has 40 minutes, including queues and processing.",
+    "Independent artifact grading instead of GeoBenchX tool-trace matching.",
+    "Exact frozen editions and strict thresholds are explicit.",
+    "Source row identity is explicit because upstream business IDs repeat.",
+    "Snowfall coverage is explicitly qualified; unknown cells are not zero snowfall.",
+    "Country identity uses verified source codes; the released name-only reference misses four African names.",
+    "Selected-feature artifact and machine-readable final count/coverage are requested to make correctness auditable.",
+    "Automatic approval uses the normal profile-accessible processors and fixture-only proven lineage within the declared task. No live-data substitutes, unrelated scope, arbitrary code, operator coaching, or silent reruns are allowed. Exact-workflow authorization and application safety rules remain enforced."
+  ]
+}

@@ -1,0 +1,558 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "645898",
+  "question": "List and make a map of all counties that touch or include the Mississippi River",
+  "submittedPrompt": "List and make a map of all counties that touch or include the Mississippi River\n\nTask conventions: Use the original CEC 2023 river geometries where NameEn equals 'Mississippi River', not tributaries or similarly named rivers. Select original 2024 county polygons intersecting any selected river line, including boundary touches. Compare in the county source CRS; no buffer, simplification or clipping. Duplicate river matches count each original county once. These are intersections between generalized river/cartographic county sources, not surveyed legal shoreline determinations. Unknown_count counts missing/invalid county geometries; do not silently treat them as no intersection. Keep source editions and all original IDs. Supplied water data is for this internal benchmark only.\n\n\n\nReturn an inspectable selected-feature artifact preserving original attributes, geometry and benchmark_row_id. End with one fenced JSON object: {count:integer,unknown_count:integer,coverage_note:string,selection:{collectionId,itemId,assetKey}}. List county names and state/GEOID, add the selected counties to this map, and include map_layer_id in that JSON.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"US county boundaries\",\n    \"edition\": \"Census TIGER/Line 2024\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"North American rivers, CEC 2023 frozen benchmark source\",\n    \"edition\": \"CEC North American Environmental Atlas version 4.0 (2023), original benchmark snapshot; benchmark-only use\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "I found 115 counties touching the benchmark Mississippi River and added them to the map. Unknown_count is 0. The accepted result includes the inspectable selected artifact, the full county list with state/GEOID, and map layer `[resource id withheld]`.\n\nSources: CEC North American Environmental Atlas v4.0 (2023) benchmark river snapshot and Census TIGER/Line 2024 benchmark county snapshot, inspected 2026-10-07. These are generalized river/cartographic county intersections, not surveyed legal shoreline determinations.\n\n### Limitations\n\n- These are intersections between generalized river and cartographic county sources, not surveyed legal shoreline determinations.\n- The result reflects the supplied benchmark editions only: CEC North American Environmental Atlas v4.0 (2023) rivers and Census TIGER/Line 2024 counties.\n- This source is generalized cartography, not a legal shoreline record.\n- This is a cartographic source intersection, not a surveyed legal shoreline determination.\n- The displayed map layer is a view of the selected artifact; it does not change the selection logic.",
+  "checks": {
+    "expectedCount": 115,
+    "actualCount": 115,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:27:42.430164Z",
+      "title": "Progress update",
+      "detail": "I’m checking the saved analysis context and the exact Terra tool schemas first, then I’ll run a small private test before building the final county selection and map layer."
+    },
+    {
+      "at": "2026-10-07T07:28:00.158229Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:00.415974Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:00.421152Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:01.063260Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:01.090648Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:09.330852Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:09.356657Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:10.041576Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:13.536431Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:13.844373Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:14.266327Z",
+      "title": "Progress update",
+      "detail": "I’ve got the tool schemas and there’s no saved work yet. Next I’m inspecting the two supplied datasets and looking up the safest processors for a no-buffer county/river intersection in the county source CRS."
+    },
+    {
+      "at": "2026-10-07T07:28:26.587626Z",
+      "title": "Progress update",
+      "detail": "I found the likely path: filter the supplied river lines to `NameEn = Mississippi River`, then do a polygon-line spatial join that keeps each original county once. I’m checking the exact processor contracts now so I can test the no-buffer, county-CRS method without guessing fields or join behavior."
+    },
+    {
+      "at": "2026-10-07T07:28:26.704146Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:26.726061Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:27.552484Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:53.867074Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:03.251041Z",
+      "title": "Progress update",
+      "detail": "I’ve saved the goal and acceptance checks. Now I’m running a tiny private inspection so I can read the exact field names and output schema before the real intersection."
+    },
+    {
+      "at": "2026-10-07T07:29:06.008271Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:26.846826Z",
+      "title": "Progress update",
+      "detail": "The source check succeeded in the background. I confirmed both supplied datasets carry `benchmark_row_id`, the river has `NameEn`, the counties have `NAME`, `STATEFP`, and `GEOID`, and both geometries are in EPSG:4326. Next I’m testing the real selection method nationwide: exact river-name filter, then one-row-per-county intersects join with no buffer or clipping."
+    },
+    {
+      "at": "2026-10-07T07:31:27.414473Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:38.133764Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:20.068388Z",
+      "title": "Progress update",
+      "detail": "The method test finished cleanly: one exact river feature, 115 matched counties, and no duplicated county rows. I’m turning that tested computation into the final deliverable now, then I’ll inspect the finished artifact, add it to the map, and report the county list."
+    },
+    {
+      "at": "2026-10-07T07:34:20.072407Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:20.173091Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:21.849396Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:28.658333Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:28.694553Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:30.003105Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:34.019680Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:34.043302Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:34.831893Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:39.521314Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:00.142300Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:11.514789Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:29.613505Z",
+      "title": "Progress update",
+      "detail": "I’ve got a tested full-area method now. I’m saving that exact method as the final workflow so the delivered artifact matches the verified trial, then I’ll inspect the final county table, add it as a map layer, and package the answer object."
+    },
+    {
+      "at": "2026-10-07T07:35:40.369509Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:50.755791Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:30.193033Z",
+      "title": "Progress update",
+      "detail": "The saved workflow appears to have completed in the background. I’m inspecting the final delivered output now, then I’ll bind that exact artifact to the map and record the result object."
+    },
+    {
+      "at": "2026-10-07T07:37:30.395459Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:30.515529Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:30.549582Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:38:53.396624Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:38:53.722801Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:38:56.021466Z",
+      "title": "Progress update",
+      "detail": "I have the final artifact identity and the live map layer. I’m doing one bounded inspection of the delivered county layer for the county list and schema, plus a fresh county-source check for invalid geometry, so the final answer can include the exact count, unknown_count, and selected artifact reference."
+    },
+    {
+      "at": "2026-10-07T07:38:56.466203Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:38:56.899038Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:39:39.417019Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:39:39.801066Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:39:41.589747Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:39:42.112492Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:34.804608Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:35.133909Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:36.286096Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:52.659543Z",
+      "title": "Progress update",
+      "detail": "I’m checking the exact `assess_result` input format before I lock the final answer, so I use the right artifact reference and answer object fields."
+    },
+    {
+      "at": "2026-10-07T07:41:52.839557Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:52.899096Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:52.908500Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:10.404713Z",
+      "title": "Progress update",
+      "detail": "I’m retrieving the two county-list pages and the county-source validity summary now. That will give me the full 115-county list plus the explicit unknown_count from the supplied county source."
+    },
+    {
+      "at": "2026-10-07T07:42:10.422681Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:10.429410Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:11.121003Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:17.296088Z",
+      "title": "Progress update",
+      "detail": "The row pages are retained as evidence receipts. I’m reading those bounded pages directly now."
+    },
+    {
+      "at": "2026-10-07T07:42:17.390816Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:18.167072Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:18.233130Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:25.652647Z",
+      "title": "Progress update",
+      "detail": "The default evidence page is tiny. I’m pulling larger pages so I can extract the full county list and the county invalid-geometry count."
+    },
+    {
+      "at": "2026-10-07T07:42:25.753914Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:25.778071Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:25.803485Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:39.156089Z",
+      "title": "Progress update",
+      "detail": "I’ve got the first chunk of both county-list pages. I’m reading the remaining chunks now so the final county list is complete."
+    },
+    {
+      "at": "2026-10-07T07:42:39.240431Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:39.301014Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:20.393508Z",
+      "title": "Progress update",
+      "detail": "I’m recording the verified final result now: the inspected selected artifact, count, unknown_count, full county list, and the live map layer ID."
+    },
+    {
+      "at": "2026-10-07T07:44:41.778120Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Supplied counties",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Counties touching the Mississippi River",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Filter Mississippi River",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Supplied rivers",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Select counties touching river",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Supplied counties",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Filter Mississippi River",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Supplied rivers",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Select counties touching river",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Filter Mississippi River",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Select counties touching river",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied counties",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied rivers",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied rivers",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied counties",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "587f3dd3f8be86a8db7fe808d71205a207f00cdb77d9a4327464f17a5a23d880",
+      "bytes": 126729265,
+      "finishedAt": "2026-10-07T07:29:10.128907+00:00"
+    },
+    {
+      "sha256": "375bd3d22950804c0b7dc826ff2b639689078659d3caf84d0ac46f7b3ec34e8a",
+      "bytes": 42374280,
+      "finishedAt": "2026-10-07T07:29:10.128907+00:00"
+    },
+    {
+      "sha256": "0888ea8d40f7d41585ae2c8e42c54f86eb9b6f59a5c38014f67f31bd8752aa3d",
+      "bytes": 181258,
+      "finishedAt": "2026-10-07T07:32:52.449218+00:00"
+    },
+    {
+      "sha256": "485a863d92098bddae310808cffcbd169d5913adf2197e3c1f7a80608ab3a0b5",
+      "bytes": 4244501,
+      "finishedAt": "2026-10-07T07:33:35.310879+00:00"
+    },
+    {
+      "sha256": "0888ea8d40f7d41585ae2c8e42c54f86eb9b6f59a5c38014f67f31bd8752aa3d",
+      "bytes": 181258,
+      "finishedAt": "2026-10-07T07:36:31.801722+00:00"
+    },
+    {
+      "sha256": "485a863d92098bddae310808cffcbd169d5913adf2197e3c1f7a80608ab3a0b5",
+      "bytes": 4244501,
+      "finishedAt": "2026-10-07T07:37:01.280019+00:00"
+    }
+  ],
+  "snapshotSha256": "41c1a686210e7295a206b9c808b8e0ea013542f69d0920e984a3e5497309d502",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:29:06.008271Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the supplied river and county datasets expose the exact fields needed for a Mississippi River filter and a county selection artifact with preserved IDs and geometry?"
+    },
+    {
+      "at": "2026-10-07T07:31:27.414473Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The supplied river dataset exposes NameEn and benchmark_row_id, and the supplied county dataset exposes NAME, STATEFP, GEOID, GEOIDFQ, COUNTYFP, COUNTYNS, and benchmark_row_id. The inspection also shows both source geometries in EPSG:4326 and reports county invalidCount 0 for the full supplied county set, so the datasets are suitable for an exact-name river filter and county-preserving spatial selection.",
+      "limitations": [
+        "This trial confirmed field availability and source geometry validity, not the final county selection output."
+      ],
+      "next_action": "Run the full exact-name filter and county intersects selection, then inspect the selected county artifact and counts.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:31:38.133764Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the exact-name Mississippi River filter plus an intersects aggregate join select the correct one-row-per-county county set nationwide without buffering, simplification, or clipping?"
+    },
+    {
+      "at": "2026-10-07T07:35:00.142300Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The exact river filter returned one feature with NameEn = Mississippi River and benchmark_row_id = na_rivers:005164. The exact county selection used an inner aggregate spatial join with predicate = intersects and returned 115 rows, each preserving original county fields, geometry, and benchmark_row_id. The join reported inputTargetRecords = 3235, targetFeatures = 3235, targetRecordsOmittedBeforeJoin = 0, and matchedTargetFeatures = 115, which supports one-row-per-county selection with no duplicate county rows and no invalid or empty county geometries excluded before the join.",
+      "limitations": [
+        "This tested output is still a private trial result, not the final delivered artifact or map layer."
+      ],
+      "next_action": "Save the tested computation as the final workflow, execute it, inspect the delivered county artifact, add it to the map, and record the final answer object.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:44:41.778120Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I delivered an inspectable selected-feature artifact for the counties that touch or include the supplied benchmark Mississippi River line and added that artifact to the current map. The final selected artifact contains 115 county records, preserves original county identifiers and benchmark_row_id, and the final join evidence supports unknown_count = 0.",
+      "limitations": [
+        "These are intersections between generalized river and cartographic county sources, not surveyed legal shoreline determinations.",
+        "The result reflects the supplied benchmark editions only: CEC North American Environmental Atlas v4.0 (2023) rivers and Census TIGER/Line 2024 counties."
+      ],
+      "next_action": "Review the added layer or inspect the selected artifact for full preserved attributes and geometry.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "058fc0b9d653422f9508d967b9285258491744e9cd42a82c5b9fb8bd590cf325",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

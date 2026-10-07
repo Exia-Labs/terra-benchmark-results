@@ -1,0 +1,502 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "986773",
+  "question": "Map population distribution across English-speaking Caribbean islands.",
+  "submittedPrompt": "Map population distribution across English-speaking Caribbean islands.\n\nTask conventions: Use the frozen country polygons and World Bank SP.POP.TOTL 2023 column, in people. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature in the declared geography and its benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. Geography is fixed to original country features with NAME_EN in [\"Antigua and Barbuda\", \"The Bahamas\", \"Barbados\", \"Dominica\", \"Grenada\", \"Jamaica\", \"Saint Kitts and Nevis\", \"Saint Lucia\", \"Saint Vincent and the Grenadines\", \"Trinidad and Tobago\", \"Anguilla\", \"Bermuda\", \"British Virgin Islands\", \"Cayman Islands\", \"Montserrat\", \"Turks and Caicos Islands\"]; retain all matching source geometries, and no others. Classification is calculated only over this geography. Membership reflects this disclosed benchmark edition, not current organization membership.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SP.POP.TOTL\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the 2023 population choropleth is on your map.\n\nIt uses the fixed benchmark country polygons and the frozen World Bank SP.POP.TOTL 2023 values in people. Fourteen of the 16 benchmark features have known values; Anguilla and Montserrat are shown as a neutral No data class. The legend uses five quantile classes with breaks at 57,195.4, 77,291.6, 121,686.0, and 334,246.2 people.\n\nMain limitation: this is a country-level totals map, not a within-country population surface or a new regional aggregation.\n\nSources: World Bank country boundaries, GeoBenchX harmonized names benchmark fixture, retrieved 2026-10-07; World Bank SP.POP.TOTL frozen 2023 benchmark fixture, retrieved 2026-10-07.\n\n### Limitations\n\n- Population values are country-level totals for 2023 in people, so the map does not show within-country distribution.\n- Anguilla and Montserrat remain No data because their ISO_A3 codes did not match a Country Code in the supplied frozen table; the method preserves them as unknown instead of substituting another identifier or year.\n- This is a country-level 2023 total-population choropleth in people, not a subnational population surface or a new regional aggregation.\n- Anguilla and Montserrat remain No data because their exact ISO_A3 codes did not match a Country Code in the supplied frozen table.\n- The geography remains fixed to the supplied benchmark edition and preserves original source rows rather than deduplicated sovereign states.\n- Anguilla and Montserrat remain unknown because ISO_A3 values AIA and MSR did not match a Country Code in the supplied frozen table.\n- Quantile breaks are calculated only over the fixed 16-country benchmark geography; tied values could reduce the number of numeric classes, though the tested run kept five.\n- The output is a country-level map and data artifact, not a subnational population surface or regional aggregation.",
+  "checks": {
+    "expectedCount": 14,
+    "actualCount": 14,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:22:27.396575Z",
+      "title": "Progress update",
+      "detail": "I’m setting up the analysis brief and checking the available Terra tools for a fixed 2023 country-population join over the named Caribbean countries. Then I’ll test the exact join and classing on the supplied frozen inputs before saving the production workflow."
+    },
+    {
+      "at": "2026-10-07T08:22:31.523878Z",
+      "title": "Progress update",
+      "detail": "I have the core analysis tools. Next I’m checking the processor help so I can build a minimal tested workflow that keeps all original country rows, joins only the exact 2023 field, computes five quantile classes over the fixed geography, and preserves a separate No data category."
+    },
+    {
+      "at": "2026-10-07T08:22:47.140100Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:22:47.476697Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:22:47.895041Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:06.453257Z",
+      "title": "Progress update",
+      "detail": "I found the supplied frozen collections. Next I’m inspecting the exact items to confirm the usable asset selections and field names before I build the join and quantile classes."
+    },
+    {
+      "at": "2026-10-07T08:23:06.480927Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:06.502515Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:12.684258Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:12.895680Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:12.911978Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:13.118876Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:14.175313Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:14.245737Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:25.689585Z",
+      "title": "Progress update",
+      "detail": "I found the likely method: filter the benchmark boundaries to the fixed name list, left-join the frozen SP.POP.TOTL table on ISO_A3 = Country Code, then classify the joined 2023 field into five quantiles with a separate No data class. I’m reading the exact schemas now so the trial matches the processor contracts and preserves unmatched rows."
+    },
+    {
+      "at": "2026-10-07T08:23:25.713836Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:25.729981Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:29.760863Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:30.394932Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:35.894032Z",
+      "title": "Progress update",
+      "detail": "I have the inputs. I’m checking the processor outputs now so I can inspect the right final artifact and add the correct classified layer to the map without guessing output IDs."
+    },
+    {
+      "at": "2026-10-07T08:23:35.919302Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:35.931075Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:35.938020Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:33.937712Z",
+      "title": "Progress update",
+      "detail": "I have a complete candidate method now. Before I run it, I’m recording the expected result and checks in the analysis brief so the final verification covers the fixed geography, exact 2023 join, retained unknowns, and five-quantile legend rules."
+    },
+    {
+      "at": "2026-10-07T08:26:41.456141Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:26:48.306654Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:27:05.770667Z",
+      "title": "Progress update",
+      "detail": "I’m running the full fixed-scope private test now, not just a setup check. I expect it to return the exact 16 benchmark country rows, preserve any unmatched rows as unknown, and produce the required 2023 quantile classes and legend."
+    },
+    {
+      "at": "2026-10-07T08:27:11.884672Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:46.058794Z",
+      "title": "Progress update",
+      "detail": "The trial finished successfully. I’m checking the actual rows and preview now so I can confirm the exact 16-country membership, the unmatched countries, and the classed output before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T08:28:46.114596Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:46.127792Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:46.146446Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:29:26.263699Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:29:31.049572Z",
+      "title": "Progress update",
+      "detail": "The method worked on the full requested geography: 16 benchmark features were kept, 14 matched the frozen 2023 table, and 2 stayed unknown. I’m reading the saved workflow schema now so I can save the tested production version with the fixed geography, fixed join keys, and fixed quantile settings before I run the final deliverable."
+    },
+    {
+      "at": "2026-10-07T08:29:39.596508Z",
+      "title": "Progress update",
+      "detail": "I already have enough evidence that the method works. I’m grabbing the exact classified rows and the proposal schema details now so the saved workflow and final checks use the tested artifact and fixed rules, not a rebuilt guess."
+    },
+    {
+      "at": "2026-10-07T08:29:39.666175Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:29:39.695059Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:29:39.715238Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:29:40.061510Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:29:41.659587Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:30:00.649170Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:30:19.983646Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:30:21.486119Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:30:22.089525Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the tested computation. Before saving it, I’m refreshing the brief and workflow requirement notes so the final handoff reflects what is now confirmed: 16 kept features, 14 known values, and 2 real No data rows."
+    },
+    {
+      "at": "2026-10-07T08:30:31.246523Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:30:31.682294Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:30:43.691731Z",
+      "title": "Progress update",
+      "detail": "I’ve narrowed the study extent to the actual benchmark country bounds observed in the tested output, so the saved workflow reflects the real Caribbean footprint rather than the whole world extent of the source files."
+    },
+    {
+      "at": "2026-10-07T08:30:51.079939Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:02.343895Z",
+      "title": "Progress update",
+      "detail": "I’ve got the tested method and current limits. I’m saving that exact computation now as the final workflow draft with the fixed country list, exact join keys, 2023 field, and quantile class settings locked in."
+    },
+    {
+      "at": "2026-10-07T08:31:15.683999Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:42.786783Z",
+      "title": "Progress update",
+      "detail": "The saved draft needs a straightforward fix: the copied trial carried the world-scale source scope into the proposal. I’m correcting that by saving the same tested steps as a direct computation with the actual Caribbean study extent and the proper parameter paths."
+    },
+    {
+      "at": "2026-10-07T08:31:59.277363Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:32:10.526259Z",
+      "title": "Progress update",
+      "detail": "The final workflow is ready and uses the fixed Caribbean extent. I’m running it now, then I’ll inspect the delivered artifact, add the classified layer to the map, and finish the result check with the exact artifact selection."
+    },
+    {
+      "at": "2026-10-07T08:32:11.115309Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:02.948480Z",
+      "title": "Progress update",
+      "detail": "The final run completed in the background. I’m inspecting its actual output receipts now so I can bind the delivered artifact, verify the classed legend, and add the correct final layer to the map."
+    },
+    {
+      "at": "2026-10-07T08:33:02.958446Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:02.967768Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:36.428000Z",
+      "title": "Progress update",
+      "detail": "I have the finished map binding. I’m doing one last bounded inspection of the final delivered artifact and class summary so the accepted result cites the exact 2023 values, unknown rows, and legend breaks from the final run."
+    },
+    {
+      "at": "2026-10-07T08:33:36.440010Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:36.445339Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:36.453784Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:57.699555Z",
+      "title": "Progress update",
+      "detail": "The final layer is already on the map. I’m reading the completed final inspections now so I can lock the exact output rows, legend breaks, and layer ID into the accepted result object."
+    },
+    {
+      "at": "2026-10-07T08:33:57.713869Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:57.720941Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:57.730711Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:34:55.915495Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Classify 2023 population",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Benchmark country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "English-speaking Caribbean population totals, 2023",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join frozen 2023 population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Keep fixed Caribbean benchmark countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Frozen SP.POP.TOTL table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Classify 2023 population",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Benchmark country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join frozen 2023 population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Keep fixed Caribbean benchmark countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Frozen SP.POP.TOTL table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Keep fixed Caribbean benchmark countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join frozen 2023 population",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify 2023 population",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify 2023 population",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T08:27:23.527422+00:00"
+    },
+    {
+      "sha256": "88594296e94fe36d2810fac2feb2672aa3b7fc3985d9617914ddbf11d4157626",
+      "bytes": 171501,
+      "finishedAt": "2026-10-07T08:27:23.527422+00:00"
+    },
+    {
+      "sha256": "274f8a1db565b6eda480d4a618ef4dda3c3235aaa77b52956ab497413ae82cc2",
+      "bytes": 73566,
+      "finishedAt": "2026-10-07T08:27:46.715581+00:00"
+    },
+    {
+      "sha256": "ec6e55055d11cae0314bd39b34bb36697a8f25c0e14df400d89e9c495ed44049",
+      "bytes": 74828,
+      "finishedAt": "2026-10-07T08:27:58.147122+00:00"
+    },
+    {
+      "sha256": "a3ec1e1d94819f2a6e8ef7a367330bc19c9b67146471cf3338f4314ef94952c1",
+      "bytes": 75454,
+      "finishedAt": "2026-10-07T08:28:07.402775+00:00"
+    },
+    {
+      "sha256": "274f8a1db565b6eda480d4a618ef4dda3c3235aaa77b52956ab497413ae82cc2",
+      "bytes": 73566,
+      "finishedAt": "2026-10-07T08:32:30.478310+00:00"
+    },
+    {
+      "sha256": "a3ec1e1d94819f2a6e8ef7a367330bc19c9b67146471cf3338f4314ef94952c1",
+      "bytes": 75454,
+      "finishedAt": "2026-10-07T08:32:40.395059+00:00"
+    },
+    {
+      "sha256": "ec6e55055d11cae0314bd39b34bb36697a8f25c0e14df400d89e9c495ed44049",
+      "bytes": 74828,
+      "finishedAt": "2026-10-07T08:32:35.292008+00:00"
+    }
+  ],
+  "snapshotSha256": "c8a84444ff59431c720f1cf261ca8a575dd3011c6bd6e597ddf840b71ca641a4",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:27:11.884672Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full fixed-geometry workflow keep the exact benchmark country rows, join only the frozen SP.POP.TOTL 2023 values by ISO_A3 = Country Code, and produce the required quantile choropleth with a distinct No data class?"
+    },
+    {
+      "at": "2026-10-07T08:30:00.649170Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full requested method worked on the fixed benchmark geography. The filter retained exactly 16 country features from the supplied NAME_EN list and preserved benchmark_row_id and geometry. The left join matched 14 of 16 features on exact ISO_A3 = Country Code and left 2 features unmatched with null 2023 values: Anguilla (AIA) and Montserrat (MSR). The classified output preserved all 16 rows, kept a distinct No data class 0 for the 2 unknown countries, and created five quantile classes for the 14 known 2023 values. The class summary reported breaks at 57,195.4, 77,291.6, 121,686.0, and 334,246.2 people, with class counts 0:2, 1:3, 2:3, 3:2, 4:3, 5:3.",
+      "limitations": [
+        "The population values are country-level 2023 totals in people, so the map does not show within-country distribution.",
+        "Anguilla and Montserrat remain No data because their ISO_A3 codes did not match a Country Code in the supplied frozen table; the method correctly preserves them as unknown rather than substituting another identifier or year."
+      ],
+      "next_action": "Save this exact tested computation as the production workflow, then run it, inspect the final artifact and legend, add the classified country layer to the map, and assess the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:34:55.915495Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The final run delivered one classified country artifact and added it to the map as layer [resource id withheld]. The final artifact contains 16 benchmark country features, preserves benchmark_row_id and geometry, carries the numeric 2023 population field in people, and includes the population_class field. Exact ISO_A3 = Country Code joining produced 14 known 2023 values and 2 unknown rows: Anguilla (AIA) and Montserrat (MSR). The final class summary reports five quantile classes with breaks at 57,195.4, 77,291.6, 121,686.0, and 334,246.2 people, plus class 0 for No data.",
+      "limitations": [
+        "This is a country-level 2023 total-population choropleth in people, not a subnational population surface or a new regional aggregation.",
+        "Anguilla and Montserrat remain No data because their exact ISO_A3 codes did not match a Country Code in the supplied frozen table."
+      ],
+      "next_action": "The classified layer is already on the map and the artifact is inspectable. You can review or export it directly.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "76459b5fa804650ca72a76603a116d864dcb96300df89dfd0a4817b7d6b316d3",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

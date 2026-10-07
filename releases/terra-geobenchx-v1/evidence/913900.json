@@ -1,0 +1,431 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "913900",
+  "question": "Show rates of deforestation over the last decade.",
+  "submittedPrompt": "Show rates of deforestation over the last decade.\n\nTask conventions: Use the frozen country polygons and World Bank AG.LND.FRST.ZS 2021 column, in percentage points (2021 minus 2011). These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature and benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. Use forest coverage in 2021 minus 2011, in percentage points over the archived decade. Negative values indicate loss; this is not an annual compound percentage or absolute forest area. Both years must exist.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank AG.LND.FRST.ZS\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2021\",\n    \"units\": {\n      \"2021\": \"% of land area\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — I added the country layer for 2021 minus 2011 forest coverage, in percentage points. It keeps all 251 original country features: 214 have values and 37 are No data because the exact country code did not match or one of the two required years is missing.\n\nThe legend uses five quantile classes with breaks at -1.3319, -0.0226, 0.0, and 0.4539 percentage points, plus a neutral No data class. Exact zero values are preserved as data, and negative values indicate forest-share loss over the decade. This is a country-level indicator only, not a subnational surface or annualized rate, using the frozen World Bank country boundaries and frozen AG.LND.FRST.ZS snapshot retrieved today from Terra’s benchmark collections.\n\n### Limitations\n\n- Country-level only, not a subnational surface or a new regional aggregation.\n- Uses the supplied frozen World Bank AG.LND.FRST.ZS values only, with 2021 minus 2011 in percentage points.\n- Countries without an exact Country Code match or with a missing 2011 or 2021 value remain No data rather than being guessed.\n- Values are 2021 minus 2011 forest share of land area in percentage points, not annualized change or absolute forest area.\n- Countries without an exact Country Code match or without one of the two required year values remain No data.\n- These polygons define the retained country rows but do not provide the forest-change value by themselves.\n- A country remains unknown if either 2011 or 2021 is missing in the supplied frozen table.\n- Nonmatching identifiers, including sentinels such as -99, remain unknown rather than being guessed.\n- The change is 2021 minus 2011 in percentage points, not annualized change or absolute forest area.\n- The class count can drop below five only if tied values collapse breaks.\n- No data is a separate neutral class, not zero.",
+  "checks": {
+    "expectedCount": 214,
+    "actualCount": 214,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:09:13.473903Z",
+      "title": "Progress update",
+      "detail": "I’ll build this from the supplied frozen country boundaries and the frozen World Bank indicator, then verify the joined country layer before adding it to the map. First I’m checking what Terra tools are available and whether there is already an analysis brief or retained draft I should continue."
+    },
+    {
+      "at": "2026-10-07T08:09:24.984573Z",
+      "title": "Progress update",
+      "detail": "I found the Terra tools I need. Next I’m inspecting the supplied frozen boundary and indicator snapshots so I can use their exact fields and a tested join, rather than assuming column names."
+    },
+    {
+      "at": "2026-10-07T08:09:25.008984Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:25.017465Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:25.039030Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:39.272870Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:39.576079Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:40.180486Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:40.597026Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:40.783382Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:06.715907Z",
+      "title": "Progress update",
+      "detail": "I confirmed the supplied snapshots expose the fields I need: the country layer has `ISO_A3` and `benchmark_row_id`, and the World Bank table has `Country Code`, `2011`, and `2021`. I’m saving the analysis goal now, then I’ll inspect the exact join, calculation, and classification processor schemas before running a small end-to-end trial."
+    },
+    {
+      "at": "2026-10-07T08:10:20.766145Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:24.602907Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:24.920928Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:33.225192Z",
+      "title": "Progress update",
+      "detail": "I have the exact processor contracts now. The good sign is that the available processors match your conventions directly: a left attribute join, a numeric field calculator that preserves nulls, and a vector classifier whose quantiles use the required “break goes to upper class” rule. I’m running one full private vertical-slice trial next because this dataset is small enough to test the real output, not just a subset."
+    },
+    {
+      "at": "2026-10-07T08:10:33.292104Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:33.299952Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:33.974763Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:39.370031Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:59.000952Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:13:00.898823Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:13:01.296518Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:13:11.206344Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:13:12.925340Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:06.421405Z",
+      "title": "Progress update",
+      "detail": "The tested method looks sound so far: all 251 country rows are preserved, 214 have a known 2021–2011 value, and 37 remain unknown after the exact code join and missing-year handling. I’m recording that trial, then I’ll save the production workflow from the tested computation and run it so I can inspect the final deliverable and map layer."
+    },
+    {
+      "at": "2026-10-07T08:14:17.232060Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:17.263289Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:17.308646Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:27.268908Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:34.758473Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:40.570138Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:40.871956Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:40.973268Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:50.186975Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:58.027052Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:31.663175Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:46.102909Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the two edge cases that matter most for this map: exact zeros stay numeric and do not fall into No data, and `ISO_A3 = -99` rows remain unmatched and unknown. I’m saving the exact tested workflow now so the final output reuses this verified method instead of rebuilding it differently."
+    },
+    {
+      "at": "2026-10-07T08:15:56.438985Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:04.711625Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:17:45.297637Z",
+      "title": "Progress update",
+      "detail": "The production run finished in the background. I’m inspecting its exact final output now, then I’ll add that verified country layer to the map and record the final machine-readable answer with the delivered layer ID."
+    },
+    {
+      "at": "2026-10-07T08:17:51.283293Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:18:50.398881Z",
+      "title": "Progress update",
+      "detail": "I’m doing the final verification on the delivered artifact itself now: row count, known and unknown counts, the class breaks, exact-zero handling, and the unmatched `-99` rows. Then I’ll record the accepted result using the delivered layer that is already on the map."
+    },
+    {
+      "at": "2026-10-07T08:18:50.618221Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:18:50.639376Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:18:54.361376Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:18:59.583991Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:19:33.641255Z",
+      "title": "Progress update",
+      "detail": "The final layer is already on the map. I’m pulling the completed inspection receipts now so I can lock in the accepted result with the delivered dataset, counts, and legend evidence from the final workflow output."
+    },
+    {
+      "at": "2026-10-07T08:19:33.697836Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:19:33.737461Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:19:33.759807Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:14.002471Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Classify forest-share change",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Country forest-share change, 2011 to 2021",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Calculate 2021 minus 2011 forest share",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Supplied AG.LND.FRST.ZS table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join forest table to countries",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Classify forest-share change",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Calculate 2021 minus 2011 forest share",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Supplied AG.LND.FRST.ZS table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join forest table to countries",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Join forest table to countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Calculate 2021 minus 2011 forest share",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Calculate 2021 minus 2011 forest share",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify forest-share change",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify forest-share change",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T08:11:07.246521+00:00"
+    },
+    {
+      "sha256": "595b2997fe9ecdcc9b70e118f3b95cdbda921aaa7c0a0e079a3d499eae72c2c5",
+      "bytes": 112649,
+      "finishedAt": "2026-10-07T08:11:07.246521+00:00"
+    },
+    {
+      "sha256": "a02f4278319e8c6d47ecef5473c52b5e122adbdf3ea04b909ac0b01b99699527",
+      "bytes": 8419610,
+      "finishedAt": "2026-10-07T08:11:29.283272+00:00"
+    },
+    {
+      "sha256": "2b5b949caf2763fea10ae34b6cdf4426d3570477915d1ef32c0ea5f1b96aae9a",
+      "bytes": 8422575,
+      "finishedAt": "2026-10-07T08:11:49.346547+00:00"
+    },
+    {
+      "sha256": "4a1f8cfeed2e8593cb969077903b7e3dbdfdd91bc686354d2e97930a0cc2274f",
+      "bytes": 8421856,
+      "finishedAt": "2026-10-07T08:11:39.138869+00:00"
+    },
+    {
+      "sha256": "a02f4278319e8c6d47ecef5473c52b5e122adbdf3ea04b909ac0b01b99699527",
+      "bytes": 8419610,
+      "finishedAt": "2026-10-07T08:16:42.453618+00:00"
+    },
+    {
+      "sha256": "4a1f8cfeed2e8593cb969077903b7e3dbdfdd91bc686354d2e97930a0cc2274f",
+      "bytes": 8421856,
+      "finishedAt": "2026-10-07T08:17:01.473405+00:00"
+    },
+    {
+      "sha256": "2b5b949caf2763fea10ae34b6cdf4426d3570477915d1ef32c0ea5f1b96aae9a",
+      "bytes": 8422575,
+      "finishedAt": "2026-10-07T08:17:27.551516+00:00"
+    }
+  ],
+  "snapshotSha256": "c9daf79eb11cae565609345bddae1743953e04b71fe23bda043f9ed67acd0407",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:10:59.000952Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the exact full-country join and 2021 minus 2011 classification produce the required country artifact and map-ready choropleth while preserving every supplied boundary row, keeping unmatched or missing countries unknown, and separating No data from zero?"
+    },
+    {
+      "at": "2026-10-07T08:14:27.268908Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-scope trial preserved all 251 supplied boundary features and all benchmark_row_id values through the join, calculation and classification steps. The exact left join on ISO_A3 to Country Code left 34 country features unmatched, including seven ISO_A3='-99' sentinel rows, and those rows stayed unknown with null forest_pp_2021_2011 and class 0 rather than being guessed. The field calculation produced 214 known country values and 37 unknowns, with units recorded as percentage points and a value range from -13.188692499433394 to 7.0370370370369955. The classifier kept five quantile classes for known values, plus class 0 for No data. Inspection of exact zero rows showed 43 countries with forest_pp_2021_2011 = 0.0, all classified as class 4 rather than No data, so genuine zeros stayed numeric. The quantile summary reported breaks at -1.3318747739764603, -0.02263348014239952, 0.0 and 0.45393313408084107, with the processor’s lower-inclusive upper-exclusive class convention matching the required rule that break equality enters the upper class.",
+      "limitations": [
+        "This trial output is still private. The final deliverable still needs a saved production workflow, executed output inspection, and a map layer binding."
+      ],
+      "next_action": "Save the tested computation as the production workflow, execute it, inspect the final output artifact and add the classified country layer to the map.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:21:14.002471Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "Delivered result verified. The final country artifact retains all 251 original boundary features and all benchmark_row_id values. It contains 214 known country values and 37 unknowns. Negative values and genuine zeros are preserved; 43 countries have an exact value of 0.0 and remain in a numeric class, not No data. Seven ISO_A3='-99' sentinel rows remain unmatched and unknown. The choropleth uses five quantile classes with breaks at -1.3318747739764603, -0.02263348014239952, 0.0, and 0.45393313408084107 percentage points, plus a neutral No data class. The delivered map layer is already added to the map. Source snapshots used: Benchmark fixture · World Bank country boundaries and Benchmark fixture · World Bank AG.LND.FRST.ZS, both hosted by Terra from the supplied frozen benchmark collections and retrieved on 2026-10-07; source revision was not provided in the collection metadata. The delivered derived artifact was retrieved at 2026-10-07T08:17:12Z.",
+      "limitations": [
+        "Country-level only, not a subnational surface or a new regional aggregation.",
+        "Values are 2021 minus 2011 forest share of land area in percentage points, not annualized change or absolute forest area.",
+        "Countries without an exact Country Code match or without one of the two required year values remain No data."
+      ],
+      "next_action": "Review the added map layer and inspect individual country values and classes on the map.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "394124f9874dd9e0f52c59b212e4c11fc415c3b0443e9da1c615d0dc24995863",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

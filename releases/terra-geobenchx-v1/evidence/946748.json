@@ -1,0 +1,513 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "946748",
+  "question": "Map population density in Southern Asian nations",
+  "submittedPrompt": "Map population density in Southern Asian nations\n\nTask conventions: Use the frozen country polygons and World Bank SP.POP.TOTL 2023 population column in people; derived map units are people/km². These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature in the declared geography and its benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. Geography is fixed to original country features with SUBREGION in [\"Southern Asia\"]; retain all matching source geometries, and no others. Classification is calculated only over this geography. Membership reflects this disclosed benchmark edition, not current organization membership.Derive population density as the declared year's total population divided by the complete supplied country area in km². Some countries have several original features sharing ISO_A3: sum their original polygon areas once per ISO_A3, and assign that same country density to every corresponding original feature. Do not divide a full country population by each separate fragment. Unmatched placeholder codes remain unknown. Measure WGS84 ellipsoidal area using shortest geodesic edges between original vertices, subtracting holes and summing polygon parts. Longitude roundoff up to 1e-8 degrees at ±180 is tolerated; this does not move or replace the source geometry. This is population per supplied country-geometry area, NOT an official land-only density or subnational raster. Preserve all original features. Missing population, invalid/empty geometry, nonpositive area, or polygon rings spanning more than 180 degrees after longitude unwrapping remain unknown. Do not silently repair geometry, substitute current boundaries, or drop unknown countries. \n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SP.POP.TOTL\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the 2023 Southern Asia population-density layer is on the map.\n\nIt shows 9 benchmark country features, all with known values in people/km².  \nLegend: 5 quantile classes, with breaks at 61.45, 223.12, 321.04, and 783.42 people/km². A separate No data category is included, but none of the 9 features use it.\n\nKey limits: this uses the supplied benchmark Southern Asia membership and supplied country geometry, not current boundaries; density is population divided by supplied country-geometry area, not official land-only density or a subnational surface.\n\nSources: Terra-hosted benchmark fixtures from World Bank country boundaries and frozen World Development Indicators SP.POP.TOTL 2023, retrieved 2026-10-07.\n\n### Limitations\n\n- This uses the supplied benchmark edition of Southern Asia membership and geometry, not current boundaries or current organization membership.\n- Density is population per supplied country-geometry area in km², not official land-only density or a subnational population surface.",
+  "checks": {
+    "expectedCount": 9,
+    "actualCount": 9,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:14:58.303594Z",
+      "title": "Progress update",
+      "detail": "I’ll build the Southern Asia country-density choropleth from your frozen boundary and 2023 population inputs, first checking the source fields and a small private join-and-density trial, then I’ll save the full workflow and add the finished layer."
+    },
+    {
+      "at": "2026-10-07T08:15:09.450212Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:09.474418Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:10.305182Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:13.858680Z",
+      "title": "Progress update",
+      "detail": "I’ve got the Terra analysis tools. Next I’m checking the retained analysis context and the exact source fields so the join, area rule, and fixed Southern Asia filter use the supplied inputs as written."
+    },
+    {
+      "at": "2026-10-07T08:15:26.848306Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed there isn’t a saved analysis yet. Now I’m reading the supplied item schemas and the available join/area/classification processors so I can test the declared method with the exact fields rather than guessing."
+    },
+    {
+      "at": "2026-10-07T08:15:26.943005Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:15:26.963534Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:27.878071Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:15:28.435762Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:28.475856Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:57.335320Z",
+      "title": "Progress update",
+      "detail": "I found the likely processor set: filter the supplied boundary rows to Southern Asia, measure geodesic area on those original polygons, aggregate area by ISO_A3, join the frozen 2023 population table, calculate density, then classify the finished country values. I’m reading the exact schemas now so the trial matches the processors’ real contracts."
+    },
+    {
+      "at": "2026-10-07T08:15:57.504058Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:57.797381Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:57.887245Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:24.114442Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:30.157496Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:17:16.924306Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:17:28.973355Z",
+      "title": "Progress update",
+      "detail": "I’ve got the exact processor contracts. The key uncertainty now is practical: whether the fixed Southern Asia source rows all measure cleanly and whether the exact ISO_A3→Country Code join leaves any unknown countries. I’m running one small private vertical slice on the real geography to observe that before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T08:17:36.947824Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:05.070550Z",
+      "title": "Progress update",
+      "detail": "The private test finished. Good news: the declared method works on the full Southern Asia benchmark geography as supplied. I’m checking the saved trial output a bit more closely, then I’ll turn that exact tested method into the production workflow, run it, and bind the final layer to the map."
+    },
+    {
+      "at": "2026-10-07T08:20:13.811902Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:13.846671Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:13.905311Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:53.400024Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the test geography: 9 benchmark Southern Asia features, all exact code-joined and all with known 2023 density values in this frozen edition. I’m now turning that tested method into the saved production workflow with the final derived layer and artifact."
+    },
+    {
+      "at": "2026-10-07T08:20:53.776743Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:53.787951Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:57.798771Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:11.217954Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:11.266405Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:12.432283Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:12.709803Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:23.474062Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:48.236054Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:22:26.009460Z",
+      "title": "Progress update",
+      "detail": "The method is tested and ready. I’m saving the exact production workflow now, with the derived choropleth as the final deliverable and the benchmark-specific limitations carried forward."
+    },
+    {
+      "at": "2026-10-07T08:22:33.932946Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:04.586852Z",
+      "title": "Progress update",
+      "detail": "The draft only needed one bookkeeping fix: the saved contract scope had to match the workflow scope exactly. I’m correcting that now without changing the tested analysis steps."
+    },
+    {
+      "at": "2026-10-07T08:23:14.285734Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:36.074521Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:52.384686Z",
+      "title": "Progress update",
+      "detail": "The run finished successfully in the background. I’m inspecting the final output receipt, then I’ll add the verified derived layer to the map and record the final answer object from that exact artifact."
+    },
+    {
+      "at": "2026-10-07T08:25:59.423341Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:59.744120Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:26:38.742980Z",
+      "title": "Progress update",
+      "detail": "The finished layer is already bound to the map. I’m doing the last evidence check now on the final derived artifact itself, including the value and class fields, so I can record the exact answer object and concise legend notes."
+    },
+    {
+      "at": "2026-10-07T08:26:38.788857Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:26:38.814192Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:26:40.024323Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:27:11.021252Z",
+      "title": "Progress update",
+      "detail": "I’ve got the final output and class summary. I’m pulling the exact finished preview and current map layer record now so the final assessment points to the verified artifact that’s already on your map."
+    },
+    {
+      "at": "2026-10-07T08:27:11.079835Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:27:11.106328Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:27:11.116247Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:13.186677Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the final artifact: 9 retained Southern Asia benchmark features, 9 known density values, 0 unknowns, five quantile classes, and the delivered layer is live on the map. I’m clearing the stale “remaining work” note, then I’ll record the accepted result."
+    },
+    {
+      "at": "2026-10-07T08:28:20.715555Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:44.270972Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the verification. Next I’m recording the final accepted result from the exact derived artifact and current map layer, including the year, units, class breaks, and the fixed benchmark limitations."
+    },
+    {
+      "at": "2026-10-07T08:28:54.614719Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Create quantile choropleth classes",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Southern Asia population density choropleth",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Calculate population density",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Aggregate area by ISO_A3",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Supplied frozen WDI population",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Measure original polygon area",
+      "description": "Recorded vector-measure · succeeded"
+    },
+    {
+      "title": "Keep Southern Asia rows",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join aggregated area back to original rows",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Join frozen 2023 population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Create quantile choropleth classes",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Calculate population density",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Aggregate area by ISO_A3",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Supplied frozen WDI population",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Measure original polygon area",
+      "description": "Recorded vector-measure · succeeded"
+    },
+    {
+      "title": "Keep Southern Asia rows",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join aggregated area back to original rows",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Join frozen 2023 population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Keep Southern Asia rows",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Aggregate area by ISO_A3",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join frozen 2023 population",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Create quantile choropleth classes",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T08:17:47.871124+00:00"
+    },
+    {
+      "sha256": "88594296e94fe36d2810fac2feb2672aa3b7fc3985d9617914ddbf11d4157626",
+      "bytes": 171501,
+      "finishedAt": "2026-10-07T08:17:47.871124+00:00"
+    },
+    {
+      "sha256": "9a5cc92841b3ef6d0fe86bbed67329ea9d6f7bbd70a8edcd536d8e65aa1a61e0",
+      "bytes": 346137,
+      "finishedAt": "2026-10-07T08:17:52.780307+00:00"
+    },
+    {
+      "sha256": "7e774d3a7416acb4275c4839b948555ba7821ac3fff098c4b667214e201079a7",
+      "bytes": 3158,
+      "finishedAt": "2026-10-07T08:18:03.086792+00:00"
+    },
+    {
+      "sha256": "27ad759cea7faddf45d506e3752dfb867af3e69b1c55fcee058f0b4e7b3b8f12",
+      "bytes": 346815,
+      "finishedAt": "2026-10-07T08:17:57.234278+00:00"
+    },
+    {
+      "sha256": "7c992f31cb28a21e2b4dd68a76bb0c877c30cec674cb85899488f746de8b513c",
+      "bytes": 348701,
+      "finishedAt": "2026-10-07T08:18:21.707947+00:00"
+    },
+    {
+      "sha256": "5f52a175106ec4feab02c2ae7702b79a9bab261292f33be33762207d84b16247",
+      "bytes": 349905,
+      "finishedAt": "2026-10-07T08:18:27.718835+00:00"
+    },
+    {
+      "sha256": "d1fe9e70be7bf094772484506f982405342d6c13af620854f179e89853f9f8b9",
+      "bytes": 350611,
+      "finishedAt": "2026-10-07T08:18:48.642162+00:00"
+    },
+    {
+      "sha256": "78c8debc353d3b528a259e22100fe85c0672860c834ed7ee859534fd5712bc56",
+      "bytes": 351209,
+      "finishedAt": "2026-10-07T08:19:16.793337+00:00"
+    },
+    {
+      "sha256": "9a5cc92841b3ef6d0fe86bbed67329ea9d6f7bbd70a8edcd536d8e65aa1a61e0",
+      "bytes": 346137,
+      "finishedAt": "2026-10-07T08:24:03.082169+00:00"
+    },
+    {
+      "sha256": "27ad759cea7faddf45d506e3752dfb867af3e69b1c55fcee058f0b4e7b3b8f12",
+      "bytes": 346815,
+      "finishedAt": "2026-10-07T08:24:25.541667+00:00"
+    },
+    {
+      "sha256": "7e774d3a7416acb4275c4839b948555ba7821ac3fff098c4b667214e201079a7",
+      "bytes": 3158,
+      "finishedAt": "2026-10-07T08:24:37.049304+00:00"
+    },
+    {
+      "sha256": "7c992f31cb28a21e2b4dd68a76bb0c877c30cec674cb85899488f746de8b513c",
+      "bytes": 348701,
+      "finishedAt": "2026-10-07T08:24:51.930605+00:00"
+    },
+    {
+      "sha256": "d1fe9e70be7bf094772484506f982405342d6c13af620854f179e89853f9f8b9",
+      "bytes": 350611,
+      "finishedAt": "2026-10-07T08:25:15.808775+00:00"
+    },
+    {
+      "sha256": "5f52a175106ec4feab02c2ae7702b79a9bab261292f33be33762207d84b16247",
+      "bytes": 349905,
+      "finishedAt": "2026-10-07T08:25:04.896484+00:00"
+    },
+    {
+      "sha256": "78c8debc353d3b528a259e22100fe85c0672860c834ed7ee859534fd5712bc56",
+      "bytes": 351209,
+      "finishedAt": "2026-10-07T08:25:33.444131+00:00"
+    }
+  ],
+  "snapshotSha256": "8946062525eff758cb70823e82f27e93cec23aa1879567cbaf4a2d76fcdaeb4f",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:17:36.947824Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the supplied Southern Asia boundary rows support the exact join, geodesic area aggregation by ISO_A3, 2023 density calculation, and quantile classification while preserving every original row and unknowns?"
+    },
+    {
+      "at": "2026-10-07T08:20:57.798771Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The trial retained 9 source rows with SUBREGION='Southern Asia', preserved benchmark_row_id, measured positive geodesic km² area for every retained row, aggregated one country-area total per ISO_A3, joined all 9 rows exactly from ISO_A3 to Country Code using the frozen 2023 population column, and produced 9 known density values with density_class values 1-5 and no unknown rows in this benchmark geography.",
+      "limitations": [
+        "This trial confirms the supplied benchmark geography and frozen 2023 table, not current membership or another boundary edition."
+      ],
+      "next_action": "Save this exact tested computation as the production workflow, execute it, inspect the final derived artifact and legend-ready output, and add the verified layer to the map.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:28:54.614719Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The delivered choropleth contains 9 retained benchmark Southern Asia country features, 9 known 2023 population-density values in people/km², density_class values 1-5, and 0 unknown rows. The final class summary reports five quantile classes with breaks at 61.44923780220872, 223.12204193691952, 321.03976257718585, and 783.4169133431911 people/km², and the derived layer is available on the current map as 'Southern Asia population density choropleth'.",
+      "limitations": [
+        "This uses the supplied benchmark edition of Southern Asia membership and geometry, not current boundaries or current organization membership.",
+        "Density is population per supplied country-geometry area in km², not official land-only density or a subnational population surface."
+      ],
+      "next_action": "Review the choropleth on the map or ask for a table export if you want the same values in tabular form.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "c8f15e8539c2c17e11136ed10cddffedbf708ee7b1565afe50a5d454e0f5faeb",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

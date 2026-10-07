@@ -1,0 +1,24 @@
+{
+  "taskId": "118857",
+  "scope": "Preview and corresponding evidence hash only",
+  "outcomesAndSelectionsUnchanged": true,
+  "provenance": {
+    "taskId": "118857",
+    "sourceArtifactSha256": "8294f93c76839e156673fd5335b1209771d506edec63492cc68a8c2b14faa546",
+    "previewSha256": "81533d7d52ca2e8e830bb975644c91b9c8966faf1bb314b982aea5c63b8dc87f",
+    "featureCount": 2657,
+    "contourLevels": [
+      20.0,
+      40.0,
+      80.0,
+      160.0,
+      320.0,
+      640.0
+    ],
+    "purpose": "Presentation only; no grading or artifact modification.",
+    "attribution": "NOAA/NWS NOHRSC 2023–24 snowfall; GeoBenchX frozen input; Terra-derived contours.",
+    "rights": "Public-domain source observations; Exia Labs study illustration pending owner publication review."
+  },
+  "evidenceBeforeSha256": "7fb3a94578f9a25d685c9ca38bccbbf44c4647d7d91d6e6512efac9920ca4091",
+  "evidenceAfterSha256": "17f6ef847cb384a6e77c592e2f7d7d88ddcef92071bdd0c111dd6383ef16c01e"
+}

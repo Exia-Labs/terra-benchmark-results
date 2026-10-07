@@ -1,0 +1,117 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "483163",
+  "question": "What is a theodolite?",
+  "submittedPrompt": "What is a theodolite?\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "**Delivered:** A theodolite is a precision surveying instrument used to measure horizontal and vertical angles. Surveyors use it for mapping, land measurement, and construction layout. It usually has a small telescope that pivots left-right and up-down so the user can sight a target and read the angle. Modern ones are often electronic and may be part of a total station.\n\n**Unanswered:** None. This is a general definition, not a catalog measurement.\n\n### Limitations\n\n- This result is explanatory only and does not use catalog measurements or computed outputs.\n- This is a general explanation, not a catalog measurement or computed observation.\n- **Definition:** This is a general explanation, not a catalog measurement or computed observation.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T08:54:07.909311+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "e658678736da2c9d531cfaa0dbd71c58c4646a097ad81af82a067b434e94fc06",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "7675d4cfdf67f571cd6c4553894cebd556cff9f976c33764cb3d60b8cc389d81",
+      "snapshotSha256AtReview": "525e923961d0f45582eb646a85cc7726d125c288ee50421eecb5eb0798254b89",
+      "evidenceReviewed": [
+        "Complete accepted replacement final answer; not the interrupted original",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "correct_definition": {
+          "satisfied": true,
+          "explanation": "Correctly defines a theodolite as a surveying instrument measuring horizontal and vertical angles and explains telescope sighting and surveying uses."
+        },
+        "direct_answer": {
+          "satisfied": true,
+          "explanation": "Answers the definition directly and states no unanswered measurement, rather than refusing for lack of catalog data."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Makes no invented dataset, calculation or citation claim; the failed assessment is followed by a general explanation, with no jobs/artifacts."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:48:26.727016Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:39.461736Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:05.100943Z",
+      "title": "Progress update",
+      "detail": "I’ve recorded the goal. There’s no map layer or computed artifact for this definition question, so I’m marking the direct explanation itself as the delivered result and checking it against the saved acceptance conditions."
+    },
+    {
+      "at": "2026-10-07T08:49:06.242536Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:49:13.553795Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:20.829209Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:46.807317Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:02.144983Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:18.318449Z",
+      "title": "Progress update",
+      "detail": "I’ve checked the saved brief and cleared the remaining work for this definition question. There are still no map artifacts involved; the delivered result is the plain-language explanation itself."
+    },
+    {
+      "at": "2026-10-07T08:50:20.136009Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "d97aecbfd364b7170f7b9fe594acf59b457f4f8c89cbd643b22c0ee745843288",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:49:06.242536Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "Delivered a concise plain-language definition of a theodolite and its common use. This result is explanatory only and does not rely on catalog measurements, workflow outputs, or map artifacts.",
+      "limitations": [
+        "This is a general explanation, not a catalog measurement or computed observation."
+      ],
+      "next_action": null,
+      "question": null
+    }
+  ]
+}

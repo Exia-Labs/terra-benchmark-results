@@ -1,0 +1,781 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "932053",
+  "question": "How many African power stations are located in countries with significant forest loss?",
+  "submittedPrompt": "How many African power stations are located in countries with significant forest loss?\n\nTask conventions: Significant loss means forest area in 2021 divided by forest area in 1990 is strictly less than 0.79 (more than 21% loss). Use WDI AG.LND.FRST.K2 in square kilometres. The released references offer several incompatible thresholds; this protocol freezes the first reference's 0.79 convention, not any decrease or a percentage-point threshold. Use original country polygons with CONTINENT=Africa. Use exact ISO_A3/Country Code matching. A point qualifies only when strictly within a qualifying original country polygon. Count original point records once, regardless of operational status. Missing observations, nonmatching country codes, nonpositive denominators and nonfinite derived values are unknown, never zero. Points in unknown-measurement countries and points without valid geometry are unknown. Valid points outside all selected geographical polygons do not qualify and are not counted as unknown. Do not infer locations from point country-name attributes or fetch live substitutes. Maps are optional.\n\n\n\nProduce an inspectable selected-point artifact retaining original geometry and benchmark_row_id. End with one fenced JSON object: {count: selected original point records, unknown_count: points with unknown eligibility under the stated coverage rule, unlocated_count: original point records lacking valid geometry, coverage_note: string, selection: {collectionId, itemId, assetKey}}. Explain the fixed years, threshold and coverage in the final answer.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"African power stations\",\n    \"edition\": \"USGS 2021 frozen compilation\",\n    \"units\": {\n      \"DsgAttr02\": \"MW\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank AG.LND.FRST.K2\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2021\",\n    \"units\": {\n      \"2021\": \"km\\u00b2\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "I found 466 African power-station records that meet the fixed rule: forest area in 2021 divided by 1990 is strictly less than 0.79, using exact ISO_A3/Country Code matching and strict point-within-country geometry.\n\nImportant limitation: 65 records have unknown eligibility, including 31 records without valid geometry and 34 validly located records in 2 African countries where the 1990 WDI forest-area value is missing. Valid points outside all African country polygons were excluded, not counted as unknown.\n\nNext: you can inspect the attached selected-point layer for the exact qualifying locations.\n\nSources: USGS 2021 African power stations, frozen Terra benchmark fixture (retrieved 2026-10-07 UTC); World Bank Official Boundaries with GeoBenchX harmonization, frozen Terra benchmark fixture (retrieved 2026-10-07 UTC); World Bank WDI AG.LND.FRST.K2, frozen Terra benchmark fixture using 1990 and 2021 values (retrieved 2026-10-07 UTC).\n\n### Limitations\n\n- Uses the supplied frozen USGS 2021 power-station compilation, GeoBenchX harmonized country polygons, and frozen WDI AG.LND.FRST.K2 table.\n- Two African countries have unknown forest-loss measurement because the 1990 forest-area field is missing, so points within them remain unknown.\n- Valid points outside all African country polygons are excluded from both count and unknown_count.\n- Uses only the supplied frozen USGS 2021 power-station compilation, GeoBenchX harmonized country polygons, and frozen WDI AG.LND.FRST.K2 table.\n- Two African countries had unknown forest-loss measurement because the 1990 forest-area field was missing, so points within them are included in unknown_count rather than treated as zero.\n- Points lacking valid geometry cannot be located for the strict within-country test and remain unknown.\n- Valid points outside all African country polygons do not qualify and are not unknown.\n- Countries with missing values, nonpositive 1990 area, or nonfinite ratios remain unknown rather than counted as qualifying or nonqualifying.\n- Unknown eligibility applies only to unlocated points and to valid points strictly within African countries whose forest-loss measurement is unknown.",
+  "checks": {
+    "expectedCount": 466,
+    "actualCount": 466,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:13:55.876191Z",
+      "title": "Progress update",
+      "detail": "I’ll check the saved analysis state, inspect the supplied datasets, then run a small private test before saving the full counting method."
+    },
+    {
+      "at": "2026-10-07T08:14:11.024579Z",
+      "title": "Progress update",
+      "detail": "I’ve got the three frozen inputs. Next I’m checking their exact fields and a couple of small samples so the joins and the within-country test use the original data exactly as requested."
+    },
+    {
+      "at": "2026-10-07T08:14:11.154588Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:11.178374Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:13.243623Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:13.771527Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:28.431673Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:28.465765Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:28.487587Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the three frozen sources exist. Now I’m pulling their exact item profiles so I can use the real field names for the Africa filter, ISO code join, year columns, and benchmark_row_id retention."
+    },
+    {
+      "at": "2026-10-07T08:14:29.273435Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:55.112476Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:07.738400Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:16.174016Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:17.086817Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:17.959618Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:29.951082Z",
+      "title": "Progress update",
+      "detail": "I know the likely processor chain now. I’m checking the exact schemas next, mainly to confirm how “strictly within” is expressed and how unmatched or invalid points are surfaced for the unknown and unlocated counts."
+    },
+    {
+      "at": "2026-10-07T08:15:29.973618Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:15:30.031006Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:31.013241Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:34.802754Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:34.835857Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:35.816438Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:48.514946Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:48.538841Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:49.457148Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:49.982441Z",
+      "title": "Progress update",
+      "detail": "I have the basic join pieces. I’m looking for the exact spatial predicate and any processor that reports missing or invalid point geometry cleanly, because that affects the required unknown and unlocated counts."
+    },
+    {
+      "at": "2026-10-07T08:16:01.162212Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the spatial join supports a real `within` predicate. I’m fetching the workflow and trial node schemas now so I can build the test and the full run with the correct source-step format instead of guessing."
+    },
+    {
+      "at": "2026-10-07T08:16:01.321696Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:01.351515Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:01.367817Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:02.598657Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:47.270007Z",
+      "title": "Progress update",
+      "detail": "The country-side logic is clear. I’m checking one more processor that may preserve rows with missing point geometry, so I can prove the unlocated count instead of assuming it is zero."
+    },
+    {
+      "at": "2026-10-07T08:16:49.951071Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:50.002449Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:50.953416Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:17:58.413443Z",
+      "title": "Progress update",
+      "detail": "I’ve got the full method assembled. I’m running it privately first, at the actual Africa-wide scope, to verify three things together: the ISO join, the strict-within point selection, and the separate unknown/unlocated handling."
+    },
+    {
+      "at": "2026-10-07T08:18:12.588492Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:18:23.100447Z",
+      "title": "Progress update",
+      "detail": "The first trial request was blocked by a brief-format issue, not by missing data. I’m correcting the stored study extent to a numeric Africa bbox and retrying the same test."
+    },
+    {
+      "at": "2026-10-07T08:18:34.001936Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:24:37.856275Z",
+      "title": "Progress update",
+      "detail": "The full-scope private test finished successfully. I found a complete exact ISO join for 52 African country polygons, 2 African countries with unknown forest-loss measurement, 466 qualifying power-station points, 34 valid points in unknown-measurement countries, and 31 unlocated point records. I’m confirming the saved outputs, then I’ll save the production workflow and verify the final artifact."
+    },
+    {
+      "at": "2026-10-07T08:24:45.612330Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:24:59.038207Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:10.775408Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:10.831565Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:11.857176Z",
+      "title": "Progress update",
+      "detail": "The private test supports the method, so I’m turning that exact Africa-wide computation into a saved workflow now. I’m keeping the selected qualifying points as the main output and carrying the unknown and unlocated point sets as supporting evidence for the final count."
+    },
+    {
+      "at": "2026-10-07T08:25:12.101912Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:15.640274Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:34.780289Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:35.194802Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:35.405350Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:26:04.588464Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:26:24.025259Z",
+      "title": "Progress update",
+      "detail": "The draft mostly validated. Terra flagged only two ambiguous requirement bindings, both on the final selected-point output. I’m correcting those exact references and revalidating the same workflow."
+    },
+    {
+      "at": "2026-10-07T08:26:28.945461Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:26:43.122532Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:29:09.314402Z",
+      "title": "Progress update",
+      "detail": "The saved workflow has finished. I’m checking the exact delivered artifacts now so I can attach the selected qualifying-point output and the verified counts in the final result."
+    },
+    {
+      "at": "2026-10-07T08:29:09.888504Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:29:46.076872Z",
+      "title": "Progress update",
+      "detail": "I already have the tested counts. I’m just pulling the finished workflow’s exact output references now, then I’ll record the final answer against the inspected selected-point artifact."
+    },
+    {
+      "at": "2026-10-07T08:29:46.271019Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:29:54.626892Z",
+      "title": "Progress update",
+      "detail": "I’ve got the finished run receipts. One short follow-up page should include the selected qualifying-point deliverable and the unknown-country support layer, then I can finalize the result."
+    },
+    {
+      "at": "2026-10-07T08:29:55.091850Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:30:05.453099Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:30:05.733915Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:30:05.928155Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:30:05.952955Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:09.286173Z",
+      "title": "Progress update",
+      "detail": "I’m doing the last bounded checks on the finished outputs: one for the qualifying selected points, one for valid unknown-country points, and one for unlocated records. Then I can attach the exact selected artifact and answer."
+    },
+    {
+      "at": "2026-10-07T08:31:09.323969Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:09.340108Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:09.352514Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:11.256270Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:32:33.549271Z",
+      "title": "Progress update",
+      "detail": "I have the final inspected outputs and counts. I’m recording the selected qualifying-point artifact now with the fixed 1990/2021 threshold rule and the verified count, unknown_count, and unlocated_count."
+    },
+    {
+      "at": "2026-10-07T08:32:45.022373Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:32:53.774572Z",
+      "title": "Progress update",
+      "detail": "Terra needs a preview on the final selected deliverable node itself before it will accept the result. I’m refreshing that one last preview and then I’ll record the final answer."
+    },
+    {
+      "at": "2026-10-07T08:32:54.561971Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:18.411861Z",
+      "title": "Progress update",
+      "detail": "I’ve got the requested final output; Terra just needs the deliverable-node preview receipt itself. I’m fetching that exact preview now, then I’ll finalize the result."
+    },
+    {
+      "at": "2026-10-07T08:33:19.763551Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:31.449549Z",
+      "title": "Progress update",
+      "detail": "The preview requirement is satisfied now. I’m recording the final selected artifact and counts against the finished workflow outputs."
+    },
+    {
+      "at": "2026-10-07T08:33:40.503333Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "African countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "African countries with forest area",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Forest ratio",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "World Bank country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Qualifying power stations",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown-country power stations",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unlocated power stations",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Point geometry check",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "African power stations",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Points matched to qualifying countries",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Points matched to unknown countries",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Qualifying countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Selected qualifying points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Unknown-country matched points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Unknown-measurement countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Unknown valid points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Unlocated points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Validly located points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "World Bank forest area",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "African countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "African countries with forest area",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Forest ratio",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "World Bank country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Point geometry check",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "African power stations",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Points matched to qualifying countries",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Points matched to unknown countries",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Qualifying countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Selected qualifying points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "African countries with forest area",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Forest ratio",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected qualifying points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown valid points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unlocated points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Points matched to unknown countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown-country matched points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Unknown-measurement countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Unknown valid points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Unlocated points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Validly located points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "World Bank forest area",
+      "description": "Recorded source · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T08:19:12.968255+00:00"
+    },
+    {
+      "sha256": "6466e315e8ff63739ef14b89300a4ecb739e3753d503760233466dcc207a1a51",
+      "bytes": 337674,
+      "finishedAt": "2026-10-07T08:19:12.968255+00:00"
+    },
+    {
+      "sha256": "db279c795b5f549e2b45ab57600a4e860bc75be5f60be3230215bf964062c6ba",
+      "bytes": 98864,
+      "finishedAt": "2026-10-07T08:19:12.968255+00:00"
+    },
+    {
+      "sha256": "a1c538b74b7265882452aab9f505274a889f7c7d3ecb5744879c3722fcc74cf3",
+      "bytes": 919098,
+      "finishedAt": "2026-10-07T08:19:24.996942+00:00"
+    },
+    {
+      "sha256": "aa983fa33e40d19414cb1fabede70f53fdfa1d6bb7fd4cedfe68e3e672ba3aa1",
+      "bytes": 922922,
+      "finishedAt": "2026-10-07T08:19:34.428975+00:00"
+    },
+    {
+      "sha256": "0fe3340ac748ffa05b4f5590bc06085b481bc29989465062831af994adade34b",
+      "bytes": 452063,
+      "finishedAt": "2026-10-07T08:19:34.428975+00:00"
+    },
+    {
+      "sha256": "501b1e431e949bca224427c7c21485f8da9e15235c84005a0d5e4ffc23f02d0e",
+      "bytes": 923958,
+      "finishedAt": "2026-10-07T08:19:45.433870+00:00"
+    },
+    {
+      "sha256": "53aeceae5fbb4fc9f6192dfcf169a31875cceea81fd4065967548eea430038a6",
+      "bytes": 449652,
+      "finishedAt": "2026-10-07T08:19:53.203574+00:00"
+    },
+    {
+      "sha256": "9b76abf2afd6ec2c64004bffd8239de4a12e4f5b4f951b643010f74048cdf490",
+      "bytes": 230284,
+      "finishedAt": "2026-10-07T08:20:08.540714+00:00"
+    },
+    {
+      "sha256": "944480e4a5ad95c58a9624e313824ac8043c64b62238de3e15d041eba1d3cbff",
+      "bytes": 24981,
+      "finishedAt": "2026-10-07T08:20:08.540714+00:00"
+    },
+    {
+      "sha256": "61e5df12fe30c84f943c126b76d241ece1384a6c5310150c70303915968d9d81",
+      "bytes": 450718,
+      "finishedAt": "2026-10-07T08:20:23.096880+00:00"
+    },
+    {
+      "sha256": "5f12d843f48ea940ab2313a69861349c2692de0fbf1ca8669bf9f1d000073cb0",
+      "bytes": 60064,
+      "finishedAt": "2026-10-07T08:20:23.096880+00:00"
+    },
+    {
+      "sha256": "5b9c1deb7510f315167eb122c7eacbc47d6746b82bd207357a02b9405e545461",
+      "bytes": 451444,
+      "finishedAt": "2026-10-07T08:20:41.246154+00:00"
+    },
+    {
+      "sha256": "7c45b07fc13a9d4c54e9509fad0871b1ba91aaac536bdbb862452ae1436a3463",
+      "bytes": 89413,
+      "finishedAt": "2026-10-07T08:20:51.423157+00:00"
+    },
+    {
+      "sha256": "7b2118548cafbe11b8891af7d8a810874efefcf56d4607bed122b47c28d01105",
+      "bytes": 28636,
+      "finishedAt": "2026-10-07T08:21:04.248227+00:00"
+    },
+    {
+      "sha256": "7b2118548cafbe11b8891af7d8a810874efefcf56d4607bed122b47c28d01105",
+      "bytes": 28636,
+      "finishedAt": "2026-10-07T08:21:15.571658+00:00"
+    },
+    {
+      "sha256": "a1c538b74b7265882452aab9f505274a889f7c7d3ecb5744879c3722fcc74cf3",
+      "bytes": 919098,
+      "finishedAt": "2026-10-07T08:27:11.611383+00:00"
+    },
+    {
+      "sha256": "aa983fa33e40d19414cb1fabede70f53fdfa1d6bb7fd4cedfe68e3e672ba3aa1",
+      "bytes": 922922,
+      "finishedAt": "2026-10-07T08:27:18.240533+00:00"
+    },
+    {
+      "sha256": "501b1e431e949bca224427c7c21485f8da9e15235c84005a0d5e4ffc23f02d0e",
+      "bytes": 923958,
+      "finishedAt": "2026-10-07T08:27:37.177416+00:00"
+    },
+    {
+      "sha256": "0fe3340ac748ffa05b4f5590bc06085b481bc29989465062831af994adade34b",
+      "bytes": 452063,
+      "finishedAt": "2026-10-07T08:27:28.988828+00:00"
+    },
+    {
+      "sha256": "53aeceae5fbb4fc9f6192dfcf169a31875cceea81fd4065967548eea430038a6",
+      "bytes": 449652,
+      "finishedAt": "2026-10-07T08:27:37.177416+00:00"
+    },
+    {
+      "sha256": "944480e4a5ad95c58a9624e313824ac8043c64b62238de3e15d041eba1d3cbff",
+      "bytes": 24981,
+      "finishedAt": "2026-10-07T08:27:53.190658+00:00"
+    },
+    {
+      "sha256": "9b76abf2afd6ec2c64004bffd8239de4a12e4f5b4f951b643010f74048cdf490",
+      "bytes": 230284,
+      "finishedAt": "2026-10-07T08:28:02.820325+00:00"
+    },
+    {
+      "sha256": "5f12d843f48ea940ab2313a69861349c2692de0fbf1ca8669bf9f1d000073cb0",
+      "bytes": 60064,
+      "finishedAt": "2026-10-07T08:28:02.820325+00:00"
+    },
+    {
+      "sha256": "61e5df12fe30c84f943c126b76d241ece1384a6c5310150c70303915968d9d81",
+      "bytes": 450718,
+      "finishedAt": "2026-10-07T08:28:12.585002+00:00"
+    },
+    {
+      "sha256": "5b9c1deb7510f315167eb122c7eacbc47d6746b82bd207357a02b9405e545461",
+      "bytes": 451444,
+      "finishedAt": "2026-10-07T08:28:25.897399+00:00"
+    },
+    {
+      "sha256": "7c45b07fc13a9d4c54e9509fad0871b1ba91aaac536bdbb862452ae1436a3463",
+      "bytes": 89413,
+      "finishedAt": "2026-10-07T08:28:44.832914+00:00"
+    },
+    {
+      "sha256": "7b2118548cafbe11b8891af7d8a810874efefcf56d4607bed122b47c28d01105",
+      "bytes": 28636,
+      "finishedAt": "2026-10-07T08:28:44.832914+00:00"
+    },
+    {
+      "sha256": "7b2118548cafbe11b8891af7d8a810874efefcf56d4607bed122b47c28d01105",
+      "bytes": 28636,
+      "finishedAt": "2026-10-07T08:28:54.342097+00:00"
+    }
+  ],
+  "snapshotSha256": "02cd229118f0c6b1ed51405d62658ad9b99965ee860af49d8be17b13399f1747",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:18:12.588492Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the Africa-wide computation correctly join forest-area data by exact ISO code, select original power-station points strictly within qualifying African country polygons, and separate unknown and unlocated records under the stated rules?"
+    },
+    {
+      "at": "2026-10-07T08:24:59.038207Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The Africa-wide test answered the method question. The exact ISO join succeeded for all 52 African country polygons: 52 matched input features, 0 unmatched. The derived forest_ratio field is available for 50 countries and null for 2 countries because 1990 forest area is missing there, so those countries remain unknown rather than qualifying or nonqualifying. The strict within workflow produced 466 qualifying original power-station point records. It also produced 34 validly located points strictly within unknown-measurement African countries and 31 unlocated original point records with null geometry-based distance, for 65 total unknown-eligibility points under the stated rule. The qualifying selected-point output preserves original point geometry and benchmark_row_id.",
+      "limitations": [
+        "This trial output is private; the user-facing result still needs a saved workflow and final artifact selection.",
+        "The current evidence confirms the full requested Africa-wide method, but final acceptance still requires inspecting the production workflow outputs."
+      ],
+      "next_action": "Save the tested Africa-wide computation as a workflow with the selected-point artifact as the final deliverable and supporting unknown/unlocated outputs for verification, then execute and assess the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:32:45.022373Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "I verified the finished workflow outputs against the requested rule. The selected qualifying-point artifact contains 466 original point records with preserved geometry and benchmark_row_id. The supporting outputs contain 34 valid points in African countries with unknown forest-loss measurement and 31 original records without valid geometry, so unknown_count is 65 and unlocated_count is 31. The workflow uses original African country polygons, exact ISO_A3/Country Code matching, WDI AG.LND.FRST.K2 values for 1990 and 2021, and a strict forest-area ratio threshold of 2021/1990 < 0.79.",
+      "limitations": [
+        "Uses only the supplied frozen USGS 2021 power-station compilation, GeoBenchX harmonized country polygons, and frozen WDI AG.LND.FRST.K2 table.",
+        "Two African countries had unknown forest-loss measurement because the 1990 forest-area field was missing, so points within them are included in unknown_count rather than treated as zero.",
+        "Valid points outside all African country polygons are excluded from both count and unknown_count."
+      ],
+      "next_action": "Review the selected qualifying-point layer if you want the exact locations on the map.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:33:40.503333Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I verified the finished workflow outputs against the requested rule. The final selected qualifying-point artifact contains 466 original point records with preserved geometry and benchmark_row_id. The supporting inspected outputs contain 34 valid points in African countries with unknown forest-loss measurement and 31 original records without valid geometry, so unknown_count is 65 and unlocated_count is 31. The workflow uses original African country polygons, exact ISO_A3/Country Code matching, WDI AG.LND.FRST.K2 values for 1990 and 2021, and a strict forest-area ratio threshold of 2021/1990 < 0.79.",
+      "limitations": [
+        "Uses only the supplied frozen USGS 2021 power-station compilation, GeoBenchX harmonized country polygons, and frozen WDI AG.LND.FRST.K2 table.",
+        "Two African countries had unknown forest-loss measurement because the 1990 forest-area field was missing, so points within them are included in unknown_count rather than treated as zero.",
+        "Valid points outside all African country polygons are excluded from both count and unknown_count."
+      ],
+      "next_action": "Review the selected qualifying-point layer if you want the exact locations on the map.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "8a41abd7bd2e984d0017963d42fcd3b2b335b68d82478f4c2de1233e27ce7255",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

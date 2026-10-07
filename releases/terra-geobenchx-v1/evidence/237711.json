@@ -1,0 +1,77 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "237711",
+  "question": "Display climate adaptation readiness across vulnerable nations.",
+  "submittedPrompt": "Display climate adaptation readiness across vulnerable nations.\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "**Delivered:** Climate adaptation readiness across vulnerable nations is **not yet confirmed** in this environment. The supplied inventory only shows source types: a **Countries** layer plus possible country-level proxy topics such as **GDP per capita, electric power use, freshwater withdrawals, agriculture share, forest area, population, rural population, labor force, migration, fertility, and emissions**.\n\n**Still unanswered:** this environment does **not** provide the actual country values, a defined list of **which nations are vulnerable**, or key readiness evidence like **governance, disaster preparedness, health capacity, adaptation finance, and globally consistent infrastructure resilience**. The extra rail and power layers are regional, so they do not support a fair worldwide comparison.\n\n**Next action:** provide the actual country tables and a vulnerability definition/list, or ask for a **clearly labeled rough proxy** using only the listed national indicators.\n\n### Limitations\n\n- Only source names are available here, not country values.\n- No vulnerable-country list or rule is supplied.\n- No direct climate adaptation readiness dataset is listed.\n- Regional infrastructure layers are not globally comparable.\n- Not yet confirmed: this environment only provides source inventory metadata, not country observations, a vulnerability list, or direct readiness measures.\n- **Vulnerable nations:** This environment does not define which nations are vulnerable.\n- **Readiness:** I cannot measure or rank readiness because the actual country values are not available and core readiness evidence is missing.\n- **Map layer:** A boundary layer alone does not show readiness.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T06:15:00.576667+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "ebdcd081b8e2ad3a6655a1edf36ef218e31a37789165909acca1ba53e9c8f71f",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "d97fcc6e8fbe7a9fd374f288ec1d8d99002f08774fe6d24f444ca8c5b726edcf",
+      "snapshotSha256AtReview": "2eb47b1a1dbc5535bf93163e9a0ae98ef13c97f183e0677363b843dac9fed348",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies absent adaptation-readiness measures, vulnerability membership and globally comparable infrastructure evidence."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Keeps GDP and other national indicators as a possible rough proxy, not an observed readiness ranking."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Explicitly says only source types, not country values, are available here."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Reports readiness as unconfirmed, gives no country scores and creates no jobs/artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests observations and a vulnerable-country definition, or a separately labeled proxy analysis."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:12:51.674462Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:12:51.981201Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:14:02.950525Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "f405c48f331e51e40fa85845bae1684e40668104dbf2267f1b121b206dce9dce",
+  "investigations": []
+}

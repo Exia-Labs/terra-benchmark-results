@@ -1,0 +1,533 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "761363",
+  "question": "Make a World map of electricity consumption per capita by country.",
+  "submittedPrompt": "Make a World map of electricity consumption per capita by country.\n\nTask conventions: Use the frozen country polygons and World Bank EG.USE.ELEC.KH.PC 2014 column, in kWh per capita. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature and benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Electric power consumption per capita\",\n    \"edition\": \"Frozen WDI; use 2014\",\n    \"units\": {\n      \"2014\": \"kWh per capita\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the layer is on your map as **Electricity consumption per capita by country, 2014**. It uses the frozen World Bank **EG.USE.ELEC.KH.PC** country indicator in **kWh per capita**, with **five quantile classes** plus a neutral **No data** class; the legend breaks are **600.51**, **1,856.65**, **3,729.24**, and **6,637.02** kWh per capita, so the class ranges run from **39.57–600.51** up to **6,637.02–53,832.48**, with break values going into the higher class.\n\nImportant limitation: **143** countries have known 2014 values and **108** are **No data** because **34** country polygons do not have an exact code match and **74** more matched countries have no 2014 value in the frozen table. This is a **country-level 2014 map**, not a subnational surface or a new regional aggregation.\n\nNext step: click countries on the map or inspect the layer table to review each country’s **benchmark_row_id**, **2014** value, and **elec_2014_class**. Sources: Terra-hosted frozen World Bank country boundaries and frozen WDI **EG.USE.ELEC.KH.PC 2014**, retrieved **2026-10-07 UTC**.\n\n### Limitations\n\n- 143 countries have a known 2014 value and 108 countries remain in the neutral No data category because the supplied inputs do not provide an exact code match or a 2014 measurement for them.\n- 108 countries remain in the neutral No data category because the supplied frozen inputs do not provide an exact Country Code match for 34 country polygons and do not provide a 2014 value for 74 additional matched countries.\n- This is a country-level 2014 indicator joined to country polygons, not a subnational surface or a new regional aggregation.\n- The result intentionally uses the fixed frozen 2014 source and does not substitute newer years or alternate sources.",
+  "checks": {
+    "expectedCount": 143,
+    "actualCount": 143,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:49:34.701202Z",
+      "title": "Progress update",
+      "detail": "I’ll inspect the supplied country and indicator files first, then test the join and classing on a small private draft before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T07:49:40.397704Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:47.873827Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:48.357871Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:57.256559Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:49:57.285628Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:50:01.558373Z",
+      "title": "Progress update",
+      "detail": "I confirmed both supplied files are immutable snapshots. Next I’m checking their actual fields and a few sample rows so I can bind the exact join keys and the fixed 2014 value column."
+    },
+    {
+      "at": "2026-10-07T07:50:06.539221Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:06.582039Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:06.631139Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:06.980309Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:08.196060Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:08.236579Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:09.055432Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:09.093708Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:14.731622Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:14.777363Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:15.895066Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:16.529382Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:42.227561Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:52.488059Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:58.675448Z",
+      "title": "Progress update",
+      "detail": "I found the likely fields: country `ISO_A3` and indicator `Country Code` with numeric `2014`. I’m checking sample rows and then I’ll run the exact left join plus quantile classing on the full world draft so the saved workflow matches tested behavior."
+    },
+    {
+      "at": "2026-10-07T07:52:04.076002Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:04.338103Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:55.138070Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the likely binders from the source evidence. Now I’m testing the full-world method itself: exact left join on `ISO_A3` = `Country Code`, then quantile classing on the joined `2014` field. I expect 251 country features to remain, with unmatched or missing values staying unknown instead of being dropped or set to zero."
+    },
+    {
+      "at": "2026-10-07T07:53:58.348023Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:02.451161Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:02.765861Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:26.292160Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:59.214104Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:59.585734Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:59.960618Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:02.877118Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:04.823696Z",
+      "title": "Progress update",
+      "detail": "The private draft worked at world scale. Next I’m inspecting the class ranges and preview so I can save the tested production workflow with the right handoff note, then I’ll run it and bind the verified layer to your map."
+    },
+    {
+      "at": "2026-10-07T07:57:17.945502Z",
+      "title": "Progress update",
+      "detail": "I’ve got the join coverage now: 251 countries retained, 143 with a known 2014 value, and 108 unknown. I’m pulling the exact class ranges next so the final legend text matches the tested output rather than an estimate."
+    },
+    {
+      "at": "2026-10-07T07:57:18.009935Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:18.041784Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:18.678053Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:19.122179Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:19.396925Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:20.219087Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:02.515420Z",
+      "title": "Progress update",
+      "detail": "The method is tested now. I’m saving that tested computation as the production workflow next, with the final output bound to the classified country layer so I can execute once, inspect the delivered artifact, and attach the verified layer to your map."
+    },
+    {
+      "at": "2026-10-07T07:58:02.543467Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:04.900302Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:04.929394Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:09.568183Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:22.554774Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:52.715627Z",
+      "title": "Progress update",
+      "detail": "I’ve replaced the old planning notes with the real remaining limitation: some country polygons do not have an exact code match or a 2014 value, so they will stay in the neutral No data class. Now I’m saving the tested workflow itself."
+    },
+    {
+      "at": "2026-10-07T07:59:01.386903Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:59:08.894919Z",
+      "title": "Progress update",
+      "detail": "I’m saving one production workflow from the tested world-scale draft. It keeps the exact join rule, the fixed 2014 field, and the five-quantile classification with No data separate."
+    },
+    {
+      "at": "2026-10-07T07:59:19.650219Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:59:29.006584Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:08.937308Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:54.194802Z",
+      "title": "Progress update",
+      "detail": "The layer is already bound to the map from the finished run. I’m checking two final details before I close: the delivered table fields on the country layer, and the legend/class summary that the classifier published with it."
+    },
+    {
+      "at": "2026-10-07T08:02:54.369849Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:54.448762Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:56.306806Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:18.752906Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:09.104180Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the delivered fields, counts, class breaks, and live layer binding. I’m recording the final assessment now from the actual delivered artifact: 251 countries retained, 143 known values, 108 No data, and the map layer already on your map."
+    },
+    {
+      "at": "2026-10-07T08:05:16.003295Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:47.937959Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:05:56.780600Z",
+      "title": "Progress update",
+      "detail": "I need one last spatial preview receipt for the final artifact before Terra will accept the result. I’m grabbing that now and then I’ll submit the finished assessment."
+    },
+    {
+      "at": "2026-10-07T08:05:56.985614Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:41.379915Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:42.163194Z",
+      "title": "Progress update",
+      "detail": "The final preview is ready. I’m attaching that verified preview receipt to the final assessment now so Terra can accept the result and keep the live layer selection tied to the answer."
+    },
+    {
+      "at": "2026-10-07T08:07:02.323940Z",
+      "title": "Progress update",
+      "detail": "I’ve got the required final preview receipt now. I’m resubmitting the final assessment with the verified preview, the legend summary, and the delivered layer selection together."
+    },
+    {
+      "at": "2026-10-07T08:07:13.427773Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Classify 2014 electricity values",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied country polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Electricity consumption per capita by country, 2014",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied electricity table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join 2014 electricity values to countries",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Classify 2014 electricity values",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied country polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied electricity table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join 2014 electricity values to countries",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Join 2014 electricity values to countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify 2014 electricity values",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied country polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied electricity table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied country polygons",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied electricity table",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T07:51:12.357763+00:00"
+    },
+    {
+      "sha256": "35c5d7efcc03e05918af7f00fd37d7ac6235980c9f43ad3513579270318cfd0d",
+      "bytes": 112643,
+      "finishedAt": "2026-10-07T07:51:12.357763+00:00"
+    },
+    {
+      "sha256": "fbe32e86d61e89b256be4a1d8718a25c17226f8db8179718a53ebe0eab387e81",
+      "bytes": 8416566,
+      "finishedAt": "2026-10-07T07:55:31.906743+00:00"
+    },
+    {
+      "sha256": "17307351a7f6726d7e79d8554257172882153ed1079feadafa9963df5a5028f2",
+      "bytes": 8417267,
+      "finishedAt": "2026-10-07T07:55:52.381109+00:00"
+    },
+    {
+      "sha256": "fbe32e86d61e89b256be4a1d8718a25c17226f8db8179718a53ebe0eab387e81",
+      "bytes": 8416566,
+      "finishedAt": "2026-10-07T08:00:51.225566+00:00"
+    },
+    {
+      "sha256": "17307351a7f6726d7e79d8554257172882153ed1079feadafa9963df5a5028f2",
+      "bytes": 8417267,
+      "finishedAt": "2026-10-07T08:01:26.661568+00:00"
+    }
+  ],
+  "snapshotSha256": "2c05a660553ad17575a2851c4e74655674f47a3e3cdc7ffba8d787ea2532a8cf",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:50:52.488059Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Which exact source fields should drive the required country join and fixed 2014 value mapping?"
+    },
+    {
+      "at": "2026-10-07T07:53:58.348023Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The source trial identified the required fields from the supplied snapshots. The country dataset contains benchmark_row_id and ISO_A3 across 251 features. The indicator table contains Country Code and a numeric 2014 field for electric power consumption, and the indicator code is EG.USE.ELEC.KH.PC. This is enough to test the exact join and fixed-year mapping.",
+      "limitations": [
+        "This trial did not test join coverage, unmatched identifiers, or the final choropleth classes."
+      ],
+      "next_action": "Run a full-world private draft with a left join from country polygons to the 2014 table field, then classify the joined numeric values into quantiles and inspect the output.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:54:26.292160Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the exact world join retain every country while classifying the joined 2014 electricity values into the required quantile choropleth with No data kept separate?"
+    },
+    {
+      "at": "2026-10-07T07:58:02.543467Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The world-scale draft answered the main method question. The left join retained all 251 supplied country features and benchmark_row_id values. Exact ISO_A3 to Country Code matching produced 143 known 2014 values and 108 unknown values. The classified output retained all 251 countries and added elec_2014_class with class 0 present for No data and classes 1 through 5 for known values.",
+      "limitations": [
+        "This trial confirmed world-scale join retention and class presence, but I still need to inspect the final production output and map binding before delivery."
+      ],
+      "next_action": "Save the tested computation as the production workflow, execute it, inspect the final artifact, add the verified layer to the map, and assess the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:05:47.937959Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "Using the supplied immutable Terra-hosted World Bank country boundaries and frozen WDI EG.USE.ELEC.KH.PC 2014 table, retrieved on 2026-10-07, the delivered country layer retains all 251 original country features and benchmark_row_id values. The final artifact has 143 known numeric 2014 values in kWh per capita and 108 unknown countries in a separate No data class. The map layer is already bound to the map as 'Electricity consumption per capita by country, 2014'. The published legend metadata reports five quantile classes with breaks at 600.5074468359913, 1856.6549028846907, 3729.2413629083303, and 6637.020144593491 kWh per capita, plus a distinct No data category.",
+      "limitations": [
+        "108 countries remain in the neutral No data category because the supplied frozen inputs do not provide an exact Country Code match for 34 country polygons and do not provide a 2014 value for 74 additional matched countries.",
+        "This is a country-level 2014 indicator joined to country polygons, not a subnational surface or a new regional aggregation.",
+        "The result intentionally uses the fixed frozen 2014 source and does not substitute newer years or alternate sources."
+      ],
+      "next_action": "Use the map layer or inspect the delivered country artifact if you want to review individual country values and classes.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:07:13.427773Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "Using the supplied immutable Terra-hosted World Bank country boundaries and the frozen World Bank WDI EG.USE.ELEC.KH.PC 2014 table, retrieved on 2026-10-07 UTC, the delivered country layer retains all 251 original country features and benchmark_row_id values. The final artifact has 143 known numeric 2014 values in kWh per capita and 108 unknown countries in a separate No data class. The delivered map layer is already bound to the map as 'Electricity consumption per capita by country, 2014'. The classifier summary reports five quantile classes with breaks at 600.5074468359913, 1856.6549028846907, 3729.2413629083303, and 6637.020144593491 kWh per capita, plus a distinct No data category.",
+      "limitations": [
+        "108 countries remain in the neutral No data category because the supplied frozen inputs do not provide an exact Country Code match for 34 country polygons and do not provide a 2014 value for 74 additional matched countries.",
+        "This is a country-level 2014 indicator joined to country polygons, not a subnational surface or a new regional aggregation.",
+        "The result intentionally uses the fixed frozen 2014 source and does not substitute newer years or alternate sources."
+      ],
+      "next_action": "Use the map layer or inspect the delivered country artifact if you want to review individual country values and classes.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "60709ec6b56624bd70bff3536bce642dabec0bfbb61ceeac8c10399dc0fb7048",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

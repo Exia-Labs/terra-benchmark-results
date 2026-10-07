@@ -1,0 +1,92 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "146485",
+  "question": "Generate contour lines of population density in Angola's northern regions",
+  "submittedPrompt": "Generate contour lines of population density in Angola's northern regions\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "Practical result: **no contour lines were generated here**. This environment only gives the source inventory, not the measurement files.\n\n- **Population: Preparation needed.** The supplied inventory lists **“RASTER_CATALOG: Angola population, 2020, people, resolution 1 km”**, but the raster values are not available here, and it is listed as **people**, not explicitly **population density**.\n- **Northern area: Your input needed.** The inventory includes **“GEO_CATALOG: Countries”**, so Angola can be identified at country level, but it does **not** include Angola internal regions, so **“northern regions”** is not defined in the supplied sources.\n\n**Next action:** provide the actual Angola raster and a boundary or named provinces for northern Angola. Then population-density contours could be produced.\n\n### Limitations\n\n- Closed-catalog task: only source inventory metadata is available here, not the observation files.\n- The supplied inventory does not define Angola's northern regions with an internal boundary layer.\n- Not yet generated because this environment provides only source inventory metadata, not the Angola raster measurements, and the northern study area is not defined.\n- **Population:** Only metadata is available here, and the listing says people, not explicitly density.\n- **Northern area:** It does not define Angola's northern regions.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T06:12:37.979440+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "1b1d7db79d07c9dbbd60c3f3830b0a914cf31056628598c246dcddcc2d6cfd50",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "aed70a1e6904b3b6e6ca6011e9b3839a0f9a36b73f6b103e9354e13e99d38ba3",
+      "snapshotSha256AtReview": "43200d73da5f2377e0971cdbf9d3eb0e551bafa50343233f1484ff6b459c7c67",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies the undefined northern Angola extent and that the listed raster supplies people rather than confirmed density."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Does not present population counts as density or silently choose northern boundaries."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Distinguishes inventory metadata from actual raster measurements and local boundary availability."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "States no contours were generated; recorded tools are analysis/help only, with zero jobs and artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests the actual raster and a boundary or named provinces, while identifying density preparation as required."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:09:59.668260Z",
+      "title": "Progress update",
+      "detail": "I’m checking the saved analysis state first so I can record this request properly and avoid claiming work that was not run."
+    },
+    {
+      "at": "2026-10-07T06:10:00.134611Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:08.015990Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:25.617868Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed there is no saved workflow or artifact to inspect. I’m now recording the actual analytical result: this request is supported in principle by the inventory, but not executable here because the environment only provides source listings, not the raster values or a northern-Angola boundary."
+    },
+    {
+      "at": "2026-10-07T06:10:29.995576Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:54.676694Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "93d96e6b71c2949116e902c75ade62b8f0b6074501269ef2171645e4eb14c28f",
+  "investigations": []
+}

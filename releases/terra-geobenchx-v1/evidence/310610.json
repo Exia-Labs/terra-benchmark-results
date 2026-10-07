@@ -1,0 +1,758 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "310610",
+  "question": "What is the total length of railways within areas that received more than 3 feet of snow this season in the USA?",
+  "submittedPrompt": "What is the total length of railways within areas that received more than 3 feet of snow this season in the USA?\n\nTask conventions: Use original NARN railway records with COUNTRY='US' and the frozen 2024-09-30 to 2025-05-20 snowfall raster, band 1 in inches. Season means that archive, not today. Define snowy areas as the CLOSED native pixel footprints with finite unmasked snowfall strictly >36 inches, applying scale/offset. Clip the original railway geometry to their union BEFORE measuring; do not sum entire lines or counties that merely touch a contour. Keep original source feature identity on fragments. Measure clipped lines in km using shortest WGS84 ellipsoidal geodesics between original and intersection vertices. Source line interpolation for clipping is straight in the original geographic grid; this is not route distance. A boundary shared with a qualifying pixel is included; zero-length touches contribute zero. Multiple qualifying polygons must not double-count a source line portion; different original railway records remain distinct (no inferred track conflation). NoData/outside-raster means unknown, not low snowfall: disclose that the length describes observed coverage, not a complete all-USA weather total. The benchmark's released reference selects whole lines/counties; this protocol corrects that mismatch with the stated length-within-areas question.\n\n\n\nPublish an inspectable CLIPPED line artifact preserving the original benchmark_row_id (a documented prefix is fine). Map optional. End with one fenced JSON: {count:number of distinct original US railway records with positive clipped length, unknown_count:number of original US railway records with any positive-length portion lacking raster observations, metrics:{length_km:number}, coverage_note:string, selection:{collectionId,itemId,assetKey}}. Explain historical season, strict snow threshold and incomplete observation coverage. Do not round machine-readable length to whole kilometres.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"North American Rail Network Lines, frozen GeoBenchX snapshot\",\n    \"edition\": \"Original pinned GeoBenchX NARN/FRA/BTS snapshot, not a live network\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"US snowfall, 2024\\u201325 frozen season\",\n    \"edition\": \"2024-09-30 to 2025-05-20\",\n    \"units\": {\n      \"band1\": \"inches\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "For the frozen 2024-09-30 to 2025-05-20 season, using snowfall band 1 and native finite pixels strictly greater than 36 inches after scale/offset, the total observed U.S. railway length inside snowy areas is 44,635.04880309809 km. That comes from 24,263 distinct original US railway records with positive clipped length, and 5,773 original records also have some positive-length segment in unknown snowfall coverage, so this is observed coverage only, not a complete all-USA weather total. The inspectable clipped-line artifact has been selected with the result.\n\nSources: North American Rail Network Lines, frozen GeoBenchX NARN/FRA/BTS snapshot, and US snowfall, 2024–25 frozen season from NOAA/NWS NOHRSC; both are Terra-hosted immutable inputs retrieved 2026-10-07.\n\n### Limitations\n\n- The frozen snowfall archive's finite observed footprint is incomplete for all U.S. rail records; NoData or outside-raster segments remain unknown rather than low snowfall.\n- Observed coverage only: NoData and outside-raster rail segments remain unknown rather than low snowfall.\n- Different original railway records remain separate; this is not a conflated track network length.\n- Observed coverage only: the frozen snowfall archive has finite observations over only part of the U.S.; NoData and outside-raster rail segments remain unknown rather than low snowfall.\n- Different original railway records remain separate; no inferred track conflation is applied.\n- The >36 inch union is limited to finite observed pixels from the frozen snowfall raster.\n- Finite snowfall coverage is incomplete for all U.S. rail records; NoData and outside-raster remain unknown.\n- The published total is an observed-coverage total because records with rail outside finite snowfall observations are tracked separately as unknown coverage.",
+  "checks": {
+    "expectedCount": 24263,
+    "actualCount": 24263,
+    "expectedMetrics": {
+      "length_km": 44635.04881971404
+    },
+    "actualMetrics": {
+      "length_km": 44635.04880309809
+    },
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:34:51.567121Z",
+      "title": "Progress update",
+      "detail": "I’m checking the saved analysis context and the exact Terra tools/processors I can use for this snowfall-within-rail-lines calculation. After that I’ll inspect the two frozen inputs and build a small private test before proposing the final method."
+    },
+    {
+      "at": "2026-10-07T06:34:55.351885Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:07.352627Z",
+      "title": "Progress update",
+      "detail": "I recovered a blank analysis state, so I’m recording the goal and then checking the exact source metadata plus a U.S. boundary source so the study area is explicit rather than a remembered bbox."
+    },
+    {
+      "at": "2026-10-07T06:35:14.810057Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:20.714856Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:20.731417Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:22.623262Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:29.858976Z",
+      "title": "Progress update",
+      "detail": "I found the exact frozen rail and snowfall inputs. Next I’m checking one more time for a reusable U.S. boundary source, then I’ll inspect the actual file/item metadata and processor schemas needed for thresholding, clipping, and geodesic length."
+    },
+    {
+      "at": "2026-10-07T06:35:30.108188Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:30.130329Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:31.422164Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:38.798612Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:38.839340Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:39.872701Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:57.729593Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:57.758943Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:59.350322Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:36.685408Z",
+      "title": "Progress update",
+      "detail": "I have the key processor candidates. I’m now checking the actual source schemas and sample values, and then I’ll run a small private computation to confirm that the snow mask, line clipping, and ellipsoidal length fields behave the way this benchmark requires."
+    },
+    {
+      "at": "2026-10-07T06:36:36.866676Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:36:36.903789Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:36:37.948797Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:28.598134Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:16.912915Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:28.583058Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:29.000221Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:33.857278Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:44.079762Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:44.264485Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:50.511513Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:22.716540Z",
+      "title": "Progress update",
+      "detail": "I’m running one private full-extent test of the actual benchmark method now. I expect to see:  \n- a snow polygon union built from native season pixels with band-1 snowfall strictly greater than 36 inches after band extraction,  \n- clipped railway fragments that keep the original row identity, and  \n- a separate count of source rail records that still have positive-length segments in unknown snowfall coverage outside observed pixels.  \n\nI’m using the full supplied extent rather than a smaller proxy so the test also checks the national-scale workflow shape."
+    },
+    {
+      "at": "2026-10-07T06:39:36.764820Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:45.179837Z",
+      "title": "Progress update",
+      "detail": "The trial request was rejected for one fixable setup issue: the saved study extent needs numeric coordinates in the analysis brief. I’m correcting that and retrying the same method."
+    },
+    {
+      "at": "2026-10-07T06:39:52.317278Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:12.811218Z",
+      "title": "Progress update",
+      "detail": "The private test succeeded at full supplied extent. I’m reading its report now to verify the clipped-line fields and summary outputs before I save the production version for final delivery."
+    },
+    {
+      "at": "2026-10-07T06:54:13.084914Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:23.512076Z",
+      "title": "Progress update",
+      "detail": "The test answered the method question. I’m recording that result, then I’ll save the same tested computation as the final workflow with the clipped-line artifact and summary outputs."
+    },
+    {
+      "at": "2026-10-07T06:54:27.198414Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:50.384774Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the benchmark method on the supplied frozen inputs. I’m refreshing the analysis notes to remove stale “not yet tested” wording, then I’ll save the exact tested workflow as the final deliverable."
+    },
+    {
+      "at": "2026-10-07T06:54:57.424598Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:55:25.632877Z",
+      "title": "Progress update",
+      "detail": "I have a tested method now. I’m saving that exact computation as the production workflow with three final deliverables: the clipped rail fragments, the one-row observed snowy-length summary, and the one-row unknown-coverage count."
+    },
+    {
+      "at": "2026-10-07T06:55:36.888479Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:55:47.196815Z",
+      "title": "Progress update",
+      "detail": "The saved contract needed one explicit fix: the snowfall evidence feeds two different clip steps, so I’m splitting that into the strict >36-inch mask and the separate observed-footprint rule for unknown coverage. The computation itself is unchanged."
+    },
+    {
+      "at": "2026-10-07T06:55:58.483423Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:03.556505Z",
+      "title": "Progress update",
+      "detail": "The saved workflow is ready and matches the tested computation. I’m executing it now so I can inspect the final published artifacts instead of relying only on the private trial."
+    },
+    {
+      "at": "2026-10-07T06:56:03.615240Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:25.223881Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:29.272840Z",
+      "title": "Progress update",
+      "detail": "The saved workflow finished in the background. I’m inspecting its exact final outputs now so I can attach the clipped artifact and the answer object to the verified result."
+    },
+    {
+      "at": "2026-10-07T07:06:36.924794Z",
+      "title": "Progress update",
+      "detail": "I have the final deliverable identities. I’m checking the clipped artifact fields and the two one-row tables directly so the final answer can point to the exact published outputs."
+    },
+    {
+      "at": "2026-10-07T07:06:36.973674Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:36.984622Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:38.282899Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:07:40.662174Z",
+      "title": "Progress update",
+      "detail": "I’m picking up the completed inspections now. Then I can attach the exact final clipped artifact and summary tables to the accepted result."
+    },
+    {
+      "at": "2026-10-07T07:07:40.697012Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:07:40.702455Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:07:40.732953Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:08.512074Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:09.050375Z",
+      "title": "Progress update",
+      "detail": "The last inspection finished in the background. I’m reading that unknown-coverage table now, then I can record the final answer object and artifact selections."
+    },
+    {
+      "at": "2026-10-07T07:10:14.631431Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:16.690181Z",
+      "title": "Progress update",
+      "detail": "I’ve got the exact published artifact and both one-row summary tables. I’m recording the clipped artifact first, then the final machine-readable answer object tied to that artifact selection."
+    },
+    {
+      "at": "2026-10-07T07:10:30.651823Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:10:44.000800Z",
+      "title": "Progress update",
+      "detail": "The result check only wanted the four recorded acceptance conditions for this summary result. I’m retrying with those exact conditions and keeping the coverage warning and artifact selection in the final response itself."
+    },
+    {
+      "at": "2026-10-07T07:10:48.949693Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Clipped US railway fragments in >36 inch snowfall",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Observed snowy rail total",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown snowfall coverage count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Observed snowfall footprint",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Observed snowfall coverage",
+      "description": "Recorded raster-polygonize · succeeded"
+    },
+    {
+      "title": "Frozen NARN lines",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "US railway records",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Snowfall band 1",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Snowy length by original record",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Snowfall >36 inch mask",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Snowy pixel union",
+      "description": "Recorded raster-polygonize · succeeded"
+    },
+    {
+      "title": "Frozen snowfall raster",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Snowy rail summary",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Rail fragments in snowy pixels",
+      "description": "Recorded vector-overlay · succeeded"
+    },
+    {
+      "title": "Measured snowy rail fragments",
+      "description": "Recorded vector-measure · succeeded"
+    },
+    {
+      "title": "Positive snowy rail fragments",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Unknown coverage by original record",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Rail fragments with unknown snowfall coverage",
+      "description": "Recorded vector-overlay · succeeded"
+    },
+    {
+      "title": "Measured unknown-coverage rail fragments",
+      "description": "Recorded vector-measure · succeeded"
+    },
+    {
+      "title": "Positive unknown-coverage rail fragments",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Unknown coverage summary",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Observed snowfall footprint",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Observed snowfall coverage",
+      "description": "Recorded raster-polygonize · succeeded"
+    },
+    {
+      "title": "Frozen NARN lines",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "US railway records",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Snowfall band 1",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Snowy length by original record",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Snowfall >36 inch mask",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Snowy pixel union",
+      "description": "Recorded raster-polygonize · succeeded"
+    },
+    {
+      "title": "Frozen snowfall raster",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Snowy rail summary",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Rail fragments in snowy pixels",
+      "description": "Recorded vector-overlay · succeeded"
+    },
+    {
+      "title": "Measured snowy rail fragments",
+      "description": "Recorded vector-measure · succeeded"
+    },
+    {
+      "title": "Positive snowy rail fragments",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Snowy pixel union",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Observed snowfall coverage",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Positive snowy rail fragments",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Snowy rail summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown coverage summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown coverage by original record",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Rail fragments with unknown snowfall coverage",
+      "description": "Recorded vector-overlay · succeeded"
+    },
+    {
+      "title": "Measured unknown-coverage rail fragments",
+      "description": "Recorded vector-measure · succeeded"
+    },
+    {
+      "title": "Positive unknown-coverage rail fragments",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Unknown coverage summary",
+      "description": "Recorded table-group-statistics · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "55424fbafc274a23b172e4f5b8ae4f1ccc9415ad660df6f6ae3b1ab98feaa8a8",
+      "bytes": 84810186,
+      "finishedAt": "2026-10-07T06:40:36.884059+00:00"
+    },
+    {
+      "sha256": "8b418f3c402abb1737aa9bca44d5030dd946ee6587df13726b4f45bb23371a5d",
+      "bytes": 6180538,
+      "finishedAt": "2026-10-07T06:40:36.884059+00:00"
+    },
+    {
+      "sha256": "2ce40a24b09a1b6aac67900eea9699251bbb46ba15314aa7ab9acf2170c8afce",
+      "bytes": 2691798,
+      "finishedAt": "2026-10-07T06:41:05.433738+00:00"
+    },
+    {
+      "sha256": "e69f0ab229233eb4958b5b65facca13784076fc3305f6013dbbd1747799892db",
+      "bytes": 72611835,
+      "finishedAt": "2026-10-07T06:41:23.204224+00:00"
+    },
+    {
+      "sha256": "4917ff100e3cb04ff5264d996cdd48ce77db134b00b0681ae02fb25ab9920be6",
+      "bytes": 29737,
+      "finishedAt": "2026-10-07T06:41:51.192769+00:00"
+    },
+    {
+      "sha256": "48095cb0cbfa36ac894e14f5519f1a94d08a0d3ae2396a96a509f485de2435d3",
+      "bytes": 40894,
+      "finishedAt": "2026-10-07T06:41:51.192769+00:00"
+    },
+    {
+      "sha256": "9f40f2d842515830814f9dd7f23d9aaa9d3b3ab136d72d6817594369c21a6b13",
+      "bytes": 55345,
+      "finishedAt": "2026-10-07T06:42:04.255447+00:00"
+    },
+    {
+      "sha256": "c6582de98263d5855b2f5957ea84ee2ac13b7e2133fbcefe44799929edf19961",
+      "bytes": 114914,
+      "finishedAt": "2026-10-07T06:42:04.255447+00:00"
+    },
+    {
+      "sha256": "b91512152373795eca2bb33da3c21d10e966a33f51f94fb8f9c1b543325f8fe9",
+      "bytes": 10339577,
+      "finishedAt": "2026-10-07T06:42:52.203485+00:00"
+    },
+    {
+      "sha256": "bda87aff7202b9dcb0e1e275337cfead0ee2fe7a7381780ca993b53c528624b1",
+      "bytes": 10579949,
+      "finishedAt": "2026-10-07T06:43:26.136672+00:00"
+    },
+    {
+      "sha256": "bda87aff7202b9dcb0e1e275337cfead0ee2fe7a7381780ca993b53c528624b1",
+      "bytes": 10579949,
+      "finishedAt": "2026-10-07T06:43:58.096402+00:00"
+    },
+    {
+      "sha256": "ab2115eca2485dd20cf82de933f21467516ecc6eb16f6715357a76071305b1bb",
+      "bytes": 1294181,
+      "finishedAt": "2026-10-07T06:44:56.200844+00:00"
+    },
+    {
+      "sha256": "3084ec1e0449229a1c6d49cd86aad494c50501d56026db23290c4634bbe642cc",
+      "bytes": 324346,
+      "finishedAt": "2026-10-07T06:45:17.193521+00:00"
+    },
+    {
+      "sha256": "ddadfcfc7235a8f2df48b12c0473f2b08f97ffa128570bfc2c59cb83005f7e44",
+      "bytes": 1350410,
+      "finishedAt": "2026-10-07T06:46:00.543391+00:00"
+    },
+    {
+      "sha256": "f5545b7ac1e1c42e9e74a2eb86f800ab81cfd38bbcd01798b7015a5503c6c624",
+      "bytes": 1802,
+      "finishedAt": "2026-10-07T06:46:15.777798+00:00"
+    },
+    {
+      "sha256": "ddadfcfc7235a8f2df48b12c0473f2b08f97ffa128570bfc2c59cb83005f7e44",
+      "bytes": 1350410,
+      "finishedAt": "2026-10-07T06:49:45.009843+00:00"
+    },
+    {
+      "sha256": "56a6ffb5358ecf06696a7405d626f6e0e2096c9b74a050ba8724c7f20f5ee3c5",
+      "bytes": 79359,
+      "finishedAt": "2026-10-07T06:51:24.619348+00:00"
+    },
+    {
+      "sha256": "8e49ffefcc611503000d4cd9334abc614e76a80ce1d4d8199c216385f52ac2d5",
+      "bytes": 1282,
+      "finishedAt": "2026-10-07T06:52:44.761975+00:00"
+    },
+    {
+      "sha256": "e69f0ab229233eb4958b5b65facca13784076fc3305f6013dbbd1747799892db",
+      "bytes": 72611835,
+      "finishedAt": "2026-10-07T06:58:09.335142+00:00"
+    },
+    {
+      "sha256": "2ce40a24b09a1b6aac67900eea9699251bbb46ba15314aa7ab9acf2170c8afce",
+      "bytes": 2691798,
+      "finishedAt": "2026-10-07T06:58:13.881197+00:00"
+    },
+    {
+      "sha256": "4917ff100e3cb04ff5264d996cdd48ce77db134b00b0681ae02fb25ab9920be6",
+      "bytes": 29737,
+      "finishedAt": "2026-10-07T07:00:01.034709+00:00"
+    },
+    {
+      "sha256": "48095cb0cbfa36ac894e14f5519f1a94d08a0d3ae2396a96a509f485de2435d3",
+      "bytes": 40894,
+      "finishedAt": "2026-10-07T07:00:01.034709+00:00"
+    },
+    {
+      "sha256": "9f40f2d842515830814f9dd7f23d9aaa9d3b3ab136d72d6817594369c21a6b13",
+      "bytes": 55345,
+      "finishedAt": "2026-10-07T07:00:54.539621+00:00"
+    },
+    {
+      "sha256": "c6582de98263d5855b2f5957ea84ee2ac13b7e2133fbcefe44799929edf19961",
+      "bytes": 114914,
+      "finishedAt": "2026-10-07T07:00:54.539621+00:00"
+    },
+    {
+      "sha256": "b91512152373795eca2bb33da3c21d10e966a33f51f94fb8f9c1b543325f8fe9",
+      "bytes": 10339577,
+      "finishedAt": "2026-10-07T07:02:06.617240+00:00"
+    },
+    {
+      "sha256": "bda87aff7202b9dcb0e1e275337cfead0ee2fe7a7381780ca993b53c528624b1",
+      "bytes": 10579949,
+      "finishedAt": "2026-10-07T07:03:37.725124+00:00"
+    },
+    {
+      "sha256": "ab2115eca2485dd20cf82de933f21467516ecc6eb16f6715357a76071305b1bb",
+      "bytes": 1294181,
+      "finishedAt": "2026-10-07T07:03:43.064226+00:00"
+    },
+    {
+      "sha256": "bda87aff7202b9dcb0e1e275337cfead0ee2fe7a7381780ca993b53c528624b1",
+      "bytes": 10579949,
+      "finishedAt": "2026-10-07T07:04:36.965668+00:00"
+    },
+    {
+      "sha256": "ddadfcfc7235a8f2df48b12c0473f2b08f97ffa128570bfc2c59cb83005f7e44",
+      "bytes": 1350410,
+      "finishedAt": "2026-10-07T07:04:36.965668+00:00"
+    },
+    {
+      "sha256": "3084ec1e0449229a1c6d49cd86aad494c50501d56026db23290c4634bbe642cc",
+      "bytes": 324346,
+      "finishedAt": "2026-10-07T07:05:12.267777+00:00"
+    },
+    {
+      "sha256": "ddadfcfc7235a8f2df48b12c0473f2b08f97ffa128570bfc2c59cb83005f7e44",
+      "bytes": 1350410,
+      "finishedAt": "2026-10-07T07:05:12.267777+00:00"
+    },
+    {
+      "sha256": "f5545b7ac1e1c42e9e74a2eb86f800ab81cfd38bbcd01798b7015a5503c6c624",
+      "bytes": 1802,
+      "finishedAt": "2026-10-07T07:05:37.059184+00:00"
+    },
+    {
+      "sha256": "56a6ffb5358ecf06696a7405d626f6e0e2096c9b74a050ba8724c7f20f5ee3c5",
+      "bytes": 79359,
+      "finishedAt": "2026-10-07T07:05:37.059184+00:00"
+    },
+    {
+      "sha256": "8e49ffefcc611503000d4cd9334abc614e76a80ce1d4d8199c216385f52ac2d5",
+      "bytes": 1282,
+      "finishedAt": "2026-10-07T07:06:01.106258+00:00"
+    }
+  ],
+  "snapshotSha256": "07f84833305ac57fa50bb5df90ca81d96b6fe2421d5693aa88da805386625e0f",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:39:36.764820Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full requested method produce clipped US railway fragments inside native frozen-season snowfall pixels >36 inches, measured in geodesic kilometres, while separately counting original US railway records with positive-length portions in unknown snowfall coverage?"
+    },
+    {
+      "at": "2026-10-07T06:54:27.198414Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-extent trial succeeded with the requested method. The strict >36 inch mask, built from extracted band 1 snowfall values, polygonized into one dissolved MultiPolygon with 414 parts over bbox [-124.36, 32.96, -67.08, 49.36]. The finite observed snowfall footprint polygonized into one dissolved MultiPolygon with 236 parts over bbox [-124.72, 24.56, -67.00, 49.36], confirming that the frozen snowfall archive does not observe all US railway locations. Intersecting the original NARN records filtered to COUNTRY='US' against the dissolved >36 inch union produced 24,266 positive-length clipped rail fragments. The clipped fragment output preserved the original record identity through the prefixed field rail_benchmark_row_id and measured fragment length in the new field length_km using WGS84 geodesic length. Aggregating by rail_benchmark_row_id yielded 24,263 distinct original US railway records with positive snowy length and a total measured length of 44635.04880309809 km. Differencing the same US railway records against the observed snowfall footprint and aggregating positive unknown segments yielded 5,773 original US railway records with some positive-length rail portion in unknown snowfall coverage.",
+      "limitations": [
+        "The snowfall archive's finite observed footprint is limited to the observed raster area and leaves other US rail segments unknown rather than low snowfall.",
+        "This trial confirms the method and numbers for the supplied frozen inputs, but the final user-facing deliverable still needs a saved workflow execution and inspected final artifacts."
+      ],
+      "next_action": "Save the tested computation as the production workflow, deliver the clipped line artifact and summary outputs, inspect those exact outputs, and assess the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:10:14.631431Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published clipped artifact is the requested inspectable line result for the frozen benchmark method. It contains 24,266 positive-length clipped fragments, all from original COUNTRY='US' railway records, with preserved source provenance in rail_benchmark_row_id and measured geodesic length_km.",
+      "limitations": [
+        "Observed coverage only: NoData and outside-raster rail segments remain unknown rather than low snowfall.",
+        "Different original railway records remain separate; this is not a conflated track network length."
+      ],
+      "next_action": "Review the selected clipped artifact if you want segment-level snowy railway fragments by original source record.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:10:30.651823Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The published final outputs reproduce the tested benchmark method. The clipped artifact contains 24,266 positive-length fragments from original COUNTRY='US' rail records with preserved rail_benchmark_row_id provenance. The observed snowy-length table reports 24,263 distinct original US railway records with positive clipped length and a total observed clipped length of 44635.04880309809 km. The separate unknown-coverage table reports 5,773 original US railway records with some positive-length rail portion lacking finite snowfall observations.",
+      "limitations": [
+        "Observed coverage only: the frozen snowfall archive has finite observations over only part of the U.S.; NoData and outside-raster rail segments remain unknown rather than low snowfall.",
+        "Different original railway records remain separate; this is not a conflated track network length."
+      ],
+      "next_action": "Use the selected clipped artifact if you want to inspect or map individual snowy rail fragments by original record.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:10:48.949693Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published final outputs reproduce the tested benchmark method. The clipped artifact contains 24,266 positive-length fragments from original COUNTRY='US' rail records with preserved rail_benchmark_row_id provenance. The observed snowy-length table reports 24,263 distinct original US railway records with positive clipped length and a total observed clipped length of 44635.04880309809 km. The separate unknown-coverage table reports 5,773 original US railway records with some positive-length rail portion lacking finite snowfall observations.",
+      "limitations": [
+        "Observed coverage only: the frozen snowfall archive has finite observations over only part of the U.S.; NoData and outside-raster rail segments remain unknown rather than low snowfall.",
+        "Different original railway records remain separate; this is not a conflated track network length."
+      ],
+      "next_action": "Use the selected clipped artifact if you want to inspect or map individual snowy rail fragments by original record.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "7179b5b9ef06b1a2063768346a66679b193b86c66d9f728b2f994952b575e8a1",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

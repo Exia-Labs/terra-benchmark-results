@@ -1,0 +1,646 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "586288",
+  "question": "Calculate the total population living within 50km of active wildfire incidents larger than 1000 acres in the USA",
+  "submittedPrompt": "Calculate the total population living within 50km of active wildfire incidents larger than 1000 acres in the USA\n\nTask conventions: Use original WorldPop USA 2020 UN-adjusted people-per-cell counts on its native grid, band 1, with source scale/offset and mask. The NIFC archive is historical (latest record modification 2024-02-27), not current activity. Select ALL IncidentTy='WF' records with IncidentSi strictly >1000 acres; RX burns are excluded. Latest modification describes the archive date, not an additional record filter. IncidentSi is recorded incident size, not final burned acreage (FinalAcres is missing). A valid population cell qualifies if its centre is <=50000 metres from ANY selected original fire Point by shortest WGS84 ellipsoidal distance. Count a cell once even with overlapping radii. Preserve original grid and counts, do not approximate density as population or resample. This centre-allocation approximation identifies people near supplied incident locations, not people burned/evacuated or observed during the same year. Outside and masked cells are unknown, never invented zero population.\n\n\n\nPublish an inspectable full-grid selected-population raster: original scaled counts in qualifying cells, zero in other valid cells, original missing/nonfinite mask. Map optional. Give the total people, source years and proximity limitation. End with a fenced JSON {count:qualifying valid cell count,unknown_count:original missing/nonfinite cell count,coverage_note:string,selection:{collectionId,itemId,assetKey},metrics:{selected_people:number,total_people:number}}. Keep unrounded machine-readable sums. total_people is sum over the full original valid raster, not an external Census total.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"USA population count, WorldPop 2020\",\n    \"edition\": \"2020 UN-adjusted population counts aggregated to 1 km cells\",\n    \"units\": {\n      \"band1\": \"people per cell\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Frozen US fire incident locations and recorded sizes\",\n    \"edition\": \"Frozen GeoBenchX archive; not a current active-fire feed\",\n    \"units\": {\n      \"IncidentSi\": \"acres\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Using the supplied WorldPop USA 2020 raster and the frozen fire archive snapshot dated 2024-02-27, I found 2,011,895.9937065127 people within 50 km of the 11 selected wildfire points, out of 331,002,647.01430166 people on the full original valid raster.\n\nThis is a cell-centre proximity screen to historical incident points, not current fire activity or burned/evacuated population, and masked or nonfinite population cells remain unknown.\n\nThe full selected-population raster is saved and inspectable on your map.\n\n### Limitations\n\n- The fire incidents come from a frozen historical archive, not a current active-fire feed.\n- The 50 km result is a cell-centre proximity screen to supplied incident points, not burned area, evacuations, exposure timing, or causal impact.\n- Masked or nonfinite population cells remain unknown, not zero.\n- The fire archive is frozen and historical, not a current active-fire feed.\n- The population source is WorldPop USA 2020, so the count reflects 2020 people-per-cell estimates only.\n- This is a cell-centre proximity screen to incident points, not burned area, evacuation, exposure timing, or causal impact.",
+  "checks": {
+    "expectedCount": 101564,
+    "actualCount": 101564,
+    "expectedMetrics": {
+      "selected_people": 2011895.9937065127,
+      "total_people": 331002647.01430166
+    },
+    "actualMetrics": {
+      "total_people": 331002647.01430166,
+      "selected_people": 2011895.9937065127
+    },
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:26:20.588477Z",
+      "title": "Progress update",
+      "detail": "I’ll inspect the saved analysis context, the two supplied sources, and the available geospatial processors before I build the method. Then I’ll run a small private test to confirm the distance selection preserves the original population grid and missing-data mask."
+    },
+    {
+      "at": "2026-10-07T07:26:32.175476Z",
+      "title": "Progress update",
+      "detail": "I found the Terra toolset. Next I’m checking the saved brief, the exact two supplied items, and the available processors for point-to-raster distance selection and raster math. That will let me test the method without guessing fields or processor names."
+    },
+    {
+      "at": "2026-10-07T07:26:32.190808Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:32.195759Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:32.200084Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:32.210898Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:32.900485Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:33.007206Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:33.027544Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:02.272464Z",
+      "title": "Progress update",
+      "detail": "I found a processor that is designed for exactly this kind of calculation: it keeps the original raster grid, keeps the original missing-data mask, writes selected values inside the radius, and writes zero in other valid cells. Now I’m checking its exact inputs and how to pass the fire-point filter correctly."
+    },
+    {
+      "at": "2026-10-07T07:27:02.286580Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:02.291772Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:02.298256Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:02.424551Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:27.949851Z",
+      "title": "Progress update",
+      "detail": "I’m checking one more detail before the private test: the fire filter needs to keep only wildfire points with IncidentSi strictly greater than 1000 acres. After that I can run a representative slice that also gives me the exact full-raster metrics I’ll need in the final answer."
+    },
+    {
+      "at": "2026-10-07T07:27:28.079184Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:28.120937Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:28.126209Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:27:28.131429Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:28:06.520350Z",
+      "title": "Progress update",
+      "detail": "I have the exact fire filter and proximity processor now. I’m setting up a small vertical-slice trial in a fire-prone western area to confirm three practical points before I scale up: the wildfire filter works, the 50 km centre test writes original people-per-cell values inside the radius, and the original missing-data mask is preserved."
+    },
+    {
+      "at": "2026-10-07T07:28:06.561214Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:06.594508Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:07.811298Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:40.883849Z",
+      "title": "Progress update",
+      "detail": "I’ve recorded the analysis brief. I’m now using a lightweight trial to confirm the fire subset is nonempty and matches the required fields before I spend the full-raster workload on the final computation."
+    },
+    {
+      "at": "2026-10-07T07:28:40.912619Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:40.922191Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:07.840825Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:29:14.826597Z",
+      "title": "Progress update",
+      "detail": "The first trial hit an argument fix, not a data problem: Terra requires the trial scope to stay inside the brief’s population-raster extent. I’m rerunning with the full population extent while keeping the fire filter unchanged."
+    },
+    {
+      "at": "2026-10-07T07:29:15.108862Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:30:21.919613Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:30:22.003975Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:43.250242Z",
+      "title": "Progress update",
+      "detail": "The fire filter is confirmed: 11 wildfire points met the strict size rule in the supplied frozen archive. I’m now running a representative end-to-end trial on the actual proximity method, with a clipped population window around those points, so I can verify the selected raster keeps original counts inside the radius, writes zero in other valid cells, and preserves missing cells."
+    },
+    {
+      "at": "2026-10-07T07:31:43.353953Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:44.546259Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:44.572064Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:13.328309Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the exact fire subset. Next I’m testing the real population method on a broad eastern-and-central slice that includes all 11 selected fires and plenty of outside area, so I can verify the selected raster’s grid, mask, zero-outside behavior, and summary counts before I save the full USA workflow."
+    },
+    {
+      "at": "2026-10-07T07:33:20.538021Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:33:38.079118Z",
+      "title": "Progress update",
+      "detail": "The first end-to-end trial was too wide for the combined pixel budget, which is a workload limit, not a data gap. I’m tightening the test window around a cluster of selected fires so I can still verify the real method before I run the full USA workflow."
+    },
+    {
+      "at": "2026-10-07T07:33:38.117195Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:38.137400Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:38.844693Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:45.929008Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:50.077986Z",
+      "title": "Progress update",
+      "detail": "I’m reading the filtered fire rows now so I can choose a smaller trial box around a real cluster of selected points. That keeps the method test representative while staying inside the processor’s pixel budget."
+    },
+    {
+      "at": "2026-10-07T07:35:04.421453Z",
+      "title": "Progress update",
+      "detail": "I’ve found a tight Texas–Oklahoma box with six selected wildfire points and plenty of surrounding area. I’m using that for the end-to-end method test and also inspecting the proximity processor’s own summary output, so I can see whether it carries the full-count metrics I need for the final USA run."
+    },
+    {
+      "at": "2026-10-07T07:35:14.398532Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:48.053751Z",
+      "title": "Progress update",
+      "detail": "The small Texas–Oklahoma trial succeeded. It showed six selected fire points, preserved the clipped raster grid and missing-cell count, returned zero outside selected valid cells, and its mask sum matched the qualifying-cell count. I’m turning that tested method into the full USA workflow now."
+    },
+    {
+      "at": "2026-10-07T07:37:56.180030Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:56.645604Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:56.674062Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:56.910300Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:58.438017Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:38:29.392487Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:38:29.755818Z",
+      "title": "Progress update",
+      "detail": "The method test is complete. It preserved the clipped raster grid and missing cells, the mask count matched the qualifying-cell count, and the processor summary gave the exact totals I need for the national run. I’m recording that result and saving the full USA workflow."
+    },
+    {
+      "at": "2026-10-07T07:38:30.806445Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:38:56.740224Z",
+      "title": "Progress update",
+      "detail": "I’ve tested the method enough to save the production workflow: same filter, same 50 km ellipsoidal centre rule, full original WorldPop grid, and the proximity processor’s own exact summary output for totals and cell counts. After validation I’ll run it and inspect the raster plus summary before I call it complete."
+    },
+    {
+      "at": "2026-10-07T07:39:08.182925Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:39:20.226834Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:39:21.406390Z",
+      "title": "Progress update",
+      "detail": "The workflow validated cleanly. It uses the full supplied raster and the confirmed 11 fire points, and the estimate is a few minutes. I’m starting it now, then I’ll inspect the raster and exact summary output before I answer."
+    },
+    {
+      "at": "2026-10-07T07:47:16.559217Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:16.649767Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:17.571349Z",
+      "title": "Progress update",
+      "detail": "The full USA run appears to have finished in the background. I’m inspecting the final raster and the exact summary now so I can verify the qualifying-cell count, unknown-cell count, selected population sum, and full valid-raster total before I record the final result."
+    },
+    {
+      "at": "2026-10-07T07:47:44.567716Z",
+      "title": "Progress update",
+      "detail": "The run produced both promised outputs: the full-grid raster and the summary record. I’m reading the summary row for the exact national totals and checking the raster preview so I can verify the zero-outside and nodata behavior on the final object, not just on the trial."
+    },
+    {
+      "at": "2026-10-07T07:47:44.609013Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:44.627988Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:20.284746Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:20.706157Z",
+      "title": "Progress update",
+      "detail": "The summary row already gives the exact national metrics: 11 fire points, 101,564 qualifying valid cells, 255,418,150 unknown cells, 2,011,895.9937065127 selected people, and 331,002,647.01430166 total people across all original valid cells. I’m pulling the final raster preview receipt now so the result assessment references both the summary and the inspectable raster."
+    },
+    {
+      "at": "2026-10-07T07:48:48.588468Z",
+      "title": "Progress update",
+      "detail": "I have enough evidence to close this out. Before I record the final assessment, I’m refreshing the brief so its notes match the finished run instead of the earlier “next step” wording."
+    },
+    {
+      "at": "2026-10-07T07:48:54.486382Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:11.634971Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:20.323186Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the two final deliverables. I’m pulling the production run’s filtered fire rows too, so the final assessment cites the exact 11-point subset from the same run as the raster and summary."
+    },
+    {
+      "at": "2026-10-07T07:51:22.366820Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:59.820494Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Selected population within 50 km of wildfire incidents",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected population summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Wildfire incidents over 1000 acres",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Supplied frozen fire archive",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Population within 50 km of selected wildfire points",
+      "description": "Recorded raster-point-proximity · succeeded"
+    },
+    {
+      "title": "Supplied WorldPop USA 2020 raster",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied frozen fire archive",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Trial wildfire points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Qualifying cell mask",
+      "description": "Recorded raster-point-proximity · succeeded"
+    },
+    {
+      "title": "Selected people within 50 km",
+      "description": "Recorded raster-point-proximity · succeeded"
+    },
+    {
+      "title": "Trial population clip",
+      "description": "Recorded spatial-clip · succeeded"
+    },
+    {
+      "title": "Supplied WorldPop USA 2020 raster",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Trial clipped population statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Trial qualifying-cell statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Trial selected population statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Trial wildfire points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected people within 50 km",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected people within 50 km",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Qualifying cell mask",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Qualifying cell mask",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Trial clipped population statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Trial selected population statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Trial qualifying-cell statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Wildfire incidents over 1000 acres",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Supplied frozen fire archive",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Wildfire incidents over 1000 acres",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "b46d825aabcf5e21e30dd200304cc2c1a414f297925db3fe11b5389a3c0e4177",
+      "bytes": 207104,
+      "finishedAt": "2026-10-07T07:29:32.048996+00:00"
+    },
+    {
+      "sha256": "94dff96f15bbf9bf101726fc99d51f5d9ff376b97d9198bf3b06e4a591a66b9b",
+      "bytes": 64712,
+      "finishedAt": "2026-10-07T07:29:42.352373+00:00"
+    },
+    {
+      "sha256": "0b75ab7c839bfa81439fafa204f0fba930f15467993c574694be98831fcafb94",
+      "bytes": 51821771,
+      "finishedAt": "2026-10-07T07:35:18.771206+00:00"
+    },
+    {
+      "sha256": "cd84240e09519201c67568333065a2e2ebb6b314acd057580f1478103cab7d39",
+      "bytes": 62098,
+      "finishedAt": "2026-10-07T07:35:29.803707+00:00"
+    },
+    {
+      "sha256": "9d51ea8aa89dee795addd6205ec7f6b71b05ecc05997831f9e356fe62513bd2c",
+      "bytes": 4832,
+      "finishedAt": "2026-10-07T07:35:44.051913+00:00"
+    },
+    {
+      "sha256": "a0b83d58c8d8b636842fe2ec995e9545cc2cac05df0a29cd9c6de490487de04c",
+      "bytes": 138741,
+      "finishedAt": "2026-10-07T07:35:44.051913+00:00"
+    },
+    {
+      "sha256": "23b45bcaf4e4238205c1633c9b36b4bbbcfb97a47d6c058fcfb9f173c9b9a9b9",
+      "bytes": 369867,
+      "finishedAt": "2026-10-07T07:35:29.803707+00:00"
+    },
+    {
+      "sha256": "268e03df79ac429dce0ee9404c8875d3b5e9cbef1dbaaa51da6d463b52fb4707",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T07:36:01.279749+00:00"
+    },
+    {
+      "sha256": "97eea9c44bfd65e34960eb25ee3176fa86d7f6da6ff01b8b2271216e06234ccb",
+      "bytes": 8662,
+      "finishedAt": "2026-10-07T07:36:26.524105+00:00"
+    },
+    {
+      "sha256": "ae790dd45ceb37b4a6aff2a1f435761fd64c839ebcce25902f24d186eb0d7b20",
+      "bytes": 8733,
+      "finishedAt": "2026-10-07T07:36:14.193790+00:00"
+    },
+    {
+      "sha256": "94dff96f15bbf9bf101726fc99d51f5d9ff376b97d9198bf3b06e4a591a66b9b",
+      "bytes": 64712,
+      "finishedAt": "2026-10-07T07:40:39.995185+00:00"
+    },
+    {
+      "sha256": "3b5ff38a681cd6d619ae9c4493b8bd1e9652adbf78bbe2d1ff4c6afee893bb0b",
+      "bytes": 5490317,
+      "finishedAt": "2026-10-07T07:46:45.741235+00:00"
+    }
+  ],
+  "snapshotSha256": "52a20b513aabfd29ee93b2cafb0b8ca7b17ae2704d547c9ce27941cc2022675a",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:29:07.840825Z",
+      "tool": "run_trial",
+      "status": "failed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the supplied frozen fire archive produce a nonempty set of original Point incidents when filtered to IncidentTy='WF' and IncidentSi strictly greater than 1000 acres, without any added date filter?"
+    },
+    {
+      "at": "2026-10-07T07:29:15.108862Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the supplied frozen fire archive produce a nonempty set of original Point incidents when filtered to IncidentTy='WF' and IncidentSi strictly greater than 1000 acres, without any added date filter?"
+    },
+    {
+      "at": "2026-10-07T07:31:43.353953Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The required fire subset is present in the supplied archive. The filtered output contains 11 Point records, all with IncidentTy='WF' and IncidentSi ranging from 1200 to 40000 acres. FinalAcres is null across the filtered rows, so IncidentSi is the usable size field as requested. The observations also show archive dates in source fields, but the subset was defined only by IncidentTy and IncidentSi, not by a separate modification-date filter.",
+      "limitations": [
+        "This filtered point set comes from the supplied frozen historical archive and does not establish current wildfire activity."
+      ],
+      "next_action": "Run a representative point-to-raster proximity trial that uses these filtered points against the supplied WorldPop raster and inspect whether the native grid, zero-outside behavior, and missing-data mask are preserved.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:33:20.538021Z",
+      "tool": "run_trial",
+      "status": "failed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "On a representative clipped population window that contains all 11 selected wildfire points and surrounding nonselected area, does the 50 km proximity method preserve the raster grid and missing-data mask, keep original scaled people-per-cell values in qualifying cells, and write zero in other valid cells?"
+    },
+    {
+      "at": "2026-10-07T07:35:14.398532Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "In a narrow Texas–Oklahoma trial area around a real cluster of selected fires, does the 50 km point-proximity method keep the clipped WorldPop grid and mask, preserve original people-per-cell values in qualifying cells, write zero in other valid cells, and report usable summary metrics for scaling to the full USA raster?"
+    },
+    {
+      "at": "2026-10-07T07:38:29.392487Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The tested 50 km point-proximity method behaved as required on a representative Texas–Oklahoma window. The trial selected 6 required wildfire points. The selected-values raster and selected-mask raster both preserved the clipped raster grid, with valid_count 149706 and missing_count 54 matching the clipped source raster. The mask sum was 45416, exactly matching the proximity summary field selectedCells. The selected-values raster sum was 305982.4811806077 people per cell, below the clipped source total 581524.6487198093, confirming that nonselected valid cells were written as zero rather than retained. The proximity summary also reported gridPreserved=true, missingCells=54, validCells=149706, selectedCells=45416, sourceValueSum=581524.6487198093, and selectedValueSum=305982.4811806077, which are the needed full-run metrics.",
+      "limitations": [
+        "This confirms the method on a representative clipped area, not yet the full USA raster.",
+        "The result remains a cell-centre proximity screen to supplied incident points, not burned area, evacuations, or current fire activity."
+      ],
+      "next_action": "Save the full USA workflow with the same tested processors and parameters, then execute and inspect the final raster and summary outputs.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:51:59.820494Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The final USA run used the supplied WorldPop USA 2020 people-per-cell raster and the supplied frozen fire archive, filtered 11 wildfire Point records with IncidentSi strictly greater than 1000 acres, and produced the requested full-grid selected-population raster plus an exact summary. The exact summary reports 101564 qualifying valid cells, 255418150 original missing or nonfinite cells, 2011895.9937065127 selected people within 50 km, and 331002647.01430166 total people across the full original valid raster. The raster is saved and inspectable, and its preview shows a full-grid output with zero-valued valid cells and nodata kept distinct.",
+      "limitations": [
+        "The fire archive is frozen and historical, not a current active-fire feed.",
+        "The population source is WorldPop USA 2020, so the count reflects 2020 people-per-cell estimates only.",
+        "This is a cell-centre proximity screen to incident points, not burned area, evacuation, exposure timing, or causal impact.",
+        "Masked or nonfinite population cells remain unknown, not zero."
+      ],
+      "next_action": "Optional: inspect the saved raster layer on the map or ask for a regional breakdown from the same selected raster.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "4f045232db3dde8d583b886f30f937b39570924d0f491a74dffee939b76234bb",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

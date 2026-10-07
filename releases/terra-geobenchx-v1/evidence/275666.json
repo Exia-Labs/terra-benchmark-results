@@ -1,0 +1,637 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "275666",
+  "question": "Compare rural population percentages in Western Asian countries",
+  "submittedPrompt": "Compare rural population percentages in Western Asian countries\n\nTask conventions: Use the frozen country polygons and World Bank 2023 rural and total population columns, both measured in people. The derived map is in percent of population. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature in the declared geography and its benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. Geography is fixed to original country features with SUBREGION in [\"Western Asia\"]; retain all matching source geometries, and no others. Classification is calculated only over this geography. Membership reflects this disclosed benchmark edition, not current organization membership. The mapped quantity is 100 times 2023 rural population divided by 2023 total population, joined by the same country code. Missing numerator/denominator or zero denominator is unknown. For rural-urban distribution, the rural share is sufficient and urban share is its complement.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SP.RUR.TOTL\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SP.POP.TOTL\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the map now shows 2023 rural population share (%) for the 18 retained Western Asia benchmark country features. All 18 had known values, so the gray No data category is available but unused here.\n\nLegend breaks are: <8.8404%, 8.8404–<12.0968%, 12.0968–<23.7098%, 23.7098–<38.0682%, and ≥38.0682%. Kuwait remains a real 0%, not No data.\n\nThis uses the frozen GeoBenchX World Bank country boundaries plus frozen World Bank World Development Indicators rural population and total population tables for 2023, joined exactly by ISO_A3 to Country Code, retrieved 2026-10-07. Limitation: this is a country-level 2023 measure, so it does not show within-country variation. Next step: click the layer to inspect each country’s percent, class, and benchmark_row_id.\n\n### Limitations\n\n- This is a country-level 2023 indicator; it does not describe subnational rural distribution within countries.\n- The geography follows the supplied frozen benchmark edition of Western Asia country features.\n- Country-level 2023 rural population values in people; not subnational measurements.\n- Country-level 2023 total population values in people; not subnational measurements.\n- This is a country-level 2023 indicator; it does not show within-country variation.",
+  "checks": {
+    "expectedCount": 18,
+    "actualCount": 18,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:30:28.447639Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:29.026770Z",
+      "title": "Progress update",
+      "detail": "I’ll check the saved analysis context and inspect the three supplied datasets first, then I’ll test the join and classification on a small private run before saving the full map workflow."
+    },
+    {
+      "at": "2026-10-07T06:30:36.394084Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:36.425857Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:37.526763Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:46.126287Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:46.150994Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:47.074580Z",
+      "title": "Progress update",
+      "detail": "I found the frozen benchmark collections. Next I’m checking their actual item schemas and a bounded sample so I can join the exact fields the task names without guessing."
+    },
+    {
+      "at": "2026-10-07T06:30:47.207824Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:53.315425Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:31:02.742776Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:11.617631Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:21.005628Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:58.012559Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:04.116296Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:07.191360Z",
+      "title": "Progress update",
+      "detail": "I’ve recorded the goal and the final checks that the delivered country layer must pass. Now I’m running one bounded vertical-slice test over the full benchmark geography to confirm the exact filter, ISO joins, percent field, and quantile classes together."
+    },
+    {
+      "at": "2026-10-07T06:32:08.454787Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:18.592601Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:24.728282Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:29.735267Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:42.393735Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:46.169790Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:52.023549Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:55.832520Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:07.342703Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:35.528734Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:09.815899Z",
+      "title": "Progress update",
+      "detail": "The first private test found a field-name mismatch after the two joins, which is a fixable argument issue, not a data gap. I’m inspecting the successful intermediate outputs now so I can correct the calculation with the exact joined field names and finish the tested method."
+    },
+    {
+      "at": "2026-10-07T06:36:15.412294Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:21.383186Z",
+      "title": "Progress update",
+      "detail": "I confirmed the trial failed only at the percentage calculation step. I’m checking the successful filtered and joined outputs now to verify the retained country count and the exact joined field names before I run the focused correction."
+    },
+    {
+      "at": "2026-10-07T06:36:21.418115Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:21.813245Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:59.852872Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:43.044918Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:43.132185Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:47.800424Z",
+      "title": "Progress update",
+      "detail": "I’ve got the intermediate outputs ready. Next I’m reading the filtered country rows and the joined table fields, then I’ll run the corrected percent-and-classification slice using the exact joined column names the processor created."
+    },
+    {
+      "at": "2026-10-07T06:38:09.964551Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:16.432838Z",
+      "title": "Progress update",
+      "detail": "The fix is clear now: the joined rural and total columns are `2023_x` and `2023_y`. I’m rerunning the full benchmark workflow with that correction so the saved production method matches a tested full-area result."
+    },
+    {
+      "at": "2026-10-07T06:38:21.770100Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:37.053091Z",
+      "title": "Progress update",
+      "detail": "I’ve now got a successful full-area test: all 18 retained Western Asia country rows have values, and the classified output was created. I’m saving that tested method as the production workflow, then I’ll run it, add the final layer to the map, and verify the delivered artifact and legend details."
+    },
+    {
+      "at": "2026-10-07T06:43:37.102491Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:37.122614Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:37.143999Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:50.574008Z",
+      "title": "Progress update",
+      "detail": "The corrected test succeeded and exposed the final class breaks too. I’m recording that tested full-area method now, then I’ll turn it into the final workflow and run the deliverable."
+    },
+    {
+      "at": "2026-10-07T06:43:50.622848Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:50.641918Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:41.491050Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:46.792770Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:56.284633Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:10.372981Z",
+      "title": "Progress update",
+      "detail": "I’ve finished method development. I’m refreshing the brief now so the saved workflow carries the confirmed 18-country scope, the tested join behavior, and the real remaining limitation instead of the earlier setup notes."
+    },
+    {
+      "at": "2026-10-07T06:45:18.036828Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:23.564975Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:35.970682Z",
+      "title": "Progress update",
+      "detail": "I’m saving the tested full-scope computation exactly as the production workflow now. Then I’ll resolve the earlier failed-test finding against this corrected method and execute the saved result."
+    },
+    {
+      "at": "2026-10-07T06:45:46.362610Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:12.705293Z",
+      "title": "Progress update",
+      "detail": "The first saved draft kept the trial’s global input extent, so I’m correcting the production workflow to use the actual Western Asia study scope and the exact fixed classification settings."
+    },
+    {
+      "at": "2026-10-07T06:46:27.093637Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:40.015594Z",
+      "title": "Progress update",
+      "detail": "The workflow is now valid and runnable. I’m resolving the earlier failed-test finding against the corrected full-area evidence so Terra can execute this exact saved proposal."
+    },
+    {
+      "at": "2026-10-07T06:46:42.189672Z",
+      "title": "assess_plan",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:47.942115Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:57:36.385595Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:58:04.277599Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the workflow finished and the deliverable receipt says the layer was added to your map. I’m doing two last checks now: the exact final country rows and the current map layer list, so the accepted answer points to the delivered artifact and layer that are actually there."
+    },
+    {
+      "at": "2026-10-07T06:58:04.310599Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:58:04.324978Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:58:04.334952Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:58:36.495039Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:58:40.793528Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the final derived artifact and the live map layer ID. I’m fetching the final inspected artifact receipt one more time so the accepted result can point to the exact delivered output, then I’ll record the final answer object."
+    },
+    {
+      "at": "2026-10-07T06:59:22.917260Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the final output: 18 retained Western Asia benchmark country features, 18 known values, a distinct No data category in the legend, and the delivered map layer bound on the map. I’m recording the final answer object now with the exact artifact selection and layer ID."
+    },
+    {
+      "at": "2026-10-07T06:59:42.665900Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Frozen benchmark country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Calculate rural share percent",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Classify rural share",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Western Asia rural population share (2023)",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join 2023 rural population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Join 2023 total population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Frozen WDI rural population",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Frozen WDI total population",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Keep Western Asia benchmark rows",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Frozen benchmark country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Calculate rural share percent",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Classify rural share",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Join 2023 rural population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Join 2023 total population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Frozen WDI rural population",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Frozen WDI total population",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Calculate rural share percent",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify rural share",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Keep Western Asia benchmark rows",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Frozen benchmark country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Calculate rural share percent",
+      "description": "Recorded vector-field-calculate · failed"
+    },
+    {
+      "title": "Classify rural share",
+      "description": "Recorded vector-classify · skipped"
+    },
+    {
+      "title": "Join 2023 rural population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Join 2023 total population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Frozen WDI rural population",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Frozen WDI total population",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Keep Western Asia benchmark rows",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join 2023 rural population",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join 2023 total population",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Calculate rural share percent",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "Classify rural share",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "Keep Western Asia benchmark rows",
+      "description": "Recorded vector-filter · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T06:33:53.656619+00:00"
+    },
+    {
+      "sha256": "e0e43ea828288c75af3a1081c9150d052e7327b4e99efde1fb6bfa0ab57c22b7",
+      "bytes": 164004,
+      "finishedAt": "2026-10-07T06:33:53.656619+00:00"
+    },
+    {
+      "sha256": "88594296e94fe36d2810fac2feb2672aa3b7fc3985d9617914ddbf11d4157626",
+      "bytes": 171501,
+      "finishedAt": "2026-10-07T06:33:53.656619+00:00"
+    },
+    {
+      "sha256": "f0303e95bad2e19fbffebabdc4d72856acd68704d598162435d5524cc2029662",
+      "bytes": 258234,
+      "finishedAt": "2026-10-07T06:34:16.242055+00:00"
+    },
+    {
+      "sha256": "8d6348ca887628bca318fae4ba4a68fc566786c67214f5a9c3aec3945908c3a4",
+      "bytes": 259548,
+      "finishedAt": "2026-10-07T06:34:37.974235+00:00"
+    },
+    {
+      "sha256": "b758af08b3c044ca99b4ddc4166d6be2be115c9eeeae4c5bf5b8b27d04c3a306",
+      "bytes": 260937,
+      "finishedAt": "2026-10-07T06:34:56.765921+00:00"
+    },
+    {
+      "sha256": "f0303e95bad2e19fbffebabdc4d72856acd68704d598162435d5524cc2029662",
+      "bytes": 258234,
+      "finishedAt": "2026-10-07T06:39:31.942440+00:00"
+    },
+    {
+      "sha256": "8d6348ca887628bca318fae4ba4a68fc566786c67214f5a9c3aec3945908c3a4",
+      "bytes": 259548,
+      "finishedAt": "2026-10-07T06:39:59.066967+00:00"
+    },
+    {
+      "sha256": "b758af08b3c044ca99b4ddc4166d6be2be115c9eeeae4c5bf5b8b27d04c3a306",
+      "bytes": 260937,
+      "finishedAt": "2026-10-07T06:40:57.846014+00:00"
+    },
+    {
+      "sha256": "cc2b781d3cd4f5ca8a375b18f8083302fec7387b13fa0c57b72332d2d8ff34fe",
+      "bytes": 261707,
+      "finishedAt": "2026-10-07T06:41:49.364172+00:00"
+    },
+    {
+      "sha256": "941f42cd5aa3f5cac9794990003ddec9b2bb9cf806459175e630e563d04cbe3a",
+      "bytes": 262348,
+      "finishedAt": "2026-10-07T06:42:00.081852+00:00"
+    },
+    {
+      "sha256": "f0303e95bad2e19fbffebabdc4d72856acd68704d598162435d5524cc2029662",
+      "bytes": 258234,
+      "finishedAt": "2026-10-07T06:50:03.386152+00:00"
+    },
+    {
+      "sha256": "8d6348ca887628bca318fae4ba4a68fc566786c67214f5a9c3aec3945908c3a4",
+      "bytes": 259548,
+      "finishedAt": "2026-10-07T06:51:51.559459+00:00"
+    },
+    {
+      "sha256": "b758af08b3c044ca99b4ddc4166d6be2be115c9eeeae4c5bf5b8b27d04c3a306",
+      "bytes": 260937,
+      "finishedAt": "2026-10-07T06:53:25.081987+00:00"
+    },
+    {
+      "sha256": "cc2b781d3cd4f5ca8a375b18f8083302fec7387b13fa0c57b72332d2d8ff34fe",
+      "bytes": 261707,
+      "finishedAt": "2026-10-07T06:55:40.182573+00:00"
+    },
+    {
+      "sha256": "941f42cd5aa3f5cac9794990003ddec9b2bb9cf806459175e630e563d04cbe3a",
+      "bytes": 262348,
+      "finishedAt": "2026-10-07T06:57:17.716407+00:00"
+    }
+  ],
+  "snapshotSha256": "51e60d9dcaca605b0577de3b894f0dc2f0a079a77576a08505c1760a03627269",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:33:35.528734Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full Western Asia benchmark workflow keep every declared country feature, join the supplied 2023 rural and total population values exactly by ISO_A3 to Country Code, calculate rural share in percent, and classify known values into quantiles while keeping unknowns separate?"
+    },
+    {
+      "at": "2026-10-07T06:38:09.964551Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "After correcting the joined field names, does the full Western Asia benchmark workflow produce a valid 2023 rural-share percent field and a five-quantile choropleth that keeps every retained country row and any unknowns as No data?"
+    },
+    {
+      "at": "2026-10-07T06:38:21.770100Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "insufficient",
+      "findings": "The workflow correctly retained 18 boundary rows where SUBREGION is Western Asia and preserved benchmark_row_id. Both left joins matched all 18 retained ISO_A3 codes to Country Code with no unmatched input features. The trial did not answer the full question because the percentage calculation referenced a non-existent field name after the joins. Inspection showed the joined rural and total columns were renamed to 2023_x and 2023_y, so the calculation and downstream classification did not run.",
+      "limitations": [
+        "The trial did not produce the requested rural-share percent field or final quantile classes."
+      ],
+      "next_action": "Rerun the full workflow with the corrected calculation fields 2023_x and 2023_y, then inspect the numeric values and classification output.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:44:56.284633Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The corrected full-area trial succeeded. It retained all 18 Western Asia benchmark country rows and produced a numeric rural_share_pct field in percent plus a rural_share_class field with five quantile classes. All 18 retained countries had known numeric values, so the No data category remains available but has zero rows in this geography. The observed quantile breaks were 8.840403565791053, 12.096803603612699, 23.70980031865801, and 38.068201958481524 percent, and the output preserved genuine zero for Kuwait rather than treating it as missing.",
+      "limitations": [
+        "This is a country-level 2023 indicator; it does not describe subnational rural distribution within countries.",
+        "The geography follows the supplied frozen benchmark edition of Western Asia country features."
+      ],
+      "next_action": "Save this tested full-scope method as the production workflow, run it, add the final layer to the map, and verify the delivered artifact and map binding.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:59:42.665900Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The final map layer and artifact are ready. The workflow retained the 18 frozen Western Asia benchmark country features, joined the frozen 2023 World Bank rural and total population tables exactly by ISO_A3 to Country Code, calculated rural_share_pct in percent, and classified all 18 known values into five quantile classes. The final layer is on the map as [resource id withheld], and the artifact keeps geometry, benchmark_row_id, rural_share_pct, and rural_share_class for every retained country.",
+      "limitations": [
+        "This is a country-level 2023 indicator; it does not describe subnational rural distribution within countries.",
+        "The geography follows the supplied frozen benchmark edition of Western Asia country features."
+      ],
+      "next_action": "Click the map layer to inspect each country's rural share percent, class, and benchmark_row_id.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "30a937d857f4d21318d9d3d597e2ed47b52cb8c7fcb9e087d587bcffe4ec7a07",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

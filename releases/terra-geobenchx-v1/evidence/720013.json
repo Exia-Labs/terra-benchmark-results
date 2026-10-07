@@ -1,0 +1,482 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "720013",
+  "question": "Show electric consumption in G7 and BRICS nations",
+  "submittedPrompt": "Show electric consumption in G7 and BRICS nations\n\nTask conventions: Use the frozen country polygons and World Bank EG.USE.ELEC.KH.PC 2014 column, in kWh per capita. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature in the declared geography and its benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. Geography is fixed to original country features with NAME_EN in [\"Canada\", \"France\", \"Germany\", \"Italy\", \"Japan\", \"United Kingdom\", \"United States\", \"Brazil\", \"Russian Federation\", \"India\", \"China\", \"South Africa\", \"Egypt, Arab Rep.\", \"Ethiopia\", \"Iran, Islamic Rep.\", \"United Arab Emirates\", \"Indonesia\"]; retain all matching source geometries, and no others. Classification is calculated only over this geography. Membership reflects this disclosed benchmark edition, not current organization membership.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Electric power consumption per capita\",\n    \"edition\": \"Frozen WDI; use 2014\",\n    \"units\": {\n      \"2014\": \"kWh per capita\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — I added the 2014 electric power consumption layer to the map and kept an inspectable country artifact with geometry, `benchmark_row_id`, the `2014` value, and its class. It shows 16 countries with known values in kWh per capita, and 1 No data country: France, because its benchmark `ISO_A3` is `-99` and the join stayed exact.\n\nLegend: No data, 68.05–<1,592.22, 1,592.22–<3,905.32, 3,905.32–<5,130.39, 5,130.39–<7,819.71, and 7,819.71–15,589.97 kWh per capita.\n\nLimits: this is a fixed 2014 country-level benchmark view only, not a subnational surface or current membership list. Sources: Terra-hosted benchmark fixtures for World Bank country boundaries (GeoBenchX harmonized names) and frozen World Bank WDI EG.USE.ELEC.KH.PC 2014, retrieved 2026-10-07.\n\n### Limitations\n\n- Country-level benchmark display only; not a subnational surface or a new regional aggregation.\n- Membership is fixed to the disclosed benchmark NAME_EN list in the supplied boundary edition.\n- France remains No data because its benchmark ISO_A3 is -99 and the exact join must not guess a replacement.\n- Country-level benchmark display only; it is not a subnational surface or a new regional aggregation.\n- Membership is fixed to the supplied benchmark NAME_EN list in this benchmark edition.\n- The geography is fixed to the supplied benchmark edition and exact NAME_EN membership list.\n- France remains unknown because its benchmark boundary row uses ISO_A3='-99' and the join must stay exact.\n- This is a country-level 2014 indicator only, not a subnational surface or new aggregation.",
+  "checks": {
+    "expectedCount": 16,
+    "actualCount": 16,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:43:43.138647Z",
+      "title": "Progress update",
+      "detail": "I’m checking the supplied country boundaries and frozen 2014 World Bank table first, then I’ll test the exact join and class breaks before I save the final map workflow."
+    },
+    {
+      "at": "2026-10-07T07:43:51.141438Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:51.393212Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:51.405991Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:52.167475Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:04.803092Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:44:05.046891Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:44:05.116843Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:44:07.870451Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:44:08.603561Z",
+      "title": "Progress update",
+      "detail": "I found the two supplied inputs. Next I’m reading their actual columns so I can use the exact 2014 field and the exact ISO join, without guessing or substituting anything."
+    },
+    {
+      "at": "2026-10-07T07:44:33.502616Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:39.045789Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:39.066137Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:39.081510Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:40.198115Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:45.856505Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:53.799977Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:54.266559Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:03.567901Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:34.317985Z",
+      "title": "Progress update",
+      "detail": "The first check worked. I confirmed the boundary file exposes `benchmark_row_id`, `NAME_EN`, and `ISO_A3`, and the frozen table exposes `Country Code` plus a numeric `2014` field. Next I’m testing the full fixed-country method itself: exact name filter, exact ISO join, and five-quantile classification with No data kept separate."
+    },
+    {
+      "at": "2026-10-07T07:46:34.345104Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:35.007998Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:32.064703Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:32.463533Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:44.177594Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:56.513143Z",
+      "title": "Progress update",
+      "detail": "I confirmed the fixed country list has 17 original rows, and one of them—France—uses the sentinel `-99`, so it should stay No data after the exact join. Now I’m testing the full country workflow so I can verify the final counts and the five quantile classes before publishing the map layer."
+    },
+    {
+      "at": "2026-10-07T07:48:00.715556Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:58.831827Z",
+      "title": "Progress update",
+      "detail": "I’ve now run the full method privately, and it behaved as expected: 17 benchmark country rows were kept, 16 got 2014 values, and France stayed unknown because its benchmark `ISO_A3` is `-99`. I’m doing one final inspection of the classed output now, then I’ll save the production workflow, run it, and add the verified layer to your map."
+    },
+    {
+      "at": "2026-10-07T07:50:58.908922Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:00.891373Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:07.794842Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:29.163516Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the classed output too: 16 countries have known 2014 values, France is the single No data feature, and the classifier produced five populated quantile classes plus class 0 for No data. I’m saving the tested workflow next so I can run the exact same method as the final map layer and derived artifact."
+    },
+    {
+      "at": "2026-10-07T07:52:29.499787Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:30.657859Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:31.069325Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:35.605395Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:35.834781Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:35.942461Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:36.713931Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:46.805924Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:46.952214Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:47.120435Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:30.730366Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:48.240483Z",
+      "title": "Progress update",
+      "detail": "I found a draft issue and fixed the method details instead of downgrading the work. The saved workflow already had the right tested computation; the problem was only the contract bookkeeping paths and scope binding. I’m resaving the same workflow with those corrected now."
+    },
+    {
+      "at": "2026-10-07T07:53:56.648825Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:07.202286Z",
+      "title": "Progress update",
+      "detail": "The final workflow is now saved and validated. I’m running that exact tested method next, then I’ll inspect the delivered artifact, add the verified country layer to your map, and record the final result."
+    },
+    {
+      "at": "2026-10-07T07:54:07.426250Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:59.820797Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:00.337733Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:55.655832Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:56.009441Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:28.760452Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:28.776898Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:29.409742Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:35.087391Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:47.020154Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Classify 2014 electricity values",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Benchmark country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Electric power consumption per capita, 2014",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Frozen WDI electricity table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join 2014 electricity values",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Selected benchmark countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Classify 2014 electricity values",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Benchmark country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Frozen WDI electricity table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join 2014 electricity values",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Selected benchmark countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join 2014 electricity values",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify 2014 electricity values",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Benchmark country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Frozen WDI electricity table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Benchmark country boundaries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Frozen WDI electricity table",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T07:45:08.910730+00:00"
+    },
+    {
+      "sha256": "35c5d7efcc03e05918af7f00fd37d7ac6235980c9f43ad3513579270318cfd0d",
+      "bytes": 112643,
+      "finishedAt": "2026-10-07T07:45:08.910730+00:00"
+    },
+    {
+      "sha256": "5c363bd3e650daa10d7abc71d52fa927f33e8f8a54d6800a4feeb5c4604d2a98",
+      "bytes": 3656996,
+      "finishedAt": "2026-10-07T07:48:31.881958+00:00"
+    },
+    {
+      "sha256": "ab0b15e577aaef735561118ba563564e8acb03d82c99b6aa431040d82f2133de",
+      "bytes": 3659101,
+      "finishedAt": "2026-10-07T07:48:46.390430+00:00"
+    },
+    {
+      "sha256": "1b1b17b5fa668fd4f47d25e870047def435afee6a8945c0a0b304986bba91666",
+      "bytes": 3659713,
+      "finishedAt": "2026-10-07T07:49:12.326379+00:00"
+    },
+    {
+      "sha256": "ab0b15e577aaef735561118ba563564e8acb03d82c99b6aa431040d82f2133de",
+      "bytes": 3659101,
+      "finishedAt": "2026-10-07T07:54:46.645712+00:00"
+    },
+    {
+      "sha256": "5c363bd3e650daa10d7abc71d52fa927f33e8f8a54d6800a4feeb5c4604d2a98",
+      "bytes": 3656996,
+      "finishedAt": "2026-10-07T07:54:36.577941+00:00"
+    },
+    {
+      "sha256": "1b1b17b5fa668fd4f47d25e870047def435afee6a8945c0a0b304986bba91666",
+      "bytes": 3659713,
+      "finishedAt": "2026-10-07T07:55:33.169304+00:00"
+    }
+  ],
+  "snapshotSha256": "3398b71a0e0f7d982e87327c30addb714fec989a6c6bbe63728a250588f942d4",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:45:03.567901Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the supplied boundary and indicator files expose the exact fields needed for the fixed country selection, exact ISO join and frozen 2014 choropleth?"
+    },
+    {
+      "at": "2026-10-07T07:47:44.177594Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The supplied boundary source exposes benchmark_row_id, NAME_EN and ISO_A3, and the frozen World Bank table exposes Country Code and a numeric 2014 field. The fixed NAME_EN geography returns 17 original country features with distinct benchmark_row_id values. One selected boundary row, France, has ISO_A3='-99', so an exact ISO_A3 to Country Code join will leave France unknown by design.",
+      "limitations": [
+        "This trial confirms source fields and the fixed geography, not the final choropleth output."
+      ],
+      "next_action": "Run one full-method trial with the exact NAME_EN filter, exact left join on ISO_A3 to Country Code, and five-quantile classification of the 2014 field to verify counts, unknown handling and legend-ready classes.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:48:00.715556Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full fixed-country method preserve all 17 benchmark country features, keep France as unknown from the exact ISO join, and produce a five-quantile 2014 choropleth with a separate No data class?"
+    },
+    {
+      "at": "2026-10-07T07:52:29.499787Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The tested method preserves all 17 benchmark country features, keeps benchmark_row_id and geometry, and joins the frozen 2014 World Bank values exactly by ISO_A3 to Country Code. Sixteen countries receive numeric 2014 values and France remains unknown because the benchmark boundary row carries ISO_A3='-99'. The classifier creates five quantile classes over known values only, with class 0 reserved for the No data feature.",
+      "limitations": [
+        "This trial verifies the requested method on the production geography, but it is still a private trial rather than the final delivered layer."
+      ],
+      "next_action": "Save the tested computation as a workflow, run it, inspect the final artifact and map binding, and assess the delivered result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:58:47.020154Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I inspected the delivered country artifact and its class summary after execution. The final output keeps 17 benchmark country features, with 16 known 2014 kWh per capita values and 1 No data feature. France remains the single unknown because its benchmark ISO_A3 is -99, so the exact join leaves Country Code and 2014 null. The verified map layer is bound on the current map as layer [resource id withheld].",
+      "limitations": [
+        "Country-level benchmark display only; it is not a subnational surface or a new regional aggregation.",
+        "Membership is fixed to the supplied benchmark NAME_EN list in this benchmark edition.",
+        "France remains No data because its benchmark ISO_A3 is -99 and the exact join must not guess a replacement."
+      ],
+      "next_action": "Inspect the added map layer or click a country to review benchmark_row_id, the 2014 value and its class. A different year or membership list would require a separate run.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "91f8df2de2b8719fc83a397da3d7ba5dd85ca0a760941292ba2a45f5e365d6f4",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

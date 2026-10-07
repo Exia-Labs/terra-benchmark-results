@@ -1,0 +1,468 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "150069",
+  "question": "How many major lakes in North America are within 20 km of areas with snow cover over 2 feet?",
+  "submittedPrompt": "How many major lakes in North America are within 20 km of areas with snow cover over 2 feet?\n\nTask conventions: Major lakes means every original lake/reservoir polygon in the supplied CEC inventory, with no added size/name/type filter. Snow is the frozen 2024-09-30 to 2025-05-20 accumulation raster, original band 1 in inches, not instantaneous snow depth. Deep-snow areas are CLOSED original pixel footprints with finite unmasked snowfall strictly >24 inches after scale/offset; preserve the grid and do not interpolate or simplify. Measure minimum distance from the full original lake geometry to the union of those observed pixel footprints in EPSG:5070, with transformed straight segments, strictly <20000 metres. A lake intersecting deep-snow area has distance zero. This corrects the released reference's distance-to-isolines shortcut, which misses lakes inside deep-snow areas. Invalid lake polygons may be linework make-valid repaired in their original CRS for measurement only; retain all polygon parts, original attributes/IDs and original geometry in the final selection. Count each lake once. The result is the number near OBSERVED deep snow in the supplied US raster, not proof of low snow or absence elsewhere in North America. NoData/outside coverage remains unknown and must be disclosed; do not turn it into a qualifying zero-snow class. Unknown_count in the JSON counts missing/empty original lake geometries only, NOT the geographic snow coverage gap. The coverage_note must explicitly explain that observed-coverage count is not an exhaustive continental assessment. Source and derived data are internal benchmark only.\n\n\n\nPublish an inspectable selected-lake artifact with original benchmark_row_id, attributes and geometry. Map optional. End with fenced JSON {count:integer,unknown_count:integer,coverage_note:string,selection:{collectionId,itemId,assetKey}}. State season, units, strict thresholds, projected-distance approximation and incomplete North American snow coverage.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"North American lakes, CEC 2023 frozen benchmark source\",\n    \"edition\": \"CEC North American Environmental Atlas version 4.0 (2023), original benchmark snapshot; benchmark-only use\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"US snowfall, 2024\\u201325 frozen season\",\n    \"edition\": \"2024-09-30 to 2025-05-20\",\n    \"units\": {\n      \"band1\": \"inches\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "I found 4,728 lakes meeting the rule, and 0 lakes had missing or empty original geometry. The selected-lake artifact is attached.\n\nThis uses the supplied CEC benchmark lakes and the supplied 2024-09-30 to 2025-05-20 snowfall raster, with band 1 in inches, deep snow as strict >24 inches, and lake distance as strict <20,000 m in EPSG:5070. It is only an observed US-coverage result, so NoData and snow outside that footprint remain unknown.\n\n### Limitations\n\n- The snowfall raster covers only the supplied US observation footprint, so this can count lakes near observed deep snow there but cannot prove low snow or absence elsewhere in North America.\n- Distances use EPSG:5070 planar measurement on transformed straight segments, which is the requested approximation rather than a geodesic measurement.\n- Selection reflects the supplied US snowfall observation footprint only; lakes outside observed snow coverage are not evidence of low snow.\n- Distance is the requested EPSG:5070 projected straight-segment approximation, not a geodesic measurement.\n- This is an observed-coverage result from the supplied US snowfall raster, not proof of low snow or snow absence elsewhere in North America.\n- Distance uses the requested EPSG:5070 projected straight-segment approximation, and NoData or outside-raster areas remain unknown.",
+  "checks": {
+    "expectedCount": 4728,
+    "actualCount": 4728,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:09:21.541847Z",
+      "title": "Progress update",
+      "detail": "I’m checking the supplied lake and snowfall inputs first, then I’ll test the exact deep-snow and distance method on a small private slice before I save the full workflow. After that I’ll run the full analysis, inspect the selected lakes, and give you the counted result with the selected-lake artifact."
+    },
+    {
+      "at": "2026-10-07T06:09:28.733381Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:35.424396Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:36.552784Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:43.873941Z",
+      "title": "Progress update",
+      "detail": "I found the supplied benchmark inputs and their bounds. Next I’m checking the exact item identities and available processor contracts so I can test the strict >24 inch snow mask and the lake-distance calculation without guessing any tool names or parameters."
+    },
+    {
+      "at": "2026-10-07T06:09:43.900860Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:43.910802Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:44.184046Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:44.328500Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:46.900902Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:21.744026Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:22.363613Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:27.946064Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:32.795357Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:33.034522Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:33.104003Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:33.178684Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:38.777150Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:38.902571Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:39.040210Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:39.230520Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:57.824888Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:15.279705Z",
+      "title": "Progress update",
+      "detail": "I’ve got the exact processor contracts. I’m now running a small end-to-end trial over a Great Lakes slice to confirm three things together: the strict >24 inch mask preserves NoData, the polygonized deep-snow footprint behaves like the observed pixel union, and the nearest-distance step returns nearby lakes with original geometry plus unknowns only for empty source geometry."
+    },
+    {
+      "at": "2026-10-07T06:11:24.820612Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:19:20.767724Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:19:23.114620Z",
+      "title": "Progress update",
+      "detail": "The first trial gave me an important surprise: the exact supplied items were not clipped by the trial source-area hint, so the run actually processed the full supplied snow and lake inputs. That is useful for your task, but I still need to inspect the trial report, record that finding clearly, and then save the tested full-extent method as the production workflow instead of pretending the slice clip worked."
+    },
+    {
+      "at": "2026-10-07T06:19:36.385390Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:31.073880Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the method works, and I corrected the one mistaken assumption: the source-area hint did not clip exact supplied items, so I’m saving the production workflow with the full benchmark scope spelled out explicitly and without that misleading local clip. After it validates, I’ll run it and inspect the published selected-lake artifact and supporting summary before I answer."
+    },
+    {
+      "at": "2026-10-07T06:20:48.254801Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:21:20.849087Z",
+      "title": "Progress update",
+      "detail": "The saved workflow is ready, but only the lake layer was bound to a requested result. I’m adding the distance-summary value output too, so the final machine-readable answer has an explicitly bound supporting result for unknown_count and method metadata before I run anything."
+    },
+    {
+      "at": "2026-10-07T06:21:39.832320Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:21:49.007830Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:22:00.750479Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:53.626246Z",
+      "title": "Progress update",
+      "detail": "The saved full workflow finished while the turn was interrupted. I’m inspecting its exact outputs now so I can verify the selected-lake artifact, the distance summary, and the final count before I record the result."
+    },
+    {
+      "at": "2026-10-07T06:28:54.266075Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:10.576379Z",
+      "title": "Progress update",
+      "detail": "The workflow outputs are ready. I’m pulling the final selected-lake layer and the distance summary now so I can verify the current count, unknown_count, retained fields, and the exact artifact identity before I record the result."
+    },
+    {
+      "at": "2026-10-07T06:30:10.603566Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:10.614389Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:11.606597Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:59.661340Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:59.676261Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:31:46.712953Z",
+      "title": "Progress update",
+      "detail": "I’ve already verified the count and method from the current workflow outputs. I’m only refreshing the final lake preview receipt now, using Terra’s own retry hint, so the final assessment cites the current selected artifact rather than the earlier trial copy."
+    },
+    {
+      "at": "2026-10-07T06:31:47.103504Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:03.104493Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:28.550754Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:56.535790Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Strict deep-snow mask",
+      "description": "Recorded raster-reclassify · succeeded"
+    },
+    {
+      "title": "Polygonize qualifying snowfall cells",
+      "description": "Recorded raster-polygonize · succeeded"
+    },
+    {
+      "title": "Lakes within 20 km of observed deep snow",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Deep-snow distance summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Measure lake distance to deep snow",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "Supplied CEC lakes",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Select lakes within 20 km",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Extract snowfall band 1",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Supplied snowfall raster",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Flag unknown lake geometries",
+      "description": "Recorded vector-filter · skipped"
+    },
+    {
+      "title": "Strict deep-snow mask",
+      "description": "Recorded raster-reclassify · succeeded"
+    },
+    {
+      "title": "Polygonize qualifying snow cells",
+      "description": "Recorded raster-polygonize · succeeded"
+    },
+    {
+      "title": "Measure lake distance to deep snow",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "Trial lakes source",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Select lakes within 20 km",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Extract snowfall band 1",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Trial snowfall source",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Polygonize qualifying snow cells",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Measure lake distance to deep snow",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Select lakes within 20 km",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Select unknown-geometry lakes",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Select unknown-geometry lakes",
+      "description": "Recorded vector-filter · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "acdb56a19ddd4d7aafdd839def6379dbdeec2eb62e4c6c8859cb2b7fa2c6ad97",
+      "bytes": 115787112,
+      "finishedAt": "2026-10-07T06:11:35.084612+00:00"
+    },
+    {
+      "sha256": "8b418f3c402abb1737aa9bca44d5030dd946ee6587df13726b4f45bb23371a5d",
+      "bytes": 6180538,
+      "finishedAt": "2026-10-07T06:11:35.084612+00:00"
+    },
+    {
+      "sha256": "2ce40a24b09a1b6aac67900eea9699251bbb46ba15314aa7ab9acf2170c8afce",
+      "bytes": 2691798,
+      "finishedAt": "2026-10-07T06:12:10.285880+00:00"
+    },
+    {
+      "sha256": "78004830f7e54b06bf5c901e32000f4c2a4d163f50586d8f2a76949d4b425deb",
+      "bytes": 63530,
+      "finishedAt": "2026-10-07T06:13:26.253667+00:00"
+    },
+    {
+      "sha256": "49ae1516c1ffd6c42b8cc5e2a289527438194321742edd091d290e2b02e66003",
+      "bytes": 121010,
+      "finishedAt": "2026-10-07T06:14:44.042188+00:00"
+    },
+    {
+      "sha256": "a58601d80a514c830d818873255ac75bc8a96a8a2336d0aa34b4d71212ac82f0",
+      "bytes": 118914597,
+      "finishedAt": "2026-10-07T06:17:12.929633+00:00"
+    },
+    {
+      "sha256": "8b63d1f19d8b3db537de9178bd0488d6932c07b90dc4d69b1ee767f4d4229343",
+      "bytes": 28658214,
+      "finishedAt": "2026-10-07T06:18:18.410557+00:00"
+    },
+    {
+      "sha256": "80269dcb87d2f1b1d45c48d19c52afac1479fc13c817a427dc91c39cffce89ea",
+      "bytes": 10733,
+      "finishedAt": "2026-10-07T06:18:18.410557+00:00"
+    },
+    {
+      "sha256": "2ce40a24b09a1b6aac67900eea9699251bbb46ba15314aa7ab9acf2170c8afce",
+      "bytes": 2691798,
+      "finishedAt": "2026-10-07T06:24:35.506822+00:00"
+    },
+    {
+      "sha256": "78004830f7e54b06bf5c901e32000f4c2a4d163f50586d8f2a76949d4b425deb",
+      "bytes": 63530,
+      "finishedAt": "2026-10-07T06:25:30.508183+00:00"
+    },
+    {
+      "sha256": "49ae1516c1ffd6c42b8cc5e2a289527438194321742edd091d290e2b02e66003",
+      "bytes": 121010,
+      "finishedAt": "2026-10-07T06:26:02.700186+00:00"
+    },
+    {
+      "sha256": "a58601d80a514c830d818873255ac75bc8a96a8a2336d0aa34b4d71212ac82f0",
+      "bytes": 118914597,
+      "finishedAt": "2026-10-07T06:28:14.763374+00:00"
+    },
+    {
+      "sha256": "8b63d1f19d8b3db537de9178bd0488d6932c07b90dc4d69b1ee767f4d4229343",
+      "bytes": 28658214,
+      "finishedAt": "2026-10-07T06:28:32.497882+00:00"
+    }
+  ],
+  "snapshotSha256": "c92095b693fb52df78bfb1f729358238309f69cfc70e65170e99c99095f41c3a",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:11:24.820612Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "On a representative Great Lakes slice, does extracting snowfall band 1, reclassifying strictly greater than 24 inches with NoData preserved, polygonizing the qualifying cells, and measuring lake-to-deep-snow distance in EPSG:5070 produce nearby-lake selections and only null distances for missing or empty original lake geometries?"
+    },
+    {
+      "at": "2026-10-07T06:19:36.385390Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The end-to-end method succeeded on the supplied benchmark inputs and effectively ran at full extent rather than the intended Great Lakes slice. The deep-snow branch produced one dissolved multipolygon target from qualifying snowfall pixels, the nearest-distance step measured all 13,135 supplied lakes in EPSG:5070 with onInvalidSource=make-valid, and the strict <20,000 m filter selected 4,728 lakes. The distance summary reported unknownSourceCount=0 and repairedSourceCount=5, so the method preserves original lake rows while limiting unknowns to missing or empty source geometry. The selected-lake output retained original benchmark_row_id, attributes, and geometry, with distinct benchmark_row_id count matching the selected count.",
+      "limitations": [
+        "The trial showed that adding area to exact supplied item selections did not create a clipped local subset, so the observations are for the full supplied snow and lake inputs rather than a smaller representative slice.",
+        "This trial establishes the computation path and preliminary full-extent counts, but the final deliverable still needs a saved inspectable workflow output and final result assessment."
+      ],
+      "next_action": "Save the tested full-extent computation as the production workflow, execute it, inspect the published selected-lake artifact and supporting summary outputs, and then assess the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:33:03.104493Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The current published selected-lake artifact contains 4,728 original CEC lake/reservoir polygons within the requested strict distance of the observed deep-snow footprint. It preserves benchmark_row_id, original attributes, and geometry, includes zero-distance intersections, and keeps every selected lake unique. The current distance summary confirms EPSG:5070 geometry distance, one dissolved deep-snow target union, unknownSourceCount=0, and repairedSourceCount=5 for measurement only.",
+      "limitations": [
+        "Selection reflects the supplied US snowfall observation footprint only; lakes outside observed snow coverage are not evidence of low snow.",
+        "Distance is the requested EPSG:5070 projected straight-segment approximation, not a geodesic measurement."
+      ],
+      "next_action": "Use the selected-lake artifact for inspection or follow-up analysis, and rely on the separate final answer object for the count and coverage note.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:33:28.550754Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The current final outputs support a count of 4,728 selected lakes and an unknown_count of 0 missing or empty original lake geometries. The selected-lake artifact is inspectable at [resource id withheld] / [resource id withheld] / data. The supporting distance summary confirms EPSG:5070 geometry distance, unknownSourceCount=0, and repairedSourceCount=5 for measurement only.",
+      "limitations": [
+        "This is an observed-coverage result from the supplied US snowfall raster, not proof of low snow or snow absence elsewhere in North America.",
+        "Distance uses the requested EPSG:5070 projected straight-segment approximation, and NoData or outside-raster areas remain unknown."
+      ],
+      "next_action": "Open the selected-lake artifact to inspect or reuse the full set of 4,728 selected lakes.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "d94ddcc965d30160484f7a9a5c946112096e584ebc16867d380f2b91b6551ed7",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

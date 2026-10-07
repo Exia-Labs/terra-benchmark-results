@@ -1,0 +1,498 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "595832",
+  "question": "Map water usage patterns in Middle Eastern countries",
+  "submittedPrompt": "Map water usage patterns in Middle Eastern countries\n\nTask conventions: Use the frozen country polygons and World Bank ER.H2O.FWTL.K3 2021 column, in billion m³ per year. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature in the declared geography and its benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. Geography is fixed to original country features with SUBREGION in [\"Western Asia\"]; retain all matching source geometries, and no others. Classification is calculated only over this geography. Membership reflects this disclosed benchmark edition, not current organization membership.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank ER.H2O.FWTL.K3\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2021\",\n    \"units\": {\n      \"2021\": \"billion m\\u00b3 per year\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "I added the final Western Asia water-use country layer to the map.\n\nIt uses the supplied frozen World Bank ER.H2O.FWTL.K3 2021 values in billion m³ per year, shown as five Western Asia quantile classes with a neutral No data legend class. In this benchmark subset, all 18 retained country features have known values, so No data is available in the legend but unused.\n\nLimit: this is a country-level 2021 benchmark map, not subnational water-use patterns, and Western Asia follows the supplied benchmark boundary edition.\n\nNext: open **Western Asia water use (2021)** on the map to inspect the legend bounds and compare countries.\n\nSources: Terra-hosted supplied benchmark fixtures from World Bank country boundaries (GeoBenchX harmonized names) and frozen World Development Indicators ER.H2O.FWTL.K3 2021, retrieved 2026-10-07 UTC.\n\n### Limitations\n\n- This is a country-level 2021 indicator map, not a subnational water surface or a new regional aggregation.\n- Western Asia in this result follows the supplied benchmark boundary edition rather than current organization membership.\n- This is a country-level 2021 indicator map, not a subnational water-use surface or a new regional aggregation.\n- Western Asia membership follows the supplied benchmark boundary edition, not current organization membership.\n- The legend is a Western Asia quantile classification for 2021 values in billion m³ per year, so class spacing is relative rather than equal-interval.\n- This geography follows the supplied benchmark boundary edition only.\n- These are country-level 2021 totals only.\n- This exact match result applies to this frozen benchmark edition.\n- The legend is relative to the retained Western Asia geography and is not an equal-interval scale.",
+  "checks": {
+    "expectedCount": 18,
+    "actualCount": 18,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:26:23.260904Z",
+      "title": "Progress update",
+      "detail": "I’ll build this from the supplied frozen boundary and indicator files, test the exact join and Western Asia filter first, then run the final classified country layer and add it to your map. After that I’ll verify the delivered artifact still contains every original Western Asia country row, including unknowns and unmatched codes."
+    },
+    {
+      "at": "2026-10-07T07:26:34.206996Z",
+      "title": "Progress update",
+      "detail": "I’m checking the saved analysis context and the exact source schemas now. Then I’ll test the join and class rules privately before saving the final workflow."
+    },
+    {
+      "at": "2026-10-07T07:26:34.219773Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:34.224275Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:34.229916Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:34.692357Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:55.769322Z",
+      "title": "Progress update",
+      "detail": "I found the supplied benchmark inputs and there isn’t any saved analysis yet. Next I’m reading the exact field names from those immutable items so the join uses the user’s frozen ISO and 2021 columns exactly, with no guessed replacements."
+    },
+    {
+      "at": "2026-10-07T07:27:01.342397Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:01.604582Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:06.922991Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:07.062448Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:07.080294Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:10.436979Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:17.292844Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:30.288364Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:27:30.556909Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:28:01.688751Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:11.727174Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the source fields: the boundaries have `ISO_A3`, `SUBREGION`, and `benchmark_row_id`, and the frozen table has `Country Code` and `2021`. I’m now running one compact end-to-end test that filters Western Asia, does the exact left join, and applies the required quantile classification so I can inspect the real row preservation, unknown handling, and legend behavior before saving the final workflow."
+    },
+    {
+      "at": "2026-10-07T07:28:16.684728Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:31.629942Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:30:33.492334Z",
+      "title": "Progress update",
+      "detail": "The private test finished. It kept 18 Western Asia country rows and the exact ISO join matched all 18, so there are no unknown indicator rows in this benchmark geography. I’m checking the delivered class breaks and map-ready output now, because the final answer still needs the verified artifact fields and the actual layer binding on your map."
+    },
+    {
+      "at": "2026-10-07T07:30:37.402499Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:30:45.300380Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:32.914976Z",
+      "title": "Progress update",
+      "detail": "I’ve got the full-area trial result. Now I’m pulling the final rows and receipts from that exact output so I can confirm the value field, class field, and the map layer binding before I deliver it."
+    },
+    {
+      "at": "2026-10-07T07:31:37.059649Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:50.342959Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:51.466514Z",
+      "title": "Progress update",
+      "detail": "The method itself is now confirmed on the full requested geography: 18 Western Asia country features, exact joins, five quantile classes, and no unknown values in this benchmark subset. I’m using the retained result rather than rerunning the same work, and I’m fetching the exact output receipt needed to add the classified layer to your map."
+    },
+    {
+      "at": "2026-10-07T07:32:51.286120Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:32:58.446970Z",
+      "title": "list_processor_jobs",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:04.472352Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:09.910320Z",
+      "title": "add_catalog_layer",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:14.911647Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:30.357059Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:37.772320Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:48.053191Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:52.586572Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:35:03.170996Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the method and the map layer from the trial, but Terra won’t let me attach a private trial artifact as the final selected result. I’m turning that exact tested computation into a formal final workflow now so the same verified output can be selected properly and delivered to your map."
+    },
+    {
+      "at": "2026-10-07T07:35:08.615918Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:17.091324Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:17.091430Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:17.111620Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:18.465748Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:24.308822Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:24.925744Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:27.308436Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:04.167542Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:20.448127Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:30.239346Z",
+      "title": "Progress update",
+      "detail": "I found the one draft problem: the saved production workflow inherited the trial’s world-sized source scope even though the actual study area is Western Asia. I’m correcting that now so the formal final workflow matches the tested benchmark geography exactly, then I’ll run and inspect the final deliverable."
+    },
+    {
+      "at": "2026-10-07T07:36:37.524305Z",
+      "title": "revise_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:55.566457Z",
+      "title": "Progress update",
+      "detail": "The inherited trial draft still carries a world-sized workflow scope field. I’m replacing that bookkeeping with the same tested computation saved directly at the Western Asia scope, so the formal final run matches the requested benchmark geography cleanly."
+    },
+    {
+      "at": "2026-10-07T07:37:09.515278Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:15.306532Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:38:24.790273Z",
+      "title": "Progress update",
+      "detail": "The formal final workflow has finished. I’m inspecting that final output now and then I’ll bind that exact final artifact to the map, so the selected result and the visible layer match."
+    },
+    {
+      "at": "2026-10-07T07:38:29.341065Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:39:15.597928Z",
+      "title": "Progress update",
+      "detail": "I’ve got the final workflow receipts, including the new map layer. I’m pulling the final rows and summary from that exact deliverable now so the final answer uses the formal output, not the earlier private test."
+    },
+    {
+      "at": "2026-10-07T07:39:22.164792Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:29.531065Z",
+      "title": "Progress update",
+      "detail": "I’ve got the completed final deliverable and its map binding. I’m fetching the final inspected rows and summary now so the accepted result points to the formal output layer and artifact, not the earlier working copy."
+    },
+    {
+      "at": "2026-10-07T07:40:35.066788Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:35.586769Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:35.612015Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:47.337065Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:47.698724Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the final artifact rows, the five quantile breaks, and the new final map layer. I’m checking the final item’s legend metadata once so the accepted result can cite the visible class bounds and No data category from the formal delivered output."
+    },
+    {
+      "at": "2026-10-07T07:41:24.316241Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Build water-use choropleth classes",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Western Asia water use (2021)",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Keep Western Asia benchmark rows",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join frozen 2021 water values",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Supplied World Bank water indicator",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Build water-use choropleth classes",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Keep Western Asia benchmark rows",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join frozen 2021 water values",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Join frozen 2021 water values",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Build water-use choropleth classes",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Build water-use choropleth classes",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied World Bank water indicator",
+      "description": "Recorded source · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T07:28:40.985580+00:00"
+    },
+    {
+      "sha256": "f0303e95bad2e19fbffebabdc4d72856acd68704d598162435d5524cc2029662",
+      "bytes": 258234,
+      "finishedAt": "2026-10-07T07:28:45.602756+00:00"
+    },
+    {
+      "sha256": "24a9e3e025e99caaa4795b2e8207ed4d5c323665b77924d691c0f6930441db6a",
+      "bytes": 260985,
+      "finishedAt": "2026-10-07T07:28:52.982602+00:00"
+    },
+    {
+      "sha256": "59dc8930c3d22c86063ce406aa166847b4233fee91708aad1ba292db4d831ef7",
+      "bytes": 101111,
+      "finishedAt": "2026-10-07T07:28:40.985580+00:00"
+    },
+    {
+      "sha256": "c2c18b0e6ef73fbf08e296c8927fcd20149b34e4a093fa6f4b21349abaa70217",
+      "bytes": 261610,
+      "finishedAt": "2026-10-07T07:29:00.042132+00:00"
+    },
+    {
+      "sha256": "f0303e95bad2e19fbffebabdc4d72856acd68704d598162435d5524cc2029662",
+      "bytes": 258234,
+      "finishedAt": "2026-10-07T07:37:36.021377+00:00"
+    },
+    {
+      "sha256": "24a9e3e025e99caaa4795b2e8207ed4d5c323665b77924d691c0f6930441db6a",
+      "bytes": 260985,
+      "finishedAt": "2026-10-07T07:37:51.277002+00:00"
+    },
+    {
+      "sha256": "c2c18b0e6ef73fbf08e296c8927fcd20149b34e4a093fa6f4b21349abaa70217",
+      "bytes": 261610,
+      "finishedAt": "2026-10-07T07:38:02.459627+00:00"
+    }
+  ],
+  "snapshotSha256": "4d32a59ad3366075680416e435731027daf4c4b2a3b3f058572fd8ed20b85742",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:28:31.629942Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full Western Asia country workflow preserve every benchmark Western Asia row, join the frozen 2021 water indicator exactly by country code, and create the required quantile choropleth with a distinct No data class?"
+    },
+    {
+      "at": "2026-10-07T07:33:37.772320Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full requested Western Asia computation succeeded on the retained benchmark geography. The filter kept 18 Western Asia country features, the exact left join matched all 18 ISO_A3 values to Country Code with zero unmatched rows, and the classified output preserved all 18 features with benchmark_row_id, the frozen 2021 value field, and five quantile classes. The classification summary reported 18 known values, 0 missing values, requestedClasses=5, classCount=5, and breaks at 0.50892, 1.593184, 2.4334, and 13.565784 billion m³ per year.",
+      "limitations": [
+        "This trial verifies the requested benchmark country choropleth only; it does not add subnational detail.",
+        "No data remains a distinct category by method, but this Western Asia subset has no unknown rows in the frozen benchmark edition."
+      ],
+      "next_action": "Use the classified artifact as the delivered country layer, add it to the map, and record the final result assessment.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:34:52.586572Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "I delivered a benchmark Western Asia country choropleth from the supplied frozen inputs and added it to the map. The final artifact retains all 18 benchmark Western Asia country features, preserves benchmark_row_id and geometry, joins ISO_A3 to Country Code exactly with no unmatched rows, and maps the supplied 2021 ER.H2O.FWTL.K3 values in billion m³ per year into five quantile classes. In this benchmark subset all 18 retained country features have known 2021 values, so unknown_count is 0 and the neutral No data category is present in the legend but unused.",
+      "limitations": [
+        "This is a country-level 2021 indicator map, not a subnational water-surface map or a new regional aggregation.",
+        "Western Asia membership follows the supplied benchmark boundary edition only.",
+        "The quantile legend is relative to the retained Western Asia benchmark geography; class spacing is not a physical interval scale."
+      ],
+      "next_action": "Open the added layer to inspect the legend and compare country totals.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:41:24.316241Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I delivered the formal final Western Asia country choropleth from the supplied frozen benchmark inputs and verified the final output, not just the earlier trial. The final artifact retains all 18 benchmark Western Asia country features, preserves geometry and benchmark_row_id, joins ISO_A3 to Country Code exactly with zero unmatched rows, and classifies the supplied 2021 ER.H2O.FWTL.K3 values into five quantile classes. In this benchmark subset all 18 retained countries have known 2021 values, so unknown_count is 0 and the neutral No data category is available in the legend but unused.",
+      "limitations": [
+        "This is a country-level 2021 indicator map, not a subnational water-use surface or a new regional aggregation.",
+        "Western Asia membership follows the supplied benchmark boundary edition, not current organization membership.",
+        "The legend is a Western Asia quantile classification for 2021 values in billion m³ per year, so class spacing is relative rather than equal-interval."
+      ],
+      "next_action": "Open the final map layer to inspect the legend and compare country totals.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "92a8d85cba8317689d7b8c1e010eddb502bde85adca091505c545719c1d1d40e",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

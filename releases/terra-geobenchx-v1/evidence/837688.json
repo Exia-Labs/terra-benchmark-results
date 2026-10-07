@@ -1,0 +1,420 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "837688",
+  "question": "Create a map of global fertility rates. ",
+  "submittedPrompt": "Create a map of global fertility rates. \n\nTask conventions: Use the frozen country polygons and World Bank SP.DYN.TFRT.IN 2022 column, in births per woman. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature and benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Fertility rate\",\n    \"edition\": \"Frozen WDI; use 2022\",\n    \"units\": {\n      \"2022\": \"births per woman\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — I added **Global fertility rates, 2022** to the map.\n\nIt uses the frozen World Bank **2022** fertility rate in **births per woman** at country level only, with five quantile classes at **1.487, 1.7834, 2.36, and 3.4718**, plus a neutral **No data** class; values on a break go into the higher class.\n\nThe retained country artifact keeps all **251** original country features and `benchmark_row_id` values. **210** countries have a known 2022 value, and **41** remain unknown because **34** codes did not match exactly and **7** matched countries had no supplied 2022 value.\n\nSources: **Benchmark fixture · World Bank country boundaries** (provider: Terra; source revision not listed; retrieved 2026-10-07) and **Benchmark fixture · Fertility rate** (provider: Terra, frozen World Bank WDI SP.DYN.TFRT.IN; source revision not listed; retrieved 2026-10-07).\n\n### Limitations\n\n- The result is country-level only; it is not a subnational surface or a new regional aggregation.\n- Countries with unmatched ISO_A3/Country Code values or missing 2022 measurements remain unknown by design.\n- The classification uses only the supplied frozen 2022 values and may have fewer than five classes if tied values collapse breaks.\n- Country-level only; this is not a subnational surface or a new regional aggregation.\n- 41 country features remain unknown because the exact ISO_A3 to Country Code join did not match for 34 features and the supplied 2022 value is null for 7 additional matched features.\n- The result intentionally uses only the supplied frozen 2022 values and does not substitute another year or live update.",
+  "checks": {
+    "expectedCount": 210,
+    "actualCount": 210,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:01:01.503543Z",
+      "title": "Progress update",
+      "detail": "I’m checking the retained analysis context and the available data tools first, then I’ll test the country join and class breaks on the supplied frozen inputs before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T08:01:12.513620Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:23.145949Z",
+      "title": "Progress update",
+      "detail": "I found the Terra analysis tools. Next I’m reading the two supplied frozen inputs so I can confirm their exact fields, item bindings, and any preparation path needed for the join and map output."
+    },
+    {
+      "at": "2026-10-07T08:01:37.230265Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:42.273274Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:46.777274Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:51.935438Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:55.769567Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:08.887802Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:12.777149Z",
+      "title": "Progress update",
+      "detail": "The two frozen inputs are present and inspectable. I’ve confirmed the boundary file has `ISO_A3` and `benchmark_row_id`, and the fertility table has `Country Code` plus the numeric `2022` field in births per woman. Next I’m finding the exact join and classing processors, then I’ll run a small private test before saving the full workflow."
+    },
+    {
+      "at": "2026-10-07T08:02:14.849215Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:19.646509Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:26.417255Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:30.484742Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:43.341316Z",
+      "title": "Progress update",
+      "detail": "I’ve got the two processors I need: one to do the exact left join, and one to create a quantitative choropleth with a real legend. Because the dataset is only 251 country polygons, I’m testing the full global computation privately now so the saved workflow can match the tested method exactly."
+    },
+    {
+      "at": "2026-10-07T08:02:56.226336Z",
+      "title": "Progress update",
+      "detail": "The first trial submission had a schema mistake in my wrapper fields, not a data problem. I’m correcting that and rerunning the same full test now."
+    },
+    {
+      "at": "2026-10-07T08:02:58.514024Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:03:03.347020Z",
+      "title": "Progress update",
+      "detail": "Terra needs the study extent recorded as a numeric CRS84 world bbox in the brief before it will run the trial. I’m fixing that now; the data method is unchanged."
+    },
+    {
+      "at": "2026-10-07T08:03:09.498353Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:35.742372Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:05:44.243390Z",
+      "title": "Progress update",
+      "detail": "The private test finished successfully. It kept all 251 country features, found 210 known 2022 values and 41 unknowns, and produced five quantile classes plus a No data class. I’m recording that evidence, then I’ll save the production workflow, run it, and bind the final layer to the map."
+    },
+    {
+      "at": "2026-10-07T08:05:47.922864Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:00.246882Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:12.194525Z",
+      "title": "Progress update",
+      "detail": "I have enough evidence from the private test to save the real production workflow now. Next I’m using that tested global computation as the base proposal so the final artifact, legend, and map layer match what I already verified."
+    },
+    {
+      "at": "2026-10-07T08:07:15.364809Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:21.665960Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:28.042003Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:33.141830Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:37.123329Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:46.235127Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:02.792110Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:11.720660Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:20.489060Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:24.351888Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:35.850433Z",
+      "title": "Progress update",
+      "detail": "I’ve saved the test evidence. Now I’m turning that exact tested computation into the formal workflow, with the fixed join keys, year, units, and quantile classing recorded explicitly so the final run cannot drift from the requested conventions."
+    },
+    {
+      "at": "2026-10-07T08:08:44.537225Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:53.284443Z",
+      "title": "Progress update",
+      "detail": "The workflow validated cleanly and matches the tested global computation. I’m running it now, then I’ll inspect the final artifact and add the verified choropleth layer to the map."
+    },
+    {
+      "at": "2026-10-07T08:08:57.047341Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:24.174243Z",
+      "title": "Progress update",
+      "detail": "The production run finished. I’m inspecting its exact output now, then I’ll bind that verified country layer to the map and record the final answer object against the delivered artifact."
+    },
+    {
+      "at": "2026-10-07T08:10:29.847637Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:11:07.900489Z",
+      "title": "Progress update",
+      "detail": "The verified output already added the country layer to the map. I’m doing the last bounded inspections now: one on the final country artifact to confirm the retained fields and unknown rows, and one on the classifier summary to capture the legend breaks and class counts for the final assessment."
+    },
+    {
+      "at": "2026-10-07T08:11:16.249382Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:12:01.976071Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:12:03.381360Z",
+      "title": "Progress update",
+      "detail": "The final layer is already on the map. I’m refreshing the exact inspection receipts now so I can record the delivered artifact, the legend breaks, and the layer ID against the final result without relying on earlier trial evidence."
+    },
+    {
+      "at": "2026-10-07T08:12:10.359689Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:12:16.399553Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:13:09.550429Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:13:13.709065Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the delivered artifact and the map layer. I’m clearing the old planning notes in the brief now so the final handoff reflects only the real remaining limits: country-level data and the countries that stay unknown."
+    },
+    {
+      "at": "2026-10-07T08:13:52.756673Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:14:06.421043Z",
+      "title": "Progress update",
+      "detail": "The final checks are complete. I’m correcting the assessment payload now so it uses the exact accepted condition list and the same verified result."
+    },
+    {
+      "at": "2026-10-07T08:14:13.979932Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "classify fertility",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Global fertility rates, 2022",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "join fertility",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "classify fertility",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "join fertility",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "join fertility",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "classify fertility",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "classify fertility",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T08:03:32.538574+00:00"
+    },
+    {
+      "sha256": "e4694fe761eacb7d240342583b3d819fc3fa5cb823d5d161149859de3670883d",
+      "bytes": 159757,
+      "finishedAt": "2026-10-07T08:03:32.538574+00:00"
+    },
+    {
+      "sha256": "0505caa945faa954957852d158eebfb509fa6fbe8e8b874844a3fa06c2f53833",
+      "bytes": 8443314,
+      "finishedAt": "2026-10-07T08:04:06.088282+00:00"
+    },
+    {
+      "sha256": "0dda3840cbe464a2b0a22a88447b5fbfa09dab551eb85d5ff9bb6abe951d0fb4",
+      "bytes": 8436295,
+      "finishedAt": "2026-10-07T08:04:20.492826+00:00"
+    },
+    {
+      "sha256": "0505caa945faa954957852d158eebfb509fa6fbe8e8b874844a3fa06c2f53833",
+      "bytes": 8443314,
+      "finishedAt": "2026-10-07T08:09:34.927865+00:00"
+    },
+    {
+      "sha256": "0dda3840cbe464a2b0a22a88447b5fbfa09dab551eb85d5ff9bb6abe951d0fb4",
+      "bytes": 8436295,
+      "finishedAt": "2026-10-07T08:10:08.550101+00:00"
+    }
+  ],
+  "snapshotSha256": "0d404e145e49ab0ad3cf3e8469b9bd2ccb8f62ce45d5ad29d754cb34b5c94526",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:02:58.514024Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full global workflow preserve every supplied country feature, join the frozen 2022 fertility value exactly from ISO_A3 to Country Code, and produce the requested quantile choropleth with unknowns kept separate?"
+    },
+    {
+      "at": "2026-10-07T08:08:02.792110Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The tested full-world computation preserved all 251 supplied country polygons and benchmark_row_id values. The exact left join from ISO_A3 to Country Code produced 217 matched country features and 34 unmatched features; 210 countries have a known numeric 2022 fertility value and 41 remain unknown because the code did not match or the 2022 value is null. The classification step produced five quantile classes plus class 0 for No data, with breaks at 1.487, 1.7834, 2.36, and 3.4718 births per woman and class counts 41, 43, 42, 42, and 42 for known values. The processor summary and inspected output show that missing values stay separate and that break equality uses the upper class under the lower-inclusive, upper-exclusive interval convention.",
+      "limitations": [
+        "The trial confirms the computation and artifact contents, but it does not itself satisfy the final delivery requirement to add the production layer to the map.",
+        "Unknown countries remain by design where ISO_A3 does not exactly match Country Code or where the supplied 2022 value is null."
+      ],
+      "next_action": "Save this tested global computation as the production workflow, execute it, add the classified country layer to the map, and assess the final delivered artifact and layer.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:13:52.756673Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "Added a global country fertility choropleth to the map and retained all 251 supplied country features in the delivered artifact. The map uses the frozen World Bank 2022 field in births per woman, with 210 countries holding known numeric values and 41 countries remaining unknown. The five quantile classes use breaks at 1.487, 1.7834, 2.36, and 3.4718 births per woman, with a separate No data class. The main remaining limitation is that 41 countries stay unknown because 34 ISO_A3 codes did not match Country Code exactly and 7 matched countries have null 2022 values. Next action: review the layer on the map or inspect individual country rows in the delivered artifact.",
+      "limitations": [
+        "Country-level only; this is not a subnational surface or a new regional aggregation.",
+        "41 country features remain unknown because the exact ISO_A3 to Country Code join did not match for 34 features and the supplied 2022 value is null for 7 additional matched features.",
+        "The result intentionally uses only the supplied frozen 2022 values and does not substitute another year or live update."
+      ],
+      "next_action": "Review the delivered map layer or inspect individual country rows in the retained artifact.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:14:13.979932Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "Added a global country fertility choropleth to the map and retained all 251 supplied country features in the delivered artifact. The map uses the frozen World Bank 2022 field in births per woman, with 210 countries holding known numeric values and 41 countries remaining unknown. The five quantile classes use breaks at 1.487, 1.7834, 2.36, and 3.4718 births per woman, with a separate No data class. The main remaining limitation is that 41 countries stay unknown because 34 ISO_A3 codes did not match Country Code exactly and 7 matched countries have null 2022 values. Next action: review the layer on the map or inspect individual country rows in the delivered artifact.",
+      "limitations": [
+        "Country-level only; this is not a subnational surface or a new regional aggregation.",
+        "41 country features remain unknown because the exact ISO_A3 to Country Code join did not match for 34 features and the supplied 2022 value is null for 7 additional matched features.",
+        "The result intentionally uses only the supplied frozen 2022 values and does not substitute another year or live update."
+      ],
+      "next_action": "Review the delivered map layer or inspect individual country rows in the retained artifact.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "8c4efb64e92f1ef32d8268899d76f3f335ddb9f2395a5c858272c190ec590699",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

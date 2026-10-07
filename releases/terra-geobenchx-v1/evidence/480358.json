@@ -1,0 +1,1056 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "480358",
+  "question": "Make contour lines of population density in flood-affected areas of Bangladesh.",
+  "submittedPrompt": "Make contour lines of population density in flood-affected areas of Bangladesh.\n\nTask conventions: Use the frozen 2018 Bangladesh population raster and supplied event flood_bangladesh. Population source values are people/km2. Keep its entire original grid; no population resampling. Sample the original flood raster at each original population-cell centre by containing pixel (nearest alignment); no max/bilinear interpolation or inferred flooded fractions. GFD bands are 1 flooded (0/1), 2 duration in days, 3 clear-view count, 4 clear-view fraction, 5 permanent water (0/1). Observe a cell only if population is finite/unmasked, bands 1,3,5 are finite/unmasked, clear views >0, and permanent water=0. Observed band1=1 is flooded; observed band1=0 is non-flooded. Everything else is unknown/excluded, never non-flooded or zero population. Calculate original full geographic-cell WGS84 ellipsoidal meridian/parallel area in km2; density is counts/area and counts are density*area as appropriate. Sum original/derived population over flooded cells. For the density comparison use group population divided by group physical area, not an unweighted mean of densities. This explicitly defines affected as people in observed flooded cell centres, not proven personal impacts. The event covers only part of the country/month: report the observed-footprint result, never an exhaustive national total. The supplied Bangladesh event's footprint includes northern Bangladesh despite its Tibetan event label; inspect actual coverage. Permanent water, cloud gaps and unobserved regions do not establish absence of flooding. No current source substitutions. Internal benchmark only. For this contour question retain original population-density values only at observed flooded cell centres; observed dry cells, permanent water and unknown coverage must all be NoData, not zero. Then Use band 1 of the frozen bangladesh_density raster at the original grid without resampling, smoothing or clipping. Draw the explicit contour levels [100, 500, 1000, 5000, 10000] in people/km2. These levels are a disclosed evaluation convention, not a requested interval. Use piecewise-linear marching-squares isolines through pixel-center values, low-valued connectivity at ambiguous saddles. Respect the native mask, NoData and nonfinite cells; do not bridge holes or extrapolate at the outside edge. Apply any source scale and offset. NoData means unknown, never zero. Preserve source coverage; levels outside the observed range may have no line. Do not substitute a current raster. Count nonempty requested contour LEVELS, not polyline fragments. The supplied Bangladesh raster is verified people/km2, not counts; do not divide it by area again. \n\n\n\nDeliver an inspectable vector contour artifact and add it to the map with a level/units legend. End with one fenced JSON object containing: count (number of nonempty requested levels), unknown_count (number of masked or nonfinite source pixels), coverage_note, selection: {collectionId,itemId,assetKey}, level_field, feature_count (actual contour feature rows), map_layer_id. Explain the source season/year, units, missing coverage, and visual relationship where an overlay is requested.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Bangladesh population density, WorldPop 2018\",\n    \"edition\": \"2018 UN-adjusted 1 km density; exact bytes verified against WorldPop product 45189, DOI WP00675\",\n    \"units\": {\n      \"band1\": \"people/km\\u00b2\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"GFD observed flood 4665, 2018-08-02 to 2018-08-10\",\n    \"edition\": \"Original five-band GFD v1 benchmark snapshot, not a current flood map; benchmark-only use\",\n    \"units\": {\n      \"band1\": \"binary flooded flag\",\n      \"band2\": \"days\",\n      \"band3\": \"observations\",\n      \"band4\": \"fraction\",\n      \"band5\": \"binary permanent-water flag\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — I added **Flood-affected population density contours** to the map.\n\nIt uses the frozen **WorldPop 2018 Bangladesh density** raster in **people/km²** and the supplied **GFD event for 2018-08-02 to 2018-08-10**. All five requested contour levels are present.\n\nOn the map, the lines stay within the **observed flooded footprint**, including **northern Bangladesh**. They do **not** continue across dry cells, permanent water, cloud gaps, or other unobserved areas, which remain blank. This is an **observed-footprint result**, not an exhaustive national flood total.\n\n### Limitations\n\n- This result covers only the overlap of the supplied 2018 Bangladesh density raster and the observed 2018-08-02 to 2018-08-10 GFD footprint.\n- Cloud gaps, permanent water, and any unobserved cells remain unknown or excluded and are not treated as dry or zero population.\n- The density source is the fixed 2018 WorldPop benchmark raster, not a current population surface.\n- No separate Bangladesh boundary source is bound here, so the executable extent is the supplied Bangladesh raster extent rather than an independently retrieved national polygon.\n- Observed-footprint only: the event covers part of Bangladesh and part of August 2018, so this is not an exhaustive national flood total.\n- Population is from the frozen WorldPop 2018 UN-adjusted density raster, not a current population surface.\n- Contours represent people/km² only at observed flooded cell centres; dry cells, permanent water, cloud gaps, and all unobserved areas remain excluded or unknown.\n- This is an observed flooded cell-centre population screen, not proof of personal impacts.\n- The executable extent follows the supplied Bangladesh raster extent rather than an independently retrieved national boundary polygon.\n- This is the fixed 2018 benchmark density surface, not a current population map.\n- Only cells with finite population, finite flood bands 1, 3, and 5, clear views greater than zero, and permanent water equal to zero are observed.\n- Cloud gaps, permanent water, and unobserved cells remain unknown or excluded rather than dry.\n- The executable study area is the supplied Bangladesh density raster extent because no separate national boundary source is bound here.\n- The observed event footprint covers only part of the country and month, though the tested footprint does reach northern Bangladesh within the supplied raster extent.\n- Contours are drawn only where the masked flooded-density raster has valid values; holes and outside edges are not bridged or extrapolated.\n- A requested level would be absent if it has no crossing in the observed flooded density range.",
+  "checks": {
+    "expectedCount": 5,
+    "actualCount": 5,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:47:58.306270Z",
+      "title": "Progress update",
+      "detail": "I’m checking the saved analysis context first, then I’ll inspect the two supplied rasters and the relevant raster/vector processors."
+    },
+    {
+      "at": "2026-10-07T08:48:11.112127Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:11.264206Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:12.257999Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:23.727584Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:24.064190Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:29.246502Z",
+      "title": "Progress update",
+      "detail": "I found no saved brief yet, so I’m inspecting the two supplied rasters now. After that I’ll save the analysis brief and test the flood-mask + contour method on a small slice before scaling to the whole footprint."
+    },
+    {
+      "at": "2026-10-07T08:48:39.380685Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:48:40.444766Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:48:52.961368Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the immutable inputs and their extents. Next I’m finding the exact raster and contour processors so I can build the method against the original grid instead of guessing tool names."
+    },
+    {
+      "at": "2026-10-07T08:48:53.058347Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:53.076074Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:54.158727Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:54.310642Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:09.320748Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:09.521315Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:21.406301Z",
+      "title": "Progress update",
+      "detail": "I’ve found the key processors: nearest grid alignment, band extraction, map algebra, cell-area, full raster stats, and marching-squares contours. I’m checking for a Bangladesh boundary now so the study area is anchored to an actual region rather than a remembered bbox."
+    },
+    {
+      "at": "2026-10-07T08:49:24.816052Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:29.264011Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:36.161622Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:10.359957Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:17.665274Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:17.986340Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:45.745981Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:56.490190Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:56.934382Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:14.507302Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:14.537619Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:55.682164Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:58.482063Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:35.045977Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:35.248784Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:39.748113Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:39.958727Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:39.979952Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:46.030412Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:47.653275Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:03.914082Z",
+      "title": "Progress update",
+      "detail": "I’ve got a workable full-country method to test privately: extract the fixed density band, nearest-align the flood observation bands to that grid, build the observed-flood mask, derive the masked density raster and flooded-population totals, then contour only the requested levels. I’m running that now so I can inspect the actual outputs before I save the public draft."
+    },
+    {
+      "at": "2026-10-07T08:53:23.521126Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:59:42.135357Z",
+      "title": "Progress update",
+      "detail": "The private test finished. It produced a flooded-only density raster and contour lines at all five requested levels. I’m checking the spatial previews now, then I’ll lock in the final workflow with the remaining mask/summary cleanup so unknown cells stay excluded rather than looking like valid zeroes."
+    },
+    {
+      "at": "2026-10-07T08:59:42.723424Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:15.389355Z",
+      "title": "Progress update",
+      "detail": "The test answered the core method question, but one support layer still treats unknown flood input as a valid zero. I’m recording that as a work-in-progress finding, then I’ll save the corrected production workflow so the published artifacts keep excluded cells as NoData throughout."
+    },
+    {
+      "at": "2026-10-07T09:00:17.986537Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:45.042702Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:47.811989Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:47.822669Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:40.153214Z",
+      "title": "Progress update",
+      "detail": "I’ve got the corrected production method: the contours stay exactly as tested, while the support mask and helper rasters now keep excluded cells as NoData instead of zero. I’m saving that full workflow draft with the contour map plus the summary tables needed for the final answer."
+    },
+    {
+      "at": "2026-10-07T09:02:01.772237Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T09:02:12.771915Z",
+      "title": "Progress update",
+      "detail": "Terra flagged one contract field as ambiguous, not a data problem. I’m correcting that binding now so the saved workflow points explicitly to the contour output that uses the flood observation rule."
+    },
+    {
+      "at": "2026-10-07T09:02:32.378348Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T09:02:56.642703Z",
+      "title": "Progress update",
+      "detail": "I’m trimming the contract to the processors that directly feed the contour result. The summary tables still stay in the workflow, but the contract needs the shortest explicit path to the final map output."
+    },
+    {
+      "at": "2026-10-07T09:03:16.396818Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:03:26.444697Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:03:26.671578Z",
+      "title": "Progress update",
+      "detail": "The workflow draft is scientifically ready, but Terra still wants the earlier adverse finding tied explicitly to this corrected proposal. I’m linking that finding to the saved revision now so the draft becomes runnable."
+    },
+    {
+      "at": "2026-10-07T09:03:39.290381Z",
+      "title": "assess_plan",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T09:04:16.785144Z",
+      "title": "Progress update",
+      "detail": "I’m running one focused correction test now. It only checks the changed support outputs: the observed flood mask should keep unknown cells as NoData, and the flooded population/area totals should stay the same after that cleanup."
+    },
+    {
+      "at": "2026-10-07T09:04:30.254804Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:05:50.145699Z",
+      "title": "Progress update",
+      "detail": "The correction run finished too. It confirms the cleaned-up support outputs now keep unknown cells missing and preserve the same observed-footprint totals. I’m recording that, then I’ll clear the saved workflow finding and launch the final run."
+    },
+    {
+      "at": "2026-10-07T09:05:50.598768Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:05:59.486429Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:06:05.080771Z",
+      "title": "Progress update",
+      "detail": "The correction is now assessed as sufficient. I’m applying it to the saved workflow finding so the proposal can run as the final Bangladesh contour job."
+    },
+    {
+      "at": "2026-10-07T09:06:09.176803Z",
+      "title": "assess_plan",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:06:19.356447Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:06:19.518592Z",
+      "title": "Progress update",
+      "detail": "The workflow is now cleared to run. I’m starting the final production run and will inspect the exact contour artifact, summary tables, and map binding before I finish."
+    },
+    {
+      "at": "2026-10-07T09:07:58.175689Z",
+      "title": "Progress update",
+      "detail": "The final run completed in the background. I’m inspecting the exact outputs now so I can confirm the contour rows, the nonempty levels, the masked-pixel count, and the map layer binding from the actual final artifacts."
+    },
+    {
+      "at": "2026-10-07T09:07:58.549689Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:08:14.831695Z",
+      "title": "Progress update",
+      "detail": "I’m resuming from the completed final run. Next I’m reading the exact output artifacts and then I’ll bind the contour layer to the map so the final answer references the real layer and item."
+    },
+    {
+      "at": "2026-10-07T09:08:15.337334Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:08:21.608062Z",
+      "title": "Progress update",
+      "detail": "I have the final output identities. I’m pulling the remaining final deliverables now so I can confirm the contour artifact itself, the masked-pixel count, and the final summary tables from this completed run."
+    },
+    {
+      "at": "2026-10-07T09:08:22.056974Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:08:29.896847Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the summary tables. I’m pulling the contour map deliverable itself, plus the final density-coverage and flooded-area deliverables, so the final answer uses the published outputs rather than the earlier trial copies."
+    },
+    {
+      "at": "2026-10-07T09:08:31.223616Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:08:46.218847Z",
+      "title": "Progress update",
+      "detail": "I’ve got the published contour artifact and its map layer. I’m doing one last bounded check on the contour rows and the current map layers so the final answer can reference the exact level counts and live layer ID."
+    },
+    {
+      "at": "2026-10-07T09:08:46.229726Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:08:46.232951Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:08:46.238122Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:09:18.326485Z",
+      "title": "Progress update",
+      "detail": "I’m just reading back the finished inspection receipts now. After that I can lock the exact contour item, the level counts, and the live map layer into the final result."
+    },
+    {
+      "at": "2026-10-07T09:09:18.345269Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:09:18.354842Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:09:18.361532Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:09:32.718408Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the published contour item, its five level rows, the 710 feature rows, the 394,775 masked pixels in the contour source, and the live map layer. I’m checking the exact result-assessment syntax now so the final selection is bound cleanly to those inspected outputs."
+    },
+    {
+      "at": "2026-10-07T09:09:32.729541Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:09:32.733676Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:09:35.095408Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:11:08.082110Z",
+      "title": "Progress update",
+      "detail": "I have everything needed from the final run: the contour item, the level counts, the masked-pixel count, the observed-footprint totals, and the live layer ID. I’m recording the final result selection now."
+    },
+    {
+      "at": "2026-10-07T09:11:31.949331Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Contour rows by level",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Requested density contours",
+      "description": "Recorded raster-contours · succeeded"
+    },
+    {
+      "title": "Flood-affected population density contours",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Contour level counts",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Flooded density coverage summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Observed flooded population summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Observed flooded area summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Flood band 1",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Flood flag on population grid",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Flood band 3",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Clear-view count on population grid",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Flood band 5",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Permanent-water flag on population grid",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Flooded observed area",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Flooded area summary",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Flooded population counts",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Flooded population summary",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Observed flood classification",
+      "description": "Recorded raster-map-algebra · skipped"
+    },
+    {
+      "title": "Supplied GFD event",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Flooded population density",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Flooded density stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Population cell area",
+      "description": "Recorded raster-cell-area · succeeded"
+    },
+    {
+      "title": "Population density band",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Population density source stats",
+      "description": "Recorded raster-statistics · skipped"
+    },
+    {
+      "title": "Supplied Bangladesh density",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Flood band 1",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Flood flag on population grid",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Flood band 3",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Clear-view count on population grid",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Flood band 5",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Permanent-water flag on population grid",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Corrected flooded observed area",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Corrected flooded area summary",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Corrected flooded population counts",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Corrected flooded population summary",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Corrected observed flood classification",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Supplied GFD event",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Population cell area",
+      "description": "Recorded raster-cell-area · succeeded"
+    },
+    {
+      "title": "Population density band",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Supplied Bangladesh density",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Corrected observed flood classification",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Corrected flooded population summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Corrected flooded area summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Contour rows by level",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Requested density contours",
+      "description": "Recorded raster-contours · succeeded"
+    },
+    {
+      "title": "Flood band 1",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Flood flag on population grid",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Flood band 3",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Clear-view count on population grid",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Flood band 5",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Permanent-water flag on population grid",
+      "description": "Recorded raster-align · succeeded"
+    },
+    {
+      "title": "Flooded observed area",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Flooded area summary",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Flooded population counts",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Flooded population summary",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Observed flooded cells",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Supplied GFD event",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Flooded population density",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Flooded density stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Population cell area",
+      "description": "Recorded raster-cell-area · succeeded"
+    },
+    {
+      "title": "Population density band",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Population density source stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Supplied Bangladesh density",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Population density source stats",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Observed flooded cells",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Flooded population density",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Flooded density stats",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Flooded population summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Flooded area summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Requested density contours",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Contour rows by level",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "1cbd9e9a4d9fb25cae4be6a61ceb3a0c7482c8dfe5b79dad7dde092d7c9c548e",
+      "bytes": 8850400,
+      "finishedAt": "2026-10-07T08:53:30.226566+00:00"
+    },
+    {
+      "sha256": "c7eede1eb6bbf27e203de10c49c01155c1841a2011079e4c47fef332dfc167a4",
+      "bytes": 850416,
+      "finishedAt": "2026-10-07T08:53:30.226566+00:00"
+    },
+    {
+      "sha256": "7a57030b0cbf429e74d5f328a4df95f5c6015c0026c2d8d35f1f7f0c83a39c2e",
+      "bytes": 1849683,
+      "finishedAt": "2026-10-07T08:53:42.185445+00:00"
+    },
+    {
+      "sha256": "1e8c02936700b2a7b728bd59e2ea32dde994fa2adcbc43787f011af698d73cd9",
+      "bytes": 1010023,
+      "finishedAt": "2026-10-07T08:53:42.185445+00:00"
+    },
+    {
+      "sha256": "c002f5b955fc84fa77e2dad27b3583e9e9ff3e11f6c725337817f37e85d271bd",
+      "bytes": 1986049,
+      "finishedAt": "2026-10-07T08:54:00.302626+00:00"
+    },
+    {
+      "sha256": "2ff0e119f9d927e3d83fa8d2445a955317ca4bb523a16673b0c9b462532aba38",
+      "bytes": 664013,
+      "finishedAt": "2026-10-07T08:54:00.302626+00:00"
+    },
+    {
+      "sha256": "a378fd924ffff98a5ba7a77aead19455f973ef5087a22a1189c0a468d95e16b7",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T08:54:20.401871+00:00"
+    },
+    {
+      "sha256": "6003ca54e6c11dd7e3fbac51abdbbbad85f36efcf4de0b9736b35cb14c6d5727",
+      "bytes": 49698,
+      "finishedAt": "2026-10-07T08:54:30.182217+00:00"
+    },
+    {
+      "sha256": "651605ff26ee98d9b2f43e93e9785ac6cc23125c80a912ae1a95c11174a38e0e",
+      "bytes": 65054,
+      "finishedAt": "2026-10-07T08:54:42.690276+00:00"
+    },
+    {
+      "sha256": "83f5178704112af58876e96b39fa85a41f2d73bb821cd999467c433325dd2687",
+      "bytes": 22089,
+      "finishedAt": "2026-10-07T08:54:42.690276+00:00"
+    },
+    {
+      "sha256": "69d16bd75dd7aa131e31898fde73a2d54c77be5b6156baf42d7987af643888b9",
+      "bytes": 25020,
+      "finishedAt": "2026-10-07T08:55:01.399849+00:00"
+    },
+    {
+      "sha256": "5c0d393af0814fdf6599a0882e47a7753dbe4673d56b9197fb32128a15863fe0",
+      "bytes": 81367,
+      "finishedAt": "2026-10-07T08:55:01.399849+00:00"
+    },
+    {
+      "sha256": "d2ebcb2aa8f44b5b2e33ca7518d3a2e7ffc3dcfe20308a4524ef9f2acfe36f46",
+      "bytes": 90739,
+      "finishedAt": "2026-10-07T08:55:17.122000+00:00"
+    },
+    {
+      "sha256": "7bc5b53af3defa74ed55a01d7b789e43d8204b1e62bab7291e5a88d169983560",
+      "bytes": 94926,
+      "finishedAt": "2026-10-07T08:55:32.243680+00:00"
+    },
+    {
+      "sha256": "a9474e251dc88418f9f8a395002d7d85bd4c4dd3b5f2226a0e526f87c4f097dc",
+      "bytes": 48633,
+      "finishedAt": "2026-10-07T08:56:12.858186+00:00"
+    },
+    {
+      "sha256": "f312658fd3887f1fbb144157d8e8953b276a5071c0ecbf73773b8efd4212b6c5",
+      "bytes": 8713,
+      "finishedAt": "2026-10-07T08:56:12.858186+00:00"
+    },
+    {
+      "sha256": "6ce894b56a4f8531392e94de8ef21133fc900dd3dc5787ce0bad20813dd7a1d7",
+      "bytes": 8678,
+      "finishedAt": "2026-10-07T08:57:23.083770+00:00"
+    },
+    {
+      "sha256": "340e6f2eb39eb7c00e3264a40d9c1d8834c4c249780cdda8ef5357937020bc7b",
+      "bytes": 8688,
+      "finishedAt": "2026-10-07T08:57:18.089349+00:00"
+    },
+    {
+      "sha256": "36b065e9cd3e23923a503ea4067b0b7023ed7cebcaac5e1ab134550828ca1b69",
+      "bytes": 68782,
+      "finishedAt": "2026-10-07T08:58:04.085882+00:00"
+    },
+    {
+      "sha256": "bd4a4199a7e7351f2a057bdaed135ad22fad152ceb81bd51920915a09a64d6f4",
+      "bytes": 1889,
+      "finishedAt": "2026-10-07T08:58:47.374098+00:00"
+    },
+    {
+      "sha256": "1e8c02936700b2a7b728bd59e2ea32dde994fa2adcbc43787f011af698d73cd9",
+      "bytes": 1010023,
+      "finishedAt": "2026-10-07T09:04:39.068448+00:00"
+    },
+    {
+      "sha256": "7a57030b0cbf429e74d5f328a4df95f5c6015c0026c2d8d35f1f7f0c83a39c2e",
+      "bytes": 1849683,
+      "finishedAt": "2026-10-07T09:04:46.255020+00:00"
+    },
+    {
+      "sha256": "c002f5b955fc84fa77e2dad27b3583e9e9ff3e11f6c725337817f37e85d271bd",
+      "bytes": 1986049,
+      "finishedAt": "2026-10-07T09:04:50.451513+00:00"
+    },
+    {
+      "sha256": "6003ca54e6c11dd7e3fbac51abdbbbad85f36efcf4de0b9736b35cb14c6d5727",
+      "bytes": 49698,
+      "finishedAt": "2026-10-07T09:04:54.956991+00:00"
+    },
+    {
+      "sha256": "651605ff26ee98d9b2f43e93e9785ac6cc23125c80a912ae1a95c11174a38e0e",
+      "bytes": 65054,
+      "finishedAt": "2026-10-07T09:05:02.293812+00:00"
+    },
+    {
+      "sha256": "2ff0e119f9d927e3d83fa8d2445a955317ca4bb523a16673b0c9b462532aba38",
+      "bytes": 664013,
+      "finishedAt": "2026-10-07T09:04:54.956991+00:00"
+    },
+    {
+      "sha256": "83f5178704112af58876e96b39fa85a41f2d73bb821cd999467c433325dd2687",
+      "bytes": 22089,
+      "finishedAt": "2026-10-07T09:05:02.293812+00:00"
+    },
+    {
+      "sha256": "2a32510bd000ac586d319ccff518299f4a9e6d8edb127f7ce55d0d8ec1a84cbc",
+      "bytes": 35340,
+      "finishedAt": "2026-10-07T09:05:11.058555+00:00"
+    },
+    {
+      "sha256": "f5c51da441e8f9464c215bffbd48f98e844a3ea28f025b5a61ffdfd56bbafa0d",
+      "bytes": 91149,
+      "finishedAt": "2026-10-07T09:05:11.058555+00:00"
+    },
+    {
+      "sha256": "fd95b163076c0f8cc71e5c1b72d7362f4dc6970cf090b5a21dbaaaa920d937d8",
+      "bytes": 25828,
+      "finishedAt": "2026-10-07T09:05:06.874667+00:00"
+    },
+    {
+      "sha256": "5c0d393af0814fdf6599a0882e47a7753dbe4673d56b9197fb32128a15863fe0",
+      "bytes": 81367,
+      "finishedAt": "2026-10-07T09:05:06.874667+00:00"
+    },
+    {
+      "sha256": "6c5fcdec25adf528ecf1998113b874b88692b2d81ded2b1e67c428148e8a1980",
+      "bytes": 8678,
+      "finishedAt": "2026-10-07T09:05:20.863242+00:00"
+    },
+    {
+      "sha256": "fceca34ffd4b346ff022378bb1703443012a07ca513c868ea83ad1ccc3fae47a",
+      "bytes": 8688,
+      "finishedAt": "2026-10-07T09:05:20.863242+00:00"
+    },
+    {
+      "sha256": "1e8c02936700b2a7b728bd59e2ea32dde994fa2adcbc43787f011af698d73cd9",
+      "bytes": 1010023,
+      "finishedAt": "2026-10-07T09:06:39.851062+00:00"
+    },
+    {
+      "sha256": "7a57030b0cbf429e74d5f328a4df95f5c6015c0026c2d8d35f1f7f0c83a39c2e",
+      "bytes": 1849683,
+      "finishedAt": "2026-10-07T09:06:44.254584+00:00"
+    },
+    {
+      "sha256": "c002f5b955fc84fa77e2dad27b3583e9e9ff3e11f6c725337817f37e85d271bd",
+      "bytes": 1986049,
+      "finishedAt": "2026-10-07T09:06:51.652115+00:00"
+    },
+    {
+      "sha256": "2ff0e119f9d927e3d83fa8d2445a955317ca4bb523a16673b0c9b462532aba38",
+      "bytes": 664013,
+      "finishedAt": "2026-10-07T09:06:51.652115+00:00"
+    },
+    {
+      "sha256": "6003ca54e6c11dd7e3fbac51abdbbbad85f36efcf4de0b9736b35cb14c6d5727",
+      "bytes": 49698,
+      "finishedAt": "2026-10-07T09:06:56.006599+00:00"
+    },
+    {
+      "sha256": "651605ff26ee98d9b2f43e93e9785ac6cc23125c80a912ae1a95c11174a38e0e",
+      "bytes": 65054,
+      "finishedAt": "2026-10-07T09:07:00.424648+00:00"
+    },
+    {
+      "sha256": "83f5178704112af58876e96b39fa85a41f2d73bb821cd999467c433325dd2687",
+      "bytes": 22089,
+      "finishedAt": "2026-10-07T09:07:00.424648+00:00"
+    },
+    {
+      "sha256": "2a32510bd000ac586d319ccff518299f4a9e6d8edb127f7ce55d0d8ec1a84cbc",
+      "bytes": 35340,
+      "finishedAt": "2026-10-07T09:07:15.846321+00:00"
+    },
+    {
+      "sha256": "f5c51da441e8f9464c215bffbd48f98e844a3ea28f025b5a61ffdfd56bbafa0d",
+      "bytes": 91149,
+      "finishedAt": "2026-10-07T09:07:15.846321+00:00"
+    },
+    {
+      "sha256": "d2ebcb2aa8f44b5b2e33ca7518d3a2e7ffc3dcfe20308a4524ef9f2acfe36f46",
+      "bytes": 90739,
+      "finishedAt": "2026-10-07T09:07:07.953901+00:00"
+    },
+    {
+      "sha256": "5c0d393af0814fdf6599a0882e47a7753dbe4673d56b9197fb32128a15863fe0",
+      "bytes": 81367,
+      "finishedAt": "2026-10-07T09:07:07.953901+00:00"
+    },
+    {
+      "sha256": "f312658fd3887f1fbb144157d8e8953b276a5071c0ecbf73773b8efd4212b6c5",
+      "bytes": 8713,
+      "finishedAt": "2026-10-07T09:07:20.242223+00:00"
+    },
+    {
+      "sha256": "fceca34ffd4b346ff022378bb1703443012a07ca513c868ea83ad1ccc3fae47a",
+      "bytes": 8688,
+      "finishedAt": "2026-10-07T09:07:24.599939+00:00"
+    },
+    {
+      "sha256": "6c5fcdec25adf528ecf1998113b874b88692b2d81ded2b1e67c428148e8a1980",
+      "bytes": 8678,
+      "finishedAt": "2026-10-07T09:07:27.887119+00:00"
+    },
+    {
+      "sha256": "bd4a4199a7e7351f2a057bdaed135ad22fad152ceb81bd51920915a09a64d6f4",
+      "bytes": 1889,
+      "finishedAt": "2026-10-07T09:07:38.530778+00:00"
+    },
+    {
+      "sha256": "36b065e9cd3e23923a503ea4067b0b7023ed7cebcaac5e1ab134550828ca1b69",
+      "bytes": 68782,
+      "finishedAt": "2026-10-07T09:07:32.068695+00:00"
+    }
+  ],
+  "snapshotSha256": "ee8175082384646d42cf32e48b420bf4cd95c6487e7e6b35d34f8b8859f9997f",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:53:23.521126Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the no-resampling Bangladesh-wide method produce a flooded-only density raster, finite observed-footprint population totals, and contour lines only at the requested levels from the supplied 2018 density raster and supplied 2018-08-02 to 2018-08-10 GFD event?"
+    },
+    {
+      "at": "2026-10-07T09:00:17.986537Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "insufficient",
+      "findings": "The Bangladesh-wide no-resampling trial kept the supplied 2018 density grid intact, sampled the GFD event bands onto that grid with nearest alignment, and produced a masked flooded-density raster with 12,177 valid flooded cells and 394,775 masked cells. The contour output contained all five requested levels with a level field in people/km² and 710 total line features. The spatial preview shows observed flooded density and contours extending into northern Bangladesh within the supplied Bangladesh raster extent, which matches the user's warning to inspect actual event coverage rather than its label. The observed-footprint flooded population total was finite at about 9.67 million people over about 9,437.44 km² of observed flooded cell area.",
+      "limitations": [
+        "The support flood-mask output used 0 where flood inputs were missing, so it is not suitable as a review layer for unknown versus observed dry conditions.",
+        "The helper flooded-count and flooded-area rasters used 0 outside flooded cells for summation; the final published method should keep excluded and unknown cells as NoData to match the user's exclusion rule more closely, even though the total sums are correct over flooded cells."
+      ],
+      "next_action": "Revise the production workflow so the support mask and helper rasters preserve excluded and unknown cells as NoData, then execute and inspect the final contour artifact and summary outputs.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T09:04:30.254804Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the corrected support outputs keep unknown and excluded cells as NoData while preserving the observed-footprint flooded population and flooded area totals for the Bangladesh-wide no-resampling method?"
+    },
+    {
+      "at": "2026-10-07T09:05:59.486429Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The corrected support outputs now keep unknown and excluded cells as NoData while preserving the Bangladesh-wide observed-footprint totals. The corrected observed-flood classification has 37,577 valid observed cells and 369,375 masked cells, and its map-algebra inspection shows validOutputWithMissingInputCount = 0, so missing flood inputs no longer turn into valid dry values. The corrected flooded population summary still sums to 9,671,176.246214867 people over 12,177 flooded cells, and the corrected flooded area summary still sums to 9,437.438377141953 km² over the same 12,177 flooded cells. This confirms that only the outside-flood encoding changed; the flooded-only totals did not.",
+      "limitations": [
+        "This trial corrected the support outputs only; the contour lines themselves are still supported by the earlier full-area trial because their source masked-density computation was unchanged."
+      ],
+      "next_action": "Use this correction trial to resolve the saved workflow finding, then execute and inspect the final proposal outputs.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T09:11:31.949331Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published contour artifact contains 710 contour features across all five requested levels and is already on the map as Flood-affected population density contours. Its source flooded-density surface retains 12,177 observed flooded population cells and masks 394,775 dry, permanent-water, or unknown cells. The observed-footprint summaries are 9,671,176.246214867 people over 9,437.438377141953 km² for the supplied 2018-08-02 to 2018-08-10 GFD event over the frozen 2018 Bangladesh WorldPop density raster. The contour preview and earlier full-area trial both show the observed footprint extending into northern Bangladesh, while contours stay confined to observed flooded areas rather than crossing dry or unknown gaps.",
+      "limitations": [
+        "Observed-footprint only: the event covers part of Bangladesh and part of August 2018, so this is not an exhaustive national flood total.",
+        "Population is from the frozen WorldPop 2018 UN-adjusted density raster, not a current population surface.",
+        "Contours represent people/km² only at observed flooded cell centres; dry cells, permanent water, cloud gaps, and all unobserved areas remain excluded or unknown.",
+        "This is an observed flooded cell-centre population screen, not proof of personal impacts.",
+        "The executable extent follows the supplied Bangladesh raster extent rather than an independently retrieved national boundary polygon."
+      ],
+      "next_action": null,
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "5e94e2359f17bba4f471219473c326372ba1b0b0c1ca96699aba3c54239f682a",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

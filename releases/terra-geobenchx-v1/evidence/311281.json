@@ -1,0 +1,468 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "311281",
+  "question": "How many active wildfires are currently burning within 50 miles of Amtrak stations?",
+  "submittedPrompt": "How many active wildfires are currently burning within 50 miles of Amtrak stations?\n\nTask conventions: Interpret current as the supplied historical incident snapshot, not today. The NIFC source is the Current Wildland Fire Incident Locations feed, whose documented selection excludes contained, controlled, out and certified incidents. The frozen file's latest ModifiedOn date is 2024-02-27; no capture instant beyond that is established. Select IncidentTy=WF only, excluding prescribed fires (RX). All original containment/control/out date fields are null. This supports feed status at its archived snapshot, not current burning or independent proof of activity. Use all original Amtrak station points, with no invented geographic filters. Within 50 international miles means shortest planar point-to-point distance strictly less than 80,467.2 metres after transformation to EPSG:5070, with no raster approximation. This is a disclosed projected screening convention, not geodesic distance or travel access. Count each original wildfire once; missing source geometry is unknown, never zero distance. Disclose the historical fire/station snapshot mismatch.\n\n\n\nReturn the count and an inspectable selected-fire artifact preserving every original attribute, geometry and benchmark_row_id. Map optional. End with one fenced JSON object: {count:integer,unknown_count:integer,coverage_note:string,selection:{collectionId,itemId,assetKey}}. Clearly explain that the answer is historical source-snapshot screening, not today's active fires.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Frozen US fire incident locations and recorded sizes\",\n    \"edition\": \"Frozen GeoBenchX archive; not a current active-fire feed\",\n    \"units\": {\n      \"IncidentSi\": \"acres\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Amtrak railway stations\",\n    \"edition\": \"USDOT BTS frozen GeoBenchX 2025 snapshot\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Historical snapshot screening found **137** archived wildfire incidents within the 50-mile EPSG:5070 screening threshold of an Amtrak station, with **0** unknown-distance cases.\n\nThis is **not** today’s active-fire count. It is based on the frozen fire snapshot whose latest in-file `ModifiedOn` is 2024-02-27, and the fire and station snapshots are not time-matched.\n\nThe selected-fire artifact is attached for inspection.\n\n### Limitations\n\n- This is historical source-snapshot screening, not today's active-fire count.\n- The fire and station snapshots are frozen at different times, so proximity is between archived fire points and archived station points, not one common observation time.\n- EPSG:5070 planar distance is the disclosed screening convention; it is not geodesic distance, travel distance, or access.\n- Historical source-snapshot screening only; not today's active-fire count.\n- The fire snapshot is a frozen archive whose latest in-file ModifiedOn is 2024-02-27; no narrower capture instant is established.\n- The NIFC feed selection supports archived feed status only. It is not independent proof that a fire was actively burning at that moment.\n- Archived feed-status evidence only; not today's active-fire status.\n- The station snapshot is frozen separately from the fire snapshot.\n- EPSG:5070 planar screening, not geodesic distance or travel access.",
+  "checks": {
+    "expectedCount": 137,
+    "actualCount": 137,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:34:51.194251Z",
+      "title": "Progress update",
+      "detail": "I’ll check the saved analysis context, inspect the two supplied datasets, and test the exact point-to-point distance method before I count anything."
+    },
+    {
+      "at": "2026-10-07T06:35:01.463978Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:01.933006Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:02.673101Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:14.966135Z",
+      "title": "Progress update",
+      "detail": "I found both supplied snapshots. Next I’m setting the exact success conditions, then I’ll test the distance workflow on the real files before I scale it to the full count."
+    },
+    {
+      "at": "2026-10-07T06:35:18.955764Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:35:19.161717Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:35:23.675166Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:23.928480Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:43.521659Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:55.771766Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:12.071194Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:28.764696Z",
+      "title": "Progress update",
+      "detail": "I’ve picked an exact vector method: filter fires to WF, measure each wildfire’s nearest Amtrak-station distance in EPSG:5070, then keep only rows under 80,467.2 m. Now I’m checking the exact trial input shape so I can run the full real-file test without guessing."
+    },
+    {
+      "at": "2026-10-07T06:36:29.453953Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:29.623240Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:45.240386Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:30.678642Z",
+      "title": "Progress update",
+      "detail": "The exact method worked on the full supplied files: 254 wildfire records after WF filtering, and 137 are under the strict 50-mile threshold. I’m now checking the output schema and null-distance handling so the final selected artifact and unknown count are explicit before I save the final deliverable."
+    },
+    {
+      "at": "2026-10-07T06:39:37.830735Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:38.498101Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:44.816830Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:44.833831Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:44.907131Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:47.407141Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:00.561996Z",
+      "title": "Progress update",
+      "detail": "I have the full-file trial result. Next I’m verifying two practical details before I lock the answer: that benchmark_row_id is present in the selected-fire output, and how many wildfire rows have null nearest distance and therefore stay unknown rather than being counted."
+    },
+    {
+      "at": "2026-10-07T06:40:00.640146Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:00.670590Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:00.705187Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:42.347614Z",
+      "title": "Progress update",
+      "detail": "I’ve got the full screened result already. I’m just fetching the inspected output details now so I can verify the preserved fields and the unknown-distance rows before I lock the final answer."
+    },
+    {
+      "at": "2026-10-07T06:40:47.334486Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:48.100907Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:49.893673Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:06.756472Z",
+      "title": "Progress update",
+      "detail": "The screened wildfire output is now inspectable and keeps benchmark_row_id plus the original fire fields. I’ve also confirmed there are zero WF wildfire rows with null nearest-station distance here, so the unknown count is 0 for this archived snapshot."
+    },
+    {
+      "at": "2026-10-07T06:41:06.822364Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:41:07.200925Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:07.546310Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:29.465961Z",
+      "title": "Progress update",
+      "detail": "The method is complete. I’m refreshing the saved brief to remove old “confirm/test” notes, then I’ll record the trial and final assessment against the inspected selected-fire artifact."
+    },
+    {
+      "at": "2026-10-07T06:41:38.159869Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:49.039283Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:20.177828Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:43:10.980228Z",
+      "title": "Progress update",
+      "detail": "The private trial result itself can’t be attached as the final selected answer object, so I’m promoting the tested method into a saved workflow output now. That keeps the exact same method, but makes the selected-fire artifact valid for the final attached result."
+    },
+    {
+      "at": "2026-10-07T06:43:19.463738Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:32.343348Z",
+      "title": "Progress update",
+      "detail": "I found the saved-workflow issue. The tested method was fine; only the contract’s fixed-parameter paths were recorded in the wrong shape. I’m correcting those paths and resaving the same workflow now."
+    },
+    {
+      "at": "2026-10-07T06:43:41.120751Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:48.700994Z",
+      "title": "Progress update",
+      "detail": "The saved workflow is now valid and matches the tested computation. I’m executing that same method once so the selected-fire artifact becomes a proper final output I can attach to the answer."
+    },
+    {
+      "at": "2026-10-07T06:43:49.034057Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:30.101946Z",
+      "title": "Progress update",
+      "detail": "The saved workflow finished successfully, so I’m inspecting its actual output receipt now. Then I’ll attach that final selected-fire artifact to the accepted answer."
+    },
+    {
+      "at": "2026-10-07T06:51:35.008053Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:52:06.786969Z",
+      "title": "Progress update",
+      "detail": "The workflow output is there. I’m doing the last bounded inspections on that final artifact now so the attached answer uses the published selected-fire dataset, not the private trial copy."
+    },
+    {
+      "at": "2026-10-07T06:52:13.379758Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:52:14.056384Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:52:14.134911Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:52:39.503942Z",
+      "title": "Progress update",
+      "detail": "The final workflow artifact has finished inspection. I just need the immutable inspection receipts back from Terra, then I can record the accepted answer on that published dataset."
+    },
+    {
+      "at": "2026-10-07T06:52:45.000196Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:52:45.740978Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:52:46.091242Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:53:29.610521Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Wildfires within 50 miles of Amtrak stations",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Frozen fire incidents",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Nearest station distance",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "Amtrak stations",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "WF incidents only",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Wildfires within 50 miles",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Frozen fire incidents",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Nearest station distance",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "Amtrak stations",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "WF incidents only",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Nearest station distance",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Wildfires within 50 miles",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "WF incidents only",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Wildfires within 50 miles",
+      "description": "Recorded vector-filter · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "b46d825aabcf5e21e30dd200304cc2c1a414f297925db3fe11b5389a3c0e4177",
+      "bytes": 207104,
+      "finishedAt": "2026-10-07T06:36:49.969822+00:00"
+    },
+    {
+      "sha256": "1707883d56cf62e398dd20c736761ead05287fc48d30717a620032ff5f6eed8d",
+      "bytes": 125623,
+      "finishedAt": "2026-10-07T06:36:49.969822+00:00"
+    },
+    {
+      "sha256": "1b60957efa0c41e2cc7e7f17bb3b57e992afb537f6cc5f303c841518b0f2d914",
+      "bytes": 133418,
+      "finishedAt": "2026-10-07T06:37:04.248143+00:00"
+    },
+    {
+      "sha256": "78236d7de3c0734765061611784ce3e1243a7f13c1c412c1eac7d9e030fcaee8",
+      "bytes": 136312,
+      "finishedAt": "2026-10-07T06:37:18.303777+00:00"
+    },
+    {
+      "sha256": "764ad72dcd0aeaaaf2c577330d753a0bae68c9124b989ef0d550308198f5abc9",
+      "bytes": 101993,
+      "finishedAt": "2026-10-07T06:37:43.546881+00:00"
+    },
+    {
+      "sha256": "1b60957efa0c41e2cc7e7f17bb3b57e992afb537f6cc5f303c841518b0f2d914",
+      "bytes": 133418,
+      "finishedAt": "2026-10-07T06:45:32.599279+00:00"
+    },
+    {
+      "sha256": "78236d7de3c0734765061611784ce3e1243a7f13c1c412c1eac7d9e030fcaee8",
+      "bytes": 136312,
+      "finishedAt": "2026-10-07T06:49:19.179164+00:00"
+    },
+    {
+      "sha256": "764ad72dcd0aeaaaf2c577330d753a0bae68c9124b989ef0d550308198f5abc9",
+      "bytes": 101993,
+      "finishedAt": "2026-10-07T06:51:07.221989+00:00"
+    }
+  ],
+  "snapshotSha256": "87c03dc6db9f683ded2c2778a179673a79d868b7ba626c18ef0eab0169bdeb0d",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:36:45.240386Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full supplied-file workflow correctly filter wildfire incidents to IncidentTy=WF, measure each wildfire's nearest Amtrak-station distance in EPSG:5070 metres, and produce a unique selected-fire set for distances strictly less than 80467.2 metres while preserving fire attributes and geometry?"
+    },
+    {
+      "at": "2026-10-07T06:41:49.039283Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full supplied-file test answered the method question. Filtering the supplied fire snapshot to IncidentTy=WF produced 254 wildfire rows. Measuring nearest Amtrak-station distance in EPSG:5070 added amtrak_dist_m while preserving wildfire geometry and original attributes, including benchmark_row_id. Filtering to amtrak_dist_m < 80467.2 metres produced 137 selected wildfire rows, with one retained row per original wildfire. An exact null-distance inspection on the nearest-distance output returned zero rows, so unknown_count is 0 for this archived snapshot.",
+      "limitations": [
+        "This trial supports archived feed-status screening from the supplied snapshots, not today's active-fire status.",
+        "The fire and station snapshots are frozen at different times.",
+        "EPSG:5070 distance is the disclosed planar screening convention, not geodesic distance or travel access."
+      ],
+      "next_action": "Assess the inspected selected-fire artifact as the final result and publish the historical-screening count.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:42:20.177828Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The inspected selected-fire artifact contains 137 archived wildfire incident records from the supplied frozen NIFC snapshot whose nearest supplied Amtrak station is strictly less than 80,467.2 metres under the disclosed EPSG:5070 planar screening rule. The output preserves geometry, benchmark_row_id, and the original fire fields, with amtrak_dist_m added for the screening measurement. This is historical source-snapshot screening, not today's active-fire count, and the fire and station snapshots are not time-matched.",
+      "limitations": [
+        "Historical source-snapshot screening only; not today's active-fire count.",
+        "The fire snapshot is a frozen archive whose latest in-file ModifiedOn is 2024-02-27; no narrower capture instant is established.",
+        "The NIFC feed selection supports archived feed status only. It is not independent proof that a fire was actively burning at that moment.",
+        "The fire and station snapshots are frozen at different times, so proximity is between archived fire points and archived station points, not one common observation time.",
+        "EPSG:5070 planar distance is the disclosed screening convention; it is not geodesic distance, travel distance, or access."
+      ],
+      "next_action": "Inspect the selected-fire artifact if you want to review the individual wildfire records that met the threshold.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:53:29.610521Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published selected-fire artifact contains 137 archived wildfire incident records from the supplied frozen NIFC snapshot whose nearest supplied Amtrak station is strictly less than 80,467.2 metres under the disclosed EPSG:5070 planar screening rule. The published output preserves geometry, benchmark_row_id, and the original fire fields, with amtrak_dist_m added for screening. This is historical source-snapshot screening, not today's active-fire count, and the fire and station snapshots are not time-matched.",
+      "limitations": [
+        "Historical source-snapshot screening only; not today's active-fire count.",
+        "The fire snapshot is a frozen archive whose latest in-file ModifiedOn is 2024-02-27; no narrower capture instant is established.",
+        "The NIFC feed selection supports archived feed status only. It is not independent proof that a fire was actively burning at that moment.",
+        "The fire and station snapshots are frozen at different times, so proximity is between archived fire points and archived station points, not one common observation time.",
+        "EPSG:5070 planar distance is the disclosed screening convention; it is not geodesic distance, travel distance, or access."
+      ],
+      "next_action": "Inspect the attached selected-fire artifact if you want to review the individual wildfire records that met the threshold.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "4b52eff923b58996b5fd79fda897e7d597f3eb86bacc2da68a8c0194d2298ee9",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

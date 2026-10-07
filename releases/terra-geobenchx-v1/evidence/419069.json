@@ -1,0 +1,767 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "419069",
+  "question": "Generate a heatmap of USA population density in counties with reported tuberculosis cases. ",
+  "submittedPrompt": "Generate a heatmap of USA population density in counties with reported tuberculosis cases. \n\nTask conventions: The supplied county TB observations cover Massachusetts and New York in 2023 only. Other US states are UNKNOWN, not zero-case counties. Select original Census counties by STATEFP 25 or 36 as strings, then join NAME to the corresponding table County: MA Number of Cases, NY 2023 cases. Ignore state/city aggregate rows and footnotes; repeated names across states must not mix. Select strictly positive reported county case counts; preserve missing as unknown and exclude genuine zero cases. Heatmap means the native WorldPop USA 2020 population-density surface in those counties, not smoothed TB patients or a health-risk model. WorldPop stores people PER CELL. Divide each scaled count by its full original WGS84 meridian/parallel cell area in km2. No resampling, nominal one-km2 divisor, or smoothing. A lossless native-grid rectangular crop may use EXACT bounds [-80.00124969990557, 39.99958334884655, -68.99291641060557, 46.00791665814655]; these encompass the full observed states. Retain all original cells on that 1321x721 crop. Keep a cell only when its centre is inside a selected original county and its population is valid. Outside selected counties and source NoData are NoData, not zero density. Zero population inside selected counties stays valid. The historical years differ; this is population context, not inferred patient positions or a causal association.\n\n\n\nPublish and map the masked density raster in people/km2, plus an inspectable original-county polygon selection retaining benchmark_row_id and a numeric case_count. End with fenced JSON {count:number of selected positive-case counties,unknown_count:NY/MA counties with unknown case counts,coverage_note:string, selection:{collectionId,itemId,assetKey} for the density raster,map_layer_id:string,county_selection:{collectionId,itemId,assetKey},value_field:\"case_count\"}. Explain that the rest of the USA is unobserved and that 2020 population and 2023 reported cases are different measurements.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"US county boundaries\",\n    \"edition\": \"Census TIGER/Line 2024\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Massachusetts county tuberculosis cases and published rates, 2023\",\n    \"edition\": \"Massachusetts DPH 2023 summary, frozen GeoBenchX transcription\",\n    \"units\": {\n      \"Number of Cases\": \"cases\",\n      \"TB Case Rate[1] 2023(cases per 100,000)\": \"cases per 100,000 people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"New York county tuberculosis cases and rates, 2019\\u20132023\",\n    \"edition\": \"NYSDOH 2024 report, frozen GeoBenchX transcription; use 2023 counts\",\n    \"units\": {\n      \"2023 cases\": \"cases\",\n      \"2023 cases per 100 000\": \"cases per 100,000 people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"USA population count, WorldPop 2020\",\n    \"edition\": \"2020 UN-adjusted population counts aggregated to 1 km cells\",\n    \"units\": {\n      \"band1\": \"people per cell\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — using Census TIGER/Line 2024 counties, the supplied Massachusetts DPH and NYSDOH county case tables, and WorldPop 2020, I published the masked people/km² raster and the 42-county `case_count` layer to your map. The rest of the USA is unobserved, not zero-case, and the 2020 population raster is context only for the 2023 reported case counts.\n\n### Limitations\n\n- Only Massachusetts and New York county TB observations are supplied for 2023. The rest of the USA is unobserved, not zero-case.\n- The two outputs combine different measurements and years: 2020 population counts and 2023 reported TB case counts.\n- Only Massachusetts and New York county TB observations were supplied for 2023. The rest of the USA is unobserved, not zero-case.\n- The raster shows 2020 population density and the county layer shows 2023 reported case counts. These are different measurements and years.\n- This map is population context only, not patient locations or a health-risk model.\n- Only Massachusetts and New York county TB observations were supplied for 2023. Counties in other US states are unobserved, not zero-case.\n- This county layer shows reported county totals, not patient locations within counties.\n- Only Massachusetts and New York are observed for county case counts. Other US states remain unobserved, not zero-case.\n- This raster is 2020 population context, not 2023 case locations or a risk model.\n- Outside the selected counties and outside the observed states, the raster remains NoData rather than zero density.",
+  "checks": {
+    "expectedCount": 42,
+    "actualCount": 42,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:54:18.764149Z",
+      "title": "Progress update",
+      "detail": "I’m checking the saved analysis context and the exact tool contracts first, then I’ll test the county join and native-grid masking method before I submit a production workflow."
+    },
+    {
+      "at": "2026-10-07T06:54:22.453599Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:39.328518Z",
+      "title": "Progress update",
+      "detail": "I have no saved brief yet. Next I’m inspecting the four supplied sources so I can lock the exact field names, item selections, and a workable native-grid method."
+    },
+    {
+      "at": "2026-10-07T06:54:39.401537Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:39.417253Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:41.579938Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:41.645529Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:49.701463Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the four immutable inputs. Now I’m sampling the county and TB tables to pin the exact join fields and spot aggregate or footnote rows before I build the mask."
+    },
+    {
+      "at": "2026-10-07T06:54:49.813643Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:49.831226Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:50.592317Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:56.150908Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:56.178143Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:56.230597Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:54:58.632843Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:55:00.956159Z",
+      "title": "Progress update",
+      "detail": "The metadata is enough to confirm provenance, but not enough to see live fields. I’m switching to a small private source trial and processor discovery so I can verify the join keys and the native raster operations instead of guessing them."
+    },
+    {
+      "at": "2026-10-07T06:55:08.179551Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:55:18.782129Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:55:25.216922Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:55:25.228226Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:55:25.237220Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:55:26.039723Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:00.165107Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:03.403754Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:13.392537Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:33.551094Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:57:08.025007Z",
+      "title": "Progress update",
+      "detail": "I’ve got the processor contracts. I’m running one full-scope private trial now so I can verify both parts together: the state-specific county joins and the native-grid density mask on the exact crop."
+    },
+    {
+      "at": "2026-10-07T06:57:18.050736Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:56.578366Z",
+      "title": "Progress update",
+      "detail": "The private test finished. I’m checking the preview images and a few joined rows now so I can confirm one important detail before I publish: whether any county case counts stayed unknown instead of being turned into zero."
+    },
+    {
+      "at": "2026-10-07T07:06:56.919381Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:07:08.427836Z",
+      "title": "Progress update",
+      "detail": "The trial looks good overall: the crop kept the exact 1321×721 native grid and the masked raster matches the selected county shapes. I’m doing one deeper check on the join outputs so I can confirm the county counts and whether any county stayed unknown."
+    },
+    {
+      "at": "2026-10-07T07:07:08.456888Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:07:08.484406Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:07:08.510722Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:31.138833Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:31.340855Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:33.339311Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:19.801370Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the joins are clean by state: all 14 Massachusetts counties matched the MA table and all 62 New York counties matched the NY table. No county case counts came through as missing, so the unknown county count looks like zero. Now I’m saving the tested full workflow and publishing the two requested map outputs."
+    },
+    {
+      "at": "2026-10-07T07:09:19.818219Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:37.992178Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:41.762981Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:57.513376Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:04.489465Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:13.934676Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:22.097064Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:22.744598Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:22.766615Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:58.454176Z",
+      "title": "Progress update",
+      "detail": "I’ve already tested the full method. I’m just locking two final counts from the joined counties now: unknown case rows and zero-case rows. Then I can publish the tested outputs without changing the computation."
+    },
+    {
+      "at": "2026-10-07T07:10:58.489586Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:58.506341Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:11:14.932951Z",
+      "title": "Progress update",
+      "detail": "The method is now evidence-backed. I’m refreshing the brief from the trial results, then I’ll turn that tested computation into the final published workflow instead of rebuilding it."
+    },
+    {
+      "at": "2026-10-07T07:11:22.915880Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:11:32.268096Z",
+      "title": "Progress update",
+      "detail": "The brief is updated. I’m recording the trial judgment now, then I’ll save a production workflow directly from that tested run so the published outputs use the same validated method and extent."
+    },
+    {
+      "at": "2026-10-07T07:11:34.516716Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:11:52.498840Z",
+      "title": "Progress update",
+      "detail": "The production workflow will reuse the tested steps unchanged. I’m saving that exact method now with the two final map deliverables, so I can execute and inspect the published outputs instead of relying on private trial artifacts."
+    },
+    {
+      "at": "2026-10-07T07:12:01.401143Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:12:13.535375Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:12:14.746615Z",
+      "title": "Progress update",
+      "detail": "The workflow is validated and matches the tested computation. I’m starting the published run now; after it finishes I’ll inspect the actual map outputs and return the selected result object tied to those final artifacts."
+    },
+    {
+      "at": "2026-10-07T07:16:53.613657Z",
+      "title": "Progress update",
+      "detail": "The published run has finished in the background. I’m inspecting the actual delivered artifacts and current map layers now so the final answer can point to the real published raster and county layer, not the private trial."
+    },
+    {
+      "at": "2026-10-07T07:16:53.643385Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:16:53.654373Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:16:54.506797Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:22.806895Z",
+      "title": "Progress update",
+      "detail": "I have the published raster and county layer on the map now. I’m doing one last bounded inspection of those final artifacts so the accepted result cites the real delivered data and confirms the county fields."
+    },
+    {
+      "at": "2026-10-07T07:17:22.823265Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:22.829712Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:44.163561Z",
+      "title": "Progress update",
+      "detail": "The final outputs are already published and on the map. I’m just pulling the finished inspection receipts for those two deliverables so I can attach the accepted result to the exact raster and county layer."
+    },
+    {
+      "at": "2026-10-07T07:17:44.183522Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:44.193070Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:44.260811Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:18:37.175083Z",
+      "title": "Progress update",
+      "detail": "I’ve verified both published deliverables. Next I’m recording the final county-layer assessment, then I’ll attach the answer object to the raster assessment with the exact published raster and county selections."
+    },
+    {
+      "at": "2026-10-07T07:18:44.503887Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:18:51.560718Z",
+      "title": "Progress update",
+      "detail": "The county layer is accepted. I’m attaching the final answer object to the raster result now, using the exact published raster and county artifacts that are already on your map."
+    },
+    {
+      "at": "2026-10-07T07:19:01.889125Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:19:08.169488Z",
+      "title": "Progress update",
+      "detail": "Terra asked for the raster result’s stored acceptance checks word-for-word. I’m resubmitting the final assessment with those exact conditions and the same published artifact selections."
+    },
+    {
+      "at": "2026-10-07T07:19:16.355250Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "All joined counties",
+      "description": "Recorded vector-merge · succeeded"
+    },
+    {
+      "title": "County boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "County mask",
+      "description": "Recorded vector-rasterize · succeeded"
+    },
+    {
+      "title": "Population density in positive-case TB counties",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Positive-case TB counties",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Massachusetts case_count",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Massachusetts counties",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join Massachusetts cases",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Masked density",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Massachusetts TB table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "New York case_count",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "New York counties",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join New York cases",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "New York TB table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Exact WorldPop crop",
+      "description": "Recorded spatial-clip · succeeded"
+    },
+    {
+      "title": "Population density",
+      "description": "Recorded raster-count-density · succeeded"
+    },
+    {
+      "title": "Positive-case counties",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "WorldPop counts",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "All joined counties",
+      "description": "Recorded vector-merge · succeeded"
+    },
+    {
+      "title": "County boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "County mask",
+      "description": "Recorded vector-rasterize · succeeded"
+    },
+    {
+      "title": "Massachusetts case_count",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Massachusetts counties",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join Massachusetts cases",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Masked density",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Massachusetts TB table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "New York case_count",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "New York counties",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join New York cases",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "New York TB table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Exact WorldPop crop",
+      "description": "Recorded spatial-clip · succeeded"
+    },
+    {
+      "title": "Population density",
+      "description": "Recorded raster-count-density · succeeded"
+    },
+    {
+      "title": "Positive-case counties",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "All joined counties",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Positive-case counties",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Exact WorldPop crop",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Masked density",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "WorldPop counts",
+      "description": "Recorded source · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "587f3dd3f8be86a8db7fe808d71205a207f00cdb77d9a4327464f17a5a23d880",
+      "bytes": 126729265,
+      "finishedAt": "2026-10-07T06:57:26.514467+00:00"
+    },
+    {
+      "sha256": "ddbdab166b734df900897371c5300a28e51874714b19702351ff9de2ba965569",
+      "bytes": 3659,
+      "finishedAt": "2026-10-07T06:57:26.514467+00:00"
+    },
+    {
+      "sha256": "06be6e8be91618a9c861ee74913e275fc69a9209692592c4839940442d9ae3f5",
+      "bytes": 9576,
+      "finishedAt": "2026-10-07T06:57:26.514467+00:00"
+    },
+    {
+      "sha256": "0b75ab7c839bfa81439fafa204f0fba930f15467993c574694be98831fcafb94",
+      "bytes": 51821771,
+      "finishedAt": "2026-10-07T06:57:26.514467+00:00"
+    },
+    {
+      "sha256": "00f3c2ec01f3cd046f4d27ba8aa0fa1e69b7baa0705a82edb131787b0c7b19b7",
+      "bytes": 594791,
+      "finishedAt": "2026-10-07T06:59:38.347022+00:00"
+    },
+    {
+      "sha256": "782adb42847877550ba1a4c0bc1b02f56a68b3dfeb5d5d037275974dca0ddc85",
+      "bytes": 1816919,
+      "finishedAt": "2026-10-07T06:59:38.347022+00:00"
+    },
+    {
+      "sha256": "86d21009c93783e1a8bc617c391b2ae4e4e318a2b0e19e2e51d6e55d526ddf62",
+      "bytes": 2580484,
+      "finishedAt": "2026-10-07T06:59:45.283456+00:00"
+    },
+    {
+      "sha256": "65058fb910c767a78adb88d7dab74c72d63e795b59c6b61eee56845921b4ec0d",
+      "bytes": 596135,
+      "finishedAt": "2026-10-07T07:00:32.121866+00:00"
+    },
+    {
+      "sha256": "394b9e3ce0b03af73505a013d4a21bea59d2e59930b8def1acf5b9c3f188fa6d",
+      "bytes": 1818781,
+      "finishedAt": "2026-10-07T07:00:32.121866+00:00"
+    },
+    {
+      "sha256": "5227512e420339fdea4fc1fc5a248b5b548faa81d555a260bbfe2d7335189d54",
+      "bytes": 596753,
+      "finishedAt": "2026-10-07T07:01:33.986143+00:00"
+    },
+    {
+      "sha256": "d7067ee2cacc12bd132c10519bedfaea87fd42a7cb0d569f892977062d3abace",
+      "bytes": 5334439,
+      "finishedAt": "2026-10-07T07:01:33.986143+00:00"
+    },
+    {
+      "sha256": "2f8d9a4c0c730277be8e81b7ed1ef14c1de2638937496eb69d7ae2d14c8687ee",
+      "bytes": 1819487,
+      "finishedAt": "2026-10-07T07:03:13.491272+00:00"
+    },
+    {
+      "sha256": "c1b1cdac16e8287af90b0404d0dec4c1d5306c2b08481d97e6a660a6db87fda9",
+      "bytes": 2381314,
+      "finishedAt": "2026-10-07T07:04:14.515050+00:00"
+    },
+    {
+      "sha256": "0e1363654bccbdf284fd15dde38f01dd2b3b859b4da3fc6246decdb2079fc3ae",
+      "bytes": 1309107,
+      "finishedAt": "2026-10-07T07:04:58.100864+00:00"
+    },
+    {
+      "sha256": "46db1ae3b8061f213a3e8e522fafb9c74879411749ed3ca1626015abb9efaf39",
+      "bytes": 31295,
+      "finishedAt": "2026-10-07T07:05:37.154383+00:00"
+    },
+    {
+      "sha256": "76ef9234987b465b827201b059d01324f291ba73c1f3e10d538cca16da1b2ce5",
+      "bytes": 640645,
+      "finishedAt": "2026-10-07T07:06:01.108831+00:00"
+    },
+    {
+      "sha256": "00f3c2ec01f3cd046f4d27ba8aa0fa1e69b7baa0705a82edb131787b0c7b19b7",
+      "bytes": 594791,
+      "finishedAt": "2026-10-07T07:13:54.951102+00:00"
+    },
+    {
+      "sha256": "782adb42847877550ba1a4c0bc1b02f56a68b3dfeb5d5d037275974dca0ddc85",
+      "bytes": 1816919,
+      "finishedAt": "2026-10-07T07:13:54.951102+00:00"
+    },
+    {
+      "sha256": "86d21009c93783e1a8bc617c391b2ae4e4e318a2b0e19e2e51d6e55d526ddf62",
+      "bytes": 2580484,
+      "finishedAt": "2026-10-07T07:14:01.738371+00:00"
+    },
+    {
+      "sha256": "65058fb910c767a78adb88d7dab74c72d63e795b59c6b61eee56845921b4ec0d",
+      "bytes": 596135,
+      "finishedAt": "2026-10-07T07:14:36.056061+00:00"
+    },
+    {
+      "sha256": "394b9e3ce0b03af73505a013d4a21bea59d2e59930b8def1acf5b9c3f188fa6d",
+      "bytes": 1818781,
+      "finishedAt": "2026-10-07T07:14:36.056061+00:00"
+    },
+    {
+      "sha256": "5227512e420339fdea4fc1fc5a248b5b548faa81d555a260bbfe2d7335189d54",
+      "bytes": 596753,
+      "finishedAt": "2026-10-07T07:14:59.166534+00:00"
+    },
+    {
+      "sha256": "d7067ee2cacc12bd132c10519bedfaea87fd42a7cb0d569f892977062d3abace",
+      "bytes": 5334439,
+      "finishedAt": "2026-10-07T07:14:59.166534+00:00"
+    },
+    {
+      "sha256": "c1b1cdac16e8287af90b0404d0dec4c1d5306c2b08481d97e6a660a6db87fda9",
+      "bytes": 2381314,
+      "finishedAt": "2026-10-07T07:15:36.245432+00:00"
+    },
+    {
+      "sha256": "2f8d9a4c0c730277be8e81b7ed1ef14c1de2638937496eb69d7ae2d14c8687ee",
+      "bytes": 1819487,
+      "finishedAt": "2026-10-07T07:15:27.410915+00:00"
+    },
+    {
+      "sha256": "0e1363654bccbdf284fd15dde38f01dd2b3b859b4da3fc6246decdb2079fc3ae",
+      "bytes": 1309107,
+      "finishedAt": "2026-10-07T07:15:58.088194+00:00"
+    },
+    {
+      "sha256": "46db1ae3b8061f213a3e8e522fafb9c74879411749ed3ca1626015abb9efaf39",
+      "bytes": 31295,
+      "finishedAt": "2026-10-07T07:16:18.677951+00:00"
+    },
+    {
+      "sha256": "76ef9234987b465b827201b059d01324f291ba73c1f3e10d538cca16da1b2ce5",
+      "bytes": 640645,
+      "finishedAt": "2026-10-07T07:16:35.590307+00:00"
+    }
+  ],
+  "snapshotSha256": "a40dc0fbe8efca78adb54c57bfd4d879db98e7fa73318be37a92735ad13121ad",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:57:18.050736Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the state-specific county joins and the exact native-grid mask produce the requested positive-case county selection and a people/km2 raster without resampling?"
+    },
+    {
+      "at": "2026-10-07T07:11:34.516716Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The test answered the method question. Massachusetts and New York were joined separately by NAME to County, and both joins matched every county in the observed states: 14 Massachusetts counties and 62 New York counties. The joined county table had 0 rows with null case_count, 34 rows with case_count = 0, and the positive-case selection kept 42 counties with numeric case_count > 0 while retaining original county geometry and benchmark_row_id. The WorldPop crop used the exact requested bounds, preserved the native 1321 by 721 grid at 0.0083333333 degree resolution, and the density conversion produced people/km2 on that same grid. The final masked raster preserved NoData outside selected counties and source NoData, with no valid output where an input was missing.",
+      "limitations": [
+        "The supplied county case observations cover only Massachusetts and New York. The rest of the USA remains unobserved, not zero-case.",
+        "The raster shows 2020 population density context and the county layer shows 2023 reported case counts; these are different measurements and years."
+      ],
+      "next_action": "Save the tested computation as the production workflow, publish the masked density raster and county selection, inspect the final mapped outputs, and assess the delivered result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:18:44.503887Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published county layer contains 42 original Massachusetts and New York counties with strictly positive reported 2023 TB case counts. It retains benchmark_row_id and numeric case_count, and the final output contains only STATEFP 25 and 36. In the verified join pipeline, all 14 Massachusetts counties matched the Massachusetts table and all 62 New York counties matched the New York table; no observed county had a null case_count and 34 observed counties had case_count = 0 and were excluded from the final selection.",
+      "limitations": [
+        "Only Massachusetts and New York county TB observations were supplied for 2023. Counties in other US states are unobserved, not zero-case.",
+        "This county layer shows reported county totals, not patient locations within counties."
+      ],
+      "next_action": null,
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:19:01.889125Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The published raster is the requested WorldPop 2020 population-density surface in people/km2, cropped to the exact requested rectangle and masked to the 42 original Massachusetts and New York counties with strictly positive reported 2023 TB case counts. The published raster keeps the native 1321 by 721 grid at 0.0083333333 degree resolution, uses the tested density conversion, and remains NoData outside the selected counties and source NoData. The published county layer on the map retains benchmark_row_id and numeric case_count. Within the observed states there are 0 counties with unknown case_count and 34 observed counties with case_count = 0, which were excluded from the positive-case selection.",
+      "limitations": [
+        "Only Massachusetts and New York county TB observations were supplied for 2023. The rest of the USA is unobserved, not zero-case.",
+        "The raster shows 2020 population density and the county layer shows 2023 reported case counts. These are different measurements and years.",
+        "This map is population context only, not patient locations or a health-risk model."
+      ],
+      "next_action": null,
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:19:16.355250Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published raster is the requested WorldPop 2020 population-density surface in people/km2, cropped to the exact requested rectangle and masked to the 42 original Massachusetts and New York counties with strictly positive reported 2023 TB case counts. The published raster keeps the native 1321 by 721 grid at 0.0083333333 degree resolution, uses the tested density conversion, and remains NoData outside the selected counties and source NoData. The companion county layer on the map retains benchmark_row_id and numeric case_count. Within the observed states there are 0 counties with unknown case_count and 34 observed counties with case_count = 0, which were excluded from the positive-case selection.",
+      "limitations": [
+        "Only Massachusetts and New York county TB observations were supplied for 2023. The rest of the USA is unobserved, not zero-case.",
+        "The raster shows 2020 population density and the county layer shows 2023 reported case counts. These are different measurements and years.",
+        "This map is population context only, not patient locations or a health-risk model."
+      ],
+      "next_action": null,
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "5042b64957c909e885aef61585017e8cfe198c0afb1b6f0ed6e76537a62782ad",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

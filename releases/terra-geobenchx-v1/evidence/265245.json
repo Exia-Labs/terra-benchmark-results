@@ -1,0 +1,93 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "265245",
+  "question": "Create a heatmap of power station density in regions with high energy demand",
+  "submittedPrompt": "Create a heatmap of power station density in regions with high energy demand\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "I can’t create the heatmap from this setup.\n\nThe supplied inventory lists relevant source types — **Power stations in Africa**, **Electric power consumption (kWh per capita)**, **Population, total**, and **Countries** — but it provides **catalog metadata only**, not the actual files or values. So no heatmap or density analysis was produced.\n\nImportant limitation: the listed power-station source is **Africa-only**, and the listed demand source is a **coarse proxy** for demand, not a direct regional demand map.\n\nNext action: provide the actual observation data and choose what “high energy demand” means (for example, per-capita electricity use, total demand, or a population-based proxy). Then the strongest supported version would be an **Africa-focused** heatmap.\n\n### Limitations\n\n- Only catalog metadata is supplied here; no observation files or values are available to map or compute density.\n- The only listed power-station source is Africa-only.\n- No continent-wide gridded energy-demand surface is listed; the closest listed demand measure is electric power consumption (kWh per capita), which is a proxy rather than direct regional demand.\n- A real heatmap cannot be produced from this metadata-only environment; the strongest supported scope is an Africa-focused design using proxy demand inputs if actual files are later provided.\n- **Power stations:** This environment does not include the actual station file, so no density surface can be computed.\n- **Energy demand:** The listed demand source is metadata only, and it is a coarse proxy rather than a verified regional demand surface.\n- **Coverage:** A broader or global heatmap is not supported by the listed power-station source.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T06:30:01.861827+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "2bcca5bddc71de60ed20cef2f9c54a1b0dd9ef3dd3d56db09770cf6208b1995c",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "8ef132dcf01b0089ef32208fc62f26a08064328a8f58aa7a9baf8ef13017ed97",
+      "snapshotSha256AtReview": "5f8b30f210d7899a0fe16f945984d1bbecadabe2037325e27bf5f17e31b03b34",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies undefined high regional demand, coarse national per-capita consumption, and Africa-only power-station coverage."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Labels the national electricity indicator as a proxy, not direct regional demand, and separates a narrower Africa-focused option."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Acknowledges relevant listed source types while stating only metadata, not values or files, are available."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Says no heatmap or density analysis was produced; no jobs or artifacts were recorded."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests observations and a defined demand measure/threshold before an explicitly Africa-focused analysis."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:28:24.019473Z",
+      "title": "Progress update",
+      "detail": "I’m checking whether there’s an existing analysis record for this request so I can save the metadata-only result before I answer again."
+    },
+    {
+      "at": "2026-10-07T06:28:27.179928Z",
+      "title": "Progress update",
+      "detail": "I found the Terra analysis tools. I’m checking whether this request already has a saved brief, then I’ll record the metadata-only limitation and give you the corrected short answer."
+    },
+    {
+      "at": "2026-10-07T06:28:29.594413Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:54.265465Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:58.059611Z",
+      "title": "Progress update",
+      "detail": "I’ve saved the analysis brief. The result here is a source-availability finding, not a generated map, so I’m closing with the supported answer and the real limit."
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [],
+  "snapshotSha256": "27db7f866c867a0d116c3ede7856cdbb1f629c403821147d15374813cd3e63c9",
+  "investigations": [],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "bcccab3d6c692d8bb4e2edd20175ce55a6312df2c07c5e4b1eef5107650d998b",
+    "changes": [
+      "Product-name normalization"
+    ]
+  }
+}

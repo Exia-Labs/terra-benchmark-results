@@ -1,0 +1,504 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "901809",
+  "question": "Compare GDP per capita between OECD and non-OECD high-income countries",
+  "submittedPrompt": "Compare GDP per capita between OECD and non-OECD high-income countries\n\nTask conventions: Use the frozen country polygons and World Bank NY.GDP.PCAP.CD 2023 column, in current USD per capita. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature in the declared geography and its benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. Geography is fixed to original country features with INCOME_GRP in [\"1. High income: OECD\", \"2. High income: nonOECD\"]; retain all matching source geometries, and no others. Classification is calculated only over this geography. Membership reflects this disclosed benchmark edition, not current organization membership. Also compare unweighted means of known original country features by these fixed INCOME_GRP groups: {\"OECD\": [\"1. High income: OECD\"], \"non_OECD\": [\"2. High income: nonOECD\"]}. Do not treat missing values as zero. These are country comparisons, not basin-clipped or population-weighted estimates.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response. Include a metrics object in the final JSON with group-name keys and their numeric means (or null if no known members), and explain the comparison.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"GDP per capita\",\n    \"edition\": \"Frozen WDI; current US dollars by year\",\n    \"units\": {\n      \"2023\": \"current USD per capita\",\n      \"2020\": \"current USD per capita\",\n      \"2022\": \"current USD per capita\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the 2023 GDP per capita country layer is on your map.\n\nFor the fixed benchmark high-income country features, the unweighted mean is higher for OECD countries ($53,001) than for non-OECD high-income countries ($36,195), using 2023 current USD per capita only. The layer keeps all 85 original benchmark features: 54 have known values and 31 are shown as No data, not zero.\n\nLegend: five quantile classes over this fixed geography, with break values going into the higher class:\n7,066.62–28,247.02; 28,247.02–34,711.08; 34,711.08–50,330.59; 50,330.59–62,536.73; 62,536.73–128,259.40 current USD per capita.\n\nKey limits: membership follows the supplied benchmark INCOME_GRP edition, not current OECD membership; 12 country features do not match a GDP code exactly, and 31 included features remain unknown; the means exclude unknowns and are not population-weighted.\n\nSources: World Bank country boundaries benchmark fixture (GeoBenchX harmonized names, Terra-hosted, retrieved 2026-10-07) and GDP per capita benchmark fixture (Frozen WDI NY.GDP.PCAP.CD 2023, current USD per capita, Terra-hosted, retrieved 2026-10-07).\n\n### Limitations\n\n- The comparison uses the supplied frozen boundary and GDP snapshots rather than live updates.\n- Twelve country features are unmatched on the exact ISO_A3 to Country Code join and 31 included features have unknown 2023 GDP per capita after keeping the fixed code and year rules.\n- Means use known original country-feature values only and exclude unknowns rather than treating them as zero.\n- The map uses the supplied frozen benchmark country boundaries and frozen WDI 2023 GDP per capita snapshot, not live updates.\n- Membership follows the supplied INCOME_GRP benchmark edition, not current OECD membership.\n- Twelve included country features do not match a GDP table code exactly, and 31 included features have unknown 2023 GDP per capita after preserving the fixed join and year rules.\n- The group means are unweighted across original country features and exclude unknown values rather than treating them as zero; they are not population-weighted or deduplicated sovereign-state estimates.\n- Membership follows the supplied benchmark INCOME_GRP edition, not current OECD membership.\n- Means are unweighted across original country features and are not population-weighted or deduplicated sovereign-state estimates.\n- Unknown GDP values are excluded from the means, not treated as zero.\n- Membership follows the supplied INCOME_GRP benchmark edition only.\n- ISO_A3 is joined to Country Code exactly. Nonmatching codes and missing 2023 values remain unknown.\n- Five requested quantile classes were achieved in the tested run. Unknown values remain in a separate No data class.",
+  "checks": {
+    "expectedCount": 54,
+    "actualCount": 54,
+    "expectedMetrics": {
+      "OECD": 53000.95120822906,
+      "non_OECD": 36194.99632695085
+    },
+    "actualMetrics": {
+      "OECD": 53000.95120822907,
+      "non_OECD": 36194.996326950844
+    },
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:06:07.189495Z",
+      "title": "Progress update",
+      "detail": "I’m checking the supplied country boundaries and frozen GDP table first, then I’ll test the exact join and classing so the final layer keeps every original country row, including unknowns."
+    },
+    {
+      "at": "2026-10-07T08:06:26.459142Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:33.022541Z",
+      "title": "Progress update",
+      "detail": "I found no saved work for this request yet. Now I’m inspecting the supplied boundary and GDP snapshots so I can confirm the exact fields, selection, and output shape before I build the join."
+    },
+    {
+      "at": "2026-10-07T08:06:33.035597Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:33.039774Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:39.154991Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:39.300753Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:41.657112Z",
+      "title": "Progress update",
+      "detail": "I confirmed both are fixed one-item snapshots. Next I’m reading the actual file schemas and a few rows so I can use the exact field names and not guess any joins or year columns."
+    },
+    {
+      "at": "2026-10-07T08:07:09.039301Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:07:13.129392Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:07:20.743730Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:20.890671Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:21.070426Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:24.624154Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:32.244956Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:36.570405Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:52.849565Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:53.838344Z",
+      "title": "Progress update",
+      "detail": "I’ve got the exact fields now. I’m checking one end-to-end private trial over the full fixed geography, because this dataset is small enough to test the real join, the quantile classes, and the group means in one slice before I save the production draft."
+    },
+    {
+      "at": "2026-10-07T08:08:17.007142Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:25.502747Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:35.837860Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:00.954927Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:47.337200Z",
+      "title": "Progress update",
+      "detail": "The private full-scope test finished successfully. I confirmed the fixed geography has 85 original country features, the exact join keeps unknowns, and the group means can be computed from known 2023 values only. I’m checking the saved trial outputs now, then I’ll save the production draft from that tested method and add the final layer to the map."
+    },
+    {
+      "at": "2026-10-07T08:10:52.945369Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:11:08.419223Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:11:08.420544Z",
+      "title": "Progress update",
+      "detail": "I confirmed the tested method does what you asked: 85 fixed benchmark country features are kept, 54 have known 2023 GDP per capita, 31 stay unknown, and the two group means are available. I’m saving that exact tested method as the final production draft now so I can run it, inspect the delivered artifact, and add the map layer."
+    },
+    {
+      "at": "2026-10-07T08:11:14.347273Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:11:23.728053Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:11:29.773420Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:11:33.545561Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:11:43.499738Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:11:49.370516Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:11:58.924880Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:12:12.221795Z",
+      "title": "Progress update",
+      "detail": "The method is now tested. I’m refreshing the saved brief so it reflects what’s confirmed already, then I’ll validate the final workflow from that tested computation."
+    },
+    {
+      "at": "2026-10-07T08:12:19.770113Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:12:34.903808Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the method check. Now I’m saving the exact tested computation as the final workflow draft, with the fixed join, geography, classes, and comparison rules locked to your benchmark conventions."
+    },
+    {
+      "at": "2026-10-07T08:12:47.878467Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:12:57.686265Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:50.134645Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:36.662154Z",
+      "title": "Progress update",
+      "detail": "I’ve got the finished outputs and the map layer receipt. I’m doing one final bounded inspection of the delivered country artifact, the class legend, and the two-row comparison table so the accepted result points to the exact final items."
+    },
+    {
+      "at": "2026-10-07T08:15:36.780377Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:36.803635Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:41.197175Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:41.501590Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:33.684678Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:33.979411Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:40.122507Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:41.746425Z",
+      "title": "Progress update",
+      "detail": "I’m just collecting the final inspection receipts now: the country layer rows and class field, the class legend summary, and the two-row mean table. Then I can lock the result object to the exact delivered map layer and table."
+    },
+    {
+      "at": "2026-10-07T08:17:26.204146Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the finished map layer, the 2023 value field, the class field, the legend breaks, and the two-row mean table. I’m recording the final accepted result now against the exact delivered artifacts."
+    },
+    {
+      "at": "2026-10-07T08:17:29.765341Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:17:46.276769Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:17:54.012883Z",
+      "title": "Progress update",
+      "detail": "I hit a result-check formatting issue, not a data problem. I’m resubmitting the final assessment with the exact acceptance-condition labels Terra requires."
+    },
+    {
+      "at": "2026-10-07T08:18:02.921617Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Classify 2023 GDP per capita",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "2023 GDP per capita by benchmark high-income country",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "OECD versus non-OECD mean GDP per capita",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Keep fixed high-income groups",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Supplied GDP table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Compare group means",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Join 2023 GDP values",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Classify 2023 GDP per capita",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Keep fixed high-income groups",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Supplied GDP table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Compare group means",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Join 2023 GDP values",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Keep fixed high-income groups",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join 2023 GDP values",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify 2023 GDP per capita",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify 2023 GDP per capita",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Compare group means",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Compare group means",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T08:09:04.941051+00:00"
+    },
+    {
+      "sha256": "18ce25b448f6b5a314e9d5dd91cefdbd54b1703becb9c687208c7c02acfa1d18",
+      "bytes": 169677,
+      "finishedAt": "2026-10-07T08:09:04.941051+00:00"
+    },
+    {
+      "sha256": "79f2b3db447840f6da0ffe5181271fb5834f4cac04c5966297a6afa790d138bf",
+      "bytes": 3860125,
+      "finishedAt": "2026-10-07T08:09:17.760817+00:00"
+    },
+    {
+      "sha256": "96640e88b5be193a50868d1bd283d45c0e6817160ff1d993ed64702b0e1c3cfd",
+      "bytes": 3862123,
+      "finishedAt": "2026-10-07T08:09:27.796867+00:00"
+    },
+    {
+      "sha256": "083cc2369fedcfe18bda79cf5a64b4580b86c7e24084013cd48dbfe17b6fd158",
+      "bytes": 3862759,
+      "finishedAt": "2026-10-07T08:09:42.694639+00:00"
+    },
+    {
+      "sha256": "02d4ef3c5a0ce61c83c66a1a6869c128c61faa1d4885dae0fe01e3f30d6774dc",
+      "bytes": 3147,
+      "finishedAt": "2026-10-07T08:09:42.694639+00:00"
+    },
+    {
+      "sha256": "79f2b3db447840f6da0ffe5181271fb5834f4cac04c5966297a6afa790d138bf",
+      "bytes": 3860125,
+      "finishedAt": "2026-10-07T08:13:52.655412+00:00"
+    },
+    {
+      "sha256": "96640e88b5be193a50868d1bd283d45c0e6817160ff1d993ed64702b0e1c3cfd",
+      "bytes": 3862123,
+      "finishedAt": "2026-10-07T08:14:03.371395+00:00"
+    },
+    {
+      "sha256": "083cc2369fedcfe18bda79cf5a64b4580b86c7e24084013cd48dbfe17b6fd158",
+      "bytes": 3862759,
+      "finishedAt": "2026-10-07T08:14:28.633317+00:00"
+    },
+    {
+      "sha256": "02d4ef3c5a0ce61c83c66a1a6869c128c61faa1d4885dae0fe01e3f30d6774dc",
+      "bytes": 3147,
+      "finishedAt": "2026-10-07T08:14:28.633317+00:00"
+    }
+  ],
+  "snapshotSha256": "7f22d687e293ed87fe26d849e096488bf0876208aae110a1b7ce67fdd2a492f9",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:09:00.954927Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full fixed high-income geography support the required exact GDP join, quantile choropleth, and OECD versus non-OECD mean comparison without dropping unknown country rows?"
+    },
+    {
+      "at": "2026-10-07T08:11:58.924880Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full fixed geography trial answered the method question. Filtering by the two requested INCOME_GRP values returned 85 original country features. The exact left join on ISO_A3 to Country Code preserved all 85 rows, matched 73 features, left 12 unmatched input features, and produced 54 known 2023 GDP per capita values with 31 unknown values after also counting missing measurements. The classification produced five quantile classes plus class 0 for No data, with class counts 11, 11, 10, 9, 13 and 31 No data. The grouped means were 53000.95120822907 current USD per capita for OECD and 36194.996326950844 for non-OECD using known values only.",
+      "limitations": [
+        "This trial used the supplied frozen benchmark boundary and GDP snapshots only.",
+        "Unknown values remain unknown because the requested exact join and fixed 2023 column were preserved; no alternate code or year was substituted."
+      ],
+      "next_action": "Save the tested full-scope computation as the production workflow, execute it, inspect the delivered artifact and legend, and add the final map layer.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:17:29.765341Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The final comparison table is sufficient. OECD has the higher unweighted mean 2023 GDP per capita at 53000.95120822907 current USD per capita versus 36194.996326950844 for non-OECD. The comparison preserves original feature counts and excludes unknown GDP values from the means.",
+      "limitations": [
+        "Membership follows the supplied benchmark INCOME_GRP edition, not current OECD membership.",
+        "Means are unweighted across original country features and are not population-weighted or deduplicated sovereign-state estimates.",
+        "Unknown GDP values are excluded from the means, not treated as zero."
+      ],
+      "next_action": "Use the delivered map layer to inspect individual countries and the delivered comparison table for exact group counts and means.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:17:46.276769Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The final result is sufficient. The delivered country layer retains all 85 fixed benchmark high-income country features with original geometry and benchmark_row_id, joins the frozen World Bank NY.GDP.PCAP.CD 2023 values by exact ISO_A3 to Country Code, and keeps 31 unknown values in a distinct No data class rather than zero. The choropleth uses five quantile classes with breaks at 28247.022632872442, 34711.08078293472, 50330.593046729635 and 62536.7320298151 current USD per capita, and the map layer is available on the current map. The paired comparison shows a higher unweighted mean for OECD (53000.95120822907) than for non-OECD (36194.996326950844).",
+      "limitations": [
+        "The map uses the supplied frozen benchmark country boundaries and frozen WDI 2023 GDP per capita snapshot, not live updates.",
+        "Membership follows the supplied INCOME_GRP benchmark edition, not current OECD membership.",
+        "Twelve included country features do not match a GDP table code exactly, and 31 included features have unknown 2023 GDP per capita after preserving the fixed join and year rules.",
+        "The group means are unweighted across original country features and exclude unknown values rather than treating them as zero; they are not population-weighted or deduplicated sovereign-state estimates."
+      ],
+      "next_action": "Use the map layer to inspect country values and the neutral No data category, and use the comparison table for the exact OECD and non-OECD means and coverage counts.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:18:02.921617Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The final result is sufficient. The delivered country layer retains all 85 fixed benchmark high-income country features with original geometry and benchmark_row_id, joins the frozen World Bank NY.GDP.PCAP.CD 2023 values by exact ISO_A3 to Country Code, and keeps 31 unknown values in a distinct No data class rather than zero. The choropleth uses five quantile classes with breaks at 28247.022632872442, 34711.08078293472, 50330.593046729635 and 62536.7320298151 current USD per capita, and the map layer is available on the current map. The paired comparison shows a higher unweighted mean for OECD (53000.95120822907) than for non-OECD (36194.996326950844).",
+      "limitations": [
+        "The map uses the supplied frozen benchmark country boundaries and frozen WDI 2023 GDP per capita snapshot, not live updates.",
+        "Membership follows the supplied INCOME_GRP benchmark edition, not current OECD membership.",
+        "Twelve included country features do not match a GDP table code exactly, and 31 included features have unknown 2023 GDP per capita after preserving the fixed join and year rules.",
+        "The group means are unweighted across original country features and exclude unknown values rather than treating them as zero; they are not population-weighted or deduplicated sovereign-state estimates."
+      ],
+      "next_action": "Use the map layer to inspect country values and the neutral No data category, and use the comparison table for the exact OECD and non-OECD means and coverage counts.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "8c491ca66a2ac0cb5bb47d1d29a8fbc7ddbd51ad5e4ffd6ff77c82969fbcc235",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

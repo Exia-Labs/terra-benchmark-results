@@ -1,0 +1,605 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "806525",
+  "question": "What is the average freshwater withdrawal percentage in African countries with more than 5 power stations?",
+  "submittedPrompt": "What is the average freshwater withdrawal percentage in African countries with more than 5 power stations?\n\nTask conventions: Use the supplied country's CONTINENT=Africa classification, and original power-station points strictly within each original country polygon. Count source rows, regardless of operational status; no live stations. Select countries with strictly more than five stations. Use WDI ER.H2O.FWTL.ZS for 2021, the latest populated year in this frozen file: percent of internal freshwater resources. Calculate an unweighted mean of the eligible countries with nonmissing values, counting each country once. Missing values are unknown, not zero. Join country identity to WDI Country Code using matching ISO_A3; preserve country geometry and original benchmark_row_id. Maps are optional.\n\nSome supplied power-station records lack geometry. They cannot satisfy a spatial relationship; do not assign them using a country-name guess. Disclose this coverage limitation and add unlocated_count to the final JSON: the number of original power-station records without a usable location. The requested station counts and country mean describe located records only.\n\nProduce an inspectable contributing-country artifact including the measured station count and the 2021 withdrawal value, retaining original geometry and benchmark_row_id. End with one fenced JSON object: {count: contributing countries with a known value, unknown_count: eligible countries missing that value, coverage_note: string, selection: {collectionId, itemId, assetKey}, metrics: {mean: number}, value_field: name_of_withdrawal_column_in_selection}. Report the mean and units in prose as well.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"African power stations\",\n    \"edition\": \"USGS 2021 frozen compilation\",\n    \"units\": {\n      \"DsgAttr02\": \"MW\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Freshwater withdrawals as percent of internal resources\",\n    \"edition\": \"Frozen World Development Indicators; use 2021\",\n    \"units\": {\n      \"2021\": \"percent of internal freshwater resources\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "The average 2021 freshwater withdrawal is **205.34% of internal freshwater resources** across **50** African countries with more than five located power stations.\n\nImportant limit: this uses only station rows with usable locations; **31** original power-station records had no usable location and were excluded from the country counts. No eligible countries were missing the 2021 withdrawal value in this frozen file.\n\nNext action: open the selected contributing-country table to inspect each country’s `station_count` and `2021` value.\n\n### Limitations\n\n- Power-station rows without usable geometry are excluded from country counts and must be reported separately as unlocated_count = 31.\n- 31 original power-station rows lacked usable location and were excluded from country counts.\n- The result follows the supplied CONTINENT = Africa classification and counts only original station points strictly contained in original country polygons.",
+  "checks": {
+    "expectedCount": 50,
+    "actualCount": 50,
+    "expectedMetrics": {
+      "mean": 205.34461235060604
+    },
+    "actualMetrics": {
+      "mean": 205.34461235060604
+    },
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:54:09.852270Z",
+      "title": "Progress update",
+      "detail": "I’ll check the saved analysis context, inspect the supplied datasets, and test the smallest reliable join/count method before I prepare the final contributing-country table."
+    },
+    {
+      "at": "2026-10-07T07:54:28.178592Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:28.237593Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:29.256308Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:30.130762Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:41.111937Z",
+      "title": "Progress update",
+      "detail": "I found the three supplied inputs. Next I’m sampling their actual fields so I can build the count-and-join method with the original IDs and 2021 value column, not guesses."
+    },
+    {
+      "at": "2026-10-07T07:54:41.184400Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:41.241211Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:43.025847Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:00.693666Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:00.932602Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:01.237599Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:27.224423Z",
+      "title": "Progress update",
+      "detail": "I confirmed the supplied inputs are the right frozen country, power-station, and WDI files. The remaining uncertainty is practical: which processors and field names will reliably keep the original country geometry and benchmark IDs through the count-and-join steps."
+    },
+    {
+      "at": "2026-10-07T07:55:29.921682Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:29.977841Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:42.573541Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:42.669319Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:48.225946Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:48.239275Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:49.344864Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:49.995935Z",
+      "title": "Progress update",
+      "detail": "I’ve got the main processor candidates. Next I’m checking their exact behavior so the final country file keeps polygon geometry, counts only strictly inside station points, and joins WDI by ISO_A3 to Country Code without dropping unmatched countries silently."
+    },
+    {
+      "at": "2026-10-07T07:56:13.629986Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:34.554050Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:55.390962Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:55.843433Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:31.272051Z",
+      "title": "Progress update",
+      "detail": "I’ve settled the method: one branch counts located stations by strict country containment, a second branch counts unlocated station rows from null nearest-distance values, and the WDI table joins by ISO_A3 to Country Code before the final mean is summarized. I’m running that full-area private test now so I can inspect the exact fields and counts before saving the final workflow."
+    },
+    {
+      "at": "2026-10-07T07:57:39.192428Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:33.601339Z",
+      "title": "Progress update",
+      "detail": "The private full-area test worked. It found 52 supplied African countries, 3,034 total power-station rows, 3,003 rows with usable locations, 50 countries with more than five strictly contained stations, and a 2021 mean of 205.3446% across 50 countries with known values. Next I’m saving that tested method as the final workflow and then I’ll inspect the published outputs before I give you the result."
+    },
+    {
+      "at": "2026-10-07T08:00:34.973284Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:56.789437Z",
+      "title": "Progress update",
+      "detail": "The method is now tested end to end. I’m saving the exact tested computation as the final workflow, with the contributing-country table as the main output and the count summaries as supporting outputs, so I can inspect the published artifacts before I lock the answer."
+    },
+    {
+      "at": "2026-10-07T08:00:56.829923Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:56.848110Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:02.938530Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:02.947517Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:02.956313Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:05.938886Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:06.613876Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:30.368749Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:46.277296Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:46.485227Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:10.027014Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:26.751449Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:27.837554Z",
+      "title": "Progress update",
+      "detail": "The checked method is now saved as a ready workflow. I’m running that exact version so I can inspect the published contributing-country artifact, confirm the summary tables, and attach the final machine-readable answer to the assessed result."
+    },
+    {
+      "at": "2026-10-07T08:04:56.867106Z",
+      "title": "Progress update",
+      "detail": "The final workflow finished in the background. I’m checking the published outputs now so I can attach the exact contributing-country artifact and the machine-readable answer to the assessed result."
+    },
+    {
+      "at": "2026-10-07T08:04:58.767998Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:38.143259Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:38.522051Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:38.712637Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:22.477160Z",
+      "title": "Progress update",
+      "detail": "The background inspections completed. I’m reopening the final country table and the two summary outputs now, then I’ll record the final assessed answer with the selected artifact IDs and the mean."
+    },
+    {
+      "at": "2026-10-07T08:06:22.518800Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:22.540305Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:22.591501Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:22.615896Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:39.149571Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:39.186132Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:41.261503Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the final workflow outputs exist. I’m inspecting the published final country table and the published mean summary one more time so the final assessment points to the exact delivered artifacts, not just the matching trial copies."
+    },
+    {
+      "at": "2026-10-07T08:07:07.353330Z",
+      "title": "Progress update",
+      "detail": "The final output inspections are finishing in the background. I’m reopening the published country table and published mean summary now, then I’ll record the final assessed answer with the selected artifact IDs and the confirmed mean."
+    },
+    {
+      "at": "2026-10-07T08:07:07.363869Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:07.376223Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:50.390847Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the published country table, the published mean summary, and the published location summary. I’m refreshing the brief notes from those verified outputs, then I’ll attach the final selected answer object and give you the short answer in plain language."
+    },
+    {
+      "at": "2026-10-07T08:07:59.503717Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:19.676742Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "African countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Contributing countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "World Bank country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Country station counts",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Contributing countries with 2021 withdrawal",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Eligible-country summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Station location summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Eligible countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Eligible country summary",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Eligible countries with WDI",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Station location check",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "Station location summary",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "African power stations",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "WDI freshwater withdrawal",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "African countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Contributing countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "World Bank country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Country station counts",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Eligible countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Eligible country summary",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Eligible countries with WDI",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Station location check",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "Station location summary",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "African power stations",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "African countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Country station counts",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Eligible countries with WDI",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Contributing countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Eligible country summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Station location summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "WDI freshwater withdrawal",
+      "description": "Recorded source · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T07:57:54.113591+00:00"
+    },
+    {
+      "sha256": "6466e315e8ff63739ef14b89300a4ecb739e3753d503760233466dcc207a1a51",
+      "bytes": 337674,
+      "finishedAt": "2026-10-07T07:57:54.113591+00:00"
+    },
+    {
+      "sha256": "7ad1675e724eea5166e37131840bb0a2d10ef1cf25313023ecaf542043641662",
+      "bytes": 101281,
+      "finishedAt": "2026-10-07T07:57:54.113591+00:00"
+    },
+    {
+      "sha256": "a1c538b74b7265882452aab9f505274a889f7c7d3ecb5744879c3722fcc74cf3",
+      "bytes": 919098,
+      "finishedAt": "2026-10-07T07:58:08.354551+00:00"
+    },
+    {
+      "sha256": "90078154b745d794abb8405806095ab1958d5c5c10d2835a983789c97f3faab4",
+      "bytes": 919918,
+      "finishedAt": "2026-10-07T07:58:18.567456+00:00"
+    },
+    {
+      "sha256": "de7b0570ffdfedeca7aeb24841ef656e44576972aa042e29b41dbed1b9cd5871",
+      "bytes": 452079,
+      "finishedAt": "2026-10-07T07:58:18.567456+00:00"
+    },
+    {
+      "sha256": "9a66deea4675e160f24a0e98e275e1d94d9425f40bc9d08000d2264964ef2d1c",
+      "bytes": 893803,
+      "finishedAt": "2026-10-07T07:58:52.837650+00:00"
+    },
+    {
+      "sha256": "b5efab66a374e21dd8b0bace13ec51dcfda6e2584cedd635491358d286cc1464",
+      "bytes": 1862,
+      "finishedAt": "2026-10-07T07:58:52.837650+00:00"
+    },
+    {
+      "sha256": "e9aaf1c7fcac8dece9c435a866174b40c0a17c6d6be9cb173ddb4a88a89aef82",
+      "bytes": 895617,
+      "finishedAt": "2026-10-07T07:59:13.815436+00:00"
+    },
+    {
+      "sha256": "e9aaf1c7fcac8dece9c435a866174b40c0a17c6d6be9cb173ddb4a88a89aef82",
+      "bytes": 895617,
+      "finishedAt": "2026-10-07T07:59:06.537790+00:00"
+    },
+    {
+      "sha256": "7d67d040e49cffe0f12d0ca88eb8e0805fb5cc32dc4d930c00eac4eda52cbe8e",
+      "bytes": 2546,
+      "finishedAt": "2026-10-07T07:59:25.680942+00:00"
+    },
+    {
+      "sha256": "a1c538b74b7265882452aab9f505274a889f7c7d3ecb5744879c3722fcc74cf3",
+      "bytes": 919098,
+      "finishedAt": "2026-10-07T08:03:00.732840+00:00"
+    },
+    {
+      "sha256": "90078154b745d794abb8405806095ab1958d5c5c10d2835a983789c97f3faab4",
+      "bytes": 919918,
+      "finishedAt": "2026-10-07T08:03:17.288456+00:00"
+    },
+    {
+      "sha256": "de7b0570ffdfedeca7aeb24841ef656e44576972aa042e29b41dbed1b9cd5871",
+      "bytes": 452079,
+      "finishedAt": "2026-10-07T08:03:11.307646+00:00"
+    },
+    {
+      "sha256": "b5efab66a374e21dd8b0bace13ec51dcfda6e2584cedd635491358d286cc1464",
+      "bytes": 1862,
+      "finishedAt": "2026-10-07T08:03:44.278653+00:00"
+    },
+    {
+      "sha256": "9a66deea4675e160f24a0e98e275e1d94d9425f40bc9d08000d2264964ef2d1c",
+      "bytes": 893803,
+      "finishedAt": "2026-10-07T08:03:44.278653+00:00"
+    },
+    {
+      "sha256": "e9aaf1c7fcac8dece9c435a866174b40c0a17c6d6be9cb173ddb4a88a89aef82",
+      "bytes": 895617,
+      "finishedAt": "2026-10-07T08:04:12.929300+00:00"
+    },
+    {
+      "sha256": "e9aaf1c7fcac8dece9c435a866174b40c0a17c6d6be9cb173ddb4a88a89aef82",
+      "bytes": 895617,
+      "finishedAt": "2026-10-07T08:04:33.089845+00:00"
+    },
+    {
+      "sha256": "7d67d040e49cffe0f12d0ca88eb8e0805fb5cc32dc4d930c00eac4eda52cbe8e",
+      "bytes": 2546,
+      "finishedAt": "2026-10-07T08:04:33.089845+00:00"
+    }
+  ],
+  "snapshotSha256": "f6d951abddbd57175d6689e8f64e86983b693f55f5aaa83e9bfde997f0ed05b8",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:57:39.192428Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full Africa workflow preserve country geometry and benchmark_row_id, count only power-station rows with usable locations strictly inside each African country polygon, join the 2021 WDI withdrawal value by ISO_A3 to Country Code, and produce the country-level rows and summary counts needed for the requested mean and unlocated_count?"
+    },
+    {
+      "at": "2026-10-07T08:00:34.973284Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full Africa trial preserved the supplied African country geometry and benchmark_row_id on 52 country polygons. The strict contains spatial join added station_count to every African country and produced counts from 5 to 349, so the >5 filter selected 50 eligible countries. The nearest-distance summary counted 3,034 original station rows in total and 3,003 rows with usable locations, so unlocated_count is 31. The ISO_A3 to Country Code left join matched all 50 eligible countries, the copied 2021 field was populated for all 50 eligible countries, and the eligible-country summary produced mean_2021 = 205.34461235060604 with known_countries = 50 and eligible_countries = 50.",
+      "limitations": [
+        "Power-station rows without usable geometry are excluded from country counts and must be reported separately as unlocated_count = 31.",
+        "This trial shows no eligible-country WDI gaps in the supplied frozen file, but missing 2021 values would remain unknown rather than zero if they occurred."
+      ],
+      "next_action": "Save the tested full-area computation as the production workflow, publish the contributing-country artifact and supporting summaries, inspect those final artifacts, and assess the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:08:19.676742Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published contributing-country artifact contains 50 African country polygons with original geometry, benchmark_row_id, station_count, and the joined 2021 freshwater-withdrawal value. The published summary table reports mean_2021 = 205.34461235060604 with known_countries = 50 and eligible_countries = 50, so the requested unweighted mean is based on 50 contributing countries and unknown_count = 0. The published station-location summary reports total_rows = 3034 and located_rows = 3003, so unlocated_count = 31. This uses the supplied Terra-hosted benchmark fixtures for GeoBenchX World Bank country boundaries, the USGS 2021 frozen African power-station compilation, and the frozen World Bank WDI ER.H2O.FWTL.ZS 2021 table, retrieved in this run on 2026-10-07.",
+      "limitations": [
+        "31 original power-station rows lacked usable location and were excluded from country counts.",
+        "The result follows the supplied CONTINENT = Africa classification and counts only original station points strictly contained in original country polygons."
+      ],
+      "next_action": "Open the selected contributing-country table if you want to inspect all 50 country rows and their station_count and 2021 values.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "e79dfc784311dcfdd4e30ff81f0d690bb37c11573f98c45e128f24f95260e9ba",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

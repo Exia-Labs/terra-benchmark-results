@@ -1,0 +1,93 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "931200",
+  "question": "Map air pollution levels in East Asian countries.",
+  "submittedPrompt": "Map air pollution levels in East Asian countries.\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "I can’t map actual air pollution levels for East Asian countries from this closed catalog.\n\nThe supplied inventory shows country boundaries (`GEO_CATALOG: Countries`) and emissions-related source types (`DATA_CATALOG: CO2 emissions per capita, tons`; `DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents`), but no East Asia air-quality source such as PM2.5, AQI, NO2, SO2, or ozone. It also provides source inventory metadata, not the measurement files themselves.\n\nNext step: add an actual East Asia air-quality dataset and attach those values to the country boundaries. Emissions indicators could only be a rough proxy for emissions, not a true air-pollution map.\n\n### Limitations\n\n- This task uses a closed source inventory only; it does not provide observation files or live measurements.\n- No air-quality source for East Asia is listed in the supplied inventory, so actual air pollution levels cannot be mapped from this environment.\n- Emissions indicators such as CO2 per capita or greenhouse gases per capita are not the same as ambient air pollution levels.\n- The closed catalog does not include East Asia air-quality measurements and only supplies source inventory metadata.\n- **Air pollution:** The supplied inventory does not list East Asia air-quality measurements, and it provides metadata rather than observation files.\n- **Country borders:** It only provides geometry; it does not contain air-pollution measurements.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T08:24:47.473295+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "0c7ec4ae545a0f79b5991187ef8a501e198a200e60535547d48bc8f98885f60c",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "29a098dab6a6d29910e2d2f5868d020fae7e6f8be4b90fdc05dfad956aa200b7",
+      "snapshotSha256AtReview": "043da29a612bd162afef1779d05321a5a9e1d738b9934e62804568b7268f7111",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies missing ambient air-quality measurements for East Asia, including PM2.5, AQI and other pollutants."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Explicitly distinguishes country CO2 and greenhouse-gas emissions from actual ambient air pollution."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Confines the absence to the closed metadata-only catalog while acknowledging country boundaries and emissions listings."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Claims no rendered pollution map, values or completed calculation; two completed brief/read calls produced no jobs or artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests actual East Asian air-quality observations joined to the country boundaries."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:12:18.097625Z",
+      "title": "Progress update",
+      "detail": "I’m checking what source and map tools are available here so I can say exactly what can and cannot be mapped from this closed catalog."
+    },
+    {
+      "at": "2026-10-07T08:12:20.588765Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the Terra catalog tools are available. Next I’m checking whether this map already has retained analysis context; then I’ll answer from the closed inventory without inventing measurements."
+    },
+    {
+      "at": "2026-10-07T08:12:22.228059Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:13:21.660854Z",
+      "title": "Progress update",
+      "detail": "I’ve answered the data limitation, and I’m now recording that outcome in the analysis brief so the map state reflects what this closed catalog can actually support."
+    },
+    {
+      "at": "2026-10-07T08:13:26.669210Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [],
+  "snapshotSha256": "98e3057932cc42a65bf2ae79256e701699dcc7bac7b62f46a84e12141b42150b",
+  "investigations": [],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "de52b232cff692ae0c47e66aa8c61a73ebc0c97b13729eb3f99c2a00c4608459",
+    "changes": [
+      "Product-name normalization"
+    ]
+  }
+}

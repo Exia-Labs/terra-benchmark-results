@@ -1,0 +1,72 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "377506",
+  "question": "Show digital government services adoption in developed economies.",
+  "submittedPrompt": "Show digital government services adoption in developed economies.\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "**Delivered:** From the supplied closed catalog inventory, I cannot directly show digital government services adoption in developed economies. The inventory is source metadata only, and it lists country boundaries and broad indicators like GDP per capita, but no dataset for e-government use, online public-service uptake, or a direct “developed economy” classification.\n\n**Still unanswered:** An actual adoption comparison. Using GDP per capita would be only a rough proxy for richer countries, not evidence of digital government adoption. To answer the original question properly, this environment would need a country-level digital government adoption source linked to countries, plus a direct developed-economy classification or an agreed proxy rule.\n\n### Limitations\n\n- This task is limited to the user-supplied closed catalog inventory and its source-type metadata.\n- The inventory does not provide observation values; it only indicates what source types are available.\n- The result can only describe source availability and uncertainty because the supplied inventory lacks a direct adoption measure and does not include observation values.\n- **Digital government adoption:** The inventory lists no direct measure of digital government services adoption.\n- **Developed economies:** The inventory does not list a direct developed-economy classification, and GDP per capita would only be an approximation.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T06:51:03.027658+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "57f695a71dcd5a0ba903d15a32498fde2bd25b7b585645888bca0cb0b58c4936",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "842d215ff4aa13788948370870fffe31f9f894f8f2ba1f2e83c90af0ff270dee",
+      "snapshotSha256AtReview": "41b01cb7b69a0b01108ae026f322435e60f5aacf028d123dfda5e94dba876173",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies absent country-level digital-government adoption observations and an undeclared developed-economy grouping."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Explicitly separates GDP-based wealth grouping from evidence of digital-service adoption."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Confines the limitation to the supplied source-type inventory and unavailable observation values."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Does not invent adoption rates, rankings or a map; only two analysis calls and zero jobs/artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests a direct adoption table joined to countries and a developed-economy classification or agreed grouping proxy."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:48:07.241857Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:48:26.831353Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "d1bae4359895ed2a4c8fa1ebcb1ca78b5339df8adfbccd298af0305231ffe7c3",
+  "investigations": []
+}

@@ -1,0 +1,747 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "429627",
+  "question": "Calculate the average electric power consumption in African countries with power stations capacity above 1000MW",
+  "submittedPrompt": "Calculate the average electric power consumption in African countries with power stations capacity above 1000MW\n\nTask conventions: Use CONTINENT=Africa on supplied countries. A qualifying country strictly contains at least one supplied power-station point whose DsgAttr02 capacity is strictly greater than 1000 MW. Use the original country polygon, not a clipped boundary; no operating-status restriction. Calculate the unweighted mean of 2014 WDI EG.USE.ELEC.KH.PC values (kWh per capita) for qualifying countries with known data, one observation per country, not one per station. 2014 is the latest populated year in the frozen table. Join by ISO_A3/Country Code; missing values remain unknown. Maps are optional.\n\nSome supplied power-station records lack geometry. They cannot satisfy a spatial relationship; do not assign them using a country-name guess. Disclose this coverage limitation and add unlocated_count to the final JSON: the number of capacity-above-1000MW station records without a usable location. The country selection and mean describe located qualifying records only.\n\nProduce an inspectable contributing-country artifact with 2014 consumption, original geometry and benchmark_row_id. End with one fenced JSON object: {count: contributing countries with known consumption, unknown_count: qualifying countries missing consumption, coverage_note: string, selection: {collectionId, itemId, assetKey}, metrics: {mean: number}, value_field: name_of_consumption_column_in_selection}. Explain the average and units in prose.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"African power stations\",\n    \"edition\": \"USGS 2021 frozen compilation\",\n    \"units\": {\n      \"DsgAttr02\": \"MW\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Electric power consumption per capita\",\n    \"edition\": \"Frozen WDI; use 2014\",\n    \"units\": {\n      \"2014\": \"kWh per capita\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "The average is **1,030.8 kWh per person in 2014** across **11** qualifying African countries.\n\nImportant limit: this uses only countries that strictly contain a supplied **>1000 MW** station point. **Two located stations** above 1000 MW fell outside the supplied African country polygons, so they were excluded. **No high-capacity station records were unlocated**.\n\n### Limitations\n\n- The country selection is based on supplied >1000 MW station points that are strictly within the supplied original African country polygons.\n- Two located >1000 MW station points did not fall within any supplied African country polygon and were excluded from qualification.\n- All 11 qualifying countries had known 2014 WDI values, so unknown_count is 0 and the mean uses 11 country observations.\n- Located qualifying records only. Two located >1000 MW station points did not fall within any supplied African country polygon and were excluded from qualification.\n- The result uses the supplied frozen World Bank WDI 2014 values, so it is a 2014 benchmark rather than a current-year average.\n- Qualification uses the supplied original country polygons, not clipped boundaries.\n- Country qualification is based on geometry only, not the station Country text field.\n- The result uses the supplied frozen 2014 WDI table only.\n- This is a country-level unweighted average, as requested.",
+  "checks": {
+    "expectedCount": 11,
+    "actualCount": 11,
+    "expectedMetrics": {
+      "mean": 1030.801318579208
+    },
+    "actualMetrics": {
+      "mean": 1030.801318579208
+    },
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:55:59.328371Z",
+      "title": "Progress update",
+      "detail": "I’ll inspect the three supplied datasets first, then test the country selection and average on a small private workflow before I finalize the result."
+    },
+    {
+      "at": "2026-10-07T06:56:06.826986Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:17.327673Z",
+      "title": "Progress update",
+      "detail": "I found no retained work for this request. Next I’m checking the exact fields and authorized item selections in the three supplied datasets so I can build the selection correctly."
+    },
+    {
+      "at": "2026-10-07T06:56:17.342718Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:17.348857Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:19.543375Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:29.098992Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:29.309546Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:29.798353Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:56:36.551419Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:57:04.712345Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:57:09.612942Z",
+      "title": "Progress update",
+      "detail": "I have the source fields now. Next I’m checking the exact processor schemas so I can test one full country-selection and averaging method without guessing joins or predicates."
+    },
+    {
+      "at": "2026-10-07T06:57:09.634403Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:57:09.643294Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:57:10.341977Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:57:17.637758Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:57:46.888993Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:57:52.439539Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:58:22.857196Z",
+      "title": "Progress update",
+      "detail": "I’ve got a candidate method. I’m running one full private test now to check four things at once: the Africa filter, the strict point-in-country selection, the 2014 WDI join, and whether unmatched >1000 MW stations are just the unlocated records."
+    },
+    {
+      "at": "2026-10-07T06:58:42.608647Z",
+      "title": "Progress update",
+      "detail": "The first trial call had a schema mistake in the request wrapper. I’m correcting that and rerunning the same test now."
+    },
+    {
+      "at": "2026-10-07T06:58:55.610400Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:59:08.525331Z",
+      "title": "Progress update",
+      "detail": "The second call found a CRS spelling issue in the trial area. I’m fixing it to the accepted `OGC:CRS84` form and rerunning."
+    },
+    {
+      "at": "2026-10-07T06:59:14.571293Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:59:19.707166Z",
+      "title": "Progress update",
+      "detail": "The trial is blocked only because the saved brief used the same CRS label issue. I’m correcting the brief’s explicit Africa study extent and then rerunning the test."
+    },
+    {
+      "at": "2026-10-07T06:59:27.772848Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:59:51.575398Z",
+      "title": "Progress update",
+      "detail": "The brief still was not accepted because its saved bbox values were strings. I’m resaving the same Africa extent with numeric coordinates."
+    },
+    {
+      "at": "2026-10-07T06:59:59.829899Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:00:15.219792Z",
+      "title": "Progress update",
+      "detail": "The Africa extent is fixed now. I’m rerunning the full private test to confirm the country list, the unlocated high-capacity count, and the mean before I build the final artifact."
+    },
+    {
+      "at": "2026-10-07T07:06:37.832639Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:38.357652Z",
+      "title": "Progress update",
+      "detail": "The private test worked. I confirmed 11 qualifying countries, all 11 with known 2014 consumption, and a mean of about 1,030.8 kWh per person. I still need one final published artifact, and I’m checking the two unmatched located stations before I lock the coverage note."
+    },
+    {
+      "at": "2026-10-07T07:06:41.205755Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:43.984493Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:48.323766Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:56.413890Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:59.644499Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:07:09.291000Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:48.722135Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:48.752227Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:36.154910Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:43.774062Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:55.373029Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:55.899912Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:33.887821Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:10:59.825195Z",
+      "title": "Progress update",
+      "detail": "The method is confirmed now. I’m recording the trial judgment, then I’ll attach the inspected contributing-country artifact and answer object to the final result."
+    },
+    {
+      "at": "2026-10-07T07:11:04.461812Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:11:19.505067Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:11:52.581143Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the final country artifact and the coverage note. I’m attaching the selected artifact and answer fields now."
+    },
+    {
+      "at": "2026-10-07T07:12:01.726571Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:12:36.230826Z",
+      "title": "Progress update",
+      "detail": "I’ve tested the exact full-area method. Now I’m saving it as the final workflow so Terra can attach a verified public output instead of a private trial artifact."
+    },
+    {
+      "at": "2026-10-07T07:12:47.695848Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:12:55.078182Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:12:56.714981Z",
+      "title": "Progress update",
+      "detail": "The saved workflow is valid and matches the tested computation. I’m starting that exact workflow now so the final answer can point to verified workflow outputs instead of private trial outputs."
+    },
+    {
+      "at": "2026-10-07T07:16:38.504502Z",
+      "title": "Progress update",
+      "detail": "The saved workflow finished. I’m verifying the final published artifacts now so I can attach the public country layer and summary to the answer."
+    },
+    {
+      "at": "2026-10-07T07:16:46.680959Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:01.332144Z",
+      "title": "Progress update",
+      "detail": "The published workflow completed in the background. I’m reading its exact output identities now so the final answer uses the verified public artifacts."
+    },
+    {
+      "at": "2026-10-07T07:17:02.037328Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:11.709054Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:11.739862Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:36.136152Z",
+      "title": "Progress update",
+      "detail": "I have the final published artifact IDs now. I’m pulling the exact final rows for the country layer, the summary table, and the coverage-count checks so the accepted answer uses only published outputs."
+    },
+    {
+      "at": "2026-10-07T07:17:36.145579Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:36.157307Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:36.162240Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:36.167581Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:36.741069Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:52.714695Z",
+      "title": "Progress update",
+      "detail": "I have the published country layer and the published mean table now. I’m fetching their immutable row receipts plus the two count tables, then I’ll record the final selected result."
+    },
+    {
+      "at": "2026-10-07T07:17:52.742614Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:52.750196Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:52.756584Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:52.767223Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:17:57.403811Z",
+      "title": "Progress update",
+      "detail": "Everything needed is verified on the published outputs. I’m recording the final selected result now."
+    },
+    {
+      "at": "2026-10-07T07:18:07.154444Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "African countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Contributing countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Supplied countries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Contributing countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Qualifying country summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Station-country coverage check",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "High-capacity station count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Located high-capacity station count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "High-capacity stations",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "High-capacity station count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Located high-capacity stations",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Located high-capacity station count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Qualifying countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "African countries with large-station counts",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Qualifying countries with 2014 consumption",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Qualifying-country statistics",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "High-capacity stations checked against countries",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Supplied stations",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied WDI",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "African countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Contributing countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Supplied countries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "High-capacity stations",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "High-capacity station count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Located high-capacity stations",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Located high-capacity station count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Qualifying countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "African countries with large-station counts",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Qualifying countries with 2014 consumption",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Qualifying-country statistics",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "High-capacity stations checked against countries",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Supplied stations",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "African countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "High-capacity stations",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Located high-capacity stations",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "High-capacity stations checked against countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Qualifying countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Contributing countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Qualifying-country statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "High-capacity station count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Located high-capacity station count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied WDI",
+      "description": "Recorded source · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T07:00:48.805218+00:00"
+    },
+    {
+      "sha256": "6466e315e8ff63739ef14b89300a4ecb739e3753d503760233466dcc207a1a51",
+      "bytes": 337674,
+      "finishedAt": "2026-10-07T07:00:48.805218+00:00"
+    },
+    {
+      "sha256": "35c5d7efcc03e05918af7f00fd37d7ac6235980c9f43ad3513579270318cfd0d",
+      "bytes": 112643,
+      "finishedAt": "2026-10-07T07:00:48.805218+00:00"
+    },
+    {
+      "sha256": "a1c538b74b7265882452aab9f505274a889f7c7d3ecb5744879c3722fcc74cf3",
+      "bytes": 919098,
+      "finishedAt": "2026-10-07T07:01:40.304466+00:00"
+    },
+    {
+      "sha256": "0b912740589e6ab426e684b1533f6a65d81c5387ed938534c2cec56c1bc8072b",
+      "bytes": 30847,
+      "finishedAt": "2026-10-07T07:01:40.304466+00:00"
+    },
+    {
+      "sha256": "0b912740589e6ab426e684b1533f6a65d81c5387ed938534c2cec56c1bc8072b",
+      "bytes": 30847,
+      "finishedAt": "2026-10-07T07:03:21.332926+00:00"
+    },
+    {
+      "sha256": "086e9c24b5a279185679bf44cded909bc0a289aaff2b3e8d1d1e6633044fe24f",
+      "bytes": 47472,
+      "finishedAt": "2026-10-07T07:03:26.884751+00:00"
+    },
+    {
+      "sha256": "47b70a052d23761cd7d8890e48ab377733f4f597ebf17434731080c708b0cc68",
+      "bytes": 1286,
+      "finishedAt": "2026-10-07T07:04:19.229641+00:00"
+    },
+    {
+      "sha256": "6b5a7176581c88312161a15f415f7ee72deb68726d9d115546ae820eca6e16db",
+      "bytes": 919768,
+      "finishedAt": "2026-10-07T07:04:19.229641+00:00"
+    },
+    {
+      "sha256": "9c07109414435b18378dddb932c9d1ee281660e81fb34728c1f20c23022764a3",
+      "bytes": 1350,
+      "finishedAt": "2026-10-07T07:05:07.333924+00:00"
+    },
+    {
+      "sha256": "97d61ca334dc0ee42dba7aeeaf684f18e04ea41ad0c19fdbd30e6a246d1bfd87",
+      "bytes": 921407,
+      "finishedAt": "2026-10-07T07:05:07.333924+00:00"
+    },
+    {
+      "sha256": "45817128b12b8fd677512fdb47609faa07a43c55cecfe2f133d00e77dd8b60f4",
+      "bytes": 294590,
+      "finishedAt": "2026-10-07T07:05:26.973145+00:00"
+    },
+    {
+      "sha256": "45817128b12b8fd677512fdb47609faa07a43c55cecfe2f133d00e77dd8b60f4",
+      "bytes": 294590,
+      "finishedAt": "2026-10-07T07:05:46.789305+00:00"
+    },
+    {
+      "sha256": "ed9878b7d5f1a9d0835d9099a0d38e9232d89661f90938afdf23a75672fad7b6",
+      "bytes": 2498,
+      "finishedAt": "2026-10-07T07:05:46.789305+00:00"
+    },
+    {
+      "sha256": "a1c538b74b7265882452aab9f505274a889f7c7d3ecb5744879c3722fcc74cf3",
+      "bytes": 919098,
+      "finishedAt": "2026-10-07T07:14:31.894921+00:00"
+    },
+    {
+      "sha256": "0b912740589e6ab426e684b1533f6a65d81c5387ed938534c2cec56c1bc8072b",
+      "bytes": 30847,
+      "finishedAt": "2026-10-07T07:14:39.451042+00:00"
+    },
+    {
+      "sha256": "086e9c24b5a279185679bf44cded909bc0a289aaff2b3e8d1d1e6633044fe24f",
+      "bytes": 47472,
+      "finishedAt": "2026-10-07T07:15:07.163660+00:00"
+    },
+    {
+      "sha256": "0b912740589e6ab426e684b1533f6a65d81c5387ed938534c2cec56c1bc8072b",
+      "bytes": 30847,
+      "finishedAt": "2026-10-07T07:15:07.163660+00:00"
+    },
+    {
+      "sha256": "47b70a052d23761cd7d8890e48ab377733f4f597ebf17434731080c708b0cc68",
+      "bytes": 1286,
+      "finishedAt": "2026-10-07T07:15:31.896997+00:00"
+    },
+    {
+      "sha256": "6b5a7176581c88312161a15f415f7ee72deb68726d9d115546ae820eca6e16db",
+      "bytes": 919768,
+      "finishedAt": "2026-10-07T07:15:31.896997+00:00"
+    },
+    {
+      "sha256": "9c07109414435b18378dddb932c9d1ee281660e81fb34728c1f20c23022764a3",
+      "bytes": 1350,
+      "finishedAt": "2026-10-07T07:15:40.300106+00:00"
+    },
+    {
+      "sha256": "97d61ca334dc0ee42dba7aeeaf684f18e04ea41ad0c19fdbd30e6a246d1bfd87",
+      "bytes": 921407,
+      "finishedAt": "2026-10-07T07:15:53.212938+00:00"
+    },
+    {
+      "sha256": "45817128b12b8fd677512fdb47609faa07a43c55cecfe2f133d00e77dd8b60f4",
+      "bytes": 294590,
+      "finishedAt": "2026-10-07T07:16:04.312495+00:00"
+    },
+    {
+      "sha256": "45817128b12b8fd677512fdb47609faa07a43c55cecfe2f133d00e77dd8b60f4",
+      "bytes": 294590,
+      "finishedAt": "2026-10-07T07:16:25.487400+00:00"
+    },
+    {
+      "sha256": "ed9878b7d5f1a9d0835d9099a0d38e9232d89661f90938afdf23a75672fad7b6",
+      "bytes": 2498,
+      "finishedAt": "2026-10-07T07:16:25.487400+00:00"
+    }
+  ],
+  "snapshotSha256": "a145529d6558ea927d57b212080c9e1996b120c4c81fb3fcd3149d2d5f22e23c",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:58:55.610400Z",
+      "tool": "run_trial",
+      "status": "failed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the supplied African country polygons, >1000 MW power-station points, and 2014 WDI table produce the required qualifying-country selection and unweighted mean, with unmatched high-capacity stations explained by records lacking usable location?"
+    },
+    {
+      "at": "2026-10-07T06:59:14.571293Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the supplied African country polygons, >1000 MW power-station points, and 2014 WDI table produce the required qualifying-country selection and unweighted mean, with unmatched high-capacity stations explained by records lacking usable location?"
+    },
+    {
+      "at": "2026-10-07T07:11:04.461812Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-scope trial answered the question. Filtering the supplied country polygons by CONTINENT=Africa produced 52 African country polygons. Filtering supplied power-station records by DsgAttr02 > 1000 MW produced 47 records, and all 47 had usable latitude and longitude, so unlocated_count is 0. A strict within join from stations to the original African country polygons matched 45 of those 47 located stations; 2 located stations did not fall within any supplied African country polygon. Counting located matches by country yielded 11 qualifying countries. Joining WDI by ISO_A3 to Country Code added the 2014 field, and all 11 qualifying countries had known 2014 consumption values. Table statistics on the qualifying-country artifact returned qualifying_count=11, known_count=11, and mean_2014=1030.801318579208 kWh per capita.",
+      "limitations": [
+        "The country selection is based on supplied >1000 MW station points that are strictly within the supplied original African country polygons. Two located >1000 MW station points did not fall within any supplied African country polygon and were excluded from qualification.",
+        "This result describes located qualifying records only. It does not infer a country for any station from the station Country text field."
+      ],
+      "next_action": "Assess the inspected contributing-country artifact as the final selected result and report the mean, counts, unlocated_count, and coverage note.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:12:01.726571Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "I selected the inspected contributing-country artifact with 11 countries, original geometry and benchmark_row_id. The unweighted mean of 2014 WDI EG.USE.ELEC.KH.PC across those 11 qualifying countries is 1030.801318579208 kWh per capita. qualifying_count is 11, known_count is 11, and unknown_count is 0. All 47 supplied >1000 MW station records had usable coordinates, so unlocated_count is 0. A strict within join matched 45 of those located points to supplied African country polygons; 2 located points did not fall within any supplied African country polygon and were excluded from qualification.",
+      "limitations": [
+        "Located qualifying records only. Two located >1000 MW station points did not fall within any supplied African country polygon and were excluded from qualification.",
+        "The consumption values come from the supplied frozen World Bank WDI 2014 table, so this is a 2014 benchmark, not a current-year average."
+      ],
+      "next_action": "Open the selected contributing-country artifact if you want to inspect the 11 countries on the map.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:18:07.154444Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published final outputs confirm the result. The selected contributing-country artifact contains 11 qualifying African countries with original geometry, benchmark_row_id and 2014 WDI electric power consumption per capita. The published summary table reports qualifying_count=11, known_count=11 and mean_2014=1030.801318579208 kWh per capita. The published >1000 MW station count table reports 47 records, and the published located >1000 MW station count table also reports 47 records, so unlocated_count is 0. The published station-country coverage check shows 2 located >1000 MW station points with ISO_A3 null after the strict within join, so those 2 points did not fall within any supplied African country polygon and were excluded from qualification.",
+      "limitations": [
+        "Located qualifying records only. Two located >1000 MW station points did not fall within any supplied African country polygon and were excluded from qualification.",
+        "The result uses the supplied frozen World Bank WDI 2014 values, so it is a 2014 benchmark rather than a current-year average."
+      ],
+      "next_action": "Open the contributing-country artifact if you want to inspect the 11 countries and their 2014 values.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "38ff610f6b06672d3cf1714870c1b1eecea7dee2f1eefd740b73c7acda830d3d",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

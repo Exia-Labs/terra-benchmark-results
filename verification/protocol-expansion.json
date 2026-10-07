@@ -1,0 +1,31 @@
+{
+  "tasks": {
+    "332083": {
+      "title": "Algerian mines in dense population cells",
+      "question": "How many mineral extraction facilities in Algeria are located within areas with population density over 1000 people per square km?",
+      "bbox": [
+        -9,
+        18,
+        13,
+        38
+      ],
+      "clarification": "Use the supplied facilities' Country=Algeria classification and the frozen WorldPop 2020 UN-adjusted population density raster, measured in people per square kilometre. The threshold is strictly greater than 1000. Sample the pixel containing each point; zero is valid and NoData or outside coverage is unknown. Count original facility records once using benchmark_row_id, not repeated business IDs. Separately report the number of Algeria facility records with unknown density."
+    },
+    "417961": {
+      "title": "Amtrak stations in earthquake counties",
+      "question": "How many Amtrak stations are located in counties that experienced earthquakes in the last 30 days?",
+      "bbox": [
+        -180,
+        17,
+        180,
+        72
+      ],
+      "clarification": "Last 30 days refers to all records in the supplied archived earthquake snapshot, not the current date. The file is labelled Feb142025 but its recorded UTC event times run from 2025-01-16 02:25:36.580 through 2025-02-15 02:03:36.460; use all supplied events without an extra date or magnitude filter. Use the supplied 2024 county geometry. A county is affected when it intersects at least one earthquake point. A station qualifies when it is strictly within an affected county; points on original county boundaries do not qualify. Count each original station record once, retaining benchmark_row_id, regardless of multiple earthquake matches. The supplied sources define the question's coverage; do not substitute live data. For this task's required unknown_count, missing or invalid station geometry is unknown. A valid station outside every supplied county is outside the defined coverage and is excluded, not unknown; boundary points likewise do not qualify. You may disclose outside-coverage records separately."
+    }
+  },
+  "adaptations": [
+    "Algeria population density uses the supplied 2020 density grid and containing-pixel sampling; unknown cells are reported separately.",
+    "Recent earthquakes means all events in the frozen supplied snapshot labelled Feb142025, with observed UTC event times January 16–February 15, 2025; county intersects and station within conventions are explicit.",
+    "Amtrak unknown_count excludes stations outside supplied county coverage; that distinction is explicit in the submitted prompt."
+  ]
+}

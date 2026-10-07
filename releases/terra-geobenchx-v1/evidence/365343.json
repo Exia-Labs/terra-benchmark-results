@@ -1,0 +1,886 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "365343",
+  "question": "How many rivers flow through areas with significant forest coverage in South America?",
+  "submittedPrompt": "How many rivers flow through areas with significant forest coverage in South America?\n\nTask conventions: Use the released reference's country-level definition: South American countries (CONTINENT='South America') with World Bank 2021 forest area strictly greater than 50 percent of land area. Join original ISO_A3 to Country Code, not fuzzy names. Count distinct original FAO river records intersecting those polygons, including boundary touches. A record can meet several countries but counts once; these are river segments, not unique named whole rivers. National forest percentage is NOT a map of actual forest along a river. Keep unknown/missing indicator countries explicit; unknown_count is the number of river records that intersect an unknown eligible country and no qualifying known country, plus invalid/missing river geometries. Use the original frozen data, no live substitution. This is internal research; FAO-derived outputs are not cleared for promotional publication.\n\n\n\nReturn the original selected river features with benchmark_row_id, attributes and unchanged geometry. Map optional. Finish with fenced JSON {count:integer,unknown_count:integer,coverage_note:string,selection:{collectionId,itemId,assetKey}}. Explain the country-level proxy, 2021 year and segment-count unit.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"FAO AQUAmaps South American river segments\",\n    \"edition\": \"Frozen regional HydroSHEDS-derived rivers_samerica_37330; internal research only, no promotional sharing\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank AG.LND.FRST.ZS\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2021\",\n    \"units\": {\n      \"2021\": \"% of land area\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "I found **66,314** qualifying river segments in the final selected dataset, with **unknown_count = 16**.\n\nThis uses the supplied frozen World Bank **2021** country-level forest percentage joined exactly from **ISO_A3** to **Country Code**. It counts distinct FAO **river segment records**, not whole named rivers, and the forest measure is a **country-level proxy**, not forest mapped along each segment. The FAO-derived output is for **internal research only**.\n\n### Limitations\n\n- The forest criterion is a country-level 2021 proxy, not mapped forest along each river segment.\n- The FAO-derived river source is for internal research only and is not cleared for promotional publication.\n- The forest criterion is a country-level 2021 proxy, not mapped forest cover along each river segment.\n- These counted records are FAO river segments, not unique named whole rivers.\n- unknown_count reflects segments intersecting the explicit unmatched FLK country row and 0 invalid or missing river geometries in this frozen run.\n- FAO-derived outputs are for internal research only and are not cleared for promotional publication.\n- Boundary membership defines South America here, but it does not by itself establish forest eligibility.\n- National 2021 forest percentage is a country-level proxy, not measured forest along each river segment.\n- Distinct records are river segments, not deduplicated named whole rivers.",
+  "checks": {
+    "expectedCount": 66314,
+    "actualCount": 66314,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:43:40.078055Z",
+      "title": "Progress update",
+      "detail": "I’m checking the saved analysis context and the exact source schemas first, then I’ll test the country join and river count with the frozen inputs you supplied."
+    },
+    {
+      "at": "2026-10-07T06:43:51.579946Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:00.593576Z",
+      "title": "Progress update",
+      "detail": "I found no saved analysis yet. Next I’m reading the three frozen datasets to confirm the exact fields for South America, ISO_A3, Country Code, the 2021 forest indicator, and the river row ID/geometry handling before I test the count."
+    },
+    {
+      "at": "2026-10-07T06:44:00.622341Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:00.637611Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:00.646173Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:09.795036Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:10.330362Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:11.256587Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:17.280763Z",
+      "title": "Progress update",
+      "detail": "I confirmed the three sources are the exact frozen benchmark inputs. Now I’m pulling bounded samples and item metadata so I can use the original key fields instead of guessing column names."
+    },
+    {
+      "at": "2026-10-07T06:44:23.763975Z",
+      "title": "Progress update",
+      "detail": "I have the exact columns now. Next I’m sampling the South America country rows and the 2021 forest table so I can verify which ISO_A3 codes qualify, which are unknown, and how many river records may need the unknown bucket."
+    },
+    {
+      "at": "2026-10-07T06:44:23.806111Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:44:23.892210Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:44:29.518704Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:34.242223Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:44:34.608722Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:44:40.352278Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:41.485087Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:50.698566Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:50.868434Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:50.996006Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:51.165276Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:56.410286Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:56.740420Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:56.982866Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:57.018375Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:25.010543Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:34.961893Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:47.673899Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:00.774113Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:11.713797Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the exact join keys and the immutable source editions. I’m recording the brief now, then I’ll run one end-to-end private test that checks the join, the unknown-country bucket, invalid river geometries, and the distinct segment count on the requested full South America scope."
+    },
+    {
+      "at": "2026-10-07T06:46:22.389523Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:35.187022Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:47:12.659907Z",
+      "title": "Progress update",
+      "detail": "I’ve built the trial method. It uses the exact frozen items, filters South America from the supplied boundary layer, joins ISO_A3 to Country Code, marks qualifying and unknown countries separately, runs one aggregated river-to-country spatial join so each river stays a single row, and keeps invalid river geometries separate for the unknown bucket. Now I’m running that full-scope private test and inspecting both the country classification and the resulting river selections."
+    },
+    {
+      "at": "2026-10-07T06:47:24.560027Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:47:31.020203Z",
+      "title": "Progress update",
+      "detail": "The first submission had a CRS argument typo. I’m correcting that and rerunning the same trial; the method itself is unchanged."
+    },
+    {
+      "at": "2026-10-07T06:47:43.004402Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:47:48.299361Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:47:52.093581Z",
+      "title": "Progress update",
+      "detail": "The brief stored the scope CRS in a non-canonical form, which is why the trial was blocked. I’m fixing the saved study extent to the accepted CRS84 label and then rerunning the same full-scope test."
+    },
+    {
+      "at": "2026-10-07T06:47:59.055425Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:05:47.207302Z",
+      "title": "Progress update",
+      "detail": "The private full-scope test finished in the background. It worked: the exact ISO_A3 join matched 12 of 13 South America boundary records, leaving Falkland Islands (FLK) explicit as the one unknown country; 7 countries qualified at >50% forest in 2021; 66,314 river segments intersect a qualifying country; 16 intersect only the unknown country; and there were 0 invalid or missing river geometries. I’m recording that test result now, then I’ll save and run the final workflow that delivers the counted river selection and the answer fields."
+    },
+    {
+      "at": "2026-10-07T07:05:51.368588Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:05:59.083458Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:03.187485Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:06.653070Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:13.904181Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:17.991342Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:47.448341Z",
+      "title": "Progress update",
+      "detail": "I’m checking a few exact rows from the finished trial now: the qualifying country list, the unknown country row, and sample counted river rows. That lets me cite the eligible countries cleanly and confirm the delivered river selection still carries benchmark_row_id and the original river attributes."
+    },
+    {
+      "at": "2026-10-07T07:06:47.501188Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:47.516621Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:06:47.529073Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:06.715588Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:06.836302Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:06.839954Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:13.111221Z",
+      "title": "Progress update",
+      "detail": "The finished trial rows are ready now. I’m pulling the exact qualifying-country list, the single unknown country row, and sample counted river rows, then I’ll save the tested workflow as the final run and bind the result."
+    },
+    {
+      "at": "2026-10-07T07:08:13.138284Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:13.154394Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:13.182413Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:23.280034Z",
+      "title": "Progress update",
+      "detail": "The method is now verified on the full frozen study area. I’m refreshing the brief to remove stale preparation notes, then I’ll save the exact tested computation as the final workflow and inspect its outputs."
+    },
+    {
+      "at": "2026-10-07T07:08:31.856013Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:08:40.574374Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:19.105742Z",
+      "title": "Progress update",
+      "detail": "I’ve got a tested computation with full-area evidence. I’m saving that exact method as the final workflow now, with the counted river selection as the main deliverable and the count tables as supporting outputs for the final answer binding."
+    },
+    {
+      "at": "2026-10-07T07:09:27.040710Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:32.040269Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:09:32.669710Z",
+      "title": "Progress update",
+      "detail": "The saved workflow matches the tested computation and is ready. I’m starting that exact run now so I can inspect its final artifacts and record the answer against executed outputs rather than the private trial."
+    },
+    {
+      "at": "2026-10-07T07:14:14.475521Z",
+      "title": "Progress update",
+      "detail": "The final workflow finished in the background. I’m inspecting its exact outputs now so I can bind the accepted answer to the executed final artifacts rather than the private trial."
+    },
+    {
+      "at": "2026-10-07T07:14:14.918989Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:14:41.064961Z",
+      "title": "Progress update",
+      "detail": "The final run completed. I’m doing the last bounded checks on the executed outputs now: the selected river artifact itself and the three supporting count tables. Then I’ll record the final machine-readable answer against those exact final artifacts."
+    },
+    {
+      "at": "2026-10-07T07:14:41.086662Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:14:41.095482Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:14:41.106073Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:15:16.265073Z",
+      "title": "Progress update",
+      "detail": "The final workflow run is complete. I’m fetching the finished inspection receipts for the qualifying river selection and the supporting count tables now, then I’ll record the final answer object against those executed artifacts."
+    },
+    {
+      "at": "2026-10-07T07:15:16.288526Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:15:16.297965Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:15:17.245048Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:15:17.748415Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:15:39.121946Z",
+      "title": "Progress update",
+      "detail": "I’ve got the executed selection and the two count tables. I’m pulling the last supporting table now — invalid river geometry count — and then I’ll record the final accepted answer against the final workflow outputs."
+    },
+    {
+      "at": "2026-10-07T07:15:39.478948Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:16:19.558364Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the executed final outputs: the selected qualifying river-segment artifact has 66,314 distinct benchmark_row_id values, the unknown-only count table has 16, and the invalid-geometry count table has 0. I’m recording the final answer now with the executed selection artifact attached."
+    },
+    {
+      "at": "2026-10-07T07:16:29.934771Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Counted river segments",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join 2021 forest indicator to countries",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Qualifying river segments",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Qualifying river segment count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown-only river segment count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Invalid river geometry count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Qualifying countries over 50 percent forest",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Flag qualifying countries",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Merge qualifying and unknown country flags",
+      "description": "Recorded vector-merge · succeeded"
+    },
+    {
+      "title": "Supplied WDI forest table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Invalid river geometry count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Known qualifying river count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Aggregate country matches onto rivers",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Invalid or missing river geometries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Preserve invalid river geometries as unknown",
+      "description": "Recorded vector-measure · succeeded"
+    },
+    {
+      "title": "Supplied FAO river segments",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Valid river geometries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "South America countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Rivers touching unknown countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Unknown forest indicator countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Flag unknown countries",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Unknown-only valid river count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Unknown-only valid rivers",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Counted river segments",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join 2021 forest indicator to countries",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Qualifying countries over 50 percent forest",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Flag qualifying countries",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Merge qualifying and unknown country flags",
+      "description": "Recorded vector-merge · succeeded"
+    },
+    {
+      "title": "Supplied WDI forest table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Invalid river geometry count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Known qualifying river count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Aggregate country matches onto rivers",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Invalid or missing river geometries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Preserve invalid river geometries as unknown",
+      "description": "Recorded vector-measure · succeeded"
+    },
+    {
+      "title": "Supplied FAO river segments",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Valid river geometries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "South America countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join 2021 forest indicator to countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Invalid river geometry count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Qualifying countries over 50 percent forest",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown forest indicator countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Aggregate country matches onto rivers",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Counted river segments",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown-only valid rivers",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Invalid or missing river geometries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Known qualifying river count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown-only valid river count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Rivers touching unknown countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Unknown forest indicator countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Flag unknown countries",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Unknown-only valid river count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Unknown-only valid rivers",
+      "description": "Recorded vector-filter · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T06:48:20.909824+00:00"
+    },
+    {
+      "sha256": "595b2997fe9ecdcc9b70e118f3b95cdbda921aaa7c0a0e079a3d499eae72c2c5",
+      "bytes": 112649,
+      "finishedAt": "2026-10-07T06:48:20.909824+00:00"
+    },
+    {
+      "sha256": "0ed97842d2ffe36f603e38a57943d65c6bb31e4e83d3e2c4cf7df178f5ef28aa",
+      "bytes": 10478271,
+      "finishedAt": "2026-10-07T06:48:20.909824+00:00"
+    },
+    {
+      "sha256": "1ea5be298ac0b422790029c84312deed2ed75bf4ff23a8a4e6d190b8e9136b2c",
+      "bytes": 12484408,
+      "finishedAt": "2026-10-07T06:50:27.025373+00:00"
+    },
+    {
+      "sha256": "ed6b8014400fe023deadc6f7c5ac5de8f7a1609497f0f60725640276767db3b6",
+      "bytes": 824322,
+      "finishedAt": "2026-10-07T06:50:31.641028+00:00"
+    },
+    {
+      "sha256": "26c239e2d04879eac149c0d7abccbb2bf9b4b035cdbb6b86d2af3a2f86e42fed",
+      "bytes": 15833,
+      "finishedAt": "2026-10-07T06:52:01.863328+00:00"
+    },
+    {
+      "sha256": "1ea5be298ac0b422790029c84312deed2ed75bf4ff23a8a4e6d190b8e9136b2c",
+      "bytes": 12484408,
+      "finishedAt": "2026-10-07T06:52:01.863328+00:00"
+    },
+    {
+      "sha256": "67277cfd280ceec9af74d903ca8c309c343886acc5d747c05bca0991c674725c",
+      "bytes": 826287,
+      "finishedAt": "2026-10-07T06:53:35.610883+00:00"
+    },
+    {
+      "sha256": "1f16f6914852f0bfc047d2de8ac79cdc25c93c98f95f93312ccbc25dfd466b4c",
+      "bytes": 1282,
+      "finishedAt": "2026-10-07T06:53:35.610883+00:00"
+    },
+    {
+      "sha256": "2fb1bd12f0495cf05db16d0e98edab309c6a04f37265aa5013472351be4d697d",
+      "bytes": 398989,
+      "finishedAt": "2026-10-07T06:55:47.728967+00:00"
+    },
+    {
+      "sha256": "c549b4b3918db9eff5d69d2b2347f499dfc69770d8cc71ef58768d1ee8747a91",
+      "bytes": 46134,
+      "finishedAt": "2026-10-07T06:55:47.728967+00:00"
+    },
+    {
+      "sha256": "7ba4bd4158debd20a8e5e67e4e7ae0c69e7898da8f1fba5254281b8f41a33758",
+      "bytes": 400085,
+      "finishedAt": "2026-10-07T06:57:39.411274+00:00"
+    },
+    {
+      "sha256": "4fa302defb6b197a0215e0294488c120d1233f18c385e2e865eef0144fcb8be3",
+      "bytes": 47246,
+      "finishedAt": "2026-10-07T06:57:44.822230+00:00"
+    },
+    {
+      "sha256": "d0757abd3b3e05a4f931e4ac6a7ff9f639908d0fecc17905a66828349652c4ec",
+      "bytes": 422525,
+      "finishedAt": "2026-10-07T06:59:48.655682+00:00"
+    },
+    {
+      "sha256": "4afb096b3d9002ca5d665cfd541a9e6d145b6283101d339c1c3c9fd208e3a162",
+      "bytes": 12497659,
+      "finishedAt": "2026-10-07T07:01:01.872355+00:00"
+    },
+    {
+      "sha256": "2c0ca4f7c4f0a230d6a1c53fc7dec32e7efd3cbf395bab1d71162802b37626fc",
+      "bytes": 8482469,
+      "finishedAt": "2026-10-07T07:02:12.809940+00:00"
+    },
+    {
+      "sha256": "8d44e02778ed2a4f93a232eb87f4275cc9045fe86744702e4cdce31e29507046",
+      "bytes": 24127,
+      "finishedAt": "2026-10-07T07:02:18.567158+00:00"
+    },
+    {
+      "sha256": "326b9e3873007e65f82b83359717ea38f4a9d83eb8803ba8e9beb03c55f557af",
+      "bytes": 1218,
+      "finishedAt": "2026-10-07T07:03:46.279855+00:00"
+    },
+    {
+      "sha256": "8d44e02778ed2a4f93a232eb87f4275cc9045fe86744702e4cdce31e29507046",
+      "bytes": 24127,
+      "finishedAt": "2026-10-07T07:03:46.279855+00:00"
+    },
+    {
+      "sha256": "06e2848a0c6cf045b780ccf0a1364b4bd8be495a1a236dfcd17cf1273aaf69ca",
+      "bytes": 1314,
+      "finishedAt": "2026-10-07T07:04:42.251866+00:00"
+    },
+    {
+      "sha256": "26c239e2d04879eac149c0d7abccbb2bf9b4b035cdbb6b86d2af3a2f86e42fed",
+      "bytes": 15833,
+      "finishedAt": "2026-10-07T07:10:29.972904+00:00"
+    },
+    {
+      "sha256": "1ea5be298ac0b422790029c84312deed2ed75bf4ff23a8a4e6d190b8e9136b2c",
+      "bytes": 12484408,
+      "finishedAt": "2026-10-07T07:10:17.866317+00:00"
+    },
+    {
+      "sha256": "1ea5be298ac0b422790029c84312deed2ed75bf4ff23a8a4e6d190b8e9136b2c",
+      "bytes": 12484408,
+      "finishedAt": "2026-10-07T07:10:29.972904+00:00"
+    },
+    {
+      "sha256": "ed6b8014400fe023deadc6f7c5ac5de8f7a1609497f0f60725640276767db3b6",
+      "bytes": 824322,
+      "finishedAt": "2026-10-07T07:10:17.866317+00:00"
+    },
+    {
+      "sha256": "67277cfd280ceec9af74d903ca8c309c343886acc5d747c05bca0991c674725c",
+      "bytes": 826287,
+      "finishedAt": "2026-10-07T07:10:42.469820+00:00"
+    },
+    {
+      "sha256": "1f16f6914852f0bfc047d2de8ac79cdc25c93c98f95f93312ccbc25dfd466b4c",
+      "bytes": 1282,
+      "finishedAt": "2026-10-07T07:10:42.469820+00:00"
+    },
+    {
+      "sha256": "2fb1bd12f0495cf05db16d0e98edab309c6a04f37265aa5013472351be4d697d",
+      "bytes": 398989,
+      "finishedAt": "2026-10-07T07:10:48.557163+00:00"
+    },
+    {
+      "sha256": "7ba4bd4158debd20a8e5e67e4e7ae0c69e7898da8f1fba5254281b8f41a33758",
+      "bytes": 400085,
+      "finishedAt": "2026-10-07T07:10:53.086010+00:00"
+    },
+    {
+      "sha256": "c549b4b3918db9eff5d69d2b2347f499dfc69770d8cc71ef58768d1ee8747a91",
+      "bytes": 46134,
+      "finishedAt": "2026-10-07T07:10:53.086010+00:00"
+    },
+    {
+      "sha256": "d0757abd3b3e05a4f931e4ac6a7ff9f639908d0fecc17905a66828349652c4ec",
+      "bytes": 422525,
+      "finishedAt": "2026-10-07T07:11:13.016675+00:00"
+    },
+    {
+      "sha256": "4fa302defb6b197a0215e0294488c120d1233f18c385e2e865eef0144fcb8be3",
+      "bytes": 47246,
+      "finishedAt": "2026-10-07T07:11:03.349211+00:00"
+    },
+    {
+      "sha256": "4afb096b3d9002ca5d665cfd541a9e6d145b6283101d339c1c3c9fd208e3a162",
+      "bytes": 12497659,
+      "finishedAt": "2026-10-07T07:11:49.776155+00:00"
+    },
+    {
+      "sha256": "2c0ca4f7c4f0a230d6a1c53fc7dec32e7efd3cbf395bab1d71162802b37626fc",
+      "bytes": 8482469,
+      "finishedAt": "2026-10-07T07:12:11.688441+00:00"
+    },
+    {
+      "sha256": "326b9e3873007e65f82b83359717ea38f4a9d83eb8803ba8e9beb03c55f557af",
+      "bytes": 1218,
+      "finishedAt": "2026-10-07T07:12:36.911086+00:00"
+    },
+    {
+      "sha256": "8d44e02778ed2a4f93a232eb87f4275cc9045fe86744702e4cdce31e29507046",
+      "bytes": 24127,
+      "finishedAt": "2026-10-07T07:12:18.154167+00:00"
+    },
+    {
+      "sha256": "8d44e02778ed2a4f93a232eb87f4275cc9045fe86744702e4cdce31e29507046",
+      "bytes": 24127,
+      "finishedAt": "2026-10-07T07:12:49.944386+00:00"
+    },
+    {
+      "sha256": "06e2848a0c6cf045b780ccf0a1364b4bd8be495a1a236dfcd17cf1273aaf69ca",
+      "bytes": 1314,
+      "finishedAt": "2026-10-07T07:13:59.584296+00:00"
+    }
+  ],
+  "snapshotSha256": "1d53663405867d7065d2b50d7f6f058bb229ef6958501d767f34193cf63c28ba",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:47:24.560027Z",
+      "tool": "run_trial",
+      "status": "failed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full-scope ISO_A3-to-Country Code workflow produce the required distinct South America river-segment selection, with qualifying and unknown countries handled separately and invalid river geometries preserved for unknown_count?"
+    },
+    {
+      "at": "2026-10-07T06:47:43.004402Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full-scope ISO_A3-to-Country Code workflow produce the required distinct South America river-segment selection, with qualifying and unknown countries handled separately and invalid river geometries preserved for unknown_count?"
+    },
+    {
+      "at": "2026-10-07T07:05:51.368588Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-scope trial answered the method question. Filtering the supplied boundaries to CONTINENT='South America' produced 13 country records. Joining boundary ISO_A3 to forest-table Country Code matched 12 records and left one explicit unmatched country, FLK (Falkland Islands), with null 2021 forest indicator. Filtering joined countries on 2021 forest area strictly greater than 50 percent produced 7 qualifying countries. Aggregating qualifying and unknown country flags onto valid river segments with an intersects spatial join preserved one row per original valid river segment across the full supplied river dataset (100,557 rows). The qualifying selection contains 66,314 distinct original river segment records. The unknown-only valid selection contains 16 river segment records that intersect the unknown country and no qualifying known country. The invalid or missing river-geometry branch contains 0 records. The counted river output preserves benchmark_row_id, original river attributes, and unchanged target river geometry while adding diagnostic fields for the join.",
+      "limitations": [
+        "The forest criterion remains a country-level 2021 proxy and does not measure forest cover along each river segment.",
+        "The unknown-country bucket reflects one unmatched South America boundary record, Falkland Islands (FLK), under the released frozen reference join.",
+        "The trial output selection includes original river attributes and geometry plus added join-diagnostic fields; it is not a stripped copy of only original fields."
+      ],
+      "next_action": "Save the tested full-scope computation as the production workflow, deliver the counted river selection artifact, execute it, inspect the final artifacts, and bind count=66314 and unknown_count=16 in the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:16:29.934771Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "Using only the supplied frozen datasets, the executed final workflow counted 66,314 distinct original FAO river segment records intersecting South American country polygons whose frozen World Bank AG.LND.FRST.ZS 2021 forest area is strictly greater than 50 percent of land area after an exact ISO_A3-to-Country Code join. The executed final selection artifact preserves benchmark_row_id, original river attributes, and unchanged line geometry while also carrying workflow diagnostic fields. unknown_count is 16: 16 segments intersect only the explicit unknown country row (Falkland Islands, FLK) and the executed invalid-geometry count is 0. This is a country-level 2021 proxy, not forest along each river segment, and the unit is river segments rather than unique named whole rivers.",
+      "limitations": [
+        "The forest criterion is a country-level 2021 proxy, not mapped forest cover along each river segment.",
+        "These counted records are FAO river segments, not unique named whole rivers.",
+        "unknown_count reflects segments intersecting the explicit unmatched FLK country row and 0 invalid or missing river geometries in this frozen run.",
+        "FAO-derived outputs are for internal research only and are not cleared for promotional publication."
+      ],
+      "next_action": "Use the attached executed selection artifact for internal research review if you want to inspect or export the qualifying river segments.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "a7a4f74963928402a9fc39b73caa01911575f325b15c46598918aee07ef9c25f",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

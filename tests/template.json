@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "status": "draft",
+  "releaseId": "terra-geobenchx-v1",
+  "title": "Building a geospatial agent for complete analytical workflows",
+  "publishedAt": null,
+  "evaluatedAt": null,
+  "benchmark": {
+    "name": "GeoBenchX-derived evaluation",
+    "url": "https://github.com/Solirinai/GeoBenchX",
+    "revision": null,
+    "originalTaskCount": 202,
+    "selectedTaskIds": [],
+    "exclusions": []
+  },
+  "system": {
+    "name": "Terra",
+    "applicationCommit": null,
+    "model": null,
+    "reasoningEffort": null,
+    "runtimeVersion": null,
+    "instructionHash": null,
+    "toolSchemaHash": null,
+    "runtimeName": "Codex SDK"
+  },
+  "protocol": {
+    "url": null,
+    "graderCommit": null,
+    "attemptPolicy": null,
+    "timeLimitSeconds": null,
+    "toolCallLimit": null,
+    "concurrency": null,
+    "humanAssistance": null,
+    "adaptations": [],
+    "attemptsPerTask": 1,
+    "measurement": "One recorded end-to-end attempt per selected task on a frozen release."
+  },
+  "links": {
+    "repository": null,
+    "artifacts": null,
+    "methodology": null
+  },
+  "limitations": [
+    "We use questions from the same GeoBenchX benchmark, but our outcomes are not directly comparable to its published scores because the model, tools, execution limits and grading differ."
+  ],
+  "results": [],
+  "representativeTaskId": null,
+  "sources": []
+}

@@ -1,0 +1,93 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "488600",
+  "question": "Create a heatmap showing population density near earthquake epicenters",
+  "submittedPrompt": "Create a heatmap showing population density near earthquake epicenters\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "**Practical result:** I can only give a feasibility answer here, not the heatmap itself. A **country-level** heatmap may be possible where the earthquake layer overlaps one of the listed population layers, but a **global** heatmap is not supported from this inventory alone.\n\n**What the catalog shows:**\n- Earthquakes: **“Earthquakes occurences and magnitude March 15–February 14 2025”**\n- Population layers: **Bangladesh (2018), USA (2020), Chile (2020), Angola (2020), Peru (2018), Brazil (2018)**, and **“Algeria population density per 1 km 2020”**\n\n**Important limits:**\n- This environment gives **catalog names only**, not the actual earthquake points or raster values, so the heatmap is **not yet confirmed**.\n- Population coverage is limited to those countries.\n- The years do not match: earthquakes are **2025**; population layers are **2018/2020**.\n- Most listed population rasters are **1 km population counts**, so density still needs **preparation**. Algeria is the only listed density layer.\n\n**Next action:** Choose a supported country and define what “near” means (for example, a **10, 25, or 50 km** radius). Then, with the actual files, overlay the earthquake epicenters with that country’s population layer to make the heatmap.\n\n### Limitations\n\n- This environment confirms source availability only; it does not expose the earthquake point coordinates or raster cell values needed to render a heatmap.\n- Population coverage is limited to the listed country rasters rather than a global population surface.\n- The population layers are dated 2018 or 2020, while the earthquake layer is for March 15 to February 14 2025.\n- Not yet confirmed in this environment because only catalog metadata is available, not the underlying earthquake points and population raster values.\n- **Earthquakes:** This inventory does not show the actual epicenter points or confirm which of the available population-country rasters they overlap.\n- **Population density:** The actual raster values are not available here, and most listed sources still need a density-preparation step.\n- **Area and distance:** The request does not name a country, and the catalog does not show a global population layer for a worldwide map.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T08:54:08.130719+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "50dad56b5dba4d5c50a4ae578e5436ec78f43fa2cd5b74976751fe873b03723c",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "74e08f2f4774894b7e7d0815ac759dff6e3b54ae07459b7ce02c015ab19f2d85",
+      "snapshotSha256AtReview": "b7c4ac5b88b993e1a312c736c868f9d4bfc8e23dc9f5ceda41e23838c31e3f27",
+      "evidenceReviewed": [
+        "Complete accepted replacement final answer; not the interrupted original",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies country-limited population coverage, absent observation files, mismatched years and an undefined near-earthquake distance."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Does not claim a country overlap is global or treat population counts as already prepared density."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Names the available countries and source editions while explaining that accessible overlap has not been established."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Explicitly gives feasibility only, not a heatmap; two completed brief/read calls and no jobs/artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests actual overlapping inputs, a supported country and an explicit distance convention before calculation."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:51:20.825457Z",
+      "title": "Progress update",
+      "detail": "I’m checking the saved analysis context and recording the closed-catalog result before I answer."
+    },
+    {
+      "at": "2026-10-07T08:51:23.920457Z",
+      "title": "Progress update",
+      "detail": "I found the Terra analysis tools. I’m checking whether there is already a saved brief for this request so I can update it instead of recreating it."
+    },
+    {
+      "at": "2026-10-07T08:51:23.951010Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:01.763172Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:06.894102Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed there was no saved brief yet. I’m recording the requested heatmap and the real limits of this closed-catalog setting before I answer."
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [],
+  "snapshotSha256": "4c1667b343359e0bbc02155de93639f8b635007a9e40db874f67659096a1526c",
+  "investigations": [],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "ff9feb4c931f82b71f95bc45b915dedc707271273b9ebf82b647163c6b03b9f7",
+    "changes": [
+      "Product-name normalization"
+    ]
+  }
+}

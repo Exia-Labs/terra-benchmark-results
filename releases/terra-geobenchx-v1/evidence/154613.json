@@ -1,0 +1,490 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "154613",
+  "question": "How many US towns are within 5 miles of both a lake and a river?",
+  "submittedPrompt": "How many US towns are within 5 miles of both a lake and a river?\n\nTask conventions: Use all original US town points and all original CEC 2023 lake/reservoir polygons and river lines; no population, name, area or subtype filter. Freeze shortest planar distances in EPSG:5070 after transforming original vertices, with polygon interiors at zero distance. Each of the two distances must be strictly less than 8046.72 metres (five international miles; corrects the reference's rounded 8047). Count each original town once, even if near multiple features. This is a disclosed projected screening approximation, not geodesic or route access; no densification. Unknown_count is missing/invalid town locations. The answer is relative to supplied mapped water features, not an exhaustive real-world water inventory. No source substitutions or clipped source geometries. Internal benchmark-only use. For invalid lake targets explicitly apply linework make-valid in their original CRS, retaining every resulting polygon part and target row; do not omit the records. This is measurement preparation, not new observations.\n\n\n\nReturn an inspectable selected-feature artifact preserving original attributes, geometry and benchmark_row_id. End with one fenced JSON object: {count:integer,unknown_count:integer,coverage_note:string,selection:{collectionId,itemId,assetKey}}. Map optional. Explain projected distance, source coverage and editions.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"US cities and towns, 2014\",\n    \"edition\": \"2014; pop_2010 is 2010 population\",\n    \"units\": {\n      \"pop_2010\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"North American lakes, CEC 2023 frozen benchmark source\",\n    \"edition\": \"CEC North American Environmental Atlas version 4.0 (2023), original benchmark snapshot; benchmark-only use\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"North American rivers, CEC 2023 frozen benchmark source\",\n    \"edition\": \"CEC North American Environmental Atlas version 4.0 (2023), original benchmark snapshot; benchmark-only use\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Result: 4,189 supplied US towns meet both tests, using strict planar distances of less than 8,046.72 m in EPSG:5070, with lake interiors at zero distance. Unknown town locations: 0. The lake step repaired 5 invalid lake targets during measurement.\n\nLimit: This is a projected screening result from the supplied benchmark snapshots only. It is not geodesic or route access, and it is limited to the mapped water features in those editions.\n\nNext: You can inspect the attached selected-towns artifact for the exact rows, geometry, `benchmark_row_id`, `lake_m`, and `river_m`.\n\nSources:  \n- US cities and towns, 2014 — Collection `[resource id withheld]`; provider Terra; National Atlas Cities and Towns of the United States, 2014, edition 2 benchmark snapshot; retrieved 2026-10-07 UTC.  \n- North American lakes, CEC 2023 — Collection `[resource id withheld]`; provider Terra; CEC North American Environmental Atlas v4.0 (2023) frozen benchmark snapshot; retrieved 2026-10-07 UTC.  \n- North American rivers, CEC 2023 — Collection `[resource id withheld]`; provider Terra; CEC North American Environmental Atlas v4.0 (2023) frozen benchmark snapshot; retrieved 2026-10-07 UTC.\n\n### Limitations\n\n- This is a projected EPSG:5070 screening approximation from transformed original vertices with no densification; it is not geodesic distance, route distance, or access distance.\n- Coverage is limited to the supplied immutable benchmark fixtures: National Atlas Cities and Towns of the United States, 2014, and CEC North American Environmental Atlas Lakes and Rivers version 4.0 (2023); it is relative to those mapped water features, not an exhaustive real-world water inventory.\n- Coverage is limited to the supplied immutable benchmark fixtures: National Atlas Cities and Towns of the United States, 2014, and CEC North American Environmental Atlas Lakes and Rivers version 4.0 (2023); it is relative to those mapped lake/reservoir and river features, not an exhaustive real-world water inventory.\n- Unknown_count covers only missing or invalid town locations in the supplied town snapshot.\n- Lake polygon interiors are zero distance. The result is limited to the supplied mapped lake and reservoir features.\n- The result is limited to the supplied mapped river features.",
+  "checks": {
+    "expectedCount": 4189,
+    "actualCount": 4189,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:09:24.988171Z",
+      "title": "Progress update",
+      "detail": "I’m checking the saved analysis state and the exact source/processor contracts first, then I’ll test the distance method on a small private slice before running the full count."
+    },
+    {
+      "at": "2026-10-07T06:09:32.652994Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:55.133919Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:00.884860Z",
+      "title": "Progress update",
+      "detail": "I’ve recorded the benchmark goal. Next I’m reading the exact source metadata and the relevant processor contracts so the method uses the supplied snapshots without changing their meaning."
+    },
+    {
+      "at": "2026-10-07T06:10:01.068516Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:01.079315Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:01.094692Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:09.906989Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:10.591931Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:10.606498Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:19.756943Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:19.929080Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:20.508232Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:31.519154Z",
+      "title": "Progress update",
+      "detail": "I found a processor designed for this exact measurement: it keeps one row per town, measures planar nearest-feature distance in a declared metre CRS, and can do the required linework make-valid for lake polygons during measurement. I’m reading its exact schema now, plus the filter/count helpers."
+    },
+    {
+      "at": "2026-10-07T06:10:31.526367Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:31.664286Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:08.410568Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:19.911224Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:24.827407Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:46.011051Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:17:54.128316Z",
+      "title": "Progress update",
+      "detail": "The trial finished and it looks usable: one measured row per town, zero unknown town locations, five lake targets repaired during measurement, and a current selected set of 4,189 towns. I’m doing one exact inspection of the selected artifact now, then I’ll record the verified result."
+    },
+    {
+      "at": "2026-10-07T06:17:54.160740Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:17:54.314878Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:18:26.829404Z",
+      "title": "Progress update",
+      "detail": "I’ve got the core measured result. I’m pulling the completed exact inspection so I can verify the selected rows and attach the final answer to that inspected artifact, not just to the trial summary."
+    },
+    {
+      "at": "2026-10-07T06:18:28.024535Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:19:15.766532Z",
+      "title": "Progress update",
+      "detail": "The full-scope computation behaved as expected, so I’m recording that trial judgment and refreshing the brief to remove the earlier “not yet confirmed” notes before I attach the final selected result."
+    },
+    {
+      "at": "2026-10-07T06:19:19.734309Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:19:33.065550Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:19:45.303826Z",
+      "title": "Progress update",
+      "detail": "I’ve now inspected the exact selected artifact itself. I’m recording the final result against the requested conditions and attaching the selected feature set that supports the count."
+    },
+    {
+      "at": "2026-10-07T06:19:56.798050Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:20:04.644277Z",
+      "title": "Progress update",
+      "detail": "The trial output itself can’t be the accepted final selection, so I’m promoting the tested computation into a proper final workflow and reusing the exact method that already worked."
+    },
+    {
+      "at": "2026-10-07T06:20:04.752123Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:09.370951Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:13.734798Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:13.748146Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:13.770171Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:14.860591Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:29.044116Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:36.051312Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:52.294832Z",
+      "title": "Progress update",
+      "detail": "I’m saving the tested computation as the final workflow now. If it validates cleanly, I’ll run the same method as the accepted deliverable and inspect that final output before answering."
+    },
+    {
+      "at": "2026-10-07T06:21:01.879891Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:21:07.994133Z",
+      "title": "Progress update",
+      "detail": "The proposal just needed a binding correction: Terra wants the lake and river evidence tied to the measured town dataset input, not to the literal filter settings. I’m fixing that reference and validating again."
+    },
+    {
+      "at": "2026-10-07T06:21:15.104680Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:21:23.601823Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:21:26.195007Z",
+      "title": "Progress update",
+      "detail": "The final workflow validated cleanly and it matches the tested computation. I’m running that exact final version now, then I’ll inspect its output and attach the accepted selection."
+    },
+    {
+      "at": "2026-10-07T06:26:14.165202Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:14.185290Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:15.142982Z",
+      "title": "Progress update",
+      "detail": "The saved final workflow appears to have finished, so I’m reading its exact output receipt and inspecting that final selected artifact before I record the accepted answer."
+    },
+    {
+      "at": "2026-10-07T06:28:21.954104Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:28:21.971206Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:28:23.313120Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:25.030368Z",
+      "title": "Progress update",
+      "detail": "I’m reading the final saved output itself plus the two final distance summaries, so the accepted answer is tied to the finished workflow rather than only to the earlier private trial."
+    },
+    {
+      "at": "2026-10-07T06:30:00.688693Z",
+      "title": "Progress update",
+      "detail": "I already have the final selected dataset identity. I’m doing one last bounded read of the final lake and river summaries so the accepted answer uses the finished workflow’s own counts, not just the earlier trial."
+    },
+    {
+      "at": "2026-10-07T06:30:00.736279Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:00.785184Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:08.926962Z",
+      "title": "Progress update",
+      "detail": "I have the final distance summaries now: both measured all 38,186 towns, unknown_count is 0, and the lake step repaired 5 invalid targets. I’m repeating the completed final-output inspection call once so the accepted answer points at the exact final deliverable receipt."
+    },
+    {
+      "at": "2026-10-07T06:30:10.021672Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:24.248223Z",
+      "title": "Progress update",
+      "detail": "I’ve now inspected the finished deliverable itself and the finished lake and river summaries. I’m recording the accepted result against those final receipts and attaching the final selected towns artifact."
+    },
+    {
+      "at": "2026-10-07T06:30:34.788811Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Selected towns within 5 miles of both a lake and a river",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Town distance to lakes",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "Supplied lakes",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Town distance to rivers",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "Supplied rivers",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Selected towns near both water features",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Supplied towns",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Town distance to lakes",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "Supplied lakes",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Town distance to rivers",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "Supplied rivers",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Selected towns near both water features",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Supplied towns",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Town distance to lakes",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Town distance to rivers",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected towns near both water features",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "acdb56a19ddd4d7aafdd839def6379dbdeec2eb62e4c6c8859cb2b7fa2c6ad97",
+      "bytes": 115787112,
+      "finishedAt": "2026-10-07T06:12:11.845479+00:00"
+    },
+    {
+      "sha256": "375bd3d22950804c0b7dc826ff2b639689078659d3caf84d0ac46f7b3ec34e8a",
+      "bytes": 42374280,
+      "finishedAt": "2026-10-07T06:12:11.845479+00:00"
+    },
+    {
+      "sha256": "160ee5bf8bbbfa0ae6db92d81dc1e5a0c2f19948ac6f457cc535066b83890c56",
+      "bytes": 3577310,
+      "finishedAt": "2026-10-07T06:12:11.845479+00:00"
+    },
+    {
+      "sha256": "dd9be1924eff8bd6b6429d21b1c4570f0580c9a8ff3ae1ed779d4f2d568fd2b5",
+      "bytes": 5449702,
+      "finishedAt": "2026-10-07T06:14:15.307465+00:00"
+    },
+    {
+      "sha256": "ef43ce8bc840f1a6a3e15ee498dbcff748fd7e20af222de7a96543c86da8e6d0",
+      "bytes": 5829771,
+      "finishedAt": "2026-10-07T06:15:13.500876+00:00"
+    },
+    {
+      "sha256": "73af1dcaa251d5ede7feeeb3a70b4c673f309ed702486a58642148eb39855168",
+      "bytes": 668937,
+      "finishedAt": "2026-10-07T06:17:04.758605+00:00"
+    },
+    {
+      "sha256": "dd9be1924eff8bd6b6429d21b1c4570f0580c9a8ff3ae1ed779d4f2d568fd2b5",
+      "bytes": 5449702,
+      "finishedAt": "2026-10-07T06:24:04.440890+00:00"
+    },
+    {
+      "sha256": "ef43ce8bc840f1a6a3e15ee498dbcff748fd7e20af222de7a96543c86da8e6d0",
+      "bytes": 5829771,
+      "finishedAt": "2026-10-07T06:25:05.074955+00:00"
+    },
+    {
+      "sha256": "73af1dcaa251d5ede7feeeb3a70b4c673f309ed702486a58642148eb39855168",
+      "bytes": 668937,
+      "finishedAt": "2026-10-07T06:25:45.804693+00:00"
+    }
+  ],
+  "snapshotSha256": "13aabae24301932adbc9c7be6180017de3e06c63235b4f8d85ead41d3241ae91",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:11:46.011051Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does chaining nearest-distance to the supplied lakes and rivers produce one measured row per original town, preserve benchmark_row_id and geometry, report any lake target repairs, and allow strict filtering at less than 8046.72 metres for both distances in EPSG:5070?"
+    },
+    {
+      "at": "2026-10-07T06:19:19.734309Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-scope chained distance computation answered the method question. The lake-distance step measured all 38,186 supplied town rows in EPSG:5070, preserved one row per town, reported unknownSourceCount 0, and applied make-valid to 5 lake targets while keeping targetCount 13,135. The river-distance step also measured all 38,186 town rows with unknownSourceCount 0. The strict filter lake_m < 8046.72 and river_m < 8046.72 produced 4,189 selected town points. The inspected selected artifact preserves geometry, benchmark_row_id, and the original town attributes alongside the two measured distance fields.",
+      "limitations": [
+        "This answers the supplied benchmark screening question only.",
+        "Distances are projected planar EPSG:5070 measurements from transformed original vertices with no densification, not geodesic or route-access measures.",
+        "Coverage is limited to the supplied 2014 towns snapshot and supplied CEC 2023 mapped lake/reservoir and river features."
+      ],
+      "next_action": "Use the inspected selected artifact and the distance summaries to assess the final benchmark result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:19:56.798050Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "Using all 38,186 supplied US town points, all 13,135 supplied CEC 2023 lake/reservoir polygons, and all 5,811 supplied CEC 2023 river lines, the full-screened result selects 4,189 towns whose shortest planar distance in EPSG:5070 is strictly less than 8,046.72 metres to both a mapped lake/reservoir polygon and a mapped river line. Unknown_count is 0. Lake polygon interiors were treated as zero distance, and 5 invalid lake targets were repaired with required linework make-valid during measurement. The attached selected artifact is inspectable and preserves original town attributes, geometry, and benchmark_row_id.",
+      "limitations": [
+        "This is a projected EPSG:5070 screening approximation from transformed original vertices with no densification; it is not geodesic distance, route distance, or access distance.",
+        "Coverage is limited to the supplied immutable benchmark fixtures: National Atlas Cities and Towns of the United States, 2014, and CEC North American Environmental Atlas Lakes and Rivers version 4.0 (2023); it is relative to those mapped water features, not an exhaustive real-world water inventory."
+      ],
+      "next_action": "Use the attached selected feature artifact if you want to inspect or map the 4,189 selected towns.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:30:34.788811Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The finished saved workflow selected 4,189 original US towns that are each strictly within 8,046.72 metres of at least one supplied CEC 2023 lake or reservoir polygon and also strictly within 8,046.72 metres of at least one supplied CEC 2023 river line under the requested EPSG:5070 planar screening method. Unknown_count is 0. The final lake-distance summary shows 5 invalid lake targets were repaired with linework make-valid during measurement, and the final selected artifact preserves original town attributes, geometry, and benchmark_row_id.",
+      "limitations": [
+        "This is a projected EPSG:5070 screening approximation from transformed original vertices with no densification; it is not geodesic distance, route distance, or access distance.",
+        "Coverage is limited to the supplied immutable benchmark fixtures: National Atlas Cities and Towns of the United States, 2014, and CEC North American Environmental Atlas Lakes and Rivers version 4.0 (2023); it is relative to those mapped lake/reservoir and river features, not an exhaustive real-world water inventory."
+      ],
+      "next_action": "Use the attached selection if you want to inspect or map the 4,189 towns.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "ec6ab8b3443addf8ea33b72c96569bd7619f712ab1723e0fadba81c907b37aa8",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

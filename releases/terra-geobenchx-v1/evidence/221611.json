@@ -1,0 +1,87 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "221611",
+  "question": "Map industrial pollution hotspots in Eastern European cities?",
+  "submittedPrompt": "Map industrial pollution hotspots in Eastern European cities?\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "I can’t map **industrial pollution hotspots in Eastern European cities** from this source list.\n\nWhat the listed inventory does support:\n- A **very rough country-level comparison** using **Countries** plus national indicators like **greenhouse gases per capita**, **CO2 emissions per capita**, **electric power consumption**, and **population**.\n\nWhat blocks the requested map:\n- No **Eastern Europe city boundaries**\n- No **Eastern Europe industrial facility** layers\n- No city- or facility-level **pollution measurements** for that region  \n- The only industrial-type facility layers listed are for **Africa**, so they do not answer this question\n\nSo the unanswered part is the main one: **which Eastern European cities are pollution hotspots**.\n\nNext action:\n- Add **Eastern Europe city geometry**\n- Add **city- or facility-scale pollution or emissions data**\n\nWithout those, any hotspot map would be guesswork rather than evidence.\n\n### Limitations\n\n- This is a closed-catalog source-availability task based only on the listed inventory, not on observation files or live data access.\n- Not supported by the listed sources because they provide neither Eastern Europe city geography nor city/facility pollution observations for that region.\n- **Pollution data:** The listed sources do not show city-level industrial pollution measurements for Eastern Europe.\n- **City areas:** The listed geography does not include Eastern European city boundaries.\n- **Industry sites:** The listed facility layers are outside the requested region.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T06:12:38.201464+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "d6e72a804cd97342a422ac27e788392a2c68a526d52fdc0c3143614c3210cd14",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "dda793d9cbcbd4a5ed886eea373c95217eadf12b4b20dc75ec3d7513b6c0dc05",
+      "snapshotSha256AtReview": "e5a894f8fc95c6dbe32283324ba2f8b95062ea91a71a1d81169ae6ca208d4b25",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies absent Eastern European city/facility-scale industrial pollution measurements and geography."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Labels national emissions comparison as a different rough country-level analysis, not city hotspots."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Restricts the conclusion to the listed inventory and notes industrial source geography is African."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Reports no hotspot cities, measurements or map; only bookkeeping/help tools and zero jobs/artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Specifies Eastern European city geometry and city/facility pollution data needed for the requested map."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:10:35.042149Z",
+      "title": "Progress update",
+      "detail": "I’m checking the retained analysis state, then I’ll record the supported result and its real limits from this closed catalog."
+    },
+    {
+      "at": "2026-10-07T06:10:35.147111Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:35.154107Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:46.223561Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed there is no retained workflow or trial here. I’m saving the actual outcome as a source-availability assessment: what this catalog can and cannot support for the requested hotspot map."
+    },
+    {
+      "at": "2026-10-07T06:10:52.484525Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "8e53361beb1215ee9f474e6d4b2567b3d2148b7d4ac1ad5092462c24980d9f3a",
+  "investigations": []
+}

@@ -1,0 +1,30 @@
+{
+  "reviewedAt": "2026-10-06",
+  "purpose": "Local evaluation with frozen GeoBenchX inputs. No raw dataset redistribution.",
+  "assets": {
+    "density": {
+      "status": "verified", "license": "CC-BY-4.0",
+      "attribution": "WorldPop and CIESIN. Algeria population density 2020, UN adjusted, 1 km. DOI 10.5258/SOTON/WP00675.",
+      "evidence": ["Pinned Data_Sources.bib, WorldPop-Algeria-2020", "https://www.worldpop.org/faq/", "https://hub.worldpop.org/geodata/summary?id=39940"],
+      "finding": "Archive citation identifies the UN-adjusted density edition and CC4.0international. WorldPop declares CC BY 4.0; its companion Algeria density product documents people/km² units. Preserve original UNadj bytes, not the companion unadjusted file."
+    },
+    "counties": {
+      "status": "verified", "license": "public-domain",
+      "attribution": "U.S. Census Bureau. TIGER/Line 2024 county boundaries.",
+      "evidence": "https://www.census.gov/newsroom/archives/2014-pr/cb14-208.html",
+      "finding": "Census identifies TIGER as a public-domain geospatial source. Pinned archive citation and file identify the 2024 edition."
+    },
+    "earthquakes": {
+      "status": "verified", "license": "public-domain",
+      "attribution": "USGS Earthquake Hazards Program. Frozen GeoBenchX 30-day earthquake snapshot labelled Feb142025.",
+      "evidence": "https://www.usgs.gov/faqs/are-usgs-reportspublications-copyrighted",
+      "finding": "USGS-authored data are public domain; retain source attribution. The actual frozen file contains January 16–February 15, 2025 UTC event timestamps."
+    },
+    "stations": {
+      "status": "verified", "license": "CC0-1.0",
+      "attribution": "Amtrak / USDOT Bureau of Transportation Statistics. Amtrak Stations, frozen GeoBenchX snapshot.",
+      "evidence": "https://catalog.data.gov/dataset/amtrak-stations",
+      "finding": "Official DOT catalog declares CC0-1.0. Use only the already supplied historical archive, not the current 2026 dataset; preserve attribution and source metadata."
+    }
+  }
+}

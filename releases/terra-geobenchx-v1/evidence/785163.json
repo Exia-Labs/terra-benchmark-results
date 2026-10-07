@@ -1,0 +1,712 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "785163",
+  "question": "Calculate the percentage of Angola's population living within 20km of mineral extraction facilities",
+  "submittedPrompt": "Calculate the percentage of Angola's population living within 20km of mineral extraction facilities\n\nTask conventions: Use the frozen WorldPop 2020 UN-adjusted population-count raster, original band 1 and grid; values are people per cell. Use the supplied facilities records with Country exactly 'Angola'. Do not invent missing facilities or include another country. A valid population cell qualifies when its centre is at most 20000 metres from its nearest selected original Point, using shortest WGS84 ellipsoid surface distance. This frozen centre-distance convention avoids overlapping-buffer double counts and projected-map scale ambiguity. It is not road travel distance or within-cell population positioning. Sum original counts in qualifying cells, divide by all original valid country-raster counts and multiply by 100. No resampling, constant-cell-area conversion or invented census denominator. Zero population stays valid; NoData is unknown. Count each cell once. The result describes the supplied facility inventory and raster coverage, not proof that every facility is recorded. Retain the full-grid distance raster and selected-population raster (original count when eligible, zero otherwise, original missing-data mask).\n\n\n\nCompute the percentage and publish both inspectable rasters. A map is optional. End with a fenced JSON object: {count: qualifying cell count, unknown_count: original masked/nonfinite cell count, coverage_note, selection:{collectionId,itemId,assetKey}, distance:{collectionId,itemId,assetKey}, metrics:{selected_people:number,total_people:number,percentage:number}}. Label selected population as people per cell and distance as metres. Report the historical year and coverage limitations. Do not round machine-readable metrics to integers.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Angola population count, WorldPop 2020\",\n    \"edition\": \"2020 UN-adjusted population aggregated to 1 km cells\",\n    \"units\": {\n      \"band1\": \"people per cell\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"African mineral extraction facilities\",\n    \"edition\": \"USGS 2021 benchmark snapshot\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "About 43.02% of the population in the supplied Angola WorldPop 2020 raster lives within 20 km of a supplied Angola mineral extraction facility. That is 14,137,536.462 people out of 32,866,268.004 valid people-per-cell counts; 21,584 cells qualify. The Angola filter kept 53 supplied records, which collapse to 49 unique point locations because four coordinate pairs are duplicates.\n\nLimits: this uses the supplied WorldPop 2020 raster and supplied USGS 2021 facility snapshot. 947,409 masked raster cells remain unknown, and the result describes the supplied raster coverage and inventory only.\n\nNext: I can add the published selected-population raster and distance raster to the map if you want.\n\n### Limitations\n\n- Population values are from the supplied WorldPop 2020 UN-adjusted 1 km raster; masked or nonfinite cells are excluded as unknown.\n- Facilities are from the supplied USGS 2021 benchmark snapshot; the result reflects this supplied inventory only and does not prove all facilities are recorded.\n- Distance uses original raster cell centres and shortest WGS84 ellipsoid surface distance to the nearest selected point; it is not road distance or travel time.\n- Population values come from the supplied WorldPop 2020 UN-adjusted 1 km raster; 947409 masked cells are unknown and excluded from totals.\n- Facilities come from the supplied USGS 2021 snapshot; the result reflects this supplied inventory only and does not prove that every Angola facility is recorded.\n- Distance is original raster cell-centre WGS84 ellipsoid distance to the nearest selected point, not road travel distance or within-cell population location.",
+  "checks": {
+    "expectedCount": 21584,
+    "actualCount": 21584,
+    "expectedMetrics": {
+      "selected_people": 14137536.462073088,
+      "total_people": 32866268.004241593,
+      "percentage": 43.015338584376394
+    },
+    "actualMetrics": {
+      "percentage": 43.01533858437639,
+      "total_people": 32866268.004241593,
+      "selected_people": 14137536.462073088
+    },
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:52:30.724408Z",
+      "title": "Progress update",
+      "detail": "I’m checking the saved analysis context, the two supplied sources, and the available geospatial processors so I can build the exact centre-distance method you asked for and publish inspectable rasters."
+    },
+    {
+      "at": "2026-10-07T07:52:43.102869Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:43.255063Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:45.965322Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:46.142619Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:51.736232Z",
+      "title": "Progress update",
+      "detail": "I found the core Terra tools. Next I’m inspecting the two supplied datasets and an authoritative Angola boundary so the computation uses the original raster, the exact Angola facility filter, and an explicit country scope."
+    },
+    {
+      "at": "2026-10-07T07:52:56.182575Z",
+      "title": "Progress update",
+      "detail": "The supplied raster looks like an Angola-only snapshot, but I still need a real boundary source so the study scope is explicit and I can describe any edge coverage limits correctly. Then I’ll inspect the file schemas and test the exact distance workflow on a small slice."
+    },
+    {
+      "at": "2026-10-07T07:52:56.226512Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:56.492759Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:56.512248Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:57.516224Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:57.621958Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:13.575640Z",
+      "title": "Progress update",
+      "detail": "I found the likely method: filter the supplied facility points to Country='Angola', compute a full geodesic point-to-cell-centre distance raster on the original WorldPop grid, build the selected-population raster with a ≤20 km test, then summarize both original and selected people per cell. I’m reading the exact processor contracts now so I don’t guess any parameter names."
+    },
+    {
+      "at": "2026-10-07T07:53:13.874516Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:53:13.892397Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:53:25.405462Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:25.425467Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:26.323937Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:26.555341Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:37.604123Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:37.630032Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:38.546618Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:53:38.705003Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:57.378972Z",
+      "title": "Progress update",
+      "detail": "I’ve got the core processor chain. The remaining uncertainty is the exact output wiring and whether the map-algebra expression preserves the original NoData mask while writing zeros outside the 20 km selection. I’m going to prove that on a small private trial before I scale it to all of Angola."
+    },
+    {
+      "at": "2026-10-07T07:54:18.757067Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:29.669059Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:29.691306Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:07.873733Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:44.315437Z",
+      "title": "Progress update",
+      "detail": "The private full-area test succeeded. It already shows a non-empty Angola facility set, original-grid distance output in metres, and selected-population values with the original missing-data mask preserved. I’m doing a quick inspection of the filtered facilities and the preview images now, then I’ll save the exact tested method as the production workflow and run it."
+    },
+    {
+      "at": "2026-10-07T07:58:44.478848Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:44.514586Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:59:42.972455Z",
+      "title": "Progress update",
+      "detail": "The method is already proven on the full supplied Angola raster. Now I’m turning that exact tested computation into the publishable workflow, then I’ll inspect the final rasters and lock in the machine-readable answer from those final artifacts."
+    },
+    {
+      "at": "2026-10-07T07:59:56.704522Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:59:56.719074Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:59:57.411051Z",
+      "title": "Progress update",
+      "detail": "I’ve reached the workflow-save step. I’m reading the exact proposal schema now so the final published workflow uses the same tested nodes without any guesswork."
+    },
+    {
+      "at": "2026-10-07T07:59:57.670559Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:59:57.701639Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:03.026222Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:03.031365Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:03.650341Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:03.677675Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:11.380645Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:11.606470Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:15.727320Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:17.381054Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:40.001121Z",
+      "title": "Progress update",
+      "detail": "I found one real limitation to carry forward: the filtered facilities file has 53 Angola points, but the full-grid distance run used 49 points. I’m checking that now against the supplied raster extent so the final answer clearly separates raster coverage from facility inventory coverage."
+    },
+    {
+      "at": "2026-10-07T08:00:40.960731Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:41.034415Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:43.484947Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:17.371323Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:03:00.837248Z",
+      "title": "Progress update",
+      "detail": "I’m checking whether the 53 Angola facility records include duplicate coordinates. If they do, the 49-point distance count is still valid because duplicate original points don’t change the nearest-distance result or double count any raster cell."
+    },
+    {
+      "at": "2026-10-07T08:03:01.039812Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:03:41.269885Z",
+      "title": "Progress update",
+      "detail": "The private test is enough to promote into the production workflow. It covered the full supplied Angola raster, not a local sample, and it showed that the 53 Angola facility records include 4 duplicate coordinate pairs, so the distance processor’s 49 effective point locations do not change the nearest-distance result."
+    },
+    {
+      "at": "2026-10-07T08:03:42.657643Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:07.679434Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the method development. I’m saving the exact tested full-area workflow now: same supplied inputs, same Country='Angola' filter, same geodesic cell-centre distance rule, and the two published rasters plus supporting summary tables."
+    },
+    {
+      "at": "2026-10-07T08:04:22.013449Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:29.666469Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:30.912394Z",
+      "title": "Progress update",
+      "detail": "The workflow is validated and fully matches the tested computation. I’m running it now so the rasters are published as final inspectable outputs, then I’ll inspect those exact final artifacts and lock in the answer object."
+    },
+    {
+      "at": "2026-10-07T08:06:52.453244Z",
+      "title": "Progress update",
+      "detail": "The final workflow run has finished in the background. I’m inspecting the exact published outputs now so the accepted answer is tied to the final rasters and final summary tables, not just the earlier trial."
+    },
+    {
+      "at": "2026-10-07T08:07:00.665239Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:47.644895Z",
+      "title": "Progress update",
+      "detail": "I have the final published artifact identities. Next I’m collecting one bounded inspection for each final raster and summary table so the accepted answer points to the finished published outputs and their exact metrics."
+    },
+    {
+      "at": "2026-10-07T08:07:47.694808Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:47.712912Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:07:47.725432Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:47.748458Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:49.268085Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:08:16.643257Z",
+      "title": "Progress update",
+      "detail": "I have the final output identities. I’m pulling the last two published summary tables and the final raster previews now, then I’ll record the answer object from those final published outputs."
+    },
+    {
+      "at": "2026-10-07T08:08:16.681233Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:16.695472Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:16.723405Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:28.938868Z",
+      "title": "Progress update",
+      "detail": "I’ve got the final raster inspections. I’m pulling the three published summary tables directly by their final workflow node names now so the answer uses the final run’s own totals."
+    },
+    {
+      "at": "2026-10-07T08:08:29.094345Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:29.496969Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:29.519472Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:10.099126Z",
+      "title": "Progress update",
+      "detail": "I’m finishing the last inspection receipts and then I can record the final answer. The numbers already match the verified full-area trial; this last step just binds them to the final published outputs."
+    },
+    {
+      "at": "2026-10-07T08:09:10.174376Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:10.200784Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:11.429400Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:02.731515Z",
+      "title": "Progress update",
+      "detail": "I have everything needed for the final result now: the published selected-population raster, the published distance raster, and the published summary tables from the final run. I’m refreshing the brief notes so they match the completed evidence, then I’ll record the accepted answer object."
+    },
+    {
+      "at": "2026-10-07T08:10:10.950091Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:27.072635Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:27.593689Z",
+      "title": "Progress update",
+      "detail": "I’m adding one last check on the final run’s filtered facilities output so the accepted result is tied directly to the final Country='Angola' selection, not only the matching trial checksum."
+    },
+    {
+      "at": "2026-10-07T08:10:51.360759Z",
+      "title": "Progress update",
+      "detail": "I have the final published rasters and tables. I’m collecting the final Angola-only facility receipt now, then I’ll record the accepted answer object against the finished outputs."
+    },
+    {
+      "at": "2026-10-07T08:10:52.078704Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:13:06.720122Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Angola population within 20 km of supplied mineral extraction facilities",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Angola nearest-facility distance raster",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected population summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Total population summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Qualifying cell summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "distance",
+      "description": "Recorded distance-surface · succeeded"
+    },
+    {
+      "title": "facilities angola",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "mask stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "population band",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "selected population",
+      "description": "Recorded raster-point-proximity · succeeded"
+    },
+    {
+      "title": "selected stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "selection mask",
+      "description": "Recorded raster-point-proximity · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "total stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "distance",
+      "description": "Recorded distance-surface · succeeded"
+    },
+    {
+      "title": "facilities angola",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "mask stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "population band",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "selected population",
+      "description": "Recorded raster-point-proximity · succeeded"
+    },
+    {
+      "title": "selected stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "selection mask",
+      "description": "Recorded raster-point-proximity · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "total stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "distance",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "total stats",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "selected stats",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "mask stats",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "a5818522a2c966354fb044df972b1793a62ae6d4de4955ff7948a953555fae94",
+      "bytes": 290677,
+      "finishedAt": "2026-10-07T07:55:39.599584+00:00"
+    },
+    {
+      "sha256": "531e52fbe896889a591ddec9b422ec59e2fa42e543037d3568f557016c4a0d7d",
+      "bytes": 6566448,
+      "finishedAt": "2026-10-07T07:55:39.599584+00:00"
+    },
+    {
+      "sha256": "bd2d423dfafdc17334699ec4265023fb33e8bb5edbfac446c200f1f88a48d24f",
+      "bytes": 36999,
+      "finishedAt": "2026-10-07T07:56:00.373598+00:00"
+    },
+    {
+      "sha256": "d248e446a33c77f731108ab04d058a23d9861c94484bbdd1df7d36c258c17d63",
+      "bytes": 8391053,
+      "finishedAt": "2026-10-07T07:55:52.899201+00:00"
+    },
+    {
+      "sha256": "f28824c6d4222d78fc4accfc4fedfb885ded1c887a42fb8eedc104e3fae7f7f2",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T07:56:13.596843+00:00"
+    },
+    {
+      "sha256": "d590fa10f3737ade483667735846e875ffc471cc97cb60ada77e509ed18c454a",
+      "bytes": 14638527,
+      "finishedAt": "2026-10-07T07:57:11.990485+00:00"
+    },
+    {
+      "sha256": "6f4794d9d4ee1cb807ee9fa9d5cc4ab2768b450fb3748ca502c17a82d931d8d8",
+      "bytes": 240954,
+      "finishedAt": "2026-10-07T07:56:57.954863+00:00"
+    },
+    {
+      "sha256": "c3d552e8ed00e7147c5fd25b72d8ad9cf2fb514705127cf52b0c1351188aee8c",
+      "bytes": 79988,
+      "finishedAt": "2026-10-07T07:57:24.072784+00:00"
+    },
+    {
+      "sha256": "2392c0f8464b67bc8eb0d1b6228255c410e9b8ad233a18a80ccd1996fa577cba",
+      "bytes": 8662,
+      "finishedAt": "2026-10-07T07:57:57.578650+00:00"
+    },
+    {
+      "sha256": "4bf75b1cd7f56b83cfff2779e52d321c56ac03b008dbb3d8557d06721ce5a898",
+      "bytes": 8733,
+      "finishedAt": "2026-10-07T07:57:42.864055+00:00"
+    },
+    {
+      "sha256": "bd2d423dfafdc17334699ec4265023fb33e8bb5edbfac446c200f1f88a48d24f",
+      "bytes": 36999,
+      "finishedAt": "2026-10-07T08:05:01.274399+00:00"
+    },
+    {
+      "sha256": "d248e446a33c77f731108ab04d058a23d9861c94484bbdd1df7d36c258c17d63",
+      "bytes": 8391053,
+      "finishedAt": "2026-10-07T08:05:01.274399+00:00"
+    },
+    {
+      "sha256": "6f4794d9d4ee1cb807ee9fa9d5cc4ab2768b450fb3748ca502c17a82d931d8d8",
+      "bytes": 240954,
+      "finishedAt": "2026-10-07T08:05:24.048749+00:00"
+    },
+    {
+      "sha256": "d590fa10f3737ade483667735846e875ffc471cc97cb60ada77e509ed18c454a",
+      "bytes": 14638527,
+      "finishedAt": "2026-10-07T08:06:10.590290+00:00"
+    },
+    {
+      "sha256": "f28824c6d4222d78fc4accfc4fedfb885ded1c887a42fb8eedc104e3fae7f7f2",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T08:06:10.590290+00:00"
+    },
+    {
+      "sha256": "c3d552e8ed00e7147c5fd25b72d8ad9cf2fb514705127cf52b0c1351188aee8c",
+      "bytes": 79988,
+      "finishedAt": "2026-10-07T08:05:56.214713+00:00"
+    },
+    {
+      "sha256": "4bf75b1cd7f56b83cfff2779e52d321c56ac03b008dbb3d8557d06721ce5a898",
+      "bytes": 8733,
+      "finishedAt": "2026-10-07T08:06:31.912579+00:00"
+    },
+    {
+      "sha256": "2392c0f8464b67bc8eb0d1b6228255c410e9b8ad233a18a80ccd1996fa577cba",
+      "bytes": 8662,
+      "finishedAt": "2026-10-07T08:06:31.912579+00:00"
+    }
+  ],
+  "snapshotSha256": "0ec9bf164090fe49caf04b3af47b71c53f64c7358999bc1e1241b03ff9d46385",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:55:07.873733Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full Angola computation correctly filter the supplied facilities to Country='Angola', compute WGS84 cell-centre nearest-point distances on the original WorldPop grid, and produce selected-population and summary rasters that preserve the original missing-data mask?"
+    },
+    {
+      "at": "2026-10-07T08:03:42.657643Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-area test answered the method question. The supplied facilities filter returned 53 records with Country='Angola'. Inspection of the filtered coordinates shows 4 duplicate point locations, so the distance processor's 49 effective point locations are consistent with exact duplicate pruning and do not change nearest-distance or eligible-cell results. The geodesic distance raster preserved the original WorldPop grid and missing-data mask and reported metres. The selected-population raster preserved the original mask, wrote original people-per-cell values within 20 km, and wrote zero outside. The full-grid statistics reconciled without double counting: total_people=32866268.004241593, selected_people=14137536.462073088, qualifying valid cells=21584, unknown cells=947409.",
+      "limitations": [
+        "Population is from the supplied WorldPop 2020 UN-adjusted raster and facilities are from the supplied USGS 2021 snapshot.",
+        "The result reflects the supplied facility inventory and raster coverage only; duplicate facility coordinates do not add coverage beyond the shared location."
+      ],
+      "next_action": "Save the exact tested computation as the production workflow, publish the distance and selected-population rasters, then inspect the final published outputs and assess the requested result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:13:06.720122Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "43.01533858437639% of the people counted in the supplied Angola WorldPop 2020 raster are in valid cells whose centres are within 20000 metres of the nearest supplied Angola mineral extraction facility. The final published outputs preserve the original raster grid and mask. Final metrics from the published outputs are selected_people=14137536.462073088, total_people=32866268.004241593, qualifying valid cells=21584, and unknown masked/nonfinite cells=947409. The final Country='Angola' facility filter contains 53 supplied records; 4 duplicate coordinate pairs collapse to 49 effective point locations in the geodesic distance raster without changing nearest-distance eligibility.",
+      "limitations": [
+        "Population values come from the supplied WorldPop 2020 UN-adjusted 1 km raster; 947409 masked cells are unknown and excluded from totals.",
+        "Facilities come from the supplied USGS 2021 snapshot; the result reflects this supplied inventory only and does not prove that every Angola facility is recorded.",
+        "Distance is original raster cell-centre WGS84 ellipsoid distance to the nearest selected point, not road travel distance or within-cell population location."
+      ],
+      "next_action": "Optional: add the published selected-population and distance rasters to the map for review.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "58ccf650b8974431b29dbfc8493b7c1bf7ddb800e910077fe7602177f47fdc81",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

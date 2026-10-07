@@ -1,0 +1,667 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "551060",
+  "question": "Calculate the percentage of Angola's population living in areas with density above 1000 people per square kilometer",
+  "submittedPrompt": "Calculate the percentage of Angola's population living in areas with density above 1000 people per square kilometer\n\nTask conventions: Use the frozen WorldPop 2020 UN-adjusted population-count raster, band 1, not current data. Its values are people PER CELL, not people/km². Define density as each original valid cell count divided by that geographic cell’s full WGS84 ellipsoidal area in km² (meridian/parallel cell edges). Do not use a constant 1 km² approximation or resample counts. Strict density >1000 qualifies; sum the original counts in qualifying cells and divide by the sum of original counts over all valid cells, then multiply by 100. The denominator is the supplied raster’s valid country coverage, not an invented census total. Genuine zeros remain zero; NoData is unknown, not zero. Return a full-grid selected-population raster: original population for qualifying cells, zero for other valid cells, and the original missing-data mask. Also retain the density raster with the same grid and mask.\n\n\n\nCompute the percentage and publish the two inspectable rasters. A map is optional. End with one fenced JSON object: {count: qualifying cell count, unknown_count: original masked/nonfinite cell count, coverage_note, selection:{collectionId,itemId,assetKey} for selected-population counts, density:{collectionId,itemId,assetKey}, metrics:{selected_people: number, total_people: number, percentage: number}}. Report original year and the valid-raster coverage limitation. Do not round the machine-readable metrics to whole people or whole percentages.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Angola population count, WorldPop 2020\",\n    \"edition\": \"2020 UN-adjusted population aggregated to 1 km cells\",\n    \"units\": {\n      \"band1\": \"people per cell\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Using the supplied WorldPop 2020 UN-adjusted Angola count raster, **52.82809594657022%** of the population in valid raster coverage lives in cells above **1,000 people/km²**.\n\nThat is **17,362,623.595336914** people out of **32,866,268.004241593**, across **3,572** qualifying cells. The published density raster and selected-population raster are inspectable.\n\nLimitation: **947,409** masked cells remain unknown and were excluded from both numerator and denominator, so this is a share of the raster’s **valid 2020 coverage**, not an independent census-total share.\n\nSource: **WorldPop and CIESIN, WorldPop 2020 Angola population counts**, hosted by Terra; source revision not provided; retrieved **2026-10-07 UTC**.\n\n### Limitations\n\n- Population outside the raster's valid Angola coverage remains unknown because NoData is not treated as zero.\n- WorldPop 2020 is assessed only over the raster's valid Angola coverage. The 947,409 masked cells remain unknown and are excluded from both numerator and denominator, so this is not an independent census-total share.\n- The denominator and selected counts are limited to the raster's valid Angola coverage rather than an independent census total.\n- The derived density preserves the original missing-data mask, so masked cells remain unknown.\n- Non-qualifying valid cells are set to zero, while masked cells remain unknown.\n- The denominator is the sum of original counts over valid raster cells only.",
+  "checks": {
+    "expectedCount": 3572,
+    "actualCount": 3572,
+    "expectedMetrics": {
+      "selected_people": 17362623.595336914,
+      "total_people": 32866268.004241593,
+      "percentage": 52.828095946567956
+    },
+    "actualMetrics": {
+      "percentage": 52.82809594657022,
+      "total_people": 32866268.004241593,
+      "selected_people": 17362623.595336914
+    },
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:25:19.206397Z",
+      "title": "Progress update",
+      "detail": "I’ll confirm the supplied raster and analysis context first, then test the density calculation on the original grid before I scale it to the full Angola result."
+    },
+    {
+      "at": "2026-10-07T07:25:25.584999Z",
+      "title": "Progress update",
+      "detail": "I found the core Terra analysis tools. Next I’m checking the retained brief and the supplied raster’s metadata so I can build a tested method on the original WorldPop grid."
+    },
+    {
+      "at": "2026-10-07T07:25:25.594988Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:25:25.602196Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:25:25.608359Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:25:26.093706Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:25:36.066679Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:25:36.101012Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:25:36.717657Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:25:36.744471Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:25:43.774770Z",
+      "title": "Progress update",
+      "detail": "I confirmed there isn’t already a saved analysis for this request. The first catalog search only surfaced the supplied raster again, so I’m now narrowing to a real Angola boundary source and the raster’s exact metadata."
+    },
+    {
+      "at": "2026-10-07T07:25:43.787140Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:25:43.791790Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:25:43.795677Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:25:44.357904Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:25:50.721207Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:25:50.950118Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:10.251498Z",
+      "title": "Progress update",
+      "detail": "I’ve got the needed tools exposed. Now I’m inspecting the supplied WorldPop raster itself so I can anchor the scope to the actual dataset and see the exact input selection Terra expects."
+    },
+    {
+      "at": "2026-10-07T07:26:10.271654Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:10.276340Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:10.286273Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:10.292435Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:11.203813Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:11.255729Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:11.425327Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:37.628486Z",
+      "title": "Progress update",
+      "detail": "I found a purpose-built processor for this exact conversion: `raster-count-density`. Its documented behavior matches the user’s rule set: exact ellipsoidal cell area on the original geographic grid, no resampling, and preserved valid-zero / NoData handling. I’m describing the exact schemas now so I can test a minimal end-to-end slice cleanly."
+    },
+    {
+      "at": "2026-10-07T07:26:37.640129Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:37.936644Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:52.275853Z",
+      "title": "Progress update",
+      "detail": "The method can be tested end to end without resampling: source counts → exact density → strict `>1000` selection → full-grid raster statistics. Because the Angola raster is only a few million cells, I’m testing the whole requested extent rather than a toy subset, so the production method won’t need a scale change afterward."
+    },
+    {
+      "at": "2026-10-07T07:26:52.290934Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:52.296259Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:52.300932Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:26:52.305812Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:13.182153Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:13.305353Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:13.308556Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:13.658929Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:35.421045Z",
+      "title": "Progress update",
+      "detail": "I’m running the full requested computation privately now: original counts → exact density → strict selection mask → selected-population raster → full-grid statistics. This will show whether the mask is preserved and give the exact totals needed for the final percentage before I save the publishable workflow."
+    },
+    {
+      "at": "2026-10-07T07:27:45.560451Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:20.230458Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:20.365717Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:20.651742Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:20.896605Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:34.823033Z",
+      "title": "Progress update",
+      "detail": "The private trial succeeded. It produced the exact totals and showed the mask stayed intact, so I’m recording that result and turning the tested computation into the final workflow with the two requested rasters and the supporting totals."
+    },
+    {
+      "at": "2026-10-07T07:29:46.013888Z",
+      "title": "Progress update",
+      "detail": "The trial answered the method question: same grid, same mask, strict threshold, and the requested totals. I’m now saving the tested computation as the final workflow so the two rasters become the selected final outputs instead of just trial artifacts."
+    },
+    {
+      "at": "2026-10-07T07:29:46.055983Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:46.934834Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:46.941918Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:46.950509Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:46.965127Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:30.307114Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:31.374175Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:31:32.130028Z",
+      "title": "Progress update",
+      "detail": "I’ve refreshed the brief from the trial evidence and I’m saving the final workflow now. It will reuse the proven full-grid method and keep the valid-coverage limitation explicit instead of treating NoData as zero."
+    },
+    {
+      "at": "2026-10-07T07:32:10.850283Z",
+      "title": "Progress update",
+      "detail": "I hit one contract-wiring issue in the saved proposal: I had tied the “selection rule” requirement to a support branch that wasn’t actually feeding the chosen final output for that requirement. I’m correcting that reference now without changing the method or scope."
+    },
+    {
+      "at": "2026-10-07T07:32:17.513537Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:32:38.695080Z",
+      "title": "Progress update",
+      "detail": "The next validation step is clearer: Terra needs me to say exactly which branch represents the “strict >1000 selection” criterion. I’m binding that requirement to the actual qualifying-mask branch now, not changing the method itself."
+    },
+    {
+      "at": "2026-10-07T07:32:41.813085Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:32:55.381015Z",
+      "title": "Progress update",
+      "detail": "The saved draft is close, but one part is still bookkeeping, not science: the fixed-parameter paths must be relative to each processor’s inputs. I’m correcting those paths now so Terra can treat the tested branches as runnable instead of deferred."
+    },
+    {
+      "at": "2026-10-07T07:33:07.014032Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:33:15.113310Z",
+      "title": "Progress update",
+      "detail": "The final workflow is now validated and matches the successful trial. I’m executing it once, then I’ll inspect the final rasters and support tables before I record the accepted answer object."
+    },
+    {
+      "at": "2026-10-07T07:33:15.491466Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:10.325802Z",
+      "title": "Progress update",
+      "detail": "The approved run finished in the background. I’m inspecting the final workflow outputs now so I can attach the exact published rasters and the accepted answer object to the result."
+    },
+    {
+      "at": "2026-10-07T07:35:10.449719Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:35.669193Z",
+      "title": "Progress update",
+      "detail": "I’m doing the final bounded inspections now: both published rasters plus the three support tables that carry the exact totals and cell counts. After that I can record the accepted result object against the final workflow outputs."
+    },
+    {
+      "at": "2026-10-07T07:36:35.859274Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:36.116825Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:36.256931Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:36.281057Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:40.952909Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:36.151620Z",
+      "title": "Progress update",
+      "detail": "The final outputs are there. I’m re-reading the completed inspections so I can use the immutable final receipts, not the still-running placeholders, in the accepted result."
+    },
+    {
+      "at": "2026-10-07T07:37:36.316006Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:36.356722Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:39.127144Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:39.999250Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:40.631897Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:38:53.015772Z",
+      "title": "Progress update",
+      "detail": "I have the final inspected rasters and the final totals. I’m recording the accepted result now with the exact published artifact identities and the machine-readable answer object the user asked for."
+    },
+    {
+      "at": "2026-10-07T07:39:02.814485Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:39:26.171042Z",
+      "title": "Progress update",
+      "detail": "Terra wants the acceptance-condition text matched exactly, so I’m resubmitting the final assessment with the same evidence but the exact required condition strings."
+    },
+    {
+      "at": "2026-10-07T07:39:37.131710Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Supplied Angola WorldPop 2020 counts",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Angola density raster",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Angola selected population raster",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Angola source population totals",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Angola qualifying cell totals",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Angola selected population totals",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Exact population density",
+      "description": "Recorded raster-count-density · succeeded"
+    },
+    {
+      "title": "Density statistics",
+      "description": "Recorded raster-statistics · skipped"
+    },
+    {
+      "title": "Qualifying mask statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Density above 1000 mask",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Selected population counts",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Selected population statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Original count statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Supplied Angola WorldPop 2020 counts",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Exact population density",
+      "description": "Recorded raster-count-density · succeeded"
+    },
+    {
+      "title": "Density statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Qualifying mask statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Density above 1000 mask",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Selected population counts",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Selected population statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Original count statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Exact population density",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Density above 1000 mask",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected population counts",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Original count statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Density statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Qualifying mask statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected population statistics",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "531e52fbe896889a591ddec9b422ec59e2fa42e543037d3568f557016c4a0d7d",
+      "bytes": 6566448,
+      "finishedAt": "2026-10-07T07:27:50.678793+00:00"
+    },
+    {
+      "sha256": "0aa3dbee72a446f6279e75cfb014c1037038c41b585dac0c699a6eda95059ec0",
+      "bytes": 15092735,
+      "finishedAt": "2026-10-07T07:28:03.339440+00:00"
+    },
+    {
+      "sha256": "f28824c6d4222d78fc4accfc4fedfb885ded1c887a42fb8eedc104e3fae7f7f2",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T07:27:57.457205+00:00"
+    },
+    {
+      "sha256": "d885fe50a0596a37defcae40715a9d974c7b15ca2e377812a4c7549d91797f38",
+      "bytes": 51043,
+      "finishedAt": "2026-10-07T07:28:16.709553+00:00"
+    },
+    {
+      "sha256": "142171a0bb0ece80d5c8f899c3995c2a09d9f3913b47ea29ca459ff8d769762e",
+      "bytes": 74045,
+      "finishedAt": "2026-10-07T07:28:16.709553+00:00"
+    },
+    {
+      "sha256": "67816138b25a756f8003cf2eb6bcd4f6a413a2a49e5792f84e76571d3483f9c5",
+      "bytes": 8708,
+      "finishedAt": "2026-10-07T07:28:30.531716+00:00"
+    },
+    {
+      "sha256": "f240a5b0f72fe59ba2c21a90f8826a6ed60fca07f3539177c80beb1194e63918",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T07:28:30.531716+00:00"
+    },
+    {
+      "sha256": "7f5dc2291810b888eca323377958ee063b02f3be249ff8cdeb9abb739068178e",
+      "bytes": 8688,
+      "finishedAt": "2026-10-07T07:28:36.468959+00:00"
+    },
+    {
+      "sha256": "0aa3dbee72a446f6279e75cfb014c1037038c41b585dac0c699a6eda95059ec0",
+      "bytes": 15092735,
+      "finishedAt": "2026-10-07T07:34:02.712642+00:00"
+    },
+    {
+      "sha256": "f28824c6d4222d78fc4accfc4fedfb885ded1c887a42fb8eedc104e3fae7f7f2",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T07:34:02.712642+00:00"
+    },
+    {
+      "sha256": "d885fe50a0596a37defcae40715a9d974c7b15ca2e377812a4c7549d91797f38",
+      "bytes": 51043,
+      "finishedAt": "2026-10-07T07:34:22.058174+00:00"
+    },
+    {
+      "sha256": "142171a0bb0ece80d5c8f899c3995c2a09d9f3913b47ea29ca459ff8d769762e",
+      "bytes": 74045,
+      "finishedAt": "2026-10-07T07:34:34.626490+00:00"
+    },
+    {
+      "sha256": "f240a5b0f72fe59ba2c21a90f8826a6ed60fca07f3539177c80beb1194e63918",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T07:34:34.626490+00:00"
+    },
+    {
+      "sha256": "7f5dc2291810b888eca323377958ee063b02f3be249ff8cdeb9abb739068178e",
+      "bytes": 8688,
+      "finishedAt": "2026-10-07T07:34:53.653877+00:00"
+    }
+  ],
+  "snapshotSha256": "c5a6a3df16da9f04680215a02ef8291b9172b9a5d8e4b485328f965116f7011a",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:27:45.560451Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does a full-grid computation on the supplied Angola WorldPop 2020 raster produce an exact ellipsoidal density raster and a selected-population raster that preserve the original missing-data mask while yielding the requested qualifying population share for density > 1000 people/km²?"
+    },
+    {
+      "at": "2026-10-07T07:29:46.055983Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-grid trial was sufficient. The density raster preserved the original 1490x1640 EPSG:4326 grid, bounds, valid-count 1496191 and missing-count 947409 while converting band 1 counts to people/km². The qualifying mask used a strict density > 1000 rule and preserved missing cells, with validOutputWithMissingInputCount=0. The selected-population raster preserved the same grid and mask, wrote zero to non-qualifying valid cells, and retained original counts in qualifying cells. Full-grid statistics yielded total_people=32866268.004241593, selected_people=17362623.595336914, qualifying cell count=3572, and unknown_count=947409.",
+      "limitations": [
+        "Population outside the raster's valid Angola coverage remains unknown because the original missing-data mask is preserved."
+      ],
+      "next_action": "Promote this exact tested computation to the final workflow, inspect the final outputs, and record the final answer.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:39:02.814485Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "Using the supplied WorldPop 2020 UN-adjusted Angola population-count raster, the final inspected outputs show 3,572 original valid cells with density strictly above 1,000 people per km². The selected-population raster sums to 17,362,623.595336914 people and the original valid-cell raster sums to 32,866,268.004241593 people, giving 52.82809594657022%. The published density and selected-population rasters preserve the original grid and missing-data mask. Population in 947,409 masked cells remains unknown and is excluded from both numerator and denominator.",
+      "limitations": [
+        "WorldPop 2020 is assessed only over the raster's valid Angola coverage. The 947,409 masked cells remain unknown and are excluded from both numerator and denominator, so this is not an independent census-total share."
+      ],
+      "next_action": "Inspect the published density and selected-population rasters if you want to review where the qualifying cells are.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:39:37.131710Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "Using the supplied WorldPop 2020 UN-adjusted Angola population-count raster, the final inspected outputs show 3,572 original valid cells with density strictly above 1,000 people per km². The selected-population raster sums to 17,362,623.595336914 people and the original valid-cell raster sums to 32,866,268.004241593 people, giving 52.82809594657022%. The published density and selected-population rasters preserve the original grid and missing-data mask. Population in 947,409 masked cells remains unknown and is excluded from both numerator and denominator.",
+      "limitations": [
+        "WorldPop 2020 is assessed only over the raster's valid Angola coverage. The 947,409 masked cells remain unknown and are excluded from both numerator and denominator, so this is not an independent census-total share."
+      ],
+      "next_action": "Inspect the published density and selected-population rasters if you want to review where the qualifying cells are.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "94c78d8b46629dabc01feaf8e73418a31f6b8e701198dbdedc0f5d5485f2b655",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

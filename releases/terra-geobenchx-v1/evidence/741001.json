@@ -1,0 +1,368 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "741001",
+  "question": "How many Latin American seaports are located within 5 km of major rivers?",
+  "submittedPrompt": "How many Latin American seaports are located within 5 km of major rivers?\n\nTask conventions: Use every original Latin American port and every supplied FAO South America river record; major rivers means this exact supplied river network as in the reference, not an invented attribute class. The archived buffer method leaves the metric projection unspecified: freeze ESRI:102033 (South America Albers Equal Area Conic), straight transformed original segments, shortest planar distance strictly <5000 metres. This is a disclosed projected screening approximation, not geodesic or navigation distance. Preserve original geometries and IDs. Count each original port once despite multiple nearby segments. IMPORTANT: river coverage is South American, not all Latin America. Report a confirmed count from this supplied inventory, not a complete continental census. unknown_count includes missing/invalid port locations and nonqualifying ports whose COUNTRY is outside this declared source region: Argentina, Bolivia, Brazil, Chile, Colombia, Ecuador, Falkland Islands, French Guiana, Guyana, Paraguay, Peru, Suriname, Uruguay, Venezuela. Regional membership does not establish an exhaustive real-world river census. Do not substitute live rivers or silently drop ports. FAO-derived outputs are internal research only, not promotional publication.\n\n\n\nReturn an inspectable selected-port artifact preserving original attributes, geometry and benchmark_row_id. Map optional. Explain projection distortion and partial river coverage. End with a fenced JSON {count:integer,unknown_count:integer,coverage_note:string,selection:{collectionId,itemId,assetKey}}. Do not describe unmatched northern ports as confirmed absence of rivers.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Latin American mineral-exporting seaports\",\n    \"edition\": \"USGS OFR 2017-1079 frozen benchmark compilation\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"FAO AQUAmaps South American river segments\",\n    \"edition\": \"Frozen regional HydroSHEDS-derived rivers_samerica_37330; internal research only, no promotional sharing\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": null,
+  "checks": {
+    "expectedCount": 92,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": false,
+    "answerFulfilled": false,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": [
+      "Approval policy: explicit reduced or unavailable work is not preauthorized.",
+      "No accepted final answer was published."
+    ]
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:47:46.655577Z",
+      "title": "Progress update",
+      "detail": "I’ll verify the supplied port and river files, test the exact 5 km projected method on the frozen inputs, then produce an inspectable selected-port layer and confirmed count."
+    },
+    {
+      "at": "2026-10-07T07:48:10.228738Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:11.553881Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:30.104210Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:30.124744Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:33.045942Z",
+      "title": "Progress update",
+      "detail": "I’ve recovered a blank analysis state. Next I’m checking the two frozen inputs so I can lock the exact method to their actual schema, geometry, and coverage."
+    },
+    {
+      "at": "2026-10-07T07:48:52.292107Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:48:52.541389Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:48:53.169723Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:48:53.593663Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:49:14.372804Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:21.166516Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:21.542207Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:22.115956Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:45.538410Z",
+      "title": "Progress update",
+      "detail": "I’ve identified a good measurement processor for the core test. Now I’m pulling the exact processor schemas so I can avoid guessing the source and filter syntax."
+    },
+    {
+      "at": "2026-10-07T07:49:45.553450Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:45.853674Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:05.599987Z",
+      "title": "Progress update",
+      "detail": "I expect the port file to expose COUNTRY and benchmark_row_id, and the nearest-distance output to keep every original port row with a metre distance or null for missing locations. If that holds, I can build the final selection without altering the original port geometry."
+    },
+    {
+      "at": "2026-10-07T07:50:07.901873Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:12.915599Z",
+      "title": "Progress update",
+      "detail": "The first trial was blocked by a brief argument issue, not by the data. I’m correcting the study extent to numeric CRS84 coordinates and retrying the same measurement."
+    },
+    {
+      "at": "2026-10-07T07:50:18.270559Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:18.701384Z",
+      "title": "Progress update",
+      "detail": "The first full-distance trial succeeded. I’ve confirmed 230 original port rows survived with original point geometry, COUNTRY, benchmark_row_id, and a metre distance field. Now I’m inspecting that output and deriving the final selected-port layer plus the separate unknown bucket count."
+    },
+    {
+      "at": "2026-10-07T07:52:28.915088Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:29.136859Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:20.230876Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the method details from the trial. Next I’m recording that trial result, then saving the production workflow that adds the strict <5 km selection and final inspectable output."
+    },
+    {
+      "at": "2026-10-07T07:54:20.313654Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:21.804336Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:29.715144Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:29.726260Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:32.823810Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:33.481989Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:39.473480Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:39.485071Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:41.122121Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:26.815934Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:26.845013Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:28.439221Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:29.395986Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the method design. I’m checking the exact proposal and final-assessment schemas now so I can save one clean workflow, run it once, and attach the answer object to the verified selected-port artifact."
+    },
+    {
+      "at": "2026-10-07T07:55:34.692031Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:12.875514Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:56:27.855763Z",
+      "title": "Progress update",
+      "detail": "The first proposal failed for a contract-binding detail, not for the method. I’m correcting the distance-rule requirement so it points to the computation cleanly and then I’ll execute the saved workflow."
+    },
+    {
+      "at": "2026-10-07T07:56:40.637107Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:57:02.254596Z",
+      "title": "Progress update",
+      "detail": "I need the unknown-count branches to stay connected to saved outputs so the final assessment can cite them directly. I’m adding them as supporting deliverables and resaving the same workflow."
+    },
+    {
+      "at": "2026-10-07T07:57:07.364868Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:21.924108Z",
+      "title": "Progress update",
+      "detail": "I found the remaining issue: the method requirement needs to point to the selection step that actually consumes the measured distance. I’m rebinding it to the final selection path and refreshing the same proposal."
+    },
+    {
+      "at": "2026-10-07T07:57:37.965338Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:44.819725Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:45.433768Z",
+      "title": "Progress update",
+      "detail": "The saved workflow is runnable. The remaining contract note is about evidence-path bookkeeping, not about the distance calculation itself, so I’m executing the verified computation and will inspect the actual outputs before answering."
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Selected ports within 5 km of supplied rivers",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "Unknown outside-region nonqualifying ports",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "Ports with missing location-derived distance",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "Ports with missing location-derived distance",
+      "description": "Recorded vector-filter · skipped"
+    },
+    {
+      "title": "Nearest river distance",
+      "description": "Recorded vector-nearest-distance · skipped"
+    },
+    {
+      "title": "Supplied seaports",
+      "description": "Recorded source · skipped"
+    },
+    {
+      "title": "Supplied South American rivers",
+      "description": "Recorded source · skipped"
+    },
+    {
+      "title": "Ports within 5 km",
+      "description": "Recorded vector-filter · skipped"
+    },
+    {
+      "title": "Unknown outside-region nonqualifying ports",
+      "description": "Recorded vector-filter · skipped"
+    },
+    {
+      "title": "Nearest river distance",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "Supplied seaports",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied South American rivers",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Nearest river distance",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "fb0341457a978ceabd3d797fc40afb32b14a87e03b5419c361361f6812350d9e",
+      "bytes": 38006,
+      "finishedAt": "2026-10-07T07:50:34.647113+00:00"
+    },
+    {
+      "sha256": "0ed97842d2ffe36f603e38a57943d65c6bb31e4e83d3e2c4cf7df178f5ef28aa",
+      "bytes": 10478271,
+      "finishedAt": "2026-10-07T07:50:34.647113+00:00"
+    },
+    {
+      "sha256": "9a7f28440b0b5bd94f8d22c8df844740d4a3bf360ca1bc1631dd38e0ebf02566",
+      "bytes": 44265,
+      "finishedAt": "2026-10-07T07:50:50.752163+00:00"
+    }
+  ],
+  "snapshotSha256": "eefb1fb7ceb660b529e5cdf9e1b04cde302910729b557fc2c4f85fdb3a37053d",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:50:07.901873Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the exact ESRI:102033 nearest-distance computation on the full supplied inputs preserve original port rows and fields, with null distances for missing or empty port locations and metre distances suitable for a strict <5000 m selection?"
+    },
+    {
+      "at": "2026-10-07T07:54:20.313654Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The nearest-distance trial succeeded on the full supplied inputs. The output retained 230 original port point rows and all 24 original attributes, including COUNTRY and benchmark_row_id, and added river_dist_m in metres. river_dist_m had nullCount 0, so this frozen inventory showed no missing or empty port geometries in the tested computation.",
+      "limitations": [
+        "This trial verified row preservation and distance-field behavior, but it did not yet produce the final strict <5000 m selected-port artifact or final counts."
+      ],
+      "next_action": "Save and execute the production workflow that filters river_dist_m < 5000 and inspect the selected-port output and final counts.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "7ce2c69a8d00232662a070ffb4c33c180ce0aa839663da19d6d4b6290bd1fd4d",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

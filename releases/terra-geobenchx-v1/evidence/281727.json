@@ -1,0 +1,681 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "281727",
+  "question": "Map the distribution of railway networks in relation to population density in Bangladesh.",
+  "submittedPrompt": "Map the distribution of railway networks in relation to population density in Bangladesh.\n\nTask conventions: Use the supplied WorldPop 2018 Bangladesh density raster in people/km² and the frozen OpenStreetMap railway lines. Keep the original raster values, band, grid and missing-data mask, and all original railway geometries and identifiers. Show density as a continuous quantitative raster together with a distinguishable railway line layer on the same map. Do not treat density as population counts, infer stations or service access, or substitute newer observations. Disclose the 2018 population / 2025 railway snapshot mismatch and that visual association does not establish causation. No proximity threshold, population total or new modeled density surface is requested.\n\n\n\nDeliver the two map layers and retain inspectable source or unchanged-result identities. End with one fenced JSON: {count: number of railway features displayed, unknown_count: masked or nonfinite density cells, coverage_note: string, selection:{collectionId,itemId,assetKey} for density, map_layer_id: density layer ID, overlay:{selection:{collectionId,itemId,assetKey},map_layer_id: railway layer ID}}. Explain what the overlay shows and its historical/coverage limits. A source layer can be used directly; no needless calculation is required.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Bangladesh population density, WorldPop 2018\",\n    \"edition\": \"2018 UN-adjusted 1 km density; exact bytes verified against WorldPop product 45189, DOI WP00675\",\n    \"units\": {\n      \"band1\": \"people/km\\u00b2\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Bangladesh railway lines, frozen OpenStreetMap extract\",\n    \"edition\": \"GeoBenchX Geofabrik Bangladesh extract, 2025-02-01; ODbL attribution required\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the map now shows the 2018 WorldPop Bangladesh density raster with the frozen 2025-02-01 OSM railway lines over it.\n\nIt lets you visually compare where 2,506 mapped railway features run through lower- and higher-density areas. Important limit: the population layer is from 2018 while the rail layer is from 2025, and this visual overlay does not show causation, stations, or service access.\n\n### Limitations\n\n- The two supplied sources use different dates: population density is 2018 and railway lines are a frozen 2025-02-01 OpenStreetMap extract.\n- The map shows visual association only. It does not establish causation, station presence, service access, proximity thresholds, population totals, or a new modeled density surface.\n- Coverage is described from the supplied source extents and inspected results; a separate Bangladesh boundary source was not confirmed during this run.\n- Population density is from WorldPop 2018, while railways are a frozen OpenStreetMap/Geofabrik snapshot dated 2025-02-01.\n- The overlay shows visual association only. It does not establish causation, station presence, service access, proximity thresholds, or population totals.\n- Coverage is described from inspected source and result extents; a separate Bangladesh boundary source was not confirmed during this run.\n- The displayed density layer is 2018 only and does not show population totals, later change, or any causal link to railways.\n- The railway layer is a 2025 OpenStreetMap snapshot and does not establish stations, service levels, or access.",
+  "checks": {
+    "expectedCount": 2506,
+    "actualCount": 2506,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:31:07.759969Z",
+      "title": "Progress update",
+      "detail": "I’ll check the saved analysis context, inspect the two supplied sources, and then add the unchanged density raster and railway lines as map layers with their original identities preserved."
+    },
+    {
+      "at": "2026-10-07T06:31:23.463040Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:31.342841Z",
+      "title": "Progress update",
+      "detail": "I found no saved work for this request, so I’m recording the goal and inspecting the two supplied source datasets now. If the layers are clean source items, I can display them directly without rebuilding anything."
+    },
+    {
+      "at": "2026-10-07T06:31:35.641928Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:35.657659Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:36.379766Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:45.919684Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:46.349759Z",
+      "title": "Progress update",
+      "detail": "I confirmed the supplied sources are immutable raster and vector items. I’m getting a Bangladesh boundary now so the study extent and coverage note are tied to an observed region, not a remembered box."
+    },
+    {
+      "at": "2026-10-07T06:31:54.980558Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:03.586820Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:32:04.397190Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:32:16.809217Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:17.041454Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:18.819895Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:24.767237Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:56.469456Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:09.762988Z",
+      "title": "Progress update",
+      "detail": "I’ve saved the analysis brief. Next I’m creating a tiny private source-only checkpoint so the unchanged raster and railway items become inspectable evidence before I put them on the map."
+    },
+    {
+      "at": "2026-10-07T06:33:14.457559Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:34:18.549458Z",
+      "title": "Progress update",
+      "detail": "The unchanged-source checkpoint succeeded. I’m reading the report and inspecting the exact outputs so I can verify the raster mask/counts, preserve the railway IDs, and tie the final answer to current artifacts before adding the layers."
+    },
+    {
+      "at": "2026-10-07T06:34:24.209443Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:34:24.258510Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:34:26.174841Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:07.763039Z",
+      "title": "Progress update",
+      "detail": "I’ve already confirmed the unchanged sources and previewed them. I’m doing two final checks now: get the exact artifact references for the source-only outputs, then add the density raster and railway overlay as map layers and verify their live layer IDs."
+    },
+    {
+      "at": "2026-10-07T06:35:11.207359Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:11.245220Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:13.291589Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:42.624625Z",
+      "title": "Progress update",
+      "detail": "The source-only test answered the method question: I have inspectable unchanged artifacts for both inputs. I’m recording that checkpoint, then I’ll place the density raster first and the railway lines second so the overlay stays readable."
+    },
+    {
+      "at": "2026-10-07T06:36:42.769979Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:43.524952Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:48.327170Z",
+      "title": "Progress update",
+      "detail": "The source checks are complete. I’m adding the exact supplied items directly, so the map uses the original raster and the original railway geometries rather than a rebuilt copy."
+    },
+    {
+      "at": "2026-10-07T06:36:48.800819Z",
+      "title": "add_catalog_layer",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:36:53.912005Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:53.960985Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:56.805603Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:03.357887Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:17.462210Z",
+      "title": "Progress update",
+      "detail": "The direct source-layer add for the raster asked for an observed valid-pixel check on the exact asset. I already have that evidence through the trial, so I’m repeating inspection by exact item identity and then retrying the map add."
+    },
+    {
+      "at": "2026-10-07T06:37:17.546713Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:17.578992Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:47.581652Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:48.462725Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:49.009350Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:02.055904Z",
+      "title": "Progress update",
+      "detail": "I’ve got the unchanged-source evidence. I’m repeating the exact item inspections so Terra can bind the display checks to the source items themselves, then I’ll retry the two map-layer adds and verify the live layer IDs."
+    },
+    {
+      "at": "2026-10-07T06:39:08.365707Z",
+      "title": "Progress update",
+      "detail": "The item-level inspections are now bound to the exact source selections. I’m retrying the density layer add first, then I’ll add the railway overlay on top and verify both live layer IDs."
+    },
+    {
+      "at": "2026-10-07T06:39:36.446927Z",
+      "title": "Progress update",
+      "detail": "The direct raster add still wants a display-validity binding even after exact inspection. I’m checking whether Terra has a processor-backed publishable output from the source-only run; if not, I’ll use the lightest processor-backed path that preserves the original raster and line data unchanged."
+    },
+    {
+      "at": "2026-10-07T06:39:36.478190Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:36.492176Z",
+      "title": "list_processor_jobs",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:36.511551Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:54.646649Z",
+      "title": "add_catalog_layer",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:56.082529Z",
+      "title": "Progress update",
+      "detail": "The raster is the only layer blocked by direct display validation. I’m testing the railway source add directly now; if it works, I’ll only materialize the raster as an unchanged band-1 display result."
+    },
+    {
+      "at": "2026-10-07T06:40:07.170073Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:08.881569Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:40:19.664277Z",
+      "title": "Progress update",
+      "detail": "I can add the railway source directly, so only the raster needs a processor-backed display path. I’m checking the exact band-extraction contract now; the goal is an unchanged band-1 raster with the same grid and mask, not a remodeled surface."
+    },
+    {
+      "at": "2026-10-07T06:40:22.777296Z",
+      "title": "Progress update",
+      "detail": "The railway layer is already on the map. I’m running one small processor-backed test for the raster: extract band 1 from the supplied single-band source and confirm the output still has the same grid, values, and missing-data mask so it can be displayed safely."
+    },
+    {
+      "at": "2026-10-07T06:40:26.790577Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:56.056603Z",
+      "title": "Progress update",
+      "detail": "The unchanged band-1 raster test succeeded: same bounds, same resolution, same valid-pixel count, and the same missing-data fraction as the supplied source. I’m binding that verified result to the map now, then I’ll verify both live layer IDs and record the final answer object."
+    },
+    {
+      "at": "2026-10-07T06:42:56.176333Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:56.183727Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:56.195914Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:32.996165Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the processor-backed raster really preserves the supplied density surface. I’m pulling the exact processor job reference now so I can add that raster result to the map, then I’ll verify both live layer IDs and record the final result."
+    },
+    {
+      "at": "2026-10-07T06:43:33.722801Z",
+      "title": "list_processor_jobs",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:34.575432Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:43.578682Z",
+      "title": "Progress update",
+      "detail": "I already have the railway layer on the map. I’m trying the smallest remaining step now: add the verified density raster result from the band-extraction run. If Terra rejects the reference, I’ll correct it from the returned schema instead of guessing."
+    },
+    {
+      "at": "2026-10-07T06:43:44.232077Z",
+      "title": "add_result_layer",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:43:52.212832Z",
+      "title": "Progress update",
+      "detail": "The raster layer tool needed a processor job ID, not the workflow run ID. I already have an exact generated item for the verified band-1 output, so I’m adding that generated raster item directly instead."
+    },
+    {
+      "at": "2026-10-07T06:43:52.534787Z",
+      "title": "add_catalog_layer",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:12.603578Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:16.089262Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:17.541830Z",
+      "title": "Progress update",
+      "detail": "Both layers are now on the map. I’m verifying the live layer list and refreshing the saved brief so the remaining notes reflect the finished result instead of setup work."
+    },
+    {
+      "at": "2026-10-07T06:45:00.569107Z",
+      "title": "Progress update",
+      "detail": "I’ve verified both live layers and I’m recording the final result now: 2,506 displayed railway features, 226,139 masked or nonfinite density cells, and the current density and railway layer IDs."
+    },
+    {
+      "at": "2026-10-07T06:45:11.669475Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:45:46.931902Z",
+      "title": "Progress update",
+      "detail": "Terra rejected the final answer because it only accepts inspected final outputs, not private trial artifacts or raw inputs. I’m switching to the lightest final-output path now: save a tiny workflow that exposes the unchanged railway layer and the unchanged band-1 density layer as real final outputs, then I’ll assess that exact result."
+    },
+    {
+      "at": "2026-10-07T06:45:47.170947Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:47.220912Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:48.484807Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:08.134695Z",
+      "title": "Progress update",
+      "detail": "I have a tested path. I’m saving the smallest final workflow now: reuse the source-only run, add the unchanged band-1 density publication, and expose both the density and railway layers as final map outputs."
+    },
+    {
+      "at": "2026-10-07T06:46:08.164836Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:08.173327Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:08.181281Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:08.899078Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:15.696004Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:15.714562Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:16.201265Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:27.552725Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:28.411323Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:39.695786Z",
+      "title": "Progress update",
+      "detail": "I’ve got the tested computation and the exact final outputs I need. I’m saving the final workflow now with the unchanged railway source layer plus the unchanged band-1 density result as map deliverables."
+    },
+    {
+      "at": "2026-10-07T06:46:44.000103Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:51.066249Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:51.402848Z",
+      "title": "Progress update",
+      "detail": "The final workflow is saved and validated. It reuses the tested work and exposes the two layers as real final outputs, so I’m starting that exact execution now."
+    },
+    {
+      "at": "2026-10-07T06:50:26.823319Z",
+      "title": "Progress update",
+      "detail": "The final workflow finished in the background. I’m inspecting its exact outputs now so I can tie the accepted answer to real final artifacts and, if needed, switch the map to those final layer bindings."
+    },
+    {
+      "at": "2026-10-07T06:50:35.304841Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:50:35.649200Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:14.779429Z",
+      "title": "Progress update",
+      "detail": "The final density output is already bound to a verified map layer. I’m pulling the final railway output receipt now so the accepted answer points to both real final artifacts, not the earlier temporary layers."
+    },
+    {
+      "at": "2026-10-07T06:51:14.963754Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:15.023258Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:59.984652Z",
+      "title": "Progress update",
+      "detail": "I have the final output receipts. I’m running one last bounded preview on the final railway deliverable so the accepted result uses current inspected fields and geometry, not only the reused layer receipt."
+    },
+    {
+      "at": "2026-10-07T06:52:00.152395Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:52:17.272278Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:52:44.861901Z",
+      "title": "Progress update",
+      "detail": "I’ve got both final deliverables and their live layer bindings. I’m fetching the final density preview receipt now, then I can file the accepted result cleanly."
+    },
+    {
+      "at": "2026-10-07T06:52:45.027984Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:53:19.162171Z",
+      "title": "Progress update",
+      "detail": "I have current inspected final receipts for both deliverables and their live layer IDs. I’m recording the accepted result now using the final density layer `[resource id withheld]` and the reused final railway layer `[resource id withheld]`."
+    },
+    {
+      "at": "2026-10-07T06:53:25.012262Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Bangladesh population density (WorldPop 2018)",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Bangladesh railway lines (OSM 2025-02-01)",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Publish density band 1",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Supplied WorldPop 2018 density",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied frozen railway lines",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Publish density band 1",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Publish density band 1",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied WorldPop 2018 density",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied frozen railway lines",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied WorldPop 2018 density",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied frozen railway lines",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "c7eede1eb6bbf27e203de10c49c01155c1841a2011079e4c47fef332dfc167a4",
+      "bytes": 850416,
+      "finishedAt": "2026-10-07T06:33:26.845818+00:00"
+    },
+    {
+      "sha256": "10f0d0c115b4ad683ff121da002f5beb4a29833e13165d2e0e7e14ab2df6d1a7",
+      "bytes": 502538,
+      "finishedAt": "2026-10-07T06:33:26.845818+00:00"
+    },
+    {
+      "sha256": "1e8c02936700b2a7b728bd59e2ea32dde994fa2adcbc43787f011af698d73cd9",
+      "bytes": 1010023,
+      "finishedAt": "2026-10-07T06:41:35.801005+00:00"
+    },
+    {
+      "sha256": "1e8c02936700b2a7b728bd59e2ea32dde994fa2adcbc43787f011af698d73cd9",
+      "bytes": 1010023,
+      "finishedAt": "2026-10-07T06:50:07.449672+00:00"
+    }
+  ],
+  "snapshotSha256": "e26b95c8cad1e8dc3297d3d512c44da472eec93620da352f0985cd19e86386fb",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:33:14.457559Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Can I materialize inspectable unchanged source artifacts for the supplied Bangladesh density raster and frozen railway lines so they can be verified and displayed directly on the map?"
+    },
+    {
+      "at": "2026-10-07T06:36:42.769979Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The trial materialized unchanged inspectable outputs for both supplied inputs. The density output matches the supplied raster selection, reports band 1 with unit people/km², native resolution 0.0083333333 degrees, nodata value -99999, 180813 valid pixels, and nodataFraction 0.5556896144999901. The railway output matches the supplied vector selection, retains 2506 LineString features, and preserves identifiers including osm_id and benchmark_row_id.",
+      "limitations": [
+        "This trial only verified unchanged inspectable source artifacts. It did not yet place the layers on the live map."
+      ],
+      "next_action": "Add the exact density and railway items to the current map, verify their layer IDs, and assess the final two-layer result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:40:26.790577Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Can a processor-backed display result preserve the supplied WorldPop raster unchanged enough to show band 1 on the map when direct source display is blocked by raster display validation?"
+    },
+    {
+      "at": "2026-10-07T06:43:34.575432Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The raster-extract-band trial produced a processor-backed raster output that preserves the supplied density raster for display. The output has the same bounds [88.01541632437963,20.5745834483479,92.67374963907963,26.641250090747903], the same resolution [0.0083333333,0.0083333333], the same validPixelCount 180813, and the same nodataFraction 0.5556896144999901 as the supplied source. Summary output reports gridPreserved=true, sourceBand=1, validCells=180813, missingCells=226139, and sourceBandCount=1.",
+      "limitations": [
+        "This trial verified the display-safe unchanged band-1 raster result. It did not yet add that raster result to the live map."
+      ],
+      "next_action": "Add the verified raster result to the map, verify its live layer ID together with the existing railway layer ID, and assess the final two-layer map result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:45:11.669475Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "I delivered the requested two-layer map. The railway overlay uses the supplied frozen OpenStreetMap lines directly. The density layer uses a verified unchanged band-1 publication of the supplied WorldPop 2018 raster because direct raster source display required Terra display validation; inspection confirmed the same bounds, resolution, valid-pixel count, and missing-data fraction as the supplied source. The overlay shows where mapped rail lines run across areas of lower and higher 2018 population density, but it remains a visual comparison only.",
+      "limitations": [
+        "Population density is from WorldPop 2018, while railways are a frozen OpenStreetMap/Geofabrik snapshot dated 2025-02-01.",
+        "The overlay shows visual association only. It does not establish causation, station presence, service access, proximity thresholds, or population totals.",
+        "Coverage is described from inspected source extents and unchanged-result extents; a separate Bangladesh boundary source was not confirmed during this run."
+      ],
+      "next_action": "Review the two layers on the map. No further calculation is required for this request.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:53:25.012262Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I delivered the requested two-layer Bangladesh map and selected the final verified outputs. The density layer is a display-safe unchanged band-1 publication of the supplied WorldPop 2018 raster, preserving the original grid and missing-data mask. The railway layer is the supplied frozen OpenStreetMap railway extract reused directly as the final deliverable. Together they show where mapped rail lines run across areas of lower and higher 2018 population density, but the overlay is only a visual association.",
+      "limitations": [
+        "Population density is from WorldPop 2018, while railways are a frozen OpenStreetMap/Geofabrik snapshot dated 2025-02-01.",
+        "The overlay shows visual association only. It does not establish causation, station presence, service access, proximity thresholds, or population totals.",
+        "Coverage is described from inspected source and result extents; a separate Bangladesh boundary source was not confirmed during this run."
+      ],
+      "next_action": "Review the selected density and railway layers on the map. No further calculation is required for this request.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "ff7caf9852109863373827b5f80249f2a8fd3a8daa45ff99324501826180d8ce",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

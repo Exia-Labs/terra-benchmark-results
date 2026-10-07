@@ -1,0 +1,571 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "476053",
+  "question": "Map the distribution of tuberculosis cases across Massachusetts counties. ",
+  "submittedPrompt": "Map the distribution of tuberculosis cases across Massachusetts counties. \n\nTask conventions: Use Census TIGER/Line 2024 original county polygons with STATEFP='25', and the frozen Massachusetts 2023 TB table. Map the published TB case RATE per 100,000 people, following the first released reference method; retain Number of Cases as supporting information. Join NAME to County exactly after selecting the state. Footnotes and totals are not counties. Keep all matching original county features, source geometry and benchmark_row_id. Genuine zero cases and zero rates remain zero; unknown measurements remain unknown. Do not substitute current rates or infer individual patient locations. Use five quantile classes (collapse ties), upper class on equal breaks, and a distinct neutral No data category with numeric bounds and units in the legend. This is a county-level public aggregate, not a patient map or medical risk recommendation.\n\n\n\nPublish an inspectable county data artifact and add its quantitative map. End with one fenced JSON object containing count (known counties), unknown_count (unknown counties), coverage_note, selection: {collectionId,itemId,assetKey}, value_field, class_field and map_layer_id. Explain the year, rate versus count distinction, and county-level limitations.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"US county boundaries\",\n    \"edition\": \"Census TIGER/Line 2024\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Massachusetts county tuberculosis cases and published rates, 2023\",\n    \"edition\": \"Massachusetts DPH 2023 summary, frozen GeoBenchX transcription\",\n    \"units\": {\n      \"Number of Cases\": \"cases\",\n      \"TB Case Rate[1] 2023(cases per 100,000)\": \"cases per 100,000 people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done. The inspectable county artifact and quantitative map are on your map. It shades counties by the published 2023 TB case rate per 100,000 people and keeps Number of Cases as supporting county data. All 14 Massachusetts counties are included, and none have unknown published rates.\n\nImportant limit: this is a county-level 2023 public aggregate, so it does not show patient locations, current conditions, or medical risk. Because several counties share the same published rate, the requested five quantiles collapse to four displayed class codes.\n\nNext step: click any county to review its 2023 rate, case count, and preserved benchmark row ID.\n\nSources: U.S. Census Bureau, TIGER/Line 2024 county boundaries; Massachusetts Department of Public Health, 2023 Tuberculosis Summary Data, frozen GeoBenchX transcription, retrieved 2026-10-07.\n\n### Limitations\n\n- Published rates and counts describe 2023 summary values only; they do not represent current conditions.\n- Five requested quantiles collapse to four numeric class codes here because several counties share the same published rate.\n- This is a county-level public aggregate from the frozen 2023 summary, not individual patient locations or a medical risk recommendation.\n- The rates and counts describe published 2023 conditions only; they do not represent current conditions.\n- County boundaries do not show where cases occurred within each county.\n- These are published 2023 county aggregates, not current conditions.\n- The exact join confirms county matches only; it does not locate cases within counties.\n- No county rate is unknown in the supplied 2023 county table, so the No data category is available but unused.",
+  "checks": {
+    "expectedCount": 14,
+    "actualCount": 14,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:47:51.960887Z",
+      "title": "Progress update",
+      "detail": "I’ll check the saved analysis context and the exact collection schemas first, then I’ll test the county join and classing method before I publish the map."
+    },
+    {
+      "at": "2026-10-07T08:48:05.567324Z",
+      "title": "Progress update",
+      "detail": "I’ve got the Terra geospatial tools. Next I’m inspecting the two supplied datasets so I can use their exact fields and then pick the right join and classing processors."
+    },
+    {
+      "at": "2026-10-07T08:48:05.579513Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:05.586355Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:05.590947Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:06.183232Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:19.276862Z",
+      "title": "Progress update",
+      "detail": "I found the likely processors: filter the county polygons, join the frozen TB table by name, then classify the published rate with quantiles. I’m now reading the exact field samples and processor schemas so I can test the real method rather than guess it."
+    },
+    {
+      "at": "2026-10-07T08:48:19.443573Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:19.478511Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:30.823056Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:31.026233Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:32.898627Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:34.253317Z",
+      "title": "Progress update",
+      "detail": "I have the processor contracts. The remaining uncertainty is the exact field names and whether the frozen TB table has any totals or footnotes that must stay out of the join, so I’m testing that directly now."
+    },
+    {
+      "at": "2026-10-07T08:48:38.596203Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:39.358842Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:56.069710Z",
+      "title": "Progress update",
+      "detail": "I still need the live row samples. I’m trying a bounded collection inspection first so I can avoid a malformed join request and confirm the exact county and rate columns."
+    },
+    {
+      "at": "2026-10-07T08:48:56.097386Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:56.399093Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:32.455469Z",
+      "title": "Progress update",
+      "detail": "I’m recording the analytical goal now so the join test and final verification use the same required checks all the way through."
+    },
+    {
+      "at": "2026-10-07T08:49:46.805968Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:54.726502Z",
+      "title": "Progress update",
+      "detail": "I expect the county file to expose the TIGER county key fields like STATEFP and NAME, and the TB table to expose County, Number of Cases, the published 2023 rate field, plus at least one non-county row to exclude. That will confirm the exact join keys and exclusion rule before I build the final map workflow."
+    },
+    {
+      "at": "2026-10-07T08:49:56.199826Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:28.949355Z",
+      "title": "Progress update",
+      "detail": "The source check succeeded. I found the needed fields on both inputs, including the long footnote text in the TB table’s County column. I’m pulling the actual Massachusetts county rows now so I can verify the exact join matches and the final county count before I publish anything."
+    },
+    {
+      "at": "2026-10-07T08:52:29.003133Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:31.981603Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:31.990812Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:39.657460Z",
+      "title": "Progress update",
+      "detail": "The source check answered the field question. I’m now testing the actual full method on the real Massachusetts counties: state filter, exact NAME-to-County join, and quantile classing of the published 2023 rate."
+    },
+    {
+      "at": "2026-10-07T08:54:39.733050Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:39.747551Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:40.711658Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:41.137172Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:48.418038Z",
+      "title": "Progress update",
+      "detail": "The inputs are now confirmed: 14 Massachusetts county polygons from TIGER/Line 2024, and 15 TB-table rows made up of 14 counties plus one footnote row. I’m recording that check, then I’ll test the joined county map itself."
+    },
+    {
+      "at": "2026-10-07T08:54:53.097880Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:55:09.094306Z",
+      "title": "Progress update",
+      "detail": "I expect this full-state test to return 14 Massachusetts county features with the original geometry and benchmark_row_id, a complete exact join from the 14 county rows in the TB table, and a rate class field built from quantiles where zeros stay valid zeros. If the join or classes fail here, I can correct the method before I save the final workflow."
+    },
+    {
+      "at": "2026-10-07T08:55:27.442927Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:54.375873Z",
+      "title": "Progress update",
+      "detail": "The statewide method test worked: 14 county polygons in, 14 counties matched, no county join gaps, and the published rate field classified successfully. I’m checking the exact class values and preview now, then I’ll save the final workflow and publish the county map layer."
+    },
+    {
+      "at": "2026-10-07T08:58:54.434755Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:54.446467Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:54.480116Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:34.740950Z",
+      "title": "Progress update",
+      "detail": "I’m verifying the finished county table itself before I publish it: exact joined rows, the rate class field, and the map preview/legend behavior. Then I’ll save the tested workflow and add the map layer."
+    },
+    {
+      "at": "2026-10-07T09:00:34.753126Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:34.756828Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:35.204894Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:35.449615Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:44.648632Z",
+      "title": "Progress update",
+      "detail": "The tested method is ready. It keeps the original county polygons, matches all 14 counties exactly, excludes the footnote row naturally because it is not a county name, and collapses tied quantiles to 4 rate classes because several counties have the same published rate. I’m recording that, then I’ll save and run the production workflow."
+    },
+    {
+      "at": "2026-10-07T09:00:48.391855Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:17.442729Z",
+      "title": "Progress update",
+      "detail": "I’ve finished method testing. I’m pulling the remaining workflow schemas now so I can save the final draft cleanly, then I’ll run it and bind the map layer from the verified output."
+    },
+    {
+      "at": "2026-10-07T09:01:17.453236Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:17.456321Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:17.939029Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:18.182308Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:30.176006Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:30.331374Z",
+      "title": "Progress update",
+      "detail": "I have the proposal pieces. I’m checking one last schema for the workflow requirement explanations so the saved draft carries the current evidence and not stale setup notes."
+    },
+    {
+      "at": "2026-10-07T09:01:58.566392Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:02:17.687640Z",
+      "title": "Progress update",
+      "detail": "I’m saving the tested production draft now. It uses the exact method that already worked statewide, so the remaining step is execution and map binding, not more method repair."
+    },
+    {
+      "at": "2026-10-07T09:02:34.456836Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:02:48.565471Z",
+      "title": "Progress update",
+      "detail": "The draft is ready and matches the tested statewide method. I’m running that exact workflow now, then I’ll inspect the produced county artifact and bind its map layer."
+    },
+    {
+      "at": "2026-10-07T09:02:49.235971Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:03:36.593604Z",
+      "title": "Progress update",
+      "detail": "The workflow run finished in the background. I’m inspecting the produced output now so I can bind the exact final county artifact, add its map layer, and record the final answer against the verified result."
+    },
+    {
+      "at": "2026-10-07T09:03:36.608228Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:03:36.772109Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:04:11.000334Z",
+      "title": "Progress update",
+      "detail": "I have the final county artifact and its map layer on the map. I’m doing one bounded final inspection of the exact published output now so the recorded result points to the final artifact, not just the trial copy."
+    },
+    {
+      "at": "2026-10-07T09:04:11.020592Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:04:11.028422Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:04:33.933448Z",
+      "title": "Progress update",
+      "detail": "The final output inspection is ready. I’m reading that exact final preview now so the accepted result points to the published county artifact and current map layer, not the earlier trial copy."
+    },
+    {
+      "at": "2026-10-07T09:04:33.939693Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:04:33.949189Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:05:22.334513Z",
+      "title": "Progress update",
+      "detail": "I’m recording the final result now with the published county artifact selection and the live map layer ID from the current map."
+    },
+    {
+      "at": "2026-10-07T09:05:34.390628Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T09:05:45.873278Z",
+      "title": "Progress update",
+      "detail": "I’m correcting the final assessment to use the exact required condition list from the saved result, then I’ll finish the ordinary-language answer."
+    },
+    {
+      "at": "2026-10-07T09:05:55.880906Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "TB rate classes",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied county polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Massachusetts county tuberculosis rates, 2023",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "County TB join",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Massachusetts counties",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Frozen Massachusetts TB table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "TB rate classes",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied county polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "County TB join",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Massachusetts counties",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Frozen Massachusetts TB table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "County TB join",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "TB rate classes",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied county polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied Massachusetts TB table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied county polygons",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied Massachusetts TB table",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "587f3dd3f8be86a8db7fe808d71205a207f00cdb77d9a4327464f17a5a23d880",
+      "bytes": 126729265,
+      "finishedAt": "2026-10-07T08:50:09.123078+00:00"
+    },
+    {
+      "sha256": "ddbdab166b734df900897371c5300a28e51874714b19702351ff9de2ba965569",
+      "bytes": 3659,
+      "finishedAt": "2026-10-07T08:50:09.123078+00:00"
+    },
+    {
+      "sha256": "00f3c2ec01f3cd046f4d27ba8aa0fa1e69b7baa0705a82edb131787b0c7b19b7",
+      "bytes": 594791,
+      "finishedAt": "2026-10-07T08:56:28.518674+00:00"
+    },
+    {
+      "sha256": "49b2ada1fe8068dc1fd283e9b784eaf7165da4b2c26ef298a45e7df3d2fdaa95",
+      "bytes": 597003,
+      "finishedAt": "2026-10-07T08:57:29.603087+00:00"
+    },
+    {
+      "sha256": "34082cc5998a029eaf3818a50246df730889aaabe40f2683c788a1a36fe2cf1e",
+      "bytes": 597575,
+      "finishedAt": "2026-10-07T08:58:09.385602+00:00"
+    },
+    {
+      "sha256": "49b2ada1fe8068dc1fd283e9b784eaf7165da4b2c26ef298a45e7df3d2fdaa95",
+      "bytes": 597003,
+      "finishedAt": "2026-10-07T09:03:16.277187+00:00"
+    },
+    {
+      "sha256": "00f3c2ec01f3cd046f4d27ba8aa0fa1e69b7baa0705a82edb131787b0c7b19b7",
+      "bytes": 594791,
+      "finishedAt": "2026-10-07T09:03:11.403578+00:00"
+    },
+    {
+      "sha256": "34082cc5998a029eaf3818a50246df730889aaabe40f2683c788a1a36fe2cf1e",
+      "bytes": 597575,
+      "finishedAt": "2026-10-07T09:03:23.502700+00:00"
+    }
+  ],
+  "snapshotSha256": "ef9dcf487a2822ff07bbf20dfa4edcb2b73f812b75314782a4d9c99c36745e2c",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:49:56.199826Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the supplied county and TB source rows expose the exact fields needed for Massachusetts county selection, exact NAME-to-County joining, and exclusion of non-county rows?"
+    },
+    {
+      "at": "2026-10-07T08:54:53.097880Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The supplied county source exposes STATEFP, NAME, and benchmark_row_id. Filtering STATEFP='25' returns 14 Massachusetts counties with distinct county names and preserved benchmark_row_id values. The supplied TB table exposes County, Number of Cases, and TB Case Rate[1] 2023(cases per 100,000). Inspecting all 15 rows shows 14 county rows plus one footnote row with null cases and null rate; no separate total row appears in the supplied table.",
+      "limitations": [
+        "This trial confirmed fields and non-county rows only; it did not yet verify the joined county output or the final quantile classes."
+      ],
+      "next_action": "Run the full Massachusetts computation: filter counties, join exact NAME to County, classify the published rate, then inspect the final county artifact and map fields.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:55:27.442927Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full Massachusetts method preserve the 14 original county polygons, join the published 2023 TB values by exact NAME-to-County, exclude the footnote row, and produce a quantitative rate class field with quantile classes and valid zeros?"
+    },
+    {
+      "at": "2026-10-07T09:00:48.391855Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full Massachusetts method produced 14 county features after filtering STATEFP='25', preserving the original county geometry and benchmark_row_id values. The exact left join by NAME to County matched all 14 counties with 0 unmatched input features and copied Number of Cases plus TB Case Rate[1] 2023(cases per 100,000) for every county. The footnote row in the table did not join because it is not a county name. The classified county output kept the published rate field, retained genuine zero rates and zero case counts as valid zeros, and added rate_class. Because repeated quantiles collapsed, the final class field contains 4 classes rather than 5 numeric class codes, which is the expected tie-collapse behavior for five requested quantiles. No county rate is unknown in the joined output, so no county falls into a No data class.",
+      "limitations": [
+        "This trial verified the county data artifact and class field, but it has not yet published the saved final workflow or added the final map layer to the current map."
+      ],
+      "next_action": "Save the tested computation as the production workflow, execute it, inspect the final output artifact, add its quantitative layer to the map, and assess the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T09:05:34.390628Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The published final artifact contains 14 Massachusetts county polygons from Census TIGER/Line 2024 with preserved benchmark_row_id, the frozen Massachusetts 2023 Number of Cases field, the published 2023 TB case rate per 100,000 people, and a rate_class field. The final map layer is on the current map as layer [resource id withheld]. All 14 Massachusetts counties have known published rates. Because several counties share the same published rate, the requested five quantiles collapse to four numeric class codes in the final classified output.",
+      "limitations": [
+        "This is a county-level public aggregate from the frozen 2023 summary, not individual patient locations or a medical risk recommendation.",
+        "The rates and counts describe published 2023 conditions only; they do not represent current conditions.",
+        "Five requested quantiles collapse to four numeric class codes here because several counties share the same published rate."
+      ],
+      "next_action": null,
+      "question": null
+    },
+    {
+      "at": "2026-10-07T09:05:55.880906Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published final artifact contains 14 Massachusetts county polygons from Census TIGER/Line 2024 with preserved benchmark_row_id, the frozen Massachusetts 2023 Number of Cases field, the published 2023 TB case rate per 100,000 people, and a rate_class field. The final map layer is on the current map as layer [resource id withheld]. All 14 Massachusetts counties have known published rates. Because several counties share the same published rate, the requested five quantiles collapse to four numeric class codes in the final classified output.",
+      "limitations": [
+        "This is a county-level public aggregate from the frozen 2023 summary, not individual patient locations or a medical risk recommendation.",
+        "The rates and counts describe published 2023 conditions only; they do not represent current conditions.",
+        "Five requested quantiles collapse to four numeric class codes here because several counties share the same published rate."
+      ],
+      "next_action": null,
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "113599c7da14478b23f58f8cbeb81ba58cf70d11b08250db663e10b5892637d7",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

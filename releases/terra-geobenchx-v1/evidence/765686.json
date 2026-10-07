@@ -1,0 +1,77 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "765686",
+  "question": "Generate a heatmap of population density in economic clusters",
+  "submittedPrompt": "Generate a heatmap of population density in economic clusters\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "**Delivered:** a source-readiness check from the supplied GeoBenchX inventory.\n\nI **could not generate the heatmap itself** here. The supplied inventory lists population layers for **Bangladesh, USA, Chile, Angola, Peru, Brazil, and Algeria**, but this environment provides **catalog metadata only**, not the underlying raster/table values needed to compute or draw the map.\n\n**Main limitation:** the inventory does **not** list a direct **economic-cluster** layer.  \n**Also needed:** you did not specify a country or region, and the listed population layers are country-specific.\n\n**Best-supported next step:** if you want a proxy, **Peru** is the strongest option in the supplied list because it includes **“Peru population, 2018, 1 km resolution,” “Regions of Peru,” “Provinces of Peru,”** and **“Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles.”**\n\n**Unanswered requirement:** the actual heatmap remains unavailable until you choose a study area and provide either:\n1. a real economic-cluster layer, or  \n2. an approved proxy definition.\n\n**Source:** supplied GeoBenchX inventory in your request.\n\n### Limitations\n\n- This task environment provides source inventory metadata only, not the underlying measurement files needed to compute or render a heatmap.\n- The supplied inventory does not list a direct economic-cluster layer.\n- Not yet deliverable from this environment because only catalog metadata is available, no direct economic-cluster layer is listed, and no study area was specified.\n- **Population:** This environment has metadata only, so I cannot calculate or draw population density values here.\n- **Economic clusters:** I found no direct economic-cluster layer in the supplied inventory.\n- **Study area:** The request does not name a place, and the available population layers are country-specific.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T07:55:07.123773+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "d21f2c7fdcfba9708ed8d2508df0278eb52101267a87aa093eedde4be853e630",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "63099089968453fdf13a4116baca4e7d665f736d99c7cc28e8bdebaf7708ee4b",
+      "snapshotSha256AtReview": "1a365cbcdc671e23f7aafcf8fc07a7064c8b40ced47d16871d55f7baef6777ae",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies absent economic-cluster geography, an unspecified study area and population coverage limited to listed countries."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Names Peru's GDP/geography/population combination only as a separately approved proxy option, not actual economic clusters."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Confines availability to the supplied metadata-only inventory rather than claiming no relevant data exists elsewhere."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Explicitly says no heatmap was generated; the Delivered label refers to a readiness check, and no jobs/artifacts exist."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests a study area and real cluster layer or approved proxy, naming the relevant Peru sources as an option."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:51:25.605956Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:30.446938Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:54.956430Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "4418ca929cb5c17d9a4058b489cf808e72271a963edddb4354f3e9498b1c0bbe",
+  "investigations": []
+}

@@ -1,0 +1,12 @@
+{
+  "reviewedAt": "2026-10-05",
+  "purpose": "Local evaluation only; dataset archive is not redistributed in source control or the public report.",
+  "assets": {
+    "towns": {"status": "verified", "license": "public-domain", "attribution": "National Atlas of the United States. Cities and Towns of the United States, 2014, edition 2.", "evidence": "https://purl.stanford.edu/bx729wr3020.mods", "finding": "Dataset metadata declares public domain and no restrictions on use."},
+    "snow": {"status": "verified", "license": "public-domain", "attribution": "NOAA/NWS NOHRSC seasonal snowfall, 2024-09-30 to 2025-05-20; NoData recoded by GeoBenchX.", "evidence": "https://www.weather.gov/disclaimer", "finding": "NWS-generated government data; retain attribution and source disclaimer."},
+    "facilities": {"status": "verified", "license": "public-domain", "attribution": "USGS, Compilation of Geospatial Data for the Mineral Industries and Related Infrastructure of Africa, DOI 10.5066/P97EQWXP.", "evidence": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits", "finding": "USGS-authored data is public domain; source identity verified against Data_Sources.bib and data.gov publisher record."},
+    "countries": {"status": "verified", "license": "CC-BY-4.0", "attribution": "World Bank Official Boundaries; country-name harmonization by GeoBenchX.", "evidence": "https://datacatalog.worldbank.org/search/dataset/0038272/world-bank-official-boundaries", "finding": "Dataset explicitly states CC BY 4.0. Retain attribution; no endorsement implied."},
+    "migration": {"status": "verified", "license": "CC-BY-4.0", "attribution": "World Bank World Development Indicators, SM.POP.NETM, archived 2024-11-13; original source retained in embedded indicator metadata.", "evidence": "https://www.worldbank.org/ext/en/legal/terms-conditions/datasets", "finding": "World Bank dataset terms allow reuse with attribution; retain underlying indicator metadata and applicable third-party notices."}
+  }
+}
+

@@ -1,0 +1,602 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "385630",
+  "question": "How does forest coverage vary across Pacific island nations?",
+  "submittedPrompt": "How does forest coverage vary across Pacific island nations?\n\nTask conventions: Use the frozen country polygons and World Bank AG.LND.FRST.ZS 2021 column, in % of land area. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature in the declared geography and its benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. Geography is fixed to original country features with NAME_EN in [\"Fiji\", \"Papua New Guinea\", \"Solomon Islands\", \"Vanuatu\", \"Kiribati\", \"Marshall Islands\", \"Federated States of Micronesia\", \"Nauru\", \"Palau\", \"Samoa\", \"Tonga\", \"Tuvalu\", \"New Zealand\"]; retain all matching source geometries, and no others. Classification is calculated only over this geography. Membership reflects this disclosed benchmark edition, not current organization membership.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank AG.LND.FRST.ZS\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2021\",\n    \"units\": {\n      \"2021\": \"% of land area\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Forest cover in the delivered 2021 map ranges from 0.0% of land area in Nauru to 92.07% in Federated States of Micronesia. Solomon Islands and Palau are also about 90%, Fiji, Papua New Guinea, and Samoa are high, Tuvalu and Vanuatu are mid-range, and Kiribati, Tonga, and Nauru are lowest.\n\nThe layer is already on your map with five quantile classes. Breaks are 24.97, 37.63, 56.83, and 83.51% of land area; values on a break go into the upper class. There are no No data countries in this fixed benchmark geography.\n\nLimits: this uses the frozen GeoBenchX benchmark country polygons and the frozen World Bank AG.LND.FRST.ZS 2021 country indicator only, so it is country-level, not subnational, and it keeps both original New Zealand rows from the benchmark edition. Sources: World Bank country boundaries benchmark fixture, Terra-hosted GeoBenchX (Collection [resource id withheld]; source revision not reported; retrieved 2026-10-07 07:11:54 UTC) and World Bank AG.LND.FRST.ZS benchmark fixture, Terra-hosted GeoBenchX (Collection [resource id withheld]; source revision not reported; retrieved 2026-10-07 07:11:59 UTC).\n\n### Limitations\n\n- This result uses the frozen GeoBenchX benchmark edition and the frozen World Bank AG.LND.FRST.ZS 2021 country indicator only.\n- It is a country-level percentage of land area, not a subnational forest surface or a new regional aggregation.\n- The fixed benchmark geography retains two separate New Zealand boundary rows because both original source rows meet the declared geography.\n- The benchmark geography retains two separate New Zealand boundary rows because both original source rows meet the declared geography.\n- The quantile breaks are specific to this fixed 14-feature benchmark geography.\n- This follows the supplied benchmark edition and preserves all original selected rows, including two New Zealand rows.\n- This uses the supplied frozen World Bank AG.LND.FRST.ZS 2021 indicator only.\n- Exact matching would leave sentinels or missing codes unknown, but the tested selection matched all 14 rows.\n- Quantile classes are calculated only over this fixed benchmark geography.",
+  "checks": {
+    "expectedCount": 14,
+    "actualCount": 14,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:45:37.527704Z",
+      "title": "Progress update",
+      "detail": "I’ll check the saved analysis context, inspect the two supplied datasets, and then test the exact country join and quantile classification before I build the final map layer."
+    },
+    {
+      "at": "2026-10-07T08:45:43.162085Z",
+      "title": "Progress update",
+      "detail": "I found the core workflow tools. Next I’m pulling the saved brief, then I’ll inspect the exact supplied files so I can test the fixed 2021 join and legend rules without changing the user’s conventions."
+    },
+    {
+      "at": "2026-10-07T08:45:49.719177Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:49.839439Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:49.980071Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:57.431272Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:57.443064Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:04.035012Z",
+      "title": "Progress update",
+      "detail": "I confirmed the two inputs are the exact frozen benchmark files, not live catalog replacements. Now I’m reading small samples to confirm the real field names before I test the join and class rules."
+    },
+    {
+      "at": "2026-10-07T08:46:04.048787Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:04.337509Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:10.722440Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:10.952518Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:14.865196Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:15.053618Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:15.062637Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:15.074576Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:35.510790Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:39.940208Z",
+      "title": "Progress update",
+      "detail": "I’ve saved the analysis goal. The main uncertainty now is just the real field names in the frozen files, so I’m running the smallest private check that materializes those two exact inputs for schema inspection."
+    },
+    {
+      "at": "2026-10-07T08:46:47.911920Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:11.870807Z",
+      "title": "Progress update",
+      "detail": "The schema check finished. I found the needed boundary keys, and I’m now confirming the exact indicator columns — especially the 2021 field — before I lock in the join and class method."
+    },
+    {
+      "at": "2026-10-07T08:47:16.013891Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:16.413737Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:32.657555Z",
+      "title": "Progress update",
+      "detail": "I already have the first schema check, and one deeper inspection finished in the background. I’m resuming from that exact output and rerunning only the missing table inspection, then I’ll test the join and quantile classes."
+    },
+    {
+      "at": "2026-10-07T08:47:32.670955Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:32.680502Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:44.028711Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the real columns: the boundary file has `NAME_EN`, `ISO_A3`, and `benchmark_row_id`, and the indicator file has `Country Code` plus a numeric `2021` field. Next I’m inspecting the exact processor schemas so I can test the full selection, exact join, and quantile legend in one small end-to-end trial."
+    },
+    {
+      "at": "2026-10-07T08:47:46.243175Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:57.625630Z",
+      "title": "Progress update",
+      "detail": "I have the exact processor contracts now. I’m running the full benchmark geography as a private end-to-end test: select the named countries, left-join `ISO_A3` to `Country Code`, and classify the `2021` values into quantiles with a separate No data class."
+    },
+    {
+      "at": "2026-10-07T08:48:03.781058Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:07.967147Z",
+      "title": "Progress update",
+      "detail": "Terra wants the first investigation recorded before I continue. I already have enough evidence from that schema check, so I’m reading its combined report and then I’ll assess it as successful groundwork for the join test."
+    },
+    {
+      "at": "2026-10-07T08:48:10.616216Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:19.833999Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:13.350560Z",
+      "title": "Progress update",
+      "detail": "The end-to-end trial finished in the background. It looks promising: 14 benchmark boundary rows were selected, all 14 kept through the left join, and the 2021 field classified into five classes. I’m now checking the actual country rows and legend details before I save the final workflow and add the layer."
+    },
+    {
+      "at": "2026-10-07T08:50:19.277753Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:19.705237Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:12.026243Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:12.215561Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:16.274423Z",
+      "title": "Progress update",
+      "detail": "One row-level inspection already finished in the background. I’m reusing that exact work now and pulling the country list plus the classified output values and legend details, so I can confirm the final counts before I publish the layer."
+    },
+    {
+      "at": "2026-10-07T08:51:33.563277Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:34.963898Z",
+      "title": "Progress update",
+      "detail": "The method is now tested on the full declared geography. I’m recording that result, then I’ll save the production workflow from the tested computation and inspect its final legend and layer binding."
+    },
+    {
+      "at": "2026-10-07T08:51:55.652822Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:20.666560Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:21.139120Z",
+      "title": "Progress update",
+      "detail": "The tested method is good enough to promote into the production workflow. I’m checking the exact proposal schema now so I can save one clean final workflow instead of rebuilding the computation by hand."
+    },
+    {
+      "at": "2026-10-07T08:52:26.412786Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:26.865342Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:26.933906Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:27.329140Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:34.178461Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:08.949303Z",
+      "title": "Progress update",
+      "detail": "I’ve now confirmed the exact geography, join, and class behavior. I’m refreshing the brief to remove the old “not yet confirmed” notes, then I’ll save the tested workflow and run the final publish step."
+    },
+    {
+      "at": "2026-10-07T08:53:16.723714Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:28.402415Z",
+      "title": "Progress update",
+      "detail": "I’ve got the tested production method. Now I’m saving it as the final workflow with the same full-scope computation, the fixed geography contract, and the final country deliverable."
+    },
+    {
+      "at": "2026-10-07T08:53:35.360768Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:45.272896Z",
+      "title": "Progress update",
+      "detail": "The saved draft only needs one correction: the contract scope has to match the executable workflow scope exactly. I’m fixing that saved draft instead of rebuilding it."
+    },
+    {
+      "at": "2026-10-07T08:53:45.326907Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:45.351976Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:56.094732Z",
+      "title": "revise_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:11.503445Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:14.533961Z",
+      "title": "Progress update",
+      "detail": "The final workflow is ready and matches the tested computation. I’m running that exact saved workflow now, then I’ll inspect the published output, bind it to the map, and verify the final answer fields."
+    },
+    {
+      "at": "2026-10-07T08:57:29.274058Z",
+      "title": "Progress update",
+      "detail": "The production run finished in the background. I’m inspecting that exact run now so I can bind the final published artifact to the map, verify the legend and row counts, and then record the final answer object."
+    },
+    {
+      "at": "2026-10-07T08:57:34.887388Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:57:56.855693Z",
+      "title": "Progress update",
+      "detail": "The run itself is done. I’m now reading its final output receipts, then I’ll add the published country layer to the map and lock in the final answer object from that exact artifact."
+    },
+    {
+      "at": "2026-10-07T08:57:57.262580Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:12.111283Z",
+      "title": "Progress update",
+      "detail": "The final artifact already exists, and the workflow also already added its map layer. I’m doing one last bounded check on the published country rows and the classifier’s summary so I can cite the final legend and counts from the delivered output itself."
+    },
+    {
+      "at": "2026-10-07T08:58:12.210999Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:12.261305Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:13.258125Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:45.733428Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:46.077400Z",
+      "title": "Progress update",
+      "detail": "I already have the final published artifact and its classifier summary. I’m pulling the finished preview receipt and checking the current map layer list one last time, then I’ll record the final result and give you the plain-language summary."
+    },
+    {
+      "at": "2026-10-07T08:58:46.093726Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:59.051114Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the delivered artifact, the five quantile breaks, and the live map layer. The final step is just to record the accepted result object against this exact published layer and artifact."
+    },
+    {
+      "at": "2026-10-07T08:58:59.104736Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:59.124887Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:59:06.820406Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:17.273800Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T09:00:24.180883Z",
+      "title": "Progress update",
+      "detail": "Terra rejected that assessment because the condition labels have to match the saved acceptance checks exactly. I’ve already verified the evidence, so I’m resubmitting the same result with the exact condition text."
+    },
+    {
+      "at": "2026-10-07T09:00:37.476052Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Supplied boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Forest cover 2021 by benchmark country",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify forest coverage",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied forest table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join forest percentage",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Selected benchmark countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Supplied boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Classify forest coverage",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied forest table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join forest percentage",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Selected benchmark countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Selected benchmark countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join forest percentage",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify forest coverage",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied forest table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied boundaries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied forest table",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T08:46:51.343524+00:00"
+    },
+    {
+      "sha256": "595b2997fe9ecdcc9b70e118f3b95cdbda921aaa7c0a0e079a3d499eae72c2c5",
+      "bytes": 112649,
+      "finishedAt": "2026-10-07T08:46:51.343524+00:00"
+    },
+    {
+      "sha256": "f6b14eb64e999b89b6dfd6940824cb0204019175d979959529b5260245f48c90",
+      "bytes": 282253,
+      "finishedAt": "2026-10-07T08:49:04.677588+00:00"
+    },
+    {
+      "sha256": "3a3ddd32772c735daf2ddec899a86897d2c4789a14732ac380c8be1bd6957c42",
+      "bytes": 280991,
+      "finishedAt": "2026-10-07T08:48:57.474620+00:00"
+    },
+    {
+      "sha256": "75ad8a5664a3a3958963e5e22791a479867456d22b65fe65efb0eca5847e40fb",
+      "bytes": 282839,
+      "finishedAt": "2026-10-07T08:49:23.527854+00:00"
+    },
+    {
+      "sha256": "3a3ddd32772c735daf2ddec899a86897d2c4789a14732ac380c8be1bd6957c42",
+      "bytes": 280991,
+      "finishedAt": "2026-10-07T08:55:12.700241+00:00"
+    },
+    {
+      "sha256": "f6b14eb64e999b89b6dfd6940824cb0204019175d979959529b5260245f48c90",
+      "bytes": 282253,
+      "finishedAt": "2026-10-07T08:56:07.457268+00:00"
+    },
+    {
+      "sha256": "75ad8a5664a3a3958963e5e22791a479867456d22b65fe65efb0eca5847e40fb",
+      "bytes": 282839,
+      "finishedAt": "2026-10-07T08:57:14.921463+00:00"
+    }
+  ],
+  "snapshotSha256": "d29a01d5f20c55e9d91f103f185451a1921d6a5fef24e1a08e4a8a50357d9952",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:46:47.911920Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "What are the actual schemas and field names in the two supplied frozen benchmark files needed for the exact country selection, join, and 2021 value field?"
+    },
+    {
+      "at": "2026-10-07T08:48:03.781058Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full fixed benchmark geography join exactly from ISO_A3 to Country Code and classify the supplied 2021 forest percentages into the required quantile choropleth while preserving all selected country rows, including unknowns?"
+    },
+    {
+      "at": "2026-10-07T08:48:19.833999Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The supplied boundary artifact exposes NAME_EN, ISO_A3, and benchmark_row_id as usable fields for the fixed geography and exact country-code join. The supplied indicator table exposes Country Code and a numeric 2021 field for the required year-specific forest percentage. This answers the schema question and supports the planned exact left join without substituting live data.",
+      "limitations": [
+        "This investigation verified field availability only; it did not yet test the filtered geography, join match results, or quantile classification behavior."
+      ],
+      "next_action": "Run the full benchmark-geography trial that filters the named countries, joins ISO_A3 to Country Code exactly, and classifies the 2021 values into quantiles with No data kept separate.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:51:55.652822Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full declared benchmark geography works with the tested method. Filtering NAME_EN to the supplied list returns 14 original boundary rows because New Zealand appears twice in this benchmark edition, and every row keeps its original geometry and benchmark_row_id. The exact left join from ISO_A3 to Country Code matches all 14 selected features, using 13 table rows because the two New Zealand boundary rows share the same NZL code. The joined 2021 field is populated for all 14 selected features, so this fixed geography has no unknown measurements. Quantile classification on the selected 2021 values produces five classes and preserves the genuine zero for Nauru as a valid value, not No data.",
+      "limitations": [
+        "This trial established the analytical method and full-scope outputs, but it did not yet publish the final production artifact or add the final map layer."
+      ],
+      "next_action": "Save the tested computation as the production workflow, execute it, inspect the final artifact and legend, then add the verified country layer to the map and assess the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T09:00:17.273800Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The published final artifact contains the full declared benchmark geography and the live map now displays it as layer [resource id withheld]. The delivered country artifact has 14 original benchmark boundary rows, all with known AG.LND.FRST.ZS 2021 values in % of land area and five quantile classes. Values range from 0.0% in Nauru to 92.07% in Federated States of Micronesia. The legend breaks are 24.9722, 37.6307, 56.8301, and 83.5062 % of land area, with class counts 3, 2, 3, 3, and 3; no No data rows occur in this fixed geography.",
+      "limitations": [
+        "This result uses the frozen GeoBenchX benchmark edition and the frozen World Bank AG.LND.FRST.ZS 2021 country indicator only.",
+        "It is a country-level percentage of land area, not a subnational forest surface or a new regional aggregation.",
+        "The benchmark geography retains two separate New Zealand boundary rows because both original source rows meet the declared geography.",
+        "The quantile breaks are specific to this fixed 14-feature benchmark geography."
+      ],
+      "next_action": "Review the new map layer, or ask for labels, export, or a different classification.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T09:00:37.476052Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published final artifact contains the full declared benchmark geography and the live map now displays it as layer [resource id withheld]. The delivered country artifact has 14 original benchmark boundary rows, all with known AG.LND.FRST.ZS 2021 values in % of land area and five quantile classes. Values range from 0.0% in Nauru to 92.07% in Federated States of Micronesia. The legend breaks are 24.9722, 37.6307, 56.8301, and 83.5062 % of land area, with class counts 3, 2, 3, 3, and 3; no No data rows occur in this fixed geography.",
+      "limitations": [
+        "This result uses the frozen GeoBenchX benchmark edition and the frozen World Bank AG.LND.FRST.ZS 2021 country indicator only.",
+        "It is a country-level percentage of land area, not a subnational forest surface or a new regional aggregation.",
+        "The benchmark geography retains two separate New Zealand boundary rows because both original source rows meet the declared geography.",
+        "The quantile breaks are specific to this fixed 14-feature benchmark geography."
+      ],
+      "next_action": "Review the new map layer, or ask for labels, export, or a different classification.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "5b62549a97b7466fd255946773ff2ff6f28f153169282d5e110b94a68840bad8",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

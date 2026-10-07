@@ -1,0 +1,842 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "208110",
+  "question": "Compare the population density along railways in Bangladesh with the national average",
+  "submittedPrompt": "Compare the population density along railways in Bangladesh with the national average\n\nTask conventions: Use the frozen Bangladesh WorldPop 2018 bgd_pd_2018_1km_UNadj raster. Its verified units are people/km², NOT people per cell; preserve its original band, grid and missing mask. Convert density to population per cell using each original full WGS84 ellipsoidal meridian/parallel cell area in km², not a constant nominal 1 km². Use all original features in the supplied Bangladesh railway line inventory; no live railway substitutions, attribute exclusions or duplicated population from overlapping corridors. Define proximity by shortest planar distance from each original raster cell centre to the original railway geometries transformed into EPSG:32646 (UTM zone 46N), with original straight segments. A cell qualifies at distance <= 5000 metres. This is an explicit local projected cell-centre approximation, not travel distance or exact ellipsoidal distance. Projection distortion and unresolved within-cell population location remain limitations. The corridor includes the full cell when its centre qualifies, counting each cell once. Zero density is valid; missing/nonfinite cells remain unknown. Total and selected population are sums of density times physical cell area over valid cells; percentage is 100 times selected/total. Publish a selected-population raster (derived people per cell when qualifying, zero in other valid cells, original mask) and a distance raster in metres on that same original grid. The historical population and later railway snapshot do not prove contemporaneous access or census accuracy.Along railways means the declared 5 km corridor. Compare area-weighted density: selected people divided by total area of qualifying valid cells versus total people divided by area of all valid cells. Do not average cell densities without area weighting or treat NoData as zero.\n\n\n\nCompute the percentage and publish both inspectable rasters. A map is optional. End with a fenced JSON object: {count: qualifying cell count, unknown_count: original masked/nonfinite cell count, coverage_note, selection:{collectionId,itemId,assetKey}, distance:{collectionId,itemId,assetKey}, metrics:{selected_people:number,total_people:number,percentage:number}}. Label selected population as people per cell and distance as metres. Report the historical year and coverage limitations. Do not round machine-readable metrics to integers. Also include metrics corridor_density and national_density in people/km², plus selected_area_km2 and total_area_km2. Explain which density is greater.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Bangladesh population density, WorldPop 2018\",\n    \"edition\": \"2018 UN-adjusted 1 km density; exact bytes verified against WorldPop product 45189, DOI WP00675\",\n    \"units\": {\n      \"band1\": \"people/km\\u00b2\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Bangladesh railway lines, frozen OpenStreetMap extract\",\n    \"edition\": \"GeoBenchX Geofabrik Bangladesh extract, 2025-02-01; ODbL attribution required\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "About 39.95% of the valid-cell 2018 Bangladesh population falls within 5 km of the supplied railway lines.\n\nThe rail corridor is denser: about 2,163.5 people/km² versus about 1,145.4 people/km² nationally across valid raster cells. I published the selected-population raster in people per cell and the rail-distance raster in metres on the original WorldPop grid and mask.\n\nSources: WorldPop/CIESIN Bangladesh 2018 UN-adjusted 1 km population density (DOI 10.5258/SOTON/WP00675); frozen Bangladesh railway lines from the GeoBenchX Geofabrik extract dated 2025-02-01, © OpenStreetMap contributors.\n\nLimits: this compares a 2018 population surface with a later railway snapshot, uses the requested EPSG:32646 planar cell-centre distance approximation, and leaves masked/nonfinite raster cells unknown.\n\n### Limitations\n\n- The population surface is historical WorldPop 2018 while the supplied railway inventory is a later 2025-02-01 snapshot, so the result is not contemporaneous access evidence.\n- Railway proximity is the requested local planar cell-centre approximation in EPSG:32646, not exact ellipsoidal distance, travel distance, or proof of service access.\n- Population within each raster cell is unresolved; counting a qualifying cell includes the whole cell once when its centre is within 5 km.\n- National comparison coverage uses all valid cells in the supplied Bangladesh raster extent and preserves its original mask; masked or nonfinite cells remain unknown.\n- Population uses the historical WorldPop 2018 Bangladesh surface, while railway geometry comes from a later frozen 2025-02-01 OpenStreetMap/Geofabrik snapshot, so the comparison is not contemporaneous access evidence.\n- Railway proximity is the requested local projected cell-centre approximation in EPSG:32646, not exact ellipsoidal distance, travel distance, or service access.\n- Population location within each raster cell is unresolved; when a cell centre qualifies within 5 km, the whole valid cell population is counted once.\n- Coverage uses all valid cells in the supplied Bangladesh WorldPop raster extent and original mask; 226,139 masked or nonfinite cells remain unknown and are excluded from totals and density denominators.\n- The population surface is historical 2018 data.\n- Masked or nonfinite cells remain unknown.\n- The railway snapshot is later than the population surface.\n- This is the requested local projected approximation in EPSG:32646, not exact ellipsoidal or travel distance.\n- Population within a qualifying cell is counted in full once its centre qualifies.",
+  "checks": {
+    "expectedCount": 38356,
+    "actualCount": 38356,
+    "expectedMetrics": {
+      "selected_people": 64839903.12294957,
+      "total_people": 162285835.55419007,
+      "percentage": 39.95413580090198,
+      "corridor_density": 2163.5449148580387,
+      "national_density": 1145.4277043032519,
+      "selected_area_km2": 29969.289141013305,
+      "total_area_km2": 141681.43039014962
+    },
+    "actualMetrics": {
+      "percentage": 39.95413581017811,
+      "total_people": 162285835.78281653,
+      "total_area_km2": 141681.43039014962,
+      "selected_people": 64839903.22934914,
+      "corridor_density": 2163.5449144591976,
+      "national_density": 1145.4277059169176,
+      "selected_area_km2": 29969.28919571638
+    },
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:09:25.333837Z",
+      "title": "Progress update",
+      "detail": "I’ll verify the frozen inputs and test the key calculation path first: cell-area conversion on the original grid, centre-to-rail distance in UTM 46N, and outputs on the same raster grid. Then I’ll save the working method and finish the full run with inspectable rasters and checked metrics."
+    },
+    {
+      "at": "2026-10-07T06:09:40.082289Z",
+      "title": "Progress update",
+      "detail": "I found the Terra analysis tools. Next I’m checking whether there is already a saved brief or proposal for this Bangladesh comparison, then I’ll inspect the frozen raster and railway inputs and pick the exact processors for the tested method."
+    },
+    {
+      "at": "2026-10-07T06:09:40.105608Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:40.115616Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:40.122212Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:40.136363Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:53.466122Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:53.487914Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:53.504873Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:53.721567Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:54.975488Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:07.230536Z",
+      "title": "Progress update",
+      "detail": "The core source pieces are promising: there is a native cell-area processor for geographic rasters and an exact `distance-surface` mode that measures planar distance from raster cell centres to line features in a chosen metre CRS while keeping the original grid and mask. I’m now fetching a Bangladesh boundary for an explicit study scope and then I’ll test the full vertical slice on a small area."
+    },
+    {
+      "at": "2026-10-07T06:10:07.300163Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:07.394611Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:36.040066Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:36.173857Z",
+      "title": "list_items",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:36.277503Z",
+      "title": "list_items",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:36.616764Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:09.930180Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:54.198052Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:54.469895Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:12:02.556892Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:12:07.675486Z",
+      "title": "Progress update",
+      "detail": "I’ve set the method. The trial will answer one consequential question: does the exact-feature distance surface in UTM 46N, combined with ellipsoidal cell area and map algebra, keep the original mask and produce the right additive quantities on the original grid? If that works on a representative central slice, I can scale the same chain to all of Bangladesh."
+    },
+    {
+      "at": "2026-10-07T06:12:26.189681Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:21:22.797287Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:21:28.478182Z",
+      "title": "Progress update",
+      "detail": "The trial finished. It already ran across the full Bangladesh raster, which is useful for the final extent, but it also exposed one real method problem: my qualifying-cell mask turned missing cells into zero. I’m reading the native trial report now, then I’ll record that finding and test a corrected count branch while reusing the successful full-Bangladesh outputs."
+    },
+    {
+      "at": "2026-10-07T06:21:52.378036Z",
+      "title": "Progress update",
+      "detail": "The main outputs passed: distance, people-per-cell, and selected-population stayed on the original Bangladesh grid and kept the original missing mask. The remaining problem is narrower but important: a plain `where(dist<=5000,1,0)` mask filled missing cells with zero, so I need one correction trial for the qualifying-cell count before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T06:21:55.636540Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:22:12.657348Z",
+      "title": "Progress update",
+      "detail": "I’ve isolated the remaining uncertainty. The next test is small in logic, not in area: keep the successful full-Bangladesh distance raster, rebuild only the qualifying-cell mask with a mask-preserving expression, and verify that its valid and missing counts match the original population raster."
+    },
+    {
+      "at": "2026-10-07T06:22:18.821477Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:40.915967Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:41.648723Z",
+      "title": "Progress update",
+      "detail": "The correction worked. I now have the exact qualifying valid-cell count with the original mask preserved: 38,356 qualifying valid cells, 180,813 valid cells overall, and 226,139 original missing cells. Next I’m saving the checked production workflow around this tested Bangladesh-wide method, then I’ll inspect the final artifacts and record the answer object."
+    },
+    {
+      "at": "2026-10-07T06:27:03.649215Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:09.206371Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:13.749116Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:20.929683Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:24.984980Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:30.183428Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:37.418755Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:59.990921Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:41.030334Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:41.229418Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:51.053977Z",
+      "title": "Progress update",
+      "detail": "I have enough evidence to save the working plan now: same Bangladesh-wide method, same preserved raster grid and mask, plus the corrected mask-preserving count branch. After that I’ll resolve the earlier counting finding against the correction trial and inspect the workflow outputs as the final deliverables."
+    },
+    {
+      "at": "2026-10-07T06:29:05.813443Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:53.026840Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:07.833965Z",
+      "title": "Progress update",
+      "detail": "I saved the draft plan. It’s scientifically ready, but Terra still needs the earlier counting defect explicitly resolved against this exact saved draft. I’m recording that now with the two trial runs: the first one for the Bangladesh-wide main branches, and the second one for the corrected qualifying-cell count."
+    },
+    {
+      "at": "2026-10-07T06:30:12.438354Z",
+      "title": "assess_plan",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:30:20.120747Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:31.034416Z",
+      "title": "assess_plan",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:42.032106Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:34:16.793413Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:34:17.734935Z",
+      "title": "Progress update",
+      "detail": "The approved run completed in the background. I’m now reading its exact output identities and summaries, then I’ll check the final rasters against the requested conditions and attach the machine-readable answer object to the accepted result."
+    },
+    {
+      "at": "2026-10-07T06:35:01.681800Z",
+      "title": "Progress update",
+      "detail": "I’m at the last verification step: reading the final workflow’s published rasters and summary tables so the answer object uses the current output items, not earlier trial artifacts. After that I’ll record the checked result and give you the short comparison in plain language."
+    },
+    {
+      "at": "2026-10-07T06:35:01.867297Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:01.909586Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:03.860109Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:05.310479Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:06.118560Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:08.775098Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:09.307106Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:10.725924Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:49.670661Z",
+      "title": "Progress update",
+      "detail": "The workflow is done; I’m just waiting on the last bounded inspections to return their exact rows and previews. Once those current output receipts are in hand, I can lock the answer object to the final published rasters instead of the earlier trial copies."
+    },
+    {
+      "at": "2026-10-07T06:35:49.935901Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:50.121168Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:50.172942Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:53.870415Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:55.688080Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:58.691221Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:59.887716Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:00.897690Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:26.844839Z",
+      "title": "Progress update",
+      "detail": "The published rasters are already checked and match the requested grid and mask. I still need the final summary rows for total people and the qualifying-cell count from the current workflow outputs, then I can attach the machine-readable result to those final artifact identities."
+    },
+    {
+      "at": "2026-10-07T06:36:26.897655Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:36:27.058549Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:29.836802Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:40.955838Z",
+      "title": "Progress update",
+      "detail": "I have the final numbers now from the published workflow outputs. I’m doing one last formatting step: tying the answer object to the exact final artifact references that Terra expects for result acceptance, so the response points to the published rasters rather than the earlier trial copies."
+    },
+    {
+      "at": "2026-10-07T06:42:41.186590Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:42.808014Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:52.166929Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "National area statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Cell area km2",
+      "description": "Recorded raster-cell-area · succeeded"
+    },
+    {
+      "title": "Qualifying cell count statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Selected population raster (people per cell)",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Rail distance raster (metres)",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "National people statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Corridor people statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "National area statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Corridor area statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Qualifying cell count statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Rail distance metres",
+      "description": "Recorded distance-surface · succeeded"
+    },
+    {
+      "title": "People per cell",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "National people statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Bangladesh population density, WorldPop 2018",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Qualifying valid-cell mask",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Bangladesh railway lines, frozen OpenStreetMap extract",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Selected area km2",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Corridor area statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Selected population per cell",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Corridor people statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Cell area km2",
+      "description": "Recorded raster-cell-area · succeeded"
+    },
+    {
+      "title": "Corrected qualifying-cell statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Retained full-Bangladesh distance raster",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Population raster",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Mask-preserving qualifying valid-cell raster",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Mask-preserving qualifying valid-cell raster",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Corrected qualifying-cell statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Area statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Cell area km2",
+      "description": "Recorded raster-cell-area · succeeded"
+    },
+    {
+      "title": "Qualifying-cell statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Rail distance metres",
+      "description": "Recorded distance-surface · succeeded"
+    },
+    {
+      "title": "People per cell",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "People-per-cell statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Population trial subset",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Population subset statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Qualifying valid-cell mask",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Railway trial subset",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Selected area km2",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Selected-area statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Selected people per cell",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Selected-people statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Rail distance metres",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "People per cell",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected people per cell",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Population subset statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "People-per-cell statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected-people statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Area statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected-area statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Qualifying-cell statistics",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "c7eede1eb6bbf27e203de10c49c01155c1841a2011079e4c47fef332dfc167a4",
+      "bytes": 850416,
+      "finishedAt": "2026-10-07T06:13:13.650743+00:00"
+    },
+    {
+      "sha256": "10f0d0c115b4ad683ff121da002f5beb4a29833e13165d2e0e7e14ab2df6d1a7",
+      "bytes": 502538,
+      "finishedAt": "2026-10-07T06:13:13.650743+00:00"
+    },
+    {
+      "sha256": "5c0d393af0814fdf6599a0882e47a7753dbe4673d56b9197fb32128a15863fe0",
+      "bytes": 81367,
+      "finishedAt": "2026-10-07T06:14:28.124480+00:00"
+    },
+    {
+      "sha256": "9d2f7afeab40a1c5c3f3e413c942534b369472f9c48d5fa82288596ef3873ea9",
+      "bytes": 1763335,
+      "finishedAt": "2026-10-07T06:14:28.124480+00:00"
+    },
+    {
+      "sha256": "b717f53a32c3fe913cfe232836dbf83a4f76199f73e6cac76a7df2859aae2f18",
+      "bytes": 842917,
+      "finishedAt": "2026-10-07T06:15:37.856134+00:00"
+    },
+    {
+      "sha256": "a378fd924ffff98a5ba7a77aead19455f973ef5087a22a1189c0a468d95e16b7",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T06:15:37.856134+00:00"
+    },
+    {
+      "sha256": "9db50cbfbccc9ead09cf12419a52b42ebf7cb1199a7e091057f3954dfcd21adf",
+      "bytes": 15995,
+      "finishedAt": "2026-10-07T06:17:19.261354+00:00"
+    },
+    {
+      "sha256": "21f7f0a02661f301a431e32b4eeeecec509f99244368d84e6887ac52e657feb3",
+      "bytes": 53009,
+      "finishedAt": "2026-10-07T06:17:19.261354+00:00"
+    },
+    {
+      "sha256": "116fc24f51b15e7a8c8a5253ca14fb4811693cffc9189b1a55731e7cc9d3461d",
+      "bytes": 8672,
+      "finishedAt": "2026-10-07T06:18:32.648570+00:00"
+    },
+    {
+      "sha256": "111ee28593fbe20528570d1d87d8e867da73ff343c0962f3c9147957f608d3fd",
+      "bytes": 215032,
+      "finishedAt": "2026-10-07T06:18:32.648570+00:00"
+    },
+    {
+      "sha256": "975dd6201494d4f311421dac0b824f32daf479309cae84d2362b1394d650cc0b",
+      "bytes": 8733,
+      "finishedAt": "2026-10-07T06:19:23.173707+00:00"
+    },
+    {
+      "sha256": "c0a41fe55367cbbcdb320838eacef0f4ac4addf9eb87109309c7e4b1fec9c39d",
+      "bytes": 8672,
+      "finishedAt": "2026-10-07T06:19:23.173707+00:00"
+    },
+    {
+      "sha256": "ec74a580da0cada87e60787b2a0655785bf297ae662b9574f2acf2cc7ab21a1c",
+      "bytes": 8768,
+      "finishedAt": "2026-10-07T06:19:51.557500+00:00"
+    },
+    {
+      "sha256": "05e70c4ca889e8225a8c955cdef85e12ff027268758c12441d395a0464ea0bc3",
+      "bytes": 8733,
+      "finishedAt": "2026-10-07T06:20:21.463492+00:00"
+    },
+    {
+      "sha256": "5c0d393af0814fdf6599a0882e47a7753dbe4673d56b9197fb32128a15863fe0",
+      "bytes": 81367,
+      "finishedAt": "2026-10-07T06:24:15.253643+00:00"
+    },
+    {
+      "sha256": "b0852fc8d09fb70b6b76516fed9c689479e3e88a12f31f0be8372a95492ae56e",
+      "bytes": 33167,
+      "finishedAt": "2026-10-07T06:25:16.014362+00:00"
+    },
+    {
+      "sha256": "2f52f63199c4aa70458daae3c7f6d7ec156b83aac5df6a276f9f468ff0d892a5",
+      "bytes": 8768,
+      "finishedAt": "2026-10-07T06:25:40.998651+00:00"
+    },
+    {
+      "sha256": "5c0d393af0814fdf6599a0882e47a7753dbe4673d56b9197fb32128a15863fe0",
+      "bytes": 81367,
+      "finishedAt": "2026-10-07T06:31:50.406396+00:00"
+    },
+    {
+      "sha256": "9d2f7afeab40a1c5c3f3e413c942534b369472f9c48d5fa82288596ef3873ea9",
+      "bytes": 1763335,
+      "finishedAt": "2026-10-07T06:32:06.375533+00:00"
+    },
+    {
+      "sha256": "b717f53a32c3fe913cfe232836dbf83a4f76199f73e6cac76a7df2859aae2f18",
+      "bytes": 842917,
+      "finishedAt": "2026-10-07T06:32:21.954584+00:00"
+    },
+    {
+      "sha256": "116fc24f51b15e7a8c8a5253ca14fb4811693cffc9189b1a55731e7cc9d3461d",
+      "bytes": 8672,
+      "finishedAt": "2026-10-07T06:32:50.077394+00:00"
+    },
+    {
+      "sha256": "b0852fc8d09fb70b6b76516fed9c689479e3e88a12f31f0be8372a95492ae56e",
+      "bytes": 33167,
+      "finishedAt": "2026-10-07T06:32:50.077394+00:00"
+    },
+    {
+      "sha256": "21f7f0a02661f301a431e32b4eeeecec509f99244368d84e6887ac52e657feb3",
+      "bytes": 53009,
+      "finishedAt": "2026-10-07T06:32:37.583304+00:00"
+    },
+    {
+      "sha256": "111ee28593fbe20528570d1d87d8e867da73ff343c0962f3c9147957f608d3fd",
+      "bytes": 215032,
+      "finishedAt": "2026-10-07T06:33:09.599258+00:00"
+    },
+    {
+      "sha256": "975dd6201494d4f311421dac0b824f32daf479309cae84d2362b1394d650cc0b",
+      "bytes": 8733,
+      "finishedAt": "2026-10-07T06:33:20.289698+00:00"
+    },
+    {
+      "sha256": "2f52f63199c4aa70458daae3c7f6d7ec156b83aac5df6a276f9f468ff0d892a5",
+      "bytes": 8768,
+      "finishedAt": "2026-10-07T06:33:47.789014+00:00"
+    },
+    {
+      "sha256": "05e70c4ca889e8225a8c955cdef85e12ff027268758c12441d395a0464ea0bc3",
+      "bytes": 8733,
+      "finishedAt": "2026-10-07T06:34:02.669323+00:00"
+    },
+    {
+      "sha256": "c0a41fe55367cbbcdb320838eacef0f4ac4addf9eb87109309c7e4b1fec9c39d",
+      "bytes": 8672,
+      "finishedAt": "2026-10-07T06:33:47.789014+00:00"
+    }
+  ],
+  "snapshotSha256": "530e4d77f6693ea9c76470544516c757fa008d28327685073c0cf803282fe612",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:12:26.189681Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the planned processor chain preserve the original population grid and mask while converting density to people per cell and selecting cells within 5 km of the supplied railway lines using projected planar distance in EPSG:32646?"
+    },
+    {
+      "at": "2026-10-07T06:21:55.636540Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "insufficient",
+      "findings": "The trial established that the requested full-Bangladesh computation path is viable: `distance-surface` with `projected-features` in EPSG:32646 produced a metres raster on the original WorldPop grid and preserved the original valid-data mask (180,813 valid cells; 226,139 missing cells). `raster-cell-area` plus map algebra converted density to people per cell without creating output where inputs were missing, and the selected-population raster likewise preserved the original mask while writing zero in non-qualifying valid cells. The trial also showed that my attempted qualifying-cell mask `where(dist_m <= 5000, 1, 0)` was not suitable for the final count because comparisons/where turned missing cells into finite zeros, yielding a mask with 406,952 valid cells instead of preserving the original 226,139 missing cells. The source-step area subset I supplied did not reduce the managed inputs, so the trial actually exercised the full Bangladesh raster extent rather than the intended local slice.",
+      "limitations": [
+        "The qualifying-cell count branch still needs a mask-preserving expression before the final workflow can report an exact qualifying valid-cell count.",
+        "The trial used the requested Bangladesh-wide extent rather than the intended local test slice because the managed source subset did not clip the input."
+      ],
+      "next_action": "Run a focused correction trial that reuses the successful full-Bangladesh distance output and recomputes only a mask-preserving qualifying-cell raster, for example by multiplying the 0/1 threshold by `area_km2 / area_km2` so valid cells stay 1 or 0 while missing cells remain unknown.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:22:18.821477Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Can I derive an exact qualifying valid-cell count for the 5 km railway corridor while preserving the original WorldPop missing mask, using the already successful full-Bangladesh distance surface and a mask-preserving 0/1 expression?"
+    },
+    {
+      "at": "2026-10-07T06:27:59.990921Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The correction worked. Using the retained full-Bangladesh distance raster and a mask-preserving expression `(area_km2 / area_km2) * where(dist_m <= 5000, 1, 0)`, the qualifying-cell raster kept the original WorldPop mask exactly: 180,813 valid cells and 226,139 missing cells. The output contains only 0 and 1 among valid cells, and the qualifying valid-cell count is the raster sum 38,356. This resolves the remaining counting defect without changing the successful distance or selected-population methods.",
+      "limitations": [
+        "The qualifying-cell raster is a count aid only; the final published rasters remain the selected-population raster and the distance raster requested by the user."
+      ],
+      "next_action": "Save the tested Bangladesh-wide workflow with the successful distance and selected-population branches plus the corrected qualifying-cell count branch, then inspect the final artifacts and record the comparison result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:46:52.166929Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "Using the supplied WorldPop 2018 Bangladesh density raster and the supplied frozen Bangladesh railway inventory, 64,839,903.22934914 people out of 162,285,835.78281653 valid-cell people fall within the declared 5 km railway corridor, or 39.95413581017811%. The qualifying valid-cell corridor covers 29,969.28919571638 km² out of 141,681.43039014962 km² of valid raster area. Its area-weighted density is 2,163.5449144591974 people/km² versus 1,145.4277059169175 people/km² for the national valid-cell average, so the railway corridor is denser. The published selected-population raster and distance raster are on the original grid and preserve the original missing mask.",
+      "limitations": [
+        "Population uses the historical WorldPop 2018 Bangladesh surface, while railway geometry comes from a later frozen 2025-02-01 OpenStreetMap/Geofabrik snapshot, so the comparison is not contemporaneous access evidence.",
+        "Railway proximity is the requested local projected cell-centre approximation in EPSG:32646, not exact ellipsoidal distance, travel distance, or service access.",
+        "Population location within each raster cell is unresolved; when a cell centre qualifies within 5 km, the whole valid cell population is counted once.",
+        "Coverage uses all valid cells in the supplied Bangladesh WorldPop raster extent and original mask; 226,139 masked or nonfinite cells remain unknown and are excluded from totals and density denominators."
+      ],
+      "next_action": "Use the published rasters for inspection. If you need a same-year or exact-distance comparison, rerun the method with contemporaneous population and railway data or a different distance model.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "5577d4e404143dc1bd3a1535d37b97ef7419ecc18e64a60596407082ee82e433",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

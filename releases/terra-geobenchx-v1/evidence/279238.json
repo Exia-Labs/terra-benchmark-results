@@ -1,0 +1,82 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "279238",
+  "question": "Make a heatmap showing population concentration in flood-risk zones of South America",
+  "submittedPrompt": "Make a heatmap showing population concentration in flood-risk zones of South America\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "Delivered: a source-availability answer, not a real heatmap.\n\nFrom the supplied inventory: population rasters are listed for **Brazil (2018)**, **Peru (2018)**, and **Chile (2020)**, and the only South America flood raster listed is **“Peru, Bolivia, Argentina, Chile flood, February 2018”**. That flood layer is a **single event extent**, not a **flood-risk** layer. So a continent-wide heatmap of **population concentration in flood-risk zones** is **not supported** here. The strongest partial overlap is **Peru and Chile**, but even that would represent one 2018 flood event, not general flood risk.\n\nUncertainty: this environment gives **source listings only**, not the actual raster values, so no hotspot map or numeric concentration pattern can be produced.\n\nNext step: use actual rasters plus a **South America-wide population grid** and **flood-hazard/risk layer**, or narrow the request to a clearly labeled **Peru/Chile event-overlap** map.\n\n### Limitations\n\n- This task environment provides source inventory metadata, not actual measurement files.\n- No South America-wide flood-risk layer is listed in the supplied inventory.\n- Population raster coverage is incomplete for South America in the supplied inventory.\n- No actual rasters are supplied, and the listed coverage does not support a continent-wide population-in-flood-risk heatmap.\n- **Population:** The inventory lists population rasters only for Brazil, Peru, and Chile, and it does not provide the measurement pixels.\n- **Flood zones:** The only listed South America flood raster is Peru, Bolivia, Argentina, Chile flood, February 2018, which is a single event extent rather than a South America flood-risk layer.\n- **Combined map:** Only Peru and Chile have both a listed population raster and the listed 2018 flood-event coverage; this does not support a continent-wide flood-risk heatmap.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T06:33:16.403798+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "64aa70430b7fd7c808a4f5d2e6e7553996f193515a9cf4ea545ed176a407e9e6",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "463c45b97d6004656270da5ae1956b5e5ed5991b58e8b151f36a6dbf34dd834e",
+      "snapshotSha256AtReview": "9af0affc99c6941c15af98bbf75518ca7a5f1d516fb81dd44975f884b3efc1ed",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies a February 2018 event footprint rather than flood risk, and incomplete South American population coverage."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Keeps a Peru/Chile event-overlap option distinct from a continent-wide population-in-risk heatmap."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Names the actual country/year raster listings and distinguishes source titles from available pixel observations."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "States no real heatmap or numeric pattern was produced; only analysis tools and zero jobs/artifacts exist."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests full population and flood-hazard/risk rasters, or an explicitly narrowed event-overlap scope."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:31:09.146789Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:49.005031Z",
+      "title": "Progress update",
+      "detail": "I’m recording the requested result and the main limits from the supplied inventory, then I’ll give a concise answer based only on that inventory."
+    },
+    {
+      "at": "2026-10-07T06:31:53.863352Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:57.321973Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "79207e831bbb2299d0be45df045503bff6b308af27ed422bdc298a397ac68d9c",
+  "investigations": []
+}

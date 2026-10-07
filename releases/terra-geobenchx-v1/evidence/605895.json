@@ -1,0 +1,902 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "605895",
+  "question": "Make a heatmap of seaport density in regions with high freshwater withdrawals in Latin America.",
+  "submittedPrompt": "Make a heatmap of seaport density in regions with high freshwater withdrawals in Latin America.\n\nTask conventions: Use supplied countries with REGION_WB in [\"Latin America & Caribbean\"]. High withdrawals means 2021 ER.H2O.FWTL.ZS at least 90 percent of internal freshwater resources. Select ports within the qualified countries, correcting the archived reference's accidental selection against the unfiltered country variable. Use unit count weights, not the FACID_NUM identifier. Use original point records strictly within the original selected country polygons; no clipped polygons, location guesses or current data. Join country ISO_A3 to the supplied indicator table's Country Code exactly. Unknown country indicators, nonpositive ratio denominators, missing geometry and missing/nonfinite weights are unknown, not zero. Known zero weights remain valid. Exclude valid points outside the specified geography. Include only eligible points with a finite nonnegative weight in the contributing artifact; report other potentially eligible points as unknown. Use this explicit geographic heatmap convention: grid={\"bounds\": [-18000000, -7325000, 18000000, 7325000], \"crs\": \"EPSG:6933\", \"resolutionX\": 25000, \"resolutionY\": 25000}, radius 150000 metres = three Gaussian standard deviations. First bin each point into its containing grid cell and sum its weight. Smooth using a normalized separable Gaussian, numerical support four standard deviations, constant-zero exterior; do not renormalize edges. Use both grid resolutions for the two axes; keep original grid alignment. This is a declared metric raster adaptation to the original interactive screen-pixel heatmap, not an equivalent zoom-dependent rendering. Output unit: events per grid cell. Zero cells are valid; this is not density per square kilometre. Do not rescale the values for presentation.\n\n\n\nAdd the heatmap raster to the map and retain an inspectable selected-point artifact with original geometry and benchmark_row_id. End with one fenced JSON object: {count: contributing point records, unknown_count: records with unknown eligibility or weight, unlocated_count: original points lacking valid geometry, coverage_note: string, selection: {collectionId,itemId,assetKey}, density: {collectionId,itemId,assetKey}, map_layer_id: heatmap_layer_id}. Explain the data edition, numerical weights, grid, smoothing and coverage limitations. The source-point artifact is not itself the requested heatmap.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Latin American mineral-exporting seaports\",\n    \"edition\": \"USGS OFR 2017-1079 frozen benchmark compilation\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Freshwater withdrawals as percent of internal resources\",\n    \"edition\": \"Frozen World Development Indicators; use 2021\",\n    \"units\": {\n      \"2021\": \"percent of internal freshwater resources\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the heatmap layer is on the map, and it is zero everywhere.\n\nUsing the supplied frozen benchmark snapshots, no known Latin America & Caribbean country reaches the 2021 `>=90` freshwater-withdrawal threshold; the highest known joined value is 87.5. Fifteen country values are unknown, but none of the supplied port points fall in those unknown-country polygons, and 56 supplied ports are outside the specified geography and were excluded.\n\nThe contributing-point artifact is retained and empty. One minor limitation remains: because it comes from a spatial join, its source row-id field is exposed as `benchmark_row_id_target` rather than unsuffixed `benchmark_row_id`.\n\nIf you want visible hotspots, I can rerun this with a lower threshold, a different year, or a different source edition.\n\n### Limitations\n\n- The supplied frozen 2021 benchmark table has no known Latin America & Caribbean country at or above the >=90 threshold, so the requested heatmap is a valid all-zero raster.\n- Fifteen Latin America & Caribbean country polygons have unknown joined 2021 values in the supplied table; in the tested run none of the supplied port points fell within those unknown-country polygons.\n- Fifty-six supplied port points fell outside the original selected Latin America & Caribbean country polygons and were excluded from contributors.\n- The empty selected-point artifact carries the source row-id field as benchmark_row_id_target because it comes from a spatial join output; no contributing rows are hidden because the contributing set is empty.\n- This result reflects the supplied frozen benchmark editions, not current conditions.\n- No contributing point records remain because the supplied frozen 2021 benchmark table has no known Latin America & Caribbean country at or above the >=90 threshold.\n- The empty selected-point artifact carries the source row-id field as benchmark_row_id_target because it comes from a spatial join output schema.\n- Fifteen Latin America & Caribbean country polygons have unknown joined 2021 values in the supplied table; none contained supplied port points in the tested full-scope run.\n- Fifteen Latin America & Caribbean country polygons have unknown joined 2021 values in the supplied table; in the exact matched full-scope method, none of the supplied port points fell within those unknown-country polygons.\n- The empty selected-point artifact carries the source row-id field as benchmark_row_id_target because it comes from a spatial join output schema; no contributing rows are hidden because the contributing set is empty.\n- Values are events per grid cell on the supplied EPSG:6933 grid, not density per square kilometre, capacity, or activity volume.",
+  "checks": {
+    "expectedCount": 0,
+    "actualCount": 0,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:27:32.794615Z",
+      "title": "Progress update",
+      "detail": "I’m setting up the analysis from your supplied datasets and will first verify the source fields and the exact heatmap method. Then I’ll run a small private test so the saved method matches the requested grid, weighting, and country filter exactly."
+    },
+    {
+      "at": "2026-10-07T07:27:32.805848Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:32.809547Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:32.813334Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:32.816694Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:33.441428Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:46.435362Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:46.718403Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:46.885654Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:16.167442Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:23.026882Z",
+      "title": "Progress update",
+      "detail": "I’ve recorded the exact output checks. Now I’m checking which processors can (1) join the country indicator cleanly, (2) select original points strictly within the qualifying polygons, and (3) build the requested metric Gaussian heatmap without changing the grid alignment."
+    },
+    {
+      "at": "2026-10-07T07:28:23.057871Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:23.074134Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:23.086658Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:23.111156Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:26.125802Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:31.820433Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:32.032812Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:37.652667Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:46.166933Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:59.493317Z",
+      "title": "Progress update",
+      "detail": "I’ve found a processor that already matches the requested heatmap math: it bins points to the declared grid, treats `radiusM` as three Gaussian standard deviations, uses four-sigma support, constant-zero exterior, honors non-square cells, and keeps values as per cell. I’m now checking the source schemas and running a first vertical-slice trial."
+    },
+    {
+      "at": "2026-10-07T07:28:59.562077Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:28:59.576400Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:28:59.590237Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:29:16.905399Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:23.374443Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:42.004751Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:07.522608Z",
+      "title": "Progress update",
+      "detail": "I resumed from the completed source check. The supplied snapshots do have the key fields I need, but I still need one explicit row-level check for the 2021 indicator field and then a joined selection test before I save the full workflow."
+    },
+    {
+      "at": "2026-10-07T07:31:07.535163Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:07.545990Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:07.584555Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:32:38.694609Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:32:38.746950Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:32:38.817089Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:28.861092Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:47.678965Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:56.050435Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the missing piece from the source check: the indicator table does include a `2021` field alongside `Country Code`. I’m recording that trial result now, then I’ll run the actual country join and strict point-in-polygon selection."
+    },
+    {
+      "at": "2026-10-07T07:36:57.851749Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:02.557531Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:36.710329Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the source fields. Now I’m running one full-scope trial of the actual method: filter Latin America & Caribbean countries, join 2021 withdrawals by exact ISO codes, select ports strictly within the qualified polygons, and build the requested fixed-grid Gaussian heatmap."
+    },
+    {
+      "at": "2026-10-07T07:37:45.643526Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:02.302629Z",
+      "title": "Progress update",
+      "detail": "The full-scope test finished. It found no supplied Latin America & Caribbean country with known 2021 withdrawals at or above 90%, so the tested method returns an empty contributing-point set and an all-zero heatmap on the requested grid. I’m now saving that tested method as the production workflow, then I’ll add the verified zero heatmap to the map and return the final result object."
+    },
+    {
+      "at": "2026-10-07T07:42:03.171272Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:10.648782Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:15.709260Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:20.716853Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:26.501980Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:32.635587Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:38.087244Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:51.697473Z",
+      "title": "Progress update",
+      "detail": "The method trial answered the key uncertainty: the workflow logic is right, but the supplied 2021 benchmark table leaves the highest known Latin America & Caribbean value at 87.5, so no country qualifies at the >=90 threshold. That means the requested final product is a valid zero heatmap, not a failed run."
+    },
+    {
+      "at": "2026-10-07T07:42:54.874671Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:42.719233Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:43:49.989912Z",
+      "title": "Progress update",
+      "detail": "The proposal is almost valid. Terra rejected one bookkeeping detail: a fixed expectation can’t store a null `weightField`. I’m removing that entry and revalidating the same tested workflow."
+    },
+    {
+      "at": "2026-10-07T07:44:02.954650Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:44:14.544806Z",
+      "title": "Progress update",
+      "detail": "Terra validated the scientific method but wants the contract bound only to steps that feed the final deliverables. I’m tightening those references now without changing the tested computation."
+    },
+    {
+      "at": "2026-10-07T07:44:27.124845Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:48.231672Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:50.325658Z",
+      "title": "Progress update",
+      "detail": "The production workflow is ready and matches the tested method exactly. I’m executing it now so I can inspect the final published artifacts, add the heatmap layer, and attach the required result object."
+    },
+    {
+      "at": "2026-10-07T07:48:11.232340Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:12.064449Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:12.755203Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:19.249012Z",
+      "title": "Progress update",
+      "detail": "The saved production run finished in the background. I’m inspecting the final published outputs now, then I’ll bind the verified heatmap raster to the map and attach the required final response object."
+    },
+    {
+      "at": "2026-10-07T07:48:54.617274Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:11.435656Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:12.767600Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:13.304315Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:37.725169Z",
+      "title": "Progress update",
+      "detail": "I’m finishing the final checks now. The only remaining question is the exact delivered point-artifact schema, because the output is empty and I still need to verify how the original point ID is exposed in that final artifact."
+    },
+    {
+      "at": "2026-10-07T07:50:37.770253Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:37.785637Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:39.241593Z",
+      "title": "Progress update",
+      "detail": "I found a small delivery detail: the empty selected-point artifact exposes the carried source ID as `benchmark_row_id_target` after the spatial join, not bare `benchmark_row_id`. I’m checking whether I can correct that cleanly without changing the zero-result analysis."
+    },
+    {
+      "at": "2026-10-07T07:51:41.881314Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:13.051622Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:38.589166Z",
+      "title": "Progress update",
+      "detail": "I’m testing a narrow correction: keep the same zero-result logic, but produce the empty selected-point artifact directly from the original port schema so the point ID is exposed as `benchmark_row_id` instead of the joined suffix."
+    },
+    {
+      "at": "2026-10-07T07:52:44.207783Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:52.517232Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:52.519127Z",
+      "title": "Progress update",
+      "detail": "I found the problem with the tiny correction trial: Terra will not prepare an empty polygon set as a clipping area. I’m checking one alternative that may still preserve the original point field name without changing the zero-result analysis."
+    },
+    {
+      "at": "2026-10-07T07:53:52.527161Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:05.153391Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the delivered raster and point artifact. The heatmap is fully checked. The only remaining wrinkle is cosmetic but real: the empty selected-point artifact carries the source row ID as `benchmark_row_id_target` because of the spatial join, and I’m seeing whether Terra has a safe field-mapping step to normalize that name before I finish."
+    },
+    {
+      "at": "2026-10-07T07:54:05.562667Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:54:11.052888Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:18.083922Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:23.154857Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:43.519940Z",
+      "title": "Progress update",
+      "detail": "The field-name correction experiment hit a real tool limitation: Terra will not prepare an empty polygon set as a clipping area. I’m recording that failed correction attempt so the final assessment distinguishes a real delivery wrinkle from the finished zero-result analysis."
+    },
+    {
+      "at": "2026-10-07T07:54:46.910809Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:43.286468Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the analysis. I’m refreshing the brief so the remaining notes match the actual result: a verified zero heatmap from the supplied frozen data, with one minor delivery wrinkle on the empty point artifact’s carried ID field name."
+    },
+    {
+      "at": "2026-10-07T07:56:07.673208Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:23.535498Z",
+      "title": "Progress update",
+      "detail": "I’m recording the selected-point result first, then the heatmap result with the machine-readable answer object."
+    },
+    {
+      "at": "2026-10-07T07:57:32.806246Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:57:56.655779Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:14.852943Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:16.084458Z",
+      "title": "Progress update",
+      "detail": "I want one current supporting check on the final country-join output so the final assessment cites the executed run’s own joined 2021 values, not just the earlier matching trial."
+    },
+    {
+      "at": "2026-10-07T07:59:47.200515Z",
+      "title": "Progress update",
+      "detail": "I’m pulling one last inspected row sample from the executed country-join output, mainly to support the final note that the executed 2021 join tops out below the 90 threshold and leaves 15 unknown country values."
+    },
+    {
+      "at": "2026-10-07T07:59:49.027530Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:21.824436Z",
+      "title": "Progress update",
+      "detail": "I’ve got everything needed for the final machine-readable answer: the empty contributing-point artifact, the zero raster with exact grid and smoothing settings, the joined-country evidence showing the threshold is never reached, and the live map layer ID."
+    },
+    {
+      "at": "2026-10-07T08:01:42.870341Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:02:20.661574Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "clipped empty points",
+      "description": "Recorded spatial-clip · skipped"
+    },
+    {
+      "title": "ports src",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Prepare area: qualified_area",
+      "description": "Recorded prepare-area · failed"
+    },
+    {
+      "title": "qualified empty",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "clipped empty points",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "qualified empty",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "contributing points",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Supplied country polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "countries wdi",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Selected seaport points in qualifying countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Seaport heatmap in high-withdrawal Latin America",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "heatmap",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "Supplied 2021 freshwater-withdrawal table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "lac countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "lac points",
+      "description": "Recorded vector-spatial-join · skipped"
+    },
+    {
+      "title": "Supplied seaport points",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "qualified countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "unknown countries",
+      "description": "Recorded vector-filter · skipped"
+    },
+    {
+      "title": "unknown points",
+      "description": "Recorded vector-spatial-join · skipped"
+    },
+    {
+      "title": "contributing points",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Supplied country polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "countries wdi",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "heatmap",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "Supplied 2021 freshwater-withdrawal table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "lac countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "lac points",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Supplied seaport points",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "qualified countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "lac countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "countries wdi",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "qualified countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "unknown countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "lac points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "contributing points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "unknown points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "heatmap",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "unknown countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "unknown points",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Supplied country polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied freshwater-withdrawal table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied seaport points",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied seaport points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied country polygons",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied freshwater-withdrawal table",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T07:29:52.476919+00:00"
+    },
+    {
+      "sha256": "7ad1675e724eea5166e37131840bb0a2d10ef1cf25313023ecaf542043641662",
+      "bytes": 101281,
+      "finishedAt": "2026-10-07T07:29:52.476919+00:00"
+    },
+    {
+      "sha256": "fb0341457a978ceabd3d797fc40afb32b14a87e03b5419c361361f6812350d9e",
+      "bytes": 38006,
+      "finishedAt": "2026-10-07T07:29:52.476919+00:00"
+    },
+    {
+      "sha256": "700cae0f0fd8a1d2e795770063192ee8389450a1e507fe6ef3e04fb990b11758",
+      "bytes": 1172063,
+      "finishedAt": "2026-10-07T07:38:07.026307+00:00"
+    },
+    {
+      "sha256": "eb186f0df54e43f0393e031c977aad5d38187098d54638f24f05f63040b58d80",
+      "bytes": 1174940,
+      "finishedAt": "2026-10-07T07:38:25.784556+00:00"
+    },
+    {
+      "sha256": "c3055aeee59ff1b476433685ecfbf5142e4ab72d2457c4ed39ce8faa01bb6358",
+      "bytes": 53715,
+      "finishedAt": "2026-10-07T07:38:25.784556+00:00"
+    },
+    {
+      "sha256": "40c25c62c13aa4ef346c5189d5a4d7e3696b7cd254fff0fa065648ef64069dcc",
+      "bytes": 19848,
+      "finishedAt": "2026-10-07T07:38:53.940459+00:00"
+    },
+    {
+      "sha256": "04752fc50e7725de32077dd079824d93fe65e249262914c9bfd90f565574a66b",
+      "bytes": 84273,
+      "finishedAt": "2026-10-07T07:38:53.940459+00:00"
+    },
+    {
+      "sha256": "01b6f34ad9b034948d8a099cc4c6e7c9e0a2c1f4121d19882e308f01a5a29160",
+      "bytes": 28867,
+      "finishedAt": "2026-10-07T07:39:39.043410+00:00"
+    },
+    {
+      "sha256": "01b6f34ad9b034948d8a099cc4c6e7c9e0a2c1f4121d19882e308f01a5a29160",
+      "bytes": 28867,
+      "finishedAt": "2026-10-07T07:39:39.043410+00:00"
+    },
+    {
+      "sha256": "c186003034ae9491d559d037c43fa7c58b7a589ead0cba4ce8f0ed58b53b4850",
+      "bytes": 10595,
+      "finishedAt": "2026-10-07T07:40:29.488030+00:00"
+    },
+    {
+      "sha256": "700cae0f0fd8a1d2e795770063192ee8389450a1e507fe6ef3e04fb990b11758",
+      "bytes": 1172063,
+      "finishedAt": "2026-10-07T07:45:29.281934+00:00"
+    },
+    {
+      "sha256": "eb186f0df54e43f0393e031c977aad5d38187098d54638f24f05f63040b58d80",
+      "bytes": 1174940,
+      "finishedAt": "2026-10-07T07:46:02.136532+00:00"
+    },
+    {
+      "sha256": "40c25c62c13aa4ef346c5189d5a4d7e3696b7cd254fff0fa065648ef64069dcc",
+      "bytes": 19848,
+      "finishedAt": "2026-10-07T07:46:46.026977+00:00"
+    },
+    {
+      "sha256": "01b6f34ad9b034948d8a099cc4c6e7c9e0a2c1f4121d19882e308f01a5a29160",
+      "bytes": 28867,
+      "finishedAt": "2026-10-07T07:47:27.323522+00:00"
+    },
+    {
+      "sha256": "c186003034ae9491d559d037c43fa7c58b7a589ead0cba4ce8f0ed58b53b4850",
+      "bytes": 10595,
+      "finishedAt": "2026-10-07T07:47:52.740010+00:00"
+    }
+  ],
+  "snapshotSha256": "b083a6636e301fe2789432415ebc27e05d7994a467fb05fec6b479c7ea429e70",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:29:42.004751Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the supplied source snapshots expose the exact fields and valid geometry needed for the country filter, indicator join, and original-point selection?"
+    },
+    {
+      "at": "2026-10-07T07:36:57.851749Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The supplied country snapshot exposes ISO_A3 and REGION_WB, the indicator snapshot exposes Country Code and 2021, and the seaport snapshot exposes benchmark_row_id with Point geometry. The source check also showed 230 original port records and no invalid source geometries in the supplied point snapshot.",
+      "limitations": [
+        "This trial confirmed source fields and source geometry validity, but it did not yet test the join results, the strict within-selection against qualified countries, or the heatmap raster outputs."
+      ],
+      "next_action": "Run a combined trial that filters Latin America & Caribbean countries, joins 2021 indicator values by ISO_A3 to Country Code, selects contributing and unknown point records with strict within tests, and then tests the requested point-density raster.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:37:45.643526Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full method correctly select contributing seaport points from high-withdrawal Latin America & Caribbean countries and produce the requested fixed-grid Gaussian heatmap?"
+    },
+    {
+      "at": "2026-10-07T07:42:54.874671Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The tested full-scope workflow correctly filtered the supplied countries to 48 Latin America & Caribbean polygons, joined 2021 values by exact ISO_A3 to Country Code, and then applied strict within-tests for original port points. In the supplied 2021 benchmark table, the highest known joined value among those countries was 87.5 and 15 country polygons remained unknown after the join, so no country met the >=90 threshold. The resulting contributing-point artifact therefore contains 0 records and the tested point-density raster is an all-zero EPSG:6933 grid at 25 km resolution with radiusM 150000 and valid zero cells across the full grid.",
+      "limitations": [
+        "This trial shows the requested benchmark inputs produce no qualifying countries at the >=90 threshold. The zero result depends on the supplied frozen datasets and exact threshold, not on current conditions outside those snapshots.",
+        "The joined country output still has 15 Latin America & Caribbean polygons with unknown 2021 values; in this tested run none of the supplied port points fell within those unknown-country polygons."
+      ],
+      "next_action": "Save this tested full-scope method as the production workflow, execute it, add the verified zero heatmap raster to the map, and assess the final artifacts with counts and coverage notes.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:52:44.207783Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Can the empty selected-point artifact be published with the original port schema, including benchmark_row_id, by clipping the original point dataset to the empty qualified-country area?"
+    },
+    {
+      "at": "2026-10-07T07:54:46.910809Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "insufficient",
+      "findings": "The attempted correction could not materialize an empty qualified-country area for clipping. Terra returned prepared_area_empty because the tested qualified-country artifact has zero polygon features at the >=90 threshold, so this clipping-based path cannot be used to republish the empty point artifact with the original unsuffixed field names.",
+      "limitations": [
+        "This correction attempt does not change the analytical result: the qualifying-country set is empty and the heatmap remains a valid all-zero raster.",
+        "The current delivered empty point artifact still exposes the source point row ID as benchmark_row_id_target rather than unsuffixed benchmark_row_id because it comes from a spatial join output."
+      ],
+      "next_action": "Assess the final delivered outputs with the verified zero-result evidence and disclose the remaining field-name wrinkle on the empty selected-point artifact.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:57:32.806246Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The delivered selected-point artifact correctly represents the verified empty contributing set. No supplied Latin America & Caribbean country with a known joined 2021 value met the >=90 threshold, so no original port point contributes to the heatmap.",
+      "limitations": [
+        "No contributing point records remain because the supplied frozen 2021 benchmark table has no known Latin America & Caribbean country at or above the >=90 threshold.",
+        "The empty selected-point artifact carries the source row-id field as benchmark_row_id_target because it comes from a spatial join output schema.",
+        "Fifteen Latin America & Caribbean country polygons have unknown joined 2021 values in the supplied table; none contained supplied port points in the tested full-scope run."
+      ],
+      "next_action": "Use the verified empty contributing-point artifact together with the zero heatmap raster as the final benchmark result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:57:56.655779Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The delivered selected-point artifact correctly represents the verified empty contributing set. No supplied Latin America & Caribbean country with a known joined 2021 value met the >=90 threshold, so no original port point contributes to the heatmap.",
+      "limitations": [
+        "No contributing point records remain because the supplied frozen 2021 benchmark table has no known Latin America & Caribbean country at or above the >=90 threshold.",
+        "The empty selected-point artifact carries the source row-id field as benchmark_row_id_target because it comes from a spatial join output schema.",
+        "Fifteen Latin America & Caribbean country polygons have unknown joined 2021 values in the supplied table; none contained supplied port points in the tested full-scope run."
+      ],
+      "next_action": "Use the verified empty contributing-point artifact together with the zero heatmap raster as the final benchmark result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:01:42.870341Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The executed final result is a valid zero heatmap, not an analysis failure. Using the supplied immutable benchmark snapshots from Terra-hosted collections — USGS OFR 2017-1079 frozen seaports, GeoBenchX World Bank country boundaries, and the frozen WDI freshwater-withdrawal table retrieved on 2026-10-07 — the exact 2021 ISO_A3 to Country Code join over 48 supplied Latin America & Caribbean polygons tops out at 87.5, below the >=90 threshold. That leaves no qualifying countries, so the final contributing-point artifact is empty and the final EPSG:6933 raster is zero in every 25 km by 25 km cell after the requested Gaussian smoothing.",
+      "limitations": [
+        "The supplied frozen 2021 benchmark table has no known Latin America & Caribbean country at or above the >=90 threshold, so the requested heatmap is a valid all-zero raster.",
+        "Fifteen Latin America & Caribbean country polygons have unknown joined 2021 values in the supplied table; in the exact matched full-scope method, none of the supplied port points fell within those unknown-country polygons.",
+        "Fifty-six supplied port points fell outside the original selected Latin America & Caribbean country polygons and were excluded from contributors.",
+        "The empty selected-point artifact carries the source row-id field as benchmark_row_id_target because it comes from a spatial join output schema; no contributing rows are hidden because the contributing set is empty.",
+        "Values are events per grid cell on the supplied EPSG:6933 grid, not density per square kilometre, capacity, or activity volume.",
+        "This result reflects the supplied frozen benchmark editions, not current conditions."
+      ],
+      "next_action": "Use the current map layer for review. If you want nonzero hotspots, choose a lower withdrawal threshold, a different year, or a different source edition for a new run.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:02:20.661574Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The executed final result is a valid zero heatmap, not an analysis failure. Using the supplied immutable benchmark snapshots from Terra-hosted collections — USGS OFR 2017-1079 frozen seaports, GeoBenchX World Bank country boundaries, and the frozen WDI freshwater-withdrawal table retrieved on 2026-10-07 — the exact 2021 ISO_A3 to Country Code join over 48 supplied Latin America & Caribbean polygons tops out at 87.5, below the >=90 threshold. That leaves no qualifying countries, so the final contributing-point artifact is empty and the final EPSG:6933 raster is zero in every 25 km by 25 km cell after the requested Gaussian smoothing.",
+      "limitations": [
+        "The supplied frozen 2021 benchmark table has no known Latin America & Caribbean country at or above the >=90 threshold, so the requested heatmap is a valid all-zero raster.",
+        "Fifteen Latin America & Caribbean country polygons have unknown joined 2021 values in the supplied table; in the exact matched full-scope method, none of the supplied port points fell within those unknown-country polygons.",
+        "Fifty-six supplied port points fell outside the original selected Latin America & Caribbean country polygons and were excluded from contributors.",
+        "The empty selected-point artifact carries the source row-id field as benchmark_row_id_target because it comes from a spatial join output schema; no contributing rows are hidden because the contributing set is empty.",
+        "Values are events per grid cell on the supplied EPSG:6933 grid, not density per square kilometre, capacity, or activity volume.",
+        "This result reflects the supplied frozen benchmark editions, not current conditions."
+      ],
+      "next_action": "Use the current map layer for review. If you want nonzero hotspots, choose a lower withdrawal threshold, a different year, or a different source edition for a new run.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "e9aea293a469a17be8d826e3758a8eda89f84c6f37b366e7724936e172082f64",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

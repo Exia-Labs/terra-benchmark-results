@@ -1,0 +1,72 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "272016",
+  "question": "Show the patterns of youth unemployment across Mediterranean countries.",
+  "submittedPrompt": "Show the patterns of youth unemployment across Mediterranean countries.\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "**Delivered:** I confirmed that this closed catalog cannot show a real youth-unemployment pattern across Mediterranean countries.\n\n**Why:** The supplied inventory includes **GEO_CATALOG: Countries** and some broad indicators like **DATA_CATALOG: Labor force, total**, **GDP per capita**, and **Population, total**, but it does **not** include a **youth unemployment** dataset. This task also provides **catalog metadata only**, not the underlying country values. So no country-by-country pattern is confirmed here, and labor-force totals are **not** a substitute for youth unemployment.\n\n**Unanswered:** The actual pattern of youth unemployment across Mediterranean countries.\n\n**Next step:** Add a country-level **youth unemployment rate** table and join it to **Countries**.\n\n### Limitations\n\n- The supplied inventory includes no youth unemployment dataset.\n- Only catalog metadata is available here, not the underlying observation files or country-level values.\n- No observed cross-country youth-unemployment pattern can be reported from the supplied inventory because it lacks youth unemployment measurements and only provides catalog metadata.\n- **Youth unemployment:** The inventory has a Countries layer and some broad indicators, but no youth unemployment measurements.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T06:31:52.704878+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "e79b0cff372d8c1ee5d1e8e38be80a0f2ea67e121dc01533d1e40e796ff3b255",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "89e75a017ffaa54a5c5bf50af4a36f772fe7226a8020d89f2affc5997af7dc22",
+      "snapshotSha256AtReview": "8a28a321ce39314d8f60ffe522c1b43176fadb634b7b43334d475dde475a2db7",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies missing youth-unemployment observations for Mediterranean countries rather than merely a missing map."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Explicitly rejects total labor force as a substitute for age-specific unemployment."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Describes the absence in the supplied metadata-only catalog while acknowledging country geography and broad indicators."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Gives no national rates or pattern and claims no processing; two analysis calls and no jobs/artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests country-level youth-unemployment rates and a join to country boundaries."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:29:10.049553Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:31.365346Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "d56fac28ea4c304b629a10b1016f1f35d429913f22064f47d336ce0445afcaf3",
+  "investigations": []
+}

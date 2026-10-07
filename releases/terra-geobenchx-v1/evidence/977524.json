@@ -1,0 +1,563 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "977524",
+  "question": "Compare fertility rates between high-income and low-income nations",
+  "submittedPrompt": "Compare fertility rates between high-income and low-income nations\n\nTask conventions: Use supplied INCOME_GRP values: combine '1. High income: OECD' and '2. High income: nonOECD' as high income; '5. Low income' is low income. Exclude other/unknown income groups. Compare unweighted country means of 2022 SP.DYN.TFRT.IN fertility in births per woman, one observation per supplied country feature. This is the frozen classification, not today's classification or an inferred GDP threshold. Match ISO_A3 to Country Code. Missing fertility is unknown, not zero; omit it from the means and report it. Maps are optional.\n\n\n\nProduce an inspectable contributing-country artifact containing both income groups, INCOME_GRP and the 2022 fertility field, retaining original geometry and benchmark_row_id. End with one fenced JSON object: {count: total contributing countries in both groups with known fertility, unknown_count: eligible countries missing fertility, coverage_note: string, selection: {collectionId, itemId, assetKey}, metrics: {high_income: number, low_income: number}, value_field: name_of_fertility_column_in_selection}. Explain the comparison and units in prose.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Fertility rate\",\n    \"edition\": \"Frozen WDI; use 2022\",\n    \"units\": {\n      \"2022\": \"births per woman\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Low-income countries had much higher fertility in the frozen 2022 comparison: **4.11 births per woman** versus **1.60** for **high-income** countries (combining the two supplied high-income groups, one observation per supplied country feature).\n\n**Limitation:** 30 eligible country features had unknown 2022 fertility, so the means use **105** contributing features and omit those unknowns.\n\n**Next action:** You can inspect the attached country layer to see the contributing features and the unknown cases.\n\nSources: **Benchmark fixture · World Bank country boundaries** and **Benchmark fixture · Fertility rate** (Terra-produced frozen inputs; retrieved **2026-10-07**; source revision not provided).\n\n### Limitations\n\n- Thirty eligible countries in the requested income groups have unknown 2022 fertility; they are omitted from the means.\n- Thirty eligible countries have unknown 2022 fertility and remain null in this selection; they are omitted from the comparison means.\n- The selected artifact keeps extra source fields beyond the minimum requested inspection fields.\n- Thirty eligible countries have unknown 2022 fertility and are omitted from the means.\n- Other or unknown income groups are excluded from this requested comparison.\n- Other or unknown income groups are excluded from this comparison by request.\n- The output keeps extra joined source fields in addition to the requested inspection fields.",
+  "checks": {
+    "expectedCount": 105,
+    "actualCount": 105,
+    "expectedMetrics": {
+      "high_income": 1.5981683323963036,
+      "low_income": 4.113189189189191
+    },
+    "actualMetrics": {
+      "low_income": 4.113189189189189,
+      "high_income": 1.5981683323963034
+    },
+    "computationCorrect": false,
+    "answerFulfilled": false,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": [
+      "Selected feature membership differs from the independent answer."
+    ]
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:20:15.612891Z",
+      "title": "Progress update",
+      "detail": "I’ll inspect the supplied sources, test the country-to-fertility join on the frozen 2022 data, then produce one inspectable country layer and the two unweighted group means."
+    },
+    {
+      "at": "2026-10-07T08:20:26.087039Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:35.692395Z",
+      "title": "Progress update",
+      "detail": "I’ve started the analysis record. Next I’m checking the exact field names and the available join/summary processors so I can build the frozen 2022 country comparison without guessing columns."
+    },
+    {
+      "at": "2026-10-07T08:20:38.937657Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:39.177001Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:39.195419Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:48.414847Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:48.855051Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:57.053117Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:20:57.725465Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:21:18.720458Z",
+      "title": "Progress update",
+      "detail": "I found the core processors: a key join, a vector filter, and grouped statistics. The next step is a small private source test so I can confirm the exact field names and join coverage before I save the final workflow."
+    },
+    {
+      "at": "2026-10-07T08:21:24.981491Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:30.796957Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:35.084120Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:43.409846Z",
+      "title": "Progress update",
+      "detail": "I have the workflow pieces. I’m now running a tiny private source inspection to confirm the actual field names before I lock the join and the final artifact schema."
+    },
+    {
+      "at": "2026-10-07T08:21:45.098322Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:22:34.708393Z",
+      "title": "Progress update",
+      "detail": "The source test succeeded. I confirmed the country file has ISO_A3, INCOME_GRP, benchmark_row_id, and geometry. I still need one quick deeper inspection of the fertility table because the first summary omitted a few columns, including the likely 2022 field. Then I can lock the final join and counts."
+    },
+    {
+      "at": "2026-10-07T08:22:37.985246Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:22:47.190620Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:52.136711Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:52.629623Z",
+      "title": "Progress update",
+      "detail": "I confirmed the country schema. The earlier fertility inspection failed because I asked for an unconfirmed field set. I’m correcting that now with a narrower read of the likely 2022 column, then I’ll test the actual join and counts."
+    },
+    {
+      "at": "2026-10-07T08:24:14.432306Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:24:22.530259Z",
+      "title": "Progress update",
+      "detail": "The corrected fertility inspection finished. I’m reading that exact receipt now, then I’ll run one private join test to confirm the filtered country counts, missing values, and group means before saving the final workflow."
+    },
+    {
+      "at": "2026-10-07T08:25:09.444215Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:09.909848Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the 2022 field exists. Next I’m running one full-scope private test of the exact join and filters, so the saved workflow matches a computation I already inspected."
+    },
+    {
+      "at": "2026-10-07T08:25:10.615593Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:10.644483Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:22.754932Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:23.301262Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:24.310410Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:28.255914Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:35.999799Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:36.229047Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:51.503154Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:17.832988Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:18.257977Z",
+      "title": "Progress update",
+      "detail": "The full-scope test succeeded. It produced 135 eligible country features, 105 with known 2022 fertility and 30 unknown. I’m saving that exact tested method as the production workflow now, then I’ll run and inspect the final artifact before I give you the comparison."
+    },
+    {
+      "at": "2026-10-07T08:28:26.308863Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:36.118145Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the method test and recorded it as sufficient. Now I’m saving the exact tested computation as a proposal so I can execute and verify the final selected artifacts, not just the private trial."
+    },
+    {
+      "at": "2026-10-07T08:28:41.602342Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:54.632020Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:30:04.148000Z",
+      "title": "Progress update",
+      "detail": "The saved workflow has finished. I’m inspecting the final outputs now so I can attach the exact selected country artifact and the final comparison to the result."
+    },
+    {
+      "at": "2026-10-07T08:30:04.830570Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:30:51.390885Z",
+      "title": "Progress update",
+      "detail": "I have the final workflow receipts. I’m doing the last bounded checks on the selected country layer and the summary table now, including the summary output, before I lock the final answer object."
+    },
+    {
+      "at": "2026-10-07T08:30:51.408194Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:30:51.414826Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:30:51.435802Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:12.834380Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:18.532574Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:20.845117Z",
+      "title": "Progress update",
+      "detail": "The final inspections are ready. I’m reading those exact receipts now, then I’ll record the final result with the selected country layer and the comparison metrics attached."
+    },
+    {
+      "at": "2026-10-07T08:31:29.077200Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:30.325917Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the final selected country layer and the summary table. I’m refreshing the saved brief notes so the final handoff matches the evidence, then I’ll record the accepted result object."
+    },
+    {
+      "at": "2026-10-07T08:32:03.312201Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:32:21.577366Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:32:28.339429Z",
+      "title": "Progress update",
+      "detail": "I refreshed the brief notes from the final evidence. That changed the saved plan metadata, so I’m revalidating the exact retained proposal before I record the final result."
+    },
+    {
+      "at": "2026-10-07T08:32:32.974579Z",
+      "title": "revise_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:04.357746Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the output checks. I’m recording the inspected country layer first, then the comparison result with the final answer object attached."
+    },
+    {
+      "at": "2026-10-07T08:33:10.414818Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:33:18.139174Z",
+      "title": "Progress update",
+      "detail": "The first assessment rejected my custom wording. I’m correcting it to use the exact recorded acceptance conditions, then I’ll finalize the comparison result the same way."
+    },
+    {
+      "at": "2026-10-07T08:33:22.005615Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:53.256715Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:34:02.250262Z",
+      "title": "Progress update",
+      "detail": "The comparison assessment also wants the exact recorded condition list. I’m resubmitting it with those exact five conditions, while keeping the join and unweighted-mean checks in the findings."
+    },
+    {
+      "at": "2026-10-07T08:34:09.447811Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "countries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Eligible countries with joined 2022 fertility",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Income-group fertility summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "eligible countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "fertility",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "group stats",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "join fertility",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "countries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "eligible countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "fertility",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "group stats",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "join fertility",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "eligible countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "group stats",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "countries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "fertility",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "fertility",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T08:21:57.793492+00:00"
+    },
+    {
+      "sha256": "e4694fe761eacb7d240342583b3d819fc3fa5cb823d5d161149859de3670883d",
+      "bytes": 159757,
+      "finishedAt": "2026-10-07T08:21:57.793492+00:00"
+    },
+    {
+      "sha256": "f0468bc84e37771e51e87c2589a7f8a934e2e7db357d7a84a65044b4119543fc",
+      "bytes": 8416704,
+      "finishedAt": "2026-10-07T08:26:29.063249+00:00"
+    },
+    {
+      "sha256": "e5b2e5abd19e0e9f1d2bf26db3cfaf6ee5c0522bf0ffe83d308d5bd2fb773835",
+      "bytes": 4614302,
+      "finishedAt": "2026-10-07T08:26:42.557771+00:00"
+    },
+    {
+      "sha256": "f6d95056894d3c6b6e302935d12669cb7c7f645a261b03e16ef2154d6c8b2906",
+      "bytes": 3210,
+      "finishedAt": "2026-10-07T08:26:56.075111+00:00"
+    },
+    {
+      "sha256": "e5b2e5abd19e0e9f1d2bf26db3cfaf6ee5c0522bf0ffe83d308d5bd2fb773835",
+      "bytes": 4614302,
+      "finishedAt": "2026-10-07T08:29:40.171387+00:00"
+    },
+    {
+      "sha256": "f0468bc84e37771e51e87c2589a7f8a934e2e7db357d7a84a65044b4119543fc",
+      "bytes": 8416704,
+      "finishedAt": "2026-10-07T08:29:34.648202+00:00"
+    },
+    {
+      "sha256": "f6d95056894d3c6b6e302935d12669cb7c7f645a261b03e16ef2154d6c8b2906",
+      "bytes": 3210,
+      "finishedAt": "2026-10-07T08:29:47.671135+00:00"
+    }
+  ],
+  "snapshotSha256": "6943b84d06b6ce5d07f2a60322027dea6ff58cd30086b256d332dfbdf96294d8",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:21:45.098322Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "What are the exact schema fields needed to join the supplied country features to the frozen fertility table and keep the requested identity fields?"
+    },
+    {
+      "at": "2026-10-07T08:25:09.444215Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The source inspection confirmed the supplied country boundaries contain ISO_A3, INCOME_GRP, benchmark_row_id, and geometry for 251 country features. The supplied frozen fertility table contains Country Code and a numeric 2022 field in births per woman across 266 rows, including non-country aggregates. This is sufficient to define the exact join keys and requested value field for the next trial.",
+      "limitations": [
+        "This trial did not yet test join coverage, eligible-country counts, or the final group means."
+      ],
+      "next_action": "Run a full-scope trial that joins ISO_A3 to Country Code, filters the requested income groups, and summarizes known versus unknown 2022 fertility.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:25:51.503154Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the exact ISO_A3 to Country Code join produce the requested eligible country artifact and enough evidence to compute the frozen 2022 high-income versus low-income fertility comparison?"
+    },
+    {
+      "at": "2026-10-07T08:28:26.308863Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The tested ISO_A3 to Country Code left join produced the requested eligible-country artifact and preserved one row per supplied eligible country feature. Filtering to the supplied income groups kept 135 country features across '1. High income: OECD', '2. High income: nonOECD', and '5. Low income'. The joined 2022 fertility field remained null for 30 eligible countries. Grouped results showed 35 known values in OECD high income with mean 1.4915927600842473, 33 known values in nonOECD high income with mean 1.7112030303030301, and 37 known values in low income with mean 4.113189189189189. Combining the two high-income subgroups by contributing-country counts gives a high-income mean of 1.5981683323963035 births per woman. Total contributing countries are 105 and eligible unknowns are 30.",
+      "limitations": [
+        "The eligible-country artifact still includes additional joined source fields beyond the minimum requested inspection fields.",
+        "Thirty eligible countries have unknown 2022 fertility and are omitted from the means by request."
+      ],
+      "next_action": "Save this exact tested computation as the production workflow, execute it, inspect the final artifacts, and assess the delivered result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:33:10.414818Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The final selected country artifact contains 135 eligible supplied country features in the requested income groups. It retains geometry and benchmark_row_id, includes INCOME_GRP and the joined 2022 fertility field, and keeps 30 unknown fertility values as null rather than zero. The selected artifact is bound to the current map as 'Eligible countries with joined 2022 fertility'.",
+      "limitations": [
+        "Thirty eligible countries have unknown 2022 fertility and remain null in this selection; they are omitted from the comparison means.",
+        "The selected artifact keeps extra source fields beyond the minimum requested inspection fields."
+      ],
+      "next_action": "Use the inspected summary table to compare the high-income and low-income means.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:33:22.005615Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The final selected country artifact contains 135 eligible supplied country features in the requested income groups. It retains geometry and benchmark_row_id, includes INCOME_GRP and the joined 2022 fertility field, and keeps 30 unknown fertility values as null rather than zero.",
+      "limitations": [
+        "Thirty eligible countries have unknown 2022 fertility and remain null in this selection; they are omitted from the comparison means.",
+        "The selected artifact keeps extra source fields beyond the minimum requested inspection fields."
+      ],
+      "next_action": "Use the inspected summary table to compare the high-income and low-income means.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:33:53.256715Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The final comparison is supported. The selected country artifact contains 135 eligible supplied country features in the requested income groups, with 105 known 2022 fertility values and 30 unknowns. The final summary table shows subgroup means of 1.4915927600842473 for '1. High income: OECD', 1.7112030303030301 for '2. High income: nonOECD', and 4.113189189189189 for '5. Low income'. Combining the two high-income subgroups by contributing-country counts gives a high-income mean of 1.5981683323963035 births per woman. Low-income countries therefore have the higher mean fertility in the frozen 2022 comparison.",
+      "limitations": [
+        "Thirty eligible countries have unknown 2022 fertility and are omitted from the means.",
+        "Other or unknown income groups are excluded from this requested comparison."
+      ],
+      "next_action": "Use the selected country layer to inspect which eligible countries contributed and which have unknown fertility.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:34:09.447811Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The final comparison is supported. The join used ISO_A3 matched to Country Code in the final workflow. The selected country artifact contains 135 eligible supplied country features, with benchmark_row_id distinctCount 135, so the comparison keeps one observation per supplied country feature. The final summary table shows subgroup means of 1.4915927600842473 for '1. High income: OECD', 1.7112030303030301 for '2. High income: nonOECD', and 4.113189189189189 for '5. Low income'. Combining the two high-income subgroups by contributing-country counts 35 and 33 gives a high-income mean of 1.5981683323963035 births per woman. Low-income countries therefore have the higher mean fertility in the frozen 2022 comparison.",
+      "limitations": [
+        "Thirty eligible countries have unknown 2022 fertility and are omitted from the means.",
+        "Other or unknown income groups are excluded from this requested comparison."
+      ],
+      "next_action": "Use the selected country layer to inspect which eligible countries contributed and which have unknown fertility.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "ffe7b0a50543ff3b8557b1dcccca1311b651f6451fd37dd108646cd8e559bf8b",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

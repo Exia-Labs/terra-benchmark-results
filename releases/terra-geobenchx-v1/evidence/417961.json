@@ -1,0 +1,567 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "417961",
+  "question": "How many Amtrak stations are located in counties that experienced earthquakes in the last 30 days?",
+  "submittedPrompt": "How many Amtrak stations are located in counties that experienced earthquakes in the last 30 days?\n\nTask conventions: Last 30 days refers to all records in the supplied archived earthquake snapshot, not the current date. The file is labelled Feb142025 but its recorded UTC event times run from 2025-01-16 02:25:36.580 through 2025-02-15 02:03:36.460; use all supplied events without an extra date or magnitude filter. Use the supplied 2024 county geometry. A county is affected when it intersects at least one earthquake point. A station qualifies when it is strictly within an affected county; points on original county boundaries do not qualify. Count each original station record once, retaining benchmark_row_id, regardless of multiple earthquake matches. The supplied sources define the question's coverage; do not substitute live data. For this task's required unknown_count, missing or invalid station geometry is unknown. A valid station outside every supplied county is outside the defined coverage and is excluded, not unknown; boundary points likewise do not qualify. You may disclose outside-coverage records separately.\n\n\n\nCompute the answer using only the supplied immutable fixtures. Save the selected features with their benchmark_row_id and original geometry as an inspectable data artifact. In your accepted final answer include one JSON code block with count (integer), unknown_count (integer), coverage_note (string), and selection (an object with collectionId, itemId, assetKey for that artifact). Maps are optional. Do not request clarification: the task conventions are fixed. Do not use live substitutes, shrink the study question, or use external benchmark answers.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"US county boundaries\",\n    \"edition\": \"Census TIGER/Line 2024\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Earthquake points, frozen 30-day snapshot\",\n    \"edition\": \"Archive labelled Feb142025; observed event timestamps 2025-01-16 through 2025-02-15 UTC\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Amtrak railway stations\",\n    \"edition\": \"USDOT BTS frozen GeoBenchX 2025 snapshot\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "314 Amtrak stations qualify, and the unknown_count is 0.\n\n### Limitations\n\n- Coverage is limited to the supplied county, earthquake, and station snapshots.\n- Valid stations outside every supplied county and any stations on county boundaries are excluded, not counted as unknown.\n- Outside-coverage records were not separately counted.\n- Coverage is limited to the supplied 2024 county geometry, the supplied frozen earthquake snapshot, and the supplied frozen Amtrak station snapshot.\n- Coverage is limited to the supplied county snapshot.\n- Coverage is limited to the supplied archived earthquake snapshot.\n- Stations on original county boundaries do not qualify.\n- Outside-county and boundary cases stay excluded rather than being counted as unknown.",
+  "checks": {
+    "expectedCount": 314,
+    "actualCount": 314,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:46:39.313851Z",
+      "title": "Progress update",
+      "detail": "I’ll inspect the supplied fixtures and test a small exact method first, then save the selected station records as the final artifact."
+    },
+    {
+      "at": "2026-10-07T08:46:46.003696Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:52.040474Z",
+      "title": "Progress update",
+      "detail": "I found no retained analysis yet. Next I’m checking the supplied county, earthquake, and station snapshots so I can use their exact schema and bounds."
+    },
+    {
+      "at": "2026-10-07T08:46:52.050508Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:52.054917Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:52.058385Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:10.811697Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:16.293560Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:47:16.395374Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:47:16.425943Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:47:22.225834Z",
+      "title": "Progress update",
+      "detail": "Artifact inspection needs a source-only trial or item metadata first. I’m reading the exact item records now so I can pick the right fields and avoid guessing processor inputs."
+    },
+    {
+      "at": "2026-10-07T08:47:22.237396Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:22.240661Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:22.245283Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:27.849737Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:27.967985Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:28.109136Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:38.530971Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:38.941377Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:39.173514Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:51.433714Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:51.562699Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:51.674918Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:56.413732Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:56.638677Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:56.856830Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:07.560475Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:31.342439Z",
+      "title": "Progress update",
+      "detail": "The main open uncertainty is how the station snapshot records missing or invalid geometry. I expect a source-only trial to expose the original station fields and any geometry-quality notes before I lock in the final count method."
+    },
+    {
+      "at": "2026-10-07T08:48:32.678507Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:22.874156Z",
+      "title": "Progress update",
+      "detail": "The station fixture looks clean so far: 1,020 point records, benchmark_row_id present on all rows, and the source profile reports 0 invalid geometries. I’m pulling the saved trial report, then I’ll run the exact county→earthquake→station selection and save the final selected stations artifact."
+    },
+    {
+      "at": "2026-10-07T08:49:23.141807Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:32.563865Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:07.734223Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:12.402794Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:18.512169Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:25.568720Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:36.275109Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:45.623493Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:15.301072Z",
+      "title": "Progress update",
+      "detail": "I’ve got the exact method now: counties touched by any supplied earthquake point, then stations strictly within those counties using the topological within test, plus a small dedupe check on benchmark_row_id. I’m running that exact full-scope trial next."
+    },
+    {
+      "at": "2026-10-07T08:51:16.101207Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:51.663524Z",
+      "title": "Progress update",
+      "detail": "The exact full-scope trial finished. It found 294 affected counties and 314 qualifying station records, with the dedupe summary showing each selected benchmark_row_id only once. I’m checking the final selected artifact fields now so I can attach the exact saved selection in the result."
+    },
+    {
+      "at": "2026-10-07T08:53:52.042721Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:48.345776Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:48.532230Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:48.551809Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:55:38.537296Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:55:40.054517Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:55:54.510393Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:27.265720Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:57:06.911102Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:57:32.335119Z",
+      "title": "Progress update",
+      "detail": "The count itself is verified. Terra still needs a non-private final output before I can attach the answer, so I’m promoting the tested computation into a final saved workflow and inspecting that published selection artifact."
+    },
+    {
+      "at": "2026-10-07T08:57:39.555191Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:57:56.546989Z",
+      "title": "Progress update",
+      "detail": "The first saved draft was close. I’m correcting the requirement wiring so it only points at the final selection path, then I’ll run the saved workflow and inspect the final published artifact."
+    },
+    {
+      "at": "2026-10-07T08:58:03.521014Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:34.250264Z",
+      "title": "Progress update",
+      "detail": "The only remaining workflow gap is the unknown_count evidence path. I’m adding the inspected station source as a supporting output for that one requirement, without changing the tested selection method."
+    },
+    {
+      "at": "2026-10-07T08:58:38.651478Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:51.038935Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:59:38.590328Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:59:38.641576Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:11.450581Z",
+      "title": "Progress update",
+      "detail": "I have the published final selection artifact now. I’m doing one last inspection of the published selection and the published supporting station source so the final assessment uses current published receipts."
+    },
+    {
+      "at": "2026-10-07T09:00:11.537342Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:11.618787Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:36.580694Z",
+      "title": "Progress update",
+      "detail": "I have the final published outputs. I’m fetching their immutable inspection receipts one last time, then I’ll record the verified final result against the published selection artifact."
+    },
+    {
+      "at": "2026-10-07T09:00:36.591895Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:36.596603Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:02.772704Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Affected counties",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Supplied counties",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Qualifying Amtrak stations",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied station geometry source",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied earthquakes",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Qualifying stations",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Benchmark row id counts",
+      "description": "Recorded table-group-statistics · skipped"
+    },
+    {
+      "title": "Dedupe summary",
+      "description": "Recorded table-group-statistics · skipped"
+    },
+    {
+      "title": "Supplied stations",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Affected counties",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Supplied counties",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied earthquakes",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Qualifying stations",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Benchmark row id counts",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Dedupe summary",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Supplied stations",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Affected counties",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Qualifying stations",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Dedupe summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied Amtrak stations",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied Amtrak stations",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "1707883d56cf62e398dd20c736761ead05287fc48d30717a620032ff5f6eed8d",
+      "bytes": 125623,
+      "finishedAt": "2026-10-07T08:48:41.911673+00:00"
+    },
+    {
+      "sha256": "587f3dd3f8be86a8db7fe808d71205a207f00cdb77d9a4327464f17a5a23d880",
+      "bytes": 126729265,
+      "finishedAt": "2026-10-07T08:51:29.888143+00:00"
+    },
+    {
+      "sha256": "d65a70744c33156a86486daa0121936bb3cbaa710a6cee0ebeb1c5d343efaed0",
+      "bytes": 975661,
+      "finishedAt": "2026-10-07T08:51:29.888143+00:00"
+    },
+    {
+      "sha256": "67470c67cb006ca90a13d66f25d9d2c63ed43501f94e2baebaf351cafbf10ffd",
+      "bytes": 16061495,
+      "finishedAt": "2026-10-07T08:51:52.472401+00:00"
+    },
+    {
+      "sha256": "05706c37bc73fd2e38e5cc109313ed9eac06432a4f625559f4ceff03b222a130",
+      "bytes": 117511,
+      "finishedAt": "2026-10-07T08:52:09.455349+00:00"
+    },
+    {
+      "sha256": "4f0e1056defa1bf08feb58e982f71881d8d4c4ec53010c6234b66a10d6ec3dea",
+      "bytes": 2843,
+      "finishedAt": "2026-10-07T08:52:22.467897+00:00"
+    },
+    {
+      "sha256": "0f1c4fec2f6ed213b719579beae222eb8348997f8bb4efe893eb691a39885e5c",
+      "bytes": 1970,
+      "finishedAt": "2026-10-07T08:52:29.143781+00:00"
+    },
+    {
+      "sha256": "67470c67cb006ca90a13d66f25d9d2c63ed43501f94e2baebaf351cafbf10ffd",
+      "bytes": 16061495,
+      "finishedAt": "2026-10-07T08:59:16.177037+00:00"
+    },
+    {
+      "sha256": "05706c37bc73fd2e38e5cc109313ed9eac06432a4f625559f4ceff03b222a130",
+      "bytes": 117511,
+      "finishedAt": "2026-10-07T08:59:22.863990+00:00"
+    }
+  ],
+  "snapshotSha256": "0242e78b5e35a0119d7244c31c1982d31b57cd3e3d524d31b38c48df3bc564bd",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:48:32.678507Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the supplied station snapshot expose any missing or invalid geometry that must be counted as unknown, and does it preserve benchmark_row_id and original point geometry for final selection?"
+    },
+    {
+      "at": "2026-10-07T08:49:32.563865Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The supplied station snapshot preserves benchmark_row_id on all 1,020 records and the geometry profile reports 1,020 Point geometries with invalidCount=0. The inspected source bounds and preview are consistent with the supplied nationwide station fixture, so this source trial is sufficient to establish that unknown_count from missing or invalid station geometry is 0 for the supplied snapshot.",
+      "limitations": [
+        "This trial only established station geometry validity and retained fields; it did not yet compute earthquake-affected counties or qualifying stations."
+      ],
+      "next_action": "Run the exact county–earthquake intersection and station-within-county selection, then inspect the selected station artifact and final counts.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:51:16.101207Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Using only the supplied county, earthquake, and station fixtures, what qualifying Amtrak station records are strictly within earthquake-affected counties, and does the final selected set retain each benchmark_row_id only once?"
+    },
+    {
+      "at": "2026-10-07T08:55:54.510393Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "Using only the supplied fixtures, the full-scope trial found 294 affected counties that intersect at least one supplied earthquake point. The qualifying-stations output contains 314 selected station records with original point geometry and benchmark_row_id retained. The dedupe summary reports unique_station_count=314 and max_rows_per_id=1, so each selected original station record is counted once.",
+      "limitations": [
+        "Coverage remains limited to the supplied county, earthquake, and station snapshots. Valid stations outside the supplied county coverage or on county boundaries are excluded rather than counted as unknown."
+      ],
+      "next_action": "Record the final result using the qualifying-stations artifact selection and the verified unknown_count of 0 from the earlier station-geometry trial.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:57:06.911102Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "I verified 314 qualifying Amtrak station records strictly within earthquake-affected supplied counties. The saved selected-stations artifact retains benchmark_row_id and original point geometry, and unknown_count is 0 because the supplied station snapshot reports no missing or invalid geometries. Coverage remains limited to the supplied fixtures; valid stations outside the supplied counties and any stations on county boundaries are excluded rather than counted as unknown.",
+      "limitations": [
+        "Coverage is limited to the supplied county, earthquake, and station snapshots.",
+        "Valid stations outside every supplied county and any stations on county boundaries are excluded, not counted as unknown.",
+        "Outside-coverage records were not separately counted."
+      ],
+      "next_action": null,
+      "question": null
+    },
+    {
+      "at": "2026-10-07T09:01:02.772704Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published final selection contains 314 qualifying Amtrak station records. The published supporting station-source output shows 1,020 valid point geometries with invalidCount=0, so unknown_count is 0. Coverage is limited to the supplied fixtures; valid stations outside the supplied county coverage and any stations on county boundaries are excluded rather than counted as unknown.",
+      "limitations": [
+        "Coverage is limited to the supplied 2024 county geometry, the supplied frozen earthquake snapshot, and the supplied frozen Amtrak station snapshot.",
+        "Valid stations outside every supplied county and any stations on county boundaries are excluded, not counted as unknown.",
+        "Outside-coverage records were not separately counted."
+      ],
+      "next_action": null,
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "4ce5ea3ff37360bad53d3a77faf0b216d54fb16a519c04134e594f71472825c9",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

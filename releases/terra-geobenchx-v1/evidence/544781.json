@@ -1,0 +1,82 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "544781",
+  "question": "Map marine protected areas in coastal nations.",
+  "submittedPrompt": "Map marine protected areas in coastal nations.\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "Based on the supplied closed catalog only, I **can’t map marine protected areas in coastal nations**.\n\n- **Marine protected areas:** **Data not found.** No marine protected area layer is listed in the inventory.\n- **Coastal nations:** **Not yet confirmed.** The inventory includes **GEO_CATALOG: Countries**, so country boundaries exist, but it does not explicitly list a coastline/ocean layer or a field that identifies which countries are coastal.\n\nSo the supported result here is **a source-availability finding, not the requested map**.\n\n**Next action:** add a marine protected areas dataset, and ideally a catalog source or attribute that marks coastal countries.\n\n### Limitations\n\n- The supplied closed catalog inventory does not list a marine protected area dataset.\n- The inventory lists country boundaries but does not explicitly list a coastal-country classification or coastline/ocean layer.\n- Not yet confirmed because the supplied inventory does not include marine protected areas, and coastal-country membership is not explicitly listed.\n- **Marine protected areas:** The supplied inventory does not list one.\n- **Coastal nations:** The supplied inventory does not explicitly confirm which countries are coastal.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T07:27:01.252328+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "865a1529d8ca9f95e9bac272dac6326a5ecb21d46d9d6bb9eb04cea6fe80b4bf",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "298294e8ed86fed8453b08679c0464594b909b4b8af5322cb8b1d19d0b3c00bb",
+      "snapshotSha256AtReview": "0d433c81ba03867f4852a70e58f01d6d3c0690222d73770661335e3ab58d9c63",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies the missing marine-protected-area layer; separately notes that coastal-country classification is not explicit in the listed inventory."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Does not treat country polygons or generic water features as marine protected areas."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Explicitly confines the finding to the supplied closed catalog, not worldwide availability."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Calls its result a source-availability finding rather than a map; two bookkeeping calls and no jobs/artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests marine protected area observations and, separately, a confirmed coastal-country selection."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:25:08.791930Z",
+      "title": "Progress update",
+      "detail": "I’m checking the closed catalog first so I can separate what it supports from what it doesn’t. Then I’ll give the shortest usable answer."
+    },
+    {
+      "at": "2026-10-07T07:25:24.209761Z",
+      "title": "Progress update",
+      "detail": "I’m recording this as a source-availability check, not a completed map, so the result stays aligned with what the closed catalog actually supports."
+    },
+    {
+      "at": "2026-10-07T07:25:24.415395Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:25:37.109876Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "c725a80e9ee2e93dfdb67cc88668227a807a5cdc83370c42ed64ecc1f4cf8350",
+  "investigations": []
+}

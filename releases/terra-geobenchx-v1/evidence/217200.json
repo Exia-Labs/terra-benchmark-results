@@ -1,0 +1,915 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "217200",
+  "question": "Create a heatmap of mineral facility density in African countries with large labor forces",
+  "submittedPrompt": "Create a heatmap of mineral facility density in African countries with large labor forces\n\nTask conventions: Use supplied countries with CONTINENT=Africa. Large labor force means strictly more than 5,764,399 people in WDI SL.TLF.TOTL 2023. Use one unit weight per facility, not DsgAttr07 (a commodity descriptor, not a count). Use original point records strictly within the original selected country polygons; no clipped polygons, location guesses or current data. Join country ISO_A3 to the supplied indicator table's Country Code exactly. Unknown country indicators, nonpositive ratio denominators, missing geometry and missing/nonfinite weights are unknown, not zero. Known zero weights remain valid. Exclude valid points outside the specified geography. Include only eligible points with a finite nonnegative weight in the contributing artifact; report other potentially eligible points as unknown. Use this explicit geographic heatmap convention: grid={\"bounds\": [-18000000, -7325000, 18000000, 7325000], \"crs\": \"EPSG:6933\", \"resolutionX\": 25000, \"resolutionY\": 25000}, radius 150000 metres = three Gaussian standard deviations. First bin each point into its containing grid cell and sum its weight. Smooth using a normalized separable Gaussian, numerical support four standard deviations, constant-zero exterior; do not renormalize edges. Use both grid resolutions for the two axes; keep original grid alignment. This is a declared metric raster adaptation to the original interactive screen-pixel heatmap, not an equivalent zoom-dependent rendering. Output unit: events per grid cell. Zero cells are valid; this is not density per square kilometre. Do not rescale the values for presentation.\n\n\n\nAdd the heatmap raster to the map and retain an inspectable selected-point artifact with original geometry and benchmark_row_id. End with one fenced JSON object: {count: contributing point records, unknown_count: records with unknown eligibility or weight, unlocated_count: original points lacking valid geometry, coverage_note: string, selection: {collectionId,itemId,assetKey}, density: {collectionId,itemId,assetKey}, map_layer_id: heatmap_layer_id}. Explain the data edition, numerical weights, grid, smoothing and coverage limitations. The source-point artifact is not itself the requested heatmap.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"African mineral extraction facilities\",\n    \"edition\": \"USGS 2021 benchmark snapshot\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SL.TLF.TOTL.IN\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the heatmap is on the map and the contributing-point artifact is saved.\n\nIt uses 1,735 facilities, with 0 unknown and 0 unlocated records, on the fixed 25 km EPSG:6933 grid with 150 km Gaussian smoothing and unit weight 1 per facility.\n\nLimits: this uses the supplied USGS 2021 facilities and frozen WDI 2023 labor-force table, and 192 valid source points outside the eligible African country polygons were excluded.\n\nNext: open the “Mineral facility heatmap” layer or the retained contributing-facilities artifact to inspect the results.\n\n### Limitations\n\n- Uses the supplied USGS 2021 facility snapshot and the supplied frozen WDI 2023 benchmark table, not current operations.\n- The heatmap is a fixed 25 km equal-area raster adaptation, not a zoom-dependent renderer.\n- Only points strictly within the original eligible country polygons contribute; the corrected trial observed 192 supplied points outside those polygons.\n- Countries with missing 2023 values would remain unknown rather than zero; the corrected trial observed none among African matched points.\n- Uses the supplied USGS 2021 facility snapshot and the supplied frozen WDI 2023 labor-force table, not current operations.\n- Only contributing facilities are retained in this artifact; excluded or unknown cases are reported separately by count.\n- The heatmap is a fixed 25 km equal-area raster in events per grid cell, not a zoom-dependent renderer and not density per square kilometre.\n- 192 valid supplied points outside the eligible African country polygons were excluded from contribution.\n- Uses the supplied boundary edition and frozen WDI 2023 benchmark table.\n- Uses the supplied USGS 2021 benchmark facility snapshot.\n- Counts one event per eligible facility; DsgAttr07 is not used as a weight.\n- This is a fixed metric raster in events per grid cell, not a zoom-dependent renderer.",
+  "checks": {
+    "expectedCount": 1735,
+    "actualCount": 1735,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:09:45.429828Z",
+      "title": "Progress update",
+      "detail": "I’ll inspect the existing analysis context, confirm the supplied datasets’ schema, then test the smallest workable heatmap method before saving a draft workflow."
+    },
+    {
+      "at": "2026-10-07T06:09:53.171105Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:53.835308Z",
+      "title": "Progress update",
+      "detail": "I’ve got the Terra analysis tools. Next I’m checking the retained brief and the exact schema of the three supplied datasets so I can bind the country join, country filter, and point geometry correctly before testing the heatmap math."
+    },
+    {
+      "at": "2026-10-07T06:10:06.926615Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:07.068806Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:07.079847Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:43.676512Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:49.011468Z",
+      "title": "Progress update",
+      "detail": "I’ve recorded the exact goal and acceptance checks. Now I’m reading the actual file schemas and sample rows to confirm the country filter fields, the WDI year field, and the facility geometry/ID fields before I choose processors."
+    },
+    {
+      "at": "2026-10-07T06:10:49.026701Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:10:49.030623Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:10:49.034815Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:10:55.825232Z",
+      "title": "Progress update",
+      "detail": "The direct artifact preview failed because these are source inputs, not workflow outputs. I’m switching to bounded source inspection on the collections themselves, which is the correct way to read sample rows at planning time."
+    },
+    {
+      "at": "2026-10-07T06:10:55.835719Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:55.839340Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:55.842343Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:02.529610Z",
+      "title": "Progress update",
+      "detail": "The source metadata alone does not expose field names, so I need a small source-reading trial next. First I’m finding the exact processor IDs for source selection, attribute/spatial filtering, gridding, point-to-raster binning, and Gaussian smoothing."
+    },
+    {
+      "at": "2026-10-07T06:11:02.556859Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:02.569547Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:02.594913Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:02.605379Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:03.879028Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:13.788368Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:14.431379Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:14.436330Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:23.620071Z",
+      "title": "Progress update",
+      "detail": "I found a promising direct processor path: exact country join and point-in-polygon selection, then `point-density`, whose scientific notes match the requested Gaussian rule. Before trusting it, I’m materializing the three supplied inputs in a private trial so I can inspect their real fields and sample rows."
+    },
+    {
+      "at": "2026-10-07T06:11:25.506141Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:43.215326Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:13:16.878876Z",
+      "title": "Progress update",
+      "detail": "I recovered the source-field evidence from the finished private trial. The key fields are present: `CONTINENT`, `ISO_A3`, `Country Code`, numeric year columns, point geometry, and `benchmark_row_id`. Next I’m confirming the exact processor schemas, especially `point-density`, so I can save the tested method as a draft and run the full heatmap."
+    },
+    {
+      "at": "2026-10-07T06:13:35.747375Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:13:35.758441Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:13:36.196696Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:13:42.662285Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:14:05.986863Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:14:05.997614Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:14:06.009645Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:14:06.012130Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the core processors and the first trial established the needed source fields. I’m doing one more bounded check on the actual joined year field and then a representative end-to-end trial: select eligible points with `within`, run the heatmap on the declared grid, and inspect the output values before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T06:15:20.967552Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:15:21.141962Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:15:24.634063Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the processor path and recovered the source-field evidence. One lightweight row inspection is still needed for the WDI `2023` field, then I can run the end-to-end trial and save the production draft without guessing any field names."
+    },
+    {
+      "at": "2026-10-07T06:15:31.580764Z",
+      "title": "Progress update",
+      "detail": "The WDI row inspection confirms the `2023` field exists and is numeric. I’m pulling the matching country and facility row samples now, then I’ll mark the source-schema trial as sufficient and run the full selection-plus-heatmap trial."
+    },
+    {
+      "at": "2026-10-07T06:15:31.616637Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:15:31.638792Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:15:32.940990Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:16:19.716788Z",
+      "title": "Progress update",
+      "detail": "I have the exact field names now. I’m running the end-to-end private trial on the actual requested scope: African country join, strict `within` point selection, unknown-point branch, and the global EPSG:6933 25 km heatmap grid with 150 km Gaussian radius."
+    },
+    {
+      "at": "2026-10-07T06:16:26.407834Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:22:26.207405Z",
+      "title": "Progress update",
+      "detail": "The end-to-end trial finished in the background and the method worked on the requested global grid: 1,735 contributing points, 0 unknown African points from missing 2023 values, and a valid EPSG:6933 heatmap raster. I’m turning that tested computation into a saved draft workflow now, then I’ll run it as the production result and add the raster to your map."
+    },
+    {
+      "at": "2026-10-07T06:22:32.504534Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:22:37.576771Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:22:37.885960Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:22:38.531630Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:22:46.081260Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:22:52.738241Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:23:00.864324Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:23:02.646011Z",
+      "title": "Progress update",
+      "detail": "I’ve got the trial counts already, but I’m reading the compact report once so I can inspect the previews and record a clean assessment before I reuse the exact tested method in the saved workflow."
+    },
+    {
+      "at": "2026-10-07T06:23:12.113438Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:23:42.144950Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:23:42.664559Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:23:43.045897Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:24:34.407167Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:24:34.568829Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:24:34.645435Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:13.704422Z",
+      "title": "Progress update",
+      "detail": "I’ve narrowed the only remaining method issue to field naming on the retained point artifact. I’m fetching the finished inspection receipts now; if the plain facility ID was renamed by the join, I’ll switch the workflow to an aggregate join that keeps the original point ID untouched."
+    },
+    {
+      "at": "2026-10-07T06:25:13.728294Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:13.738624Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:13.761348Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:38.873595Z",
+      "title": "Progress update",
+      "detail": "I confirmed the issue: the tested join renamed the facility ID to `benchmark_row_id_target`. I’m fixing that now with an aggregate spatial join that keeps the original point fields untouched while still attaching the joined 2023 labor-force value for filtering."
+    },
+    {
+      "at": "2026-10-07T06:25:45.126581Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:40.465305Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:42.403171Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:47.646815Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:31:58.395850Z",
+      "title": "Progress update",
+      "detail": "The saved draft rejected one bookkeeping detail: a fixed expectation cannot use a null value there. I’m removing that one nonessential expectation and revalidating the exact same tested workflow."
+    },
+    {
+      "at": "2026-10-07T06:32:26.448886Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:32:40.117812Z",
+      "title": "Progress update",
+      "detail": "The draft is sound. Terra only wants the evidence bindings tightened to the outputs I’m actually delivering. I’m removing the disconnected `unknown_points` references from the contract and saving the same workflow again."
+    },
+    {
+      "at": "2026-10-07T06:33:12.420130Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:24.271589Z",
+      "title": "Progress update",
+      "detail": "The draft is now valid and ready. I’m executing that exact corrected workflow next, then I’ll inspect the delivered point and raster outputs, add the raster to the map, and record the final result object."
+    },
+    {
+      "at": "2026-10-07T06:33:24.665348Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:26.832114Z",
+      "title": "Progress update",
+      "detail": "The production run completed in the background. I’m inspecting the exact delivered outputs now, then I’ll bind the verified heatmap raster to the map and record the final result with the selected artifacts."
+    },
+    {
+      "at": "2026-10-07T06:38:15.124895Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:38.783676Z",
+      "title": "Progress update",
+      "detail": "I have the production receipts. I’m pulling the remaining final checks now: the retained point fields, the final unknown and unlocated counts, and confirmation that the heatmap layer on the map matches the delivered raster."
+    },
+    {
+      "at": "2026-10-07T06:39:38.804154Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:38.809435Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:39.294430Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:39.561332Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:54.957661Z",
+      "title": "Progress update",
+      "detail": "The run is complete and the raster layer is already on the map. I’m just pulling the last two inspection receipts so I can submit the final selected result cleanly with the delivered point artifact and raster artifact."
+    },
+    {
+      "at": "2026-10-07T06:41:55.190949Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:55.203411Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:41:56.223589Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:41:59.031402Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:27.632767Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:28.503614Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:35.945289Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:42:38.289504Z",
+      "title": "Progress update",
+      "detail": "I’ve got the delivered point and raster receipts, including the map layer ID. I’m checking the final unknown-points output once on the production run, plus the exact `assess_result` artifact-ref format, so I can submit the final selected answer cleanly."
+    },
+    {
+      "at": "2026-10-07T06:43:03.264289Z",
+      "title": "Progress update",
+      "detail": "I have enough to finish the assessment. The only non-deliverable count, `unknown_count`, comes from the exact matched correction trial because Terra skipped that helper branch in the production run once the two final deliverables were produced. I’m checking the required artifact-ref syntax so I can submit the final selected answer without format errors."
+    },
+    {
+      "at": "2026-10-07T06:43:03.412008Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:03.445138Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:05.630020Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:05.665084Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:45:07.248743Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:48:03.840646Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:48:51.705863Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "africa",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "africa wdi",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "countries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Contributing mineral facilities",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Mineral facility heatmap",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "density",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "facilities",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "points with metrics",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "selected points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "unknown points",
+      "description": "Recorded vector-filter · skipped"
+    },
+    {
+      "title": "wdi",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "africa",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "africa wdi",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "countries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "density",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "facilities",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "points with metrics",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "selected points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "points with metrics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "selected points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "unknown points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "density",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "unknown points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "wdi",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "africa",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "africa wdi",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "countries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "density",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "facilities",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "points with country",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "selected points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "points with country",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "selected points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "unknown points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "density",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "unknown points",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "wdi",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "countries src",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "facilities src",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "countries src",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "facilities src",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "wdi src",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "wdi src",
+      "description": "Recorded source · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T06:12:20.239278+00:00"
+    },
+    {
+      "sha256": "a5818522a2c966354fb044df972b1793a62ae6d4de4955ff7948a953555fae94",
+      "bytes": 290677,
+      "finishedAt": "2026-10-07T06:12:20.239278+00:00"
+    },
+    {
+      "sha256": "9ef01befe196b704ed8fb739b12807e2c3e489559fcb2acfd51a068aab87ccb7",
+      "bytes": 98393,
+      "finishedAt": "2026-10-07T06:12:20.239278+00:00"
+    },
+    {
+      "sha256": "a1c538b74b7265882452aab9f505274a889f7c7d3ecb5744879c3722fcc74cf3",
+      "bytes": 919098,
+      "finishedAt": "2026-10-07T06:17:49.101669+00:00"
+    },
+    {
+      "sha256": "c8eb75edcb3e6af27c884506dd233e71313cb424b1721be5b6f6f559ba14cde2",
+      "bytes": 920872,
+      "finishedAt": "2026-10-07T06:18:50.031487+00:00"
+    },
+    {
+      "sha256": "11c6924e7cef259b6cdd216bb69a7a6ca3e994e170d791fc289bff05d0088d97",
+      "bytes": 394536,
+      "finishedAt": "2026-10-07T06:19:37.962757+00:00"
+    },
+    {
+      "sha256": "a02d859ece0c172a2727ebf0667dc74af9e614ad6e52812f7750c1b329663ad2",
+      "bytes": 283507,
+      "finishedAt": "2026-10-07T06:20:02.276911+00:00"
+    },
+    {
+      "sha256": "339dda8e2a7dfef61baca23771b327b1779f11afc6fe2cdea7f31ab09b19391b",
+      "bytes": 33084,
+      "finishedAt": "2026-10-07T06:20:02.276911+00:00"
+    },
+    {
+      "sha256": "ef4730a8baeea180083a085bf959fa8a9612e9919de67c6199478c72ae737b0b",
+      "bytes": 170762,
+      "finishedAt": "2026-10-07T06:20:58.694837+00:00"
+    },
+    {
+      "sha256": "a1c538b74b7265882452aab9f505274a889f7c7d3ecb5744879c3722fcc74cf3",
+      "bytes": 919098,
+      "finishedAt": "2026-10-07T06:27:02.163853+00:00"
+    },
+    {
+      "sha256": "c8eb75edcb3e6af27c884506dd233e71313cb424b1721be5b6f6f559ba14cde2",
+      "bytes": 920872,
+      "finishedAt": "2026-10-07T06:27:22.104334+00:00"
+    },
+    {
+      "sha256": "56868392be3be4a1e5209b4be219782906af3f2185e6c4db26fb4e4430ae775c",
+      "bytes": 367166,
+      "finishedAt": "2026-10-07T06:27:41.564854+00:00"
+    },
+    {
+      "sha256": "397b8ac78b6e488ca2dabd04cd0a7df43075613e6c05c4da418e6d6aeecec1af",
+      "bytes": 264710,
+      "finishedAt": "2026-10-07T06:28:04.642123+00:00"
+    },
+    {
+      "sha256": "06d6b7e1503f51e0153ba78622db618bd205cebab409220ee8f7443386449b78",
+      "bytes": 21855,
+      "finishedAt": "2026-10-07T06:28:12.118489+00:00"
+    },
+    {
+      "sha256": "ef4730a8baeea180083a085bf959fa8a9612e9919de67c6199478c72ae737b0b",
+      "bytes": 170762,
+      "finishedAt": "2026-10-07T06:28:21.816692+00:00"
+    },
+    {
+      "sha256": "a1c538b74b7265882452aab9f505274a889f7c7d3ecb5744879c3722fcc74cf3",
+      "bytes": 919098,
+      "finishedAt": "2026-10-07T06:34:30.139030+00:00"
+    },
+    {
+      "sha256": "c8eb75edcb3e6af27c884506dd233e71313cb424b1721be5b6f6f559ba14cde2",
+      "bytes": 920872,
+      "finishedAt": "2026-10-07T06:34:50.299599+00:00"
+    },
+    {
+      "sha256": "56868392be3be4a1e5209b4be219782906af3f2185e6c4db26fb4e4430ae775c",
+      "bytes": 367166,
+      "finishedAt": "2026-10-07T06:35:26.540389+00:00"
+    },
+    {
+      "sha256": "397b8ac78b6e488ca2dabd04cd0a7df43075613e6c05c4da418e6d6aeecec1af",
+      "bytes": 264710,
+      "finishedAt": "2026-10-07T06:35:37.667071+00:00"
+    },
+    {
+      "sha256": "ef4730a8baeea180083a085bf959fa8a9612e9919de67c6199478c72ae737b0b",
+      "bytes": 170762,
+      "finishedAt": "2026-10-07T06:35:55.140014+00:00"
+    }
+  ],
+  "snapshotSha256": "a173fe68e82959084185f695916b642f0696a15db7d4908315ae4a4a28913588",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:11:25.506141Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the supplied inputs expose the exact fields needed for CONTINENT, ISO_A3, WDI Country Code and 2023 labor force, plus facility geometry and benchmark_row_id?"
+    },
+    {
+      "at": "2026-10-07T06:15:32.940990Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The source-inspection trial confirmed the fields needed to continue: country polygons include CONTINENT and ISO_A3; facility records are point geometries with benchmark_row_id; and the WDI table includes Country Code and a numeric 2023 field. The source trial also showed 2408 facility points with no invalid geometries in the selected asset, so unlocated records are not yet observed.",
+      "limitations": [
+        "This trial confirmed field availability and source geometry profile, not the final eligibility counts or heatmap output."
+      ],
+      "next_action": "Run an end-to-end private trial that joins African countries to WDI 2023, selects eligible points with strict within-country membership, and inspects the declared point-density raster on the requested metric grid.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:16:26.407834Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the end-to-end method preserve original facility point IDs, separate eligible and unknown African points correctly, and produce the requested point-density raster on the declared EPSG:6933 grid?"
+    },
+    {
+      "at": "2026-10-07T06:23:12.113438Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The end-to-end trial matched the requested method on the full declared scope. It preserved original point geometry and benchmark_row_id in the contributing points, selected 1,735 facilities strictly within African country polygons whose exact-joined 2023 labor force exceeded 5,764,399, and produced a valid EPSG:6933 heatmap raster on the requested 25 km grid with radiusM 150000. The trial also showed 2,216 African point matches overall, 192 points outside the African country polygons, and zero African matched points with null joined 2023 values, so the current unknown_count from unknown country indicators is 0.",
+      "limitations": [
+        "This trial supports the tested workflow method and counts, but the final published artifacts still need production execution, inspection, map binding, and final assessment."
+      ],
+      "next_action": "Save this tested computation as the production workflow, execute it, inspect the delivered selected-point and density artifacts, add the density raster to the map, and assess the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:25:45.126581Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does an aggregate spatial join preserve the original facility benchmark_row_id field while keeping the same eligible-point count and heatmap output?"
+    },
+    {
+      "at": "2026-10-07T06:30:40.465305Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The corrected trial fixed the retained point-ID issue. Using an aggregate spatial join preserved the original facility benchmark_row_id field directly, kept the eligible contributing count at 1735, kept unknown African matched points at 0, and produced the same requested EPSG:6933 25 km density raster with radiusM 150000 and nonnegative events-per-cell output.",
+      "limitations": [
+        "This corrected trial confirms the final workflow method, but the production workflow still needs execution, output inspection, map binding, and final assessment."
+      ],
+      "next_action": "Save this corrected tested computation as the production workflow, execute it, inspect the delivered artifacts, add the heatmap raster to the map, and assess the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:45:07.248743Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The retained contributing-point artifact is sufficient. It contains 1,735 original facility points with original geometry and plain benchmark_row_id preserved. Every retained point has africa_match_count=1 and labor_2023 strictly greater than 5,764,399, so the artifact only contains facilities strictly within eligible African country polygons. The immutable source inspection and the final matched-point receipt show 2,408 source points were processed with no invalid or omitted geometry, so unlocated_count is 0. Unknown eligibility count is 0 on the exact matched correction trial, and the final contributing artifact checksum matches that tested method.",
+      "limitations": [
+        "Uses the supplied USGS 2021 facility snapshot and the supplied frozen WDI 2023 labor-force table, not current operations.",
+        "Only contributing facilities are retained in this artifact; excluded or unknown cases are reported separately by count."
+      ],
+      "next_action": "The heatmap raster is already produced and on the map; finalize the map result assessment and attach the selected answer object.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:48:03.840646Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The final delivered result is sufficient. The contributing-point artifact retains original point geometry and plain benchmark_row_id for 1,735 facilities. The final country join matched all 52 African polygons to the supplied WDI table with no unmatched join keys, and every contributing point has africa_match_count=1 and labor_2023 strictly greater than 5,764,399. The final raster is on the declared EPSG:6933 grid with 25,000 metre cells, unit events per grid cell, Gaussian smoothing at radiusM 150000, valid zero cells, and the verified map layer is available as 'Mineral facility heatmap'. Unknown_count is 0 and unlocated_count is 0; 192 valid supplied points outside the eligible African country polygons were excluded rather than counted unknown.",
+      "limitations": [
+        "Uses the supplied USGS 2021 facility snapshot and the supplied frozen WDI 2023 labor-force table, not current operations.",
+        "The heatmap is a fixed 25 km equal-area raster in events per grid cell, not a zoom-dependent renderer and not density per square kilometre.",
+        "192 valid supplied points outside the eligible African country polygons were excluded from contribution."
+      ],
+      "next_action": null,
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:48:51.705863Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The delivered result is sufficient. The retained contributing-point artifact contains 1,735 original facility points with plain benchmark_row_id preserved, and the delivered raster heatmap is on the map as layer [resource id withheld]. Unknown_count is 0 and unlocated_count is 0. Source citations: African mineral extraction facilities, USGS 2021 benchmark snapshot, Terra-hosted immutable input, retrieved 2026-10-07; World Bank country boundaries, GeoBenchX harmonized names, Terra-hosted immutable input, retrieved 2026-10-07; World Bank SL.TLF.TOTL.IN, frozen GeoBenchX WDI 2023 table, Terra-hosted immutable input, retrieved 2026-10-07.",
+      "limitations": [
+        "Uses the supplied USGS 2021 facility snapshot and the supplied frozen WDI 2023 labor-force table, not current operations.",
+        "The heatmap is a fixed 25 km equal-area raster in events per grid cell, not a zoom-dependent renderer and not density per square kilometre.",
+        "192 valid supplied points outside the eligible African country polygons were excluded from contribution."
+      ],
+      "next_action": null,
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "edcd85bd6f332fd4de7dee4957feb5237af71afad5978364b7f893c26b1e9c7a",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

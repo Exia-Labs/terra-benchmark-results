@@ -1,0 +1,390 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "258248",
+  "question": "Show labor force distribution in Arctic Circle countries",
+  "submittedPrompt": "Show labor force distribution in Arctic Circle countries\n\nTask conventions: Use the frozen country polygons and World Bank SL.TLF.TOTL.IN 2023 column, in people. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature in the declared geography and its benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. Geography is fixed to original country features with NAME_EN in [\"Canada\", \"Denmark\", \"Finland\", \"Iceland\", \"Norway\", \"Russian Federation\", \"Sweden\", \"United States\"]; retain all matching source geometries, and no others. Classification is calculated only over this geography. Membership reflects this disclosed benchmark edition, not current organization membership.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SL.TLF.TOTL.IN\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "I added the 2023 labor-force country choropleth to your map.\n\nIt shows 7 countries with known values in people and 1 No data country. The No data row is Norway, because the supplied boundary `ISO_A3` is `-99` and the required exact join leaves it unmatched. This is a country-level map only, not a subnational surface or new regional total.\n\nLegend in people:\nNo data; 239,195–<2,939,754.6; 2,939,754.6–<4,237,804.2; 4,237,804.2–<15,596,385.0; 15,596,385.0–<62,348,298.6; 62,348,298.6–170,548,899.\n\nNext: open the layer legend or inspect the country rows in the delivered artifact.\n\nSources: GeoBenchX harmonized World Bank country boundaries and frozen World Bank WDI `SL.TLF.TOTL.IN` 2023 benchmark fixtures, hosted by Terra; retrieved 2026-10-07 UTC; source revision not provided.\n\n### Limitations\n\n- This map uses the supplied benchmark country rows and names, not a new regional aggregation or current organization membership.\n- One Norway boundary feature remains No data because the supplied benchmark ISO_A3 is -99, so the required exact join to Country Code leaves it unmatched.\n- This is a country-level 2023 choropleth for the fixed benchmark geography, not a subnational surface or a new regional aggregation.\n- One Norway boundary feature remains No data because the supplied benchmark ISO_A3 is -99 and the required exact join leaves it unmatched.\n- The five legend classes are quantiles computed from only 7 known country values in this fixed geography.",
+  "checks": {
+    "expectedCount": 7,
+    "actualCount": 7,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:24:36.367042Z",
+      "title": "Progress update",
+      "detail": "I’ll inspect the supplied boundary and indicator files, test the exact join and quantile classification on the fixed Arctic-country geography, then save and run the map workflow."
+    },
+    {
+      "at": "2026-10-07T06:24:48.663807Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:01.114607Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:01.455192Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:07.337460Z",
+      "title": "Progress update",
+      "detail": "I found the exact frozen benchmark inputs. Next I’m checking their field names and sample rows so I can test the join and the fixed 2023 classification exactly as requested."
+    },
+    {
+      "at": "2026-10-07T06:25:07.356829Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:07.779348Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:21.063696Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:28.673172Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:28.992513Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:29.035939Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:53.052072Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:17.328635Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:17.352759Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:17.436547Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:33.622802Z",
+      "title": "Progress update",
+      "detail": "I have the exact fields now: `NAME_EN`, `ISO_A3`, `benchmark_row_id`, `Country Code`, and `2023`. I’m running a small end-to-end test to confirm the selected row count, unmatched codes, and the quantile classes before I save the full map workflow."
+    },
+    {
+      "at": "2026-10-07T06:26:36.231016Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:30.316502Z",
+      "title": "Progress update",
+      "detail": "The test worked at full requested scope: 8 boundary rows were kept, 7 matched the frozen 2023 table, and 1 stayed unknown because its `ISO_A3` is the sentinel `-99`. I’m checking the class breaks and preview now, then I’ll save and run the final map workflow from this tested method."
+    },
+    {
+      "at": "2026-10-07T06:29:30.723259Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:41.621844Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:34.011611Z",
+      "title": "Progress update",
+      "detail": "The join and classification trial succeeded. I’m reading the exact country rows and class values now so I can lock the tested method into the final workflow and verify the delivered map layer."
+    },
+    {
+      "at": "2026-10-07T06:30:41.843336Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:56.843539Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:04.378675Z",
+      "title": "Progress update",
+      "detail": "The method is confirmed. I’m saving that exact tested computation as the production workflow now, with the final deliverable bound to the requested map result."
+    },
+    {
+      "at": "2026-10-07T06:31:04.501117Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:04.525562Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:04.550892Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:10.836591Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:11.821520Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:13.316936Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:23.309242Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:18.590441Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:32.103013Z",
+      "title": "Progress update",
+      "detail": "I found one bookkeeping issue, not a data problem: the saved contract scope didn’t match the copied trial scope. I’m correcting that exact scope field and revalidating the same tested workflow now."
+    },
+    {
+      "at": "2026-10-07T06:32:40.288075Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:49.797315Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:34:42.383365Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:11.263814Z",
+      "title": "Progress update",
+      "detail": "I already have the final artifact ID and map layer ID. I’m reading the delivered rows and the classifier summary now so I can confirm the known/unknown counts and the legend bounds before I record the final result."
+    },
+    {
+      "at": "2026-10-07T06:35:11.646123Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:11.718736Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:42.201942Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:48.242516Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:55.323982Z",
+      "title": "Progress update",
+      "detail": "I have the final classifier summary and map binding. I’m pulling the delivered country rows and preview one more time so the final assessment cites the exact output, not just the workflow receipt."
+    },
+    {
+      "at": "2026-10-07T06:38:26.248393Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:39.092656Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the delivered layer, artifact rows, class counts, and legend breaks. I’m refreshing the brief to remove stale planning notes, then I’ll record the final accepted result object."
+    },
+    {
+      "at": "2026-10-07T06:39:04.434333Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Classify 2023 labor force values",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Benchmark country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Arctic countries labor force choropleth (2023)",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join frozen 2023 labor force values",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Frozen World Bank labor force table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Select fixed Arctic-country features",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Classify 2023 labor force values",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Benchmark country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join frozen 2023 labor force values",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Frozen World Bank labor force table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Select fixed Arctic-country features",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join frozen 2023 labor force values",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify 2023 labor force values",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T06:26:45.939184+00:00"
+    },
+    {
+      "sha256": "9ef01befe196b704ed8fb739b12807e2c3e489559fcb2acfd51a068aab87ccb7",
+      "bytes": 98393,
+      "finishedAt": "2026-10-07T06:26:45.939184+00:00"
+    },
+    {
+      "sha256": "ba592ea06deb37e1d5bda7a618750c58486b42444693e65e02a1bed1c1bcf32f",
+      "bytes": 2743427,
+      "finishedAt": "2026-10-07T06:27:10.834441+00:00"
+    },
+    {
+      "sha256": "da3641c923219da0dae5d58ca7ebd46e962d633e8b6546c68bb922cd886510eb",
+      "bytes": 2745256,
+      "finishedAt": "2026-10-07T06:27:29.482942+00:00"
+    },
+    {
+      "sha256": "c2324deb21bc416b19d559f69b097f7a156efe2c46f2e86c48f6a5881d746d24",
+      "bytes": 2745882,
+      "finishedAt": "2026-10-07T06:27:51.231194+00:00"
+    },
+    {
+      "sha256": "da3641c923219da0dae5d58ca7ebd46e962d633e8b6546c68bb922cd886510eb",
+      "bytes": 2745256,
+      "finishedAt": "2026-10-07T06:34:03.065096+00:00"
+    },
+    {
+      "sha256": "ba592ea06deb37e1d5bda7a618750c58486b42444693e65e02a1bed1c1bcf32f",
+      "bytes": 2743427,
+      "finishedAt": "2026-10-07T06:33:47.841676+00:00"
+    },
+    {
+      "sha256": "c2324deb21bc416b19d559f69b097f7a156efe2c46f2e86c48f6a5881d746d24",
+      "bytes": 2745882,
+      "finishedAt": "2026-10-07T06:34:22.899336+00:00"
+    }
+  ],
+  "snapshotSha256": "d021bcbd3dd38a21465b846f0a33a3a226e9243b4d26b35ca4f116449fec4291",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:26:36.231016Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the supplied benchmark boundaries and frozen World Bank labor-force table support the required exact country-code join and quantile choropleth for the fixed Arctic-country geography without dropping unmatched rows?"
+    },
+    {
+      "at": "2026-10-07T06:30:56.843539Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-scope trial answered the method question. Filtering the supplied benchmark boundaries by the eight listed NAME_EN values retained 8 original country features. The exact left join from ISO_A3 to Country Code preserved all 8 features, matched 7, and left 1 unmatched feature with ISO_A3='-99' as unknown. Quantile classification on the frozen 2023 field kept all 8 rows together, assigned labor_force_class 0 to the unknown row, and produced five numeric classes across the 7 known values.",
+      "limitations": [
+        "The trial confirms the computation works on the fixed benchmark geography, but the final workflow still needs a saved deliverable, verified map-layer binding, and final acceptance assessment.",
+        "The unmatched Norway row remains unknown because the supplied boundary ISO_A3 is the sentinel -99; this is preserved by design rather than repaired."
+      ],
+      "next_action": "Save the tested computation as the production workflow, run it, inspect the delivered artifact and map layer, and assess the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:39:04.434333Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The delivered map artifact contains 8 fixed benchmark country features and no extras. It preserves original geometry and benchmark_row_id, uses the frozen 2023 labor-force field in people, and keeps all rows together after the exact ISO_A3 to Country Code left join. Seven countries have known values and one Norway feature remains No data because its supplied ISO_A3 is the sentinel -99. The final classifier summary reports five quantile classes over 7 known values, one No data row, and breaks at 2,939,754.6; 4,237,804.2; 15,596,385.0; and 62,348,298.6 people. The final deliverable is added to the map as layer [resource id withheld].",
+      "limitations": [
+        "This is a country-level 2023 choropleth for the fixed benchmark geography, not a subnational surface or a new regional aggregation.",
+        "One Norway boundary feature remains No data because the supplied benchmark ISO_A3 is -99 and the required exact join leaves it unmatched.",
+        "The five legend classes are quantiles computed from only 7 known country values in this fixed geography."
+      ],
+      "next_action": "Review the map legend and inspect the delivered country rows if you want to confirm the numeric range assigned to each country.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "46949ac8c4ad7a532c00ce480cc8354c328ce6f1f4502999c190ec997ed81248",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

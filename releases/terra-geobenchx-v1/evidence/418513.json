@@ -1,0 +1,466 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "418513",
+  "question": "How many power stations in Africa are located within 10 km of major railways?",
+  "submittedPrompt": "How many power stations in Africa are located within 10 km of major railways?\n\nTask conventions: Use every original point in the supplied USGS Africa power-station file and every original line in the matching USGS Africa railway file. As in the released reference, major railways means the entire supplied railway file, not an invented class filter. Near means strictly less than 10,000 metres in ESRI:102022 (Africa Albers Equal Area Conic); transform original vertices, measure planar distance to straight transformed segments, with no densification. This explicit projection resolves the archived buffer method's unspecified CRS and is a disclosed screening approximation, not exact geodesic or route distance. Projection distortion is not corrected. Keep original IDs and geometry, count each station once even if near several railway segments. Invalid/missing point geometry is unknown, never zero distance. Use frozen 2021 compiled observations, not current data.\n\n\n\nReturn the exact count and an inspectable selected-station artifact with original geometry and benchmark_row_id. A map is optional. End with one fenced JSON object: {count: integer, unknown_count: number of source points with unknown location, coverage_note: string, selection: {collectionId,itemId,assetKey}}. Explain the projection approximation and source edition.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"African power stations\",\n    \"edition\": \"USGS 2021 frozen compilation\",\n    \"units\": {\n      \"DsgAttr02\": \"MW\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"African railways, USGS 2021 compiled network\",\n    \"edition\": \"Original frozen GeoBenchX USGS 2021 compilation, not current routing data\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "I found 1,025 power stations in Africa within 10 km of the supplied railway network. This uses the frozen USGS 2021 Africa compilations (USGS, DOI: 10.5066/P97EQWXP) and the requested planar ESRI:102022 screening method, so it is a projection-based approximation rather than geodesic or route distance. I kept 31 stations with unknown location separate from the near count, and the selected-station artifact is attached for inspection.\n\n### Limitations\n\n- The required distance test is a disclosed planar screening approximation in ESRI:102022; it is not geodesic or route distance, and projection distortion is not corrected.\n- The result uses only the supplied frozen USGS 2021 compilations, not current infrastructure.\n- This is a planar ESRI:102022 screening approximation, not geodesic or route distance, and projection distortion is not corrected.\n- The result uses the supplied frozen USGS 2021 compilations, not current infrastructure.\n- 31 source rows have unknown location and remain outside the selected count.\n- This is the supplied frozen 2021 compiled network, not current routing data.\n- This is the user-requested planar ESRI:102022 screening approximation, not geodesic or route distance, and projection distortion is not corrected.\n- Unknown source locations remain separate from the selected count.\n- The result uses the frozen USGS 2021 compilations only.",
+  "checks": {
+    "expectedCount": 1025,
+    "actualCount": 1025,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:46:37.444883Z",
+      "title": "Progress update",
+      "detail": "I’m checking the retained analysis context and the supplied frozen USGS files first, then I’ll test the distance method in the required Africa Albers projection before I save the final workflow draft."
+    },
+    {
+      "at": "2026-10-07T08:46:45.586526Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:53.348414Z",
+      "title": "Progress update",
+      "detail": "I found no retained analysis for this question, so I’m creating a fresh brief and inspecting the two supplied frozen files to confirm their coverage, fields, and exact input identities."
+    },
+    {
+      "at": "2026-10-07T08:46:58.818080Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:59.079871Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:08.143616Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:22.784855Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed both inputs are the supplied frozen USGS 2021 snapshots. Next I’m checking which vector processors can preserve the original station geometry and `benchmark_row_id` while applying the exact ESRI:102022 screening rule."
+    },
+    {
+      "at": "2026-10-07T08:47:22.981375Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:34.076964Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:40.669826Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:47:43.717158Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:47:56.412798Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:56.635043Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:01.280520Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:30.238165Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:57.202408Z",
+      "title": "Progress update",
+      "detail": "I’ve got a workable method: nearest planar distance in ESRI:102022, then a strict `< 10000` filter, plus a separate null-distance branch for unknown locations. I’m running that on the full frozen files now so I can inspect row preservation, count behavior, and the selected-station output before I save the production draft."
+    },
+    {
+      "at": "2026-10-07T08:49:02.247416Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:33.649492Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:39.795990Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:39.842638Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:41.699532Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:42.551857Z",
+      "title": "Progress update",
+      "detail": "I’m resuming from the completed trial. Next I’m reading the trial report and the finished selection preview, then I’ll record the tested method, save the exact production workflow, run it, and verify the final selected-station artifact before I answer."
+    },
+    {
+      "at": "2026-10-07T08:51:48.846372Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:48.895162Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:56.599699Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:07.765434Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:07.802786Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:08.727414Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:40.177677Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:57.981196Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:01.348306Z",
+      "title": "Progress update",
+      "detail": "The trial answered the main method question: all 3,034 source station rows were preserved, 31 stayed unknown with null distance, and the strict filter selected 1,025 stations. I’m recording that trial now, then saving the unchanged production workflow with the tested full-file computation."
+    },
+    {
+      "at": "2026-10-07T08:53:12.587096Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:27.168199Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the method check. I’m saving the same tested full-file computation as a production workflow now, with the selected stations as the final inspectable output and the two small count tables as supporting outputs for verification."
+    },
+    {
+      "at": "2026-10-07T08:53:38.982522Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:53:54.809059Z",
+      "title": "Progress update",
+      "detail": "The draft hit one binding detail, not a data problem. I’m correcting the contract by telling Terra exactly which saved output path represents the strict distance-selection rule, then I’ll validate and run the workflow."
+    },
+    {
+      "at": "2026-10-07T08:54:11.617294Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:26.117210Z",
+      "title": "Progress update",
+      "detail": "The saved workflow matches the inspected trial exactly. I’m running that saved version now so I can verify the final selected artifact and attach the exact answer object to the assessed result."
+    },
+    {
+      "at": "2026-10-07T08:54:33.950022Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:57:17.163641Z",
+      "title": "Progress update",
+      "detail": "The saved workflow finished in the background. I’m inspecting its three outputs now so I can attach the exact selected-station artifact and the verified count and unknown count to the final assessed result."
+    },
+    {
+      "at": "2026-10-07T08:57:17.471146Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:57:41.478690Z",
+      "title": "Progress update",
+      "detail": "I’m on the final verification step now: reading the current saved workflow’s selected stations and the two count tables, then I’ll record the exact answer object against those final artifacts."
+    },
+    {
+      "at": "2026-10-07T08:57:41.535843Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:57:41.560631Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:57:42.675344Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:04.686389Z",
+      "title": "Progress update",
+      "detail": "The output inspections have finished. I’m fetching their immutable receipts now, then I’ll record the final result with the exact selected-station artifact, count, and unknown count."
+    },
+    {
+      "at": "2026-10-07T08:58:04.753653Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:04.777785Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:04.795365Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:42.430407Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the final saved workflow outputs: the selected-station artifact has 1,025 rows with distinct `benchmark_row_id`, the count table reports 1,025, and the unknown-location table reports 31. I’m recording that assessed final result now."
+    },
+    {
+      "at": "2026-10-07T08:58:46.910596Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Power stations within 10 km of railways",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected station count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown station count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Stations within 10 km of railways",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Selected station count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Nearest railway distance in Africa Albers",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "Supplied African railways",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied African power stations",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Stations with unknown location",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Unknown station count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Stations within 10 km of railways",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Selected station count",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Nearest railway distance in Africa Albers",
+      "description": "Recorded vector-nearest-distance · succeeded"
+    },
+    {
+      "title": "Supplied African railways",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied African power stations",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Nearest railway distance in Africa Albers",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Stations within 10 km of railways",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected station count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown station count",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Stations with unknown location",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Unknown station count",
+      "description": "Recorded table-group-statistics · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "dbf290a8bb44ae1d19e5a788dfc794029f9c6ca9359dd6c79b04c9595b8eaef3",
+      "bytes": 15086527,
+      "finishedAt": "2026-10-07T08:49:10.235495+00:00"
+    },
+    {
+      "sha256": "6466e315e8ff63739ef14b89300a4ecb739e3753d503760233466dcc207a1a51",
+      "bytes": 337674,
+      "finishedAt": "2026-10-07T08:49:10.235495+00:00"
+    },
+    {
+      "sha256": "c933dacd7ad0dc67ced68d19ca8f9f3e916053aa541bbfe7f73f1de78d53f402",
+      "bytes": 182788,
+      "finishedAt": "2026-10-07T08:49:31.362419+00:00"
+    },
+    {
+      "sha256": "ac5638930c2c47a7b023503e8a68e70fa1b58a96b080ee672a8529245e63b44f",
+      "bytes": 478322,
+      "finishedAt": "2026-10-07T08:49:24.825515+00:00"
+    },
+    {
+      "sha256": "65ffdaf90e13f1f39ebfd0de78417a9966fc88d3160e6fc283bcc74b4151b190",
+      "bytes": 24965,
+      "finishedAt": "2026-10-07T08:49:31.362419+00:00"
+    },
+    {
+      "sha256": "7aba9ee3f4bb7731c03e42aa52138b322651154a897b9b437dc2d39b1e87311f",
+      "bytes": 1218,
+      "finishedAt": "2026-10-07T08:49:42.423207+00:00"
+    },
+    {
+      "sha256": "8626f2a970fe49220facb4309d096f788fad93cfbbc5ac608d89f0b5d08b2e4b",
+      "bytes": 1282,
+      "finishedAt": "2026-10-07T08:49:42.423207+00:00"
+    },
+    {
+      "sha256": "ac5638930c2c47a7b023503e8a68e70fa1b58a96b080ee672a8529245e63b44f",
+      "bytes": 478322,
+      "finishedAt": "2026-10-07T08:55:09.263543+00:00"
+    },
+    {
+      "sha256": "c933dacd7ad0dc67ced68d19ca8f9f3e916053aa541bbfe7f73f1de78d53f402",
+      "bytes": 182788,
+      "finishedAt": "2026-10-07T08:55:51.565353+00:00"
+    },
+    {
+      "sha256": "65ffdaf90e13f1f39ebfd0de78417a9966fc88d3160e6fc283bcc74b4151b190",
+      "bytes": 24965,
+      "finishedAt": "2026-10-07T08:55:57.338090+00:00"
+    },
+    {
+      "sha256": "7aba9ee3f4bb7731c03e42aa52138b322651154a897b9b437dc2d39b1e87311f",
+      "bytes": 1218,
+      "finishedAt": "2026-10-07T08:56:53.004004+00:00"
+    },
+    {
+      "sha256": "8626f2a970fe49220facb4309d096f788fad93cfbbc5ac608d89f0b5d08b2e4b",
+      "bytes": 1282,
+      "finishedAt": "2026-10-07T08:57:04.194104+00:00"
+    }
+  ],
+  "snapshotSha256": "35f9e834af09ee3116b77a3161f21a96b9853f5ae436c040ef4b1f09bee29cf3",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:49:02.247416Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full-file ESRI:102022 nearest-distance method preserve one row per supplied station, keep unknown station locations as null distance, and produce the exact set of stations with nearest railway distance strictly less than 10,000 metres?"
+    },
+    {
+      "at": "2026-10-07T08:52:57.981196Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-file trial preserved one row per supplied station: 3,034 rows in the nearest-distance output, with 3,003 valid point geometries and 31 source rows retaining null rail_dist_m rather than zero. The strict ESRI:102022 planar distance filter rail_dist_m < 10000 produced 1,025 selected station rows, each with original point geometry and distinct benchmark_row_id, and separate summaries reported count=1025 and unknown_count=31. The selected output preview confirms benchmark_row_id is retained and the measured rail_dist_m values stay below 10,000 metres.",
+      "limitations": [
+        "This method is the user-requested planar screening approximation in ESRI:102022; it is not geodesic or route distance, and projection distortion is not corrected.",
+        "The trial used the supplied frozen USGS 2021 compilations, not current infrastructure."
+      ],
+      "next_action": "Save the unchanged tested computation as the production workflow, run it, and assess the final selected-station artifact and answer object.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:58:46.910596Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I verified the final saved workflow outputs for the requested frozen USGS 2021 Africa compilations. The selected-station artifact contains 1,025 stations, retains original point geometry and benchmark_row_id, and all inspected rail_dist_m values are below 10,000 metres with a maximum of 9,979.427580308125 m. Supporting final outputs report count=1025 and unknown_count=31. This uses the user-specified ESRI:102022 planar screening method with transformed original vertices and no densification. Source edition: USGS, Compilation of Geospatial Data for the Mineral Industries and Related Infrastructure of Africa (DOI 10.5066/P97EQWXP), using the supplied frozen 2021 compiled observations retrieved from the Terra-hosted immutable inputs on 2026-10-07.",
+      "limitations": [
+        "This is a planar ESRI:102022 screening approximation, not geodesic or route distance, and projection distortion is not corrected.",
+        "The result uses the supplied frozen USGS 2021 compilations, not current infrastructure."
+      ],
+      "next_action": "Open the selected-station artifact if you want to inspect individual stations or map the selection.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "1c19ed274400460552cd84fb9649897508a95988be061dabd036261eeef29ff6",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

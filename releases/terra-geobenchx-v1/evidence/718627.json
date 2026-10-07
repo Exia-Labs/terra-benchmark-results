@@ -1,0 +1,644 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "718627",
+  "question": "Create a map of global demographic patterns using fertility rates.",
+  "submittedPrompt": "Create a map of global demographic patterns using fertility rates.\n\nTask conventions: Use the frozen country polygons and World Bank SP.DYN.TFRT.IN 2022 column, in births per woman. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature and benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Fertility rate\",\n    \"edition\": \"Frozen WDI; use 2022\",\n    \"units\": {\n      \"2022\": \"births per woman\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the layer is on your map as a country-level 2022 fertility choropleth, joined exactly on `ISO_A3 = Country Code`, in births per woman.\n\nIt keeps all 251 supplied country features and all `benchmark_row_id` values. 210 countries have known 2022 values, and 41 remain No data because the frozen inputs have nonmatching codes or missing 2022 measurements.\n\nThe legend uses five quantile classes plus a neutral No data class. The observed class ranges are 0.701–1.483, 1.487–1.781, 1.785–2.354, 2.369–3.463, and 3.507–6.749 births per woman.\n\nSources: World Bank country boundaries, GeoBenchX harmonized names, Terra-hosted immutable input, retrieved 2026-10-07; Frozen WDI fertility rate `SP.DYN.TFRT.IN` for 2022, Terra-hosted immutable input, retrieved 2026-10-07.\n\n### Limitations\n\n- The result is a country-level indicator map only; it does not show subnational variation or any new regional aggregation.\n- 41 countries remain No data because the supplied files have nonmatching identifiers or missing 2022 measurements.\n- This is a country-level 2022 indicator map only; it does not show subnational variation or any new regional aggregation.\n- 41 countries remain No data because the supplied frozen inputs have nonmatching identifiers or missing 2022 measurements.\n- The source is country level only; it does not show subnational variation.\n- This uses the frozen 2022 value only; it does not substitute another year.\n- 34 supplied country codes do not match exactly and remain unknown in the result.\n- The tested output contains five numeric quantile classes plus a separate No data class.\n- 41 countries remain No data because of nonmatching identifiers or missing 2022 values.\n- The delivered dataset retains known and unknown countries together.",
+  "checks": {
+    "expectedCount": 210,
+    "actualCount": 210,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:41:25.629081Z",
+      "title": "Progress update",
+      "detail": "I’ll check the existing analysis, inspect the two supplied sources, and find the right processor chain for an exact country-code join and 2022 quantile choropleth."
+    },
+    {
+      "at": "2026-10-07T07:41:31.337543Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:35.894892Z",
+      "title": "Progress update",
+      "detail": "I found no saved analysis yet. Next I’m recording the goal and reading both supplied datasets so I can use the exact frozen files and fields you specified, without substituting sources or years."
+    },
+    {
+      "at": "2026-10-07T07:41:56.223324Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:56.695410Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:05.527294Z",
+      "title": "Progress update",
+      "detail": "I have the exact frozen collections and their declared global extents. Now I need the real field names and a compatible join/classification path, because the benchmark requires an exact ISO_A3 → Country Code join and a retained unknown category."
+    },
+    {
+      "at": "2026-10-07T07:42:05.564786Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:19.053165Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:26.931767Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:29.521967Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:29.553967Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:36.984619Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:37.089082Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:42.192056Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:44.609942Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:44.635683Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:52.712049Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:57.953648Z",
+      "title": "Progress update",
+      "detail": "I found the likely processor pair: `table-attribute-join` then `vector-classify`. Before I save the full workflow, I’m running a small private check on the supplied files to read the actual fields and confirm the exact join key and 2022 value column."
+    },
+    {
+      "at": "2026-10-07T07:43:01.788930Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:13.352536Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:46.096923Z",
+      "title": "Progress update",
+      "detail": "The first check finished in the background. I confirmed the country file has `ISO_A3` and `benchmark_row_id`, and the fertility table has `Country Code`. I’m now reading the exact 2022 field and sample rows so I can test the real join and class output, not just the file titles."
+    },
+    {
+      "at": "2026-10-07T07:44:50.876394Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:51.224197Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:37.837846Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:38.128398Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:44.678213Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the country fields. The fertility file inspection needs one cleaner pass, so I’m reading its full schema directly from the same source-only trial to confirm the exact `2022` column before I build the join."
+    },
+    {
+      "at": "2026-10-07T07:46:45.557154Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:08.964970Z",
+      "title": "Progress update",
+      "detail": "I confirmed the exact field names now: country polygons have `ISO_A3` and `benchmark_row_id`; the fertility table has `Country Code` and numeric `2022`. I’m recording that finding, then I’ll test the real global join-and-classify output so the production workflow uses a method I’ve already checked end to end."
+    },
+    {
+      "at": "2026-10-07T07:47:11.103390Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:12.569225Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:27.773926Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:28.883401Z",
+      "title": "Progress update",
+      "detail": "I have the tested processor chain now: exact left join, copy the frozen `2022` value into a stable numeric field, then quantile classification. Next I’m reading the workflow schema so I can save a valid production draft with the source-to-requirement bindings Terra expects."
+    },
+    {
+      "at": "2026-10-07T07:47:33.096206Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:33.150337Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:33.875889Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:37.666521Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:58.821064Z",
+      "title": "Progress update",
+      "detail": "I’m running the full global method privately now: exact left join, stable numeric copy of the frozen `2022` value, then quantile classification. I expect all 251 country polygons and their `benchmark_row_id` values to remain, while unmatched or missing fertility values stay unknown instead of turning into zero."
+    },
+    {
+      "at": "2026-10-07T07:48:04.768617Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:48:25.541394Z",
+      "title": "Progress update",
+      "detail": "The processor chain is fine; the first attempt just used the wrong workflow-edge syntax between steps. I’m correcting that argument and rerunning the same tested method, not changing the analysis."
+    },
+    {
+      "at": "2026-10-07T07:48:30.669667Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:49.979198Z",
+      "title": "Progress update",
+      "detail": "The full method check finished in the background and it looks good: 251 country features remain, `benchmark_row_id` stays complete, `fertility_2022` is numeric, and `fertility_class` is present with unknowns kept separate. I’m pulling the exact class ranges and counts now so the saved final workflow and legend match the delivered map."
+    },
+    {
+      "at": "2026-10-07T07:51:50.059540Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:51.080058Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:51.099313Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:08.659576Z",
+      "title": "Progress update",
+      "detail": "I’ve already confirmed the counts and unknown handling from the full test. I’m now pulling the exact class distribution from the tested output so the final legend text and saved result match the delivered map exactly."
+    },
+    {
+      "at": "2026-10-07T07:53:08.852164Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:30.744324Z",
+      "title": "Progress update",
+      "detail": "I have the tested output already. I’m just extracting exact per-class ranges now so the legend description reflects the delivered quantile bins, including the neutral No data category."
+    },
+    {
+      "at": "2026-10-07T07:54:30.941086Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:31.096812Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:33.143383Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:34.565286Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:35.737732Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:37.352604Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:07.996291Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:08.330810Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:23.334104Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:23.752201Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:26.420508Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:28.469352Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:03.990880Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:04.149196Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:04.178747Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:07.151422Z",
+      "title": "Progress update",
+      "detail": "I’ve already confirmed the global result keeps all 251 countries and 41 unknowns. I’m finishing the remaining class-range receipts now, then I’ll save the tested workflow as the production result, add the final country layer to the map, and verify the delivered artifact."
+    },
+    {
+      "at": "2026-10-07T07:56:51.351000Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:02.038728Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the method development. The tested full-scope output already matches the requested join and classification behavior, so I’m refreshing the brief from current evidence and saving that exact method as the production workflow rather than rebuilding it."
+    },
+    {
+      "at": "2026-10-07T07:57:11.832470Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:18.804216Z",
+      "title": "Progress update",
+      "detail": "I’m saving the tested full-scope computation as the production workflow now. That keeps the exact proven method: exact left join, frozen 2022 field, five quantile classes, and a separate No data category."
+    },
+    {
+      "at": "2026-10-07T07:57:30.780366Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:46.609544Z",
+      "title": "Progress update",
+      "detail": "The production workflow is validated and matches the tested method exactly. I’m starting that saved run now so I can inspect the final artifact, bind the layer to the map, and record the accepted result."
+    },
+    {
+      "at": "2026-10-07T07:57:46.808730Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:59:46.631910Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:59:47.731446Z",
+      "title": "Progress update",
+      "detail": "The saved production run finished. I’m inspecting the delivered output node now, then I’ll bind that verified choropleth to the map and record the final answer from the actual delivered artifact."
+    },
+    {
+      "at": "2026-10-07T08:00:52.983871Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:54.202287Z",
+      "title": "Progress update",
+      "detail": "The final run is complete in the background. I’m reading the delivered output receipt now so I can verify the exact final artifact ID before I add the layer and file the accepted result."
+    },
+    {
+      "at": "2026-10-07T08:01:06.281112Z",
+      "title": "Progress update",
+      "detail": "I’ve got the final artifact ID and the delivered map layer ID. I’m doing one focused inspection on the final delivered layer itself now so the accepted result uses the actual final artifact, not just the matching trial output."
+    },
+    {
+      "at": "2026-10-07T08:01:06.371459Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:07.184495Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:39.860555Z",
+      "title": "Progress update",
+      "detail": "The final layer is already on the map. I’m just reusing the completed inspection on the delivered artifact so the accepted result cites the exact final dataset and final layer, not the earlier trial copy."
+    },
+    {
+      "at": "2026-10-07T08:01:39.889713Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:39.908644Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:50.701739Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the delivered artifact itself: 251 country features, `benchmark_row_id` for all 251, `fertility_2022` with 41 unknowns, `fertility_class` spanning 0–5, and the final layer already added to the map. I’m recording the accepted result now from that exact final artifact and layer."
+    },
+    {
+      "at": "2026-10-07T08:03:10.625309Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:03:22.182570Z",
+      "title": "Progress update",
+      "detail": "Terra needs the final assessment tied to the exact acceptance-check wording, not paraphrases. I’m resubmitting the same verified result against those precise conditions now."
+    },
+    {
+      "at": "2026-10-07T08:03:42.731854Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Copy 2022 fertility value",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Quantile classify fertility",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied country polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Global fertility rate by country (2022)",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied fertility table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join fertility to countries",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Copy 2022 fertility value",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Quantile classify fertility",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied country polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied fertility table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join fertility to countries",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Join fertility to countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Quantile classify fertility",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied country polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied fertility table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied country polygons",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied fertility table",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T07:43:42.802682+00:00"
+    },
+    {
+      "sha256": "e4694fe761eacb7d240342583b3d819fc3fa5cb823d5d161149859de3670883d",
+      "bytes": 159757,
+      "finishedAt": "2026-10-07T07:43:42.802682+00:00"
+    },
+    {
+      "sha256": "f0468bc84e37771e51e87c2589a7f8a934e2e7db357d7a84a65044b4119543fc",
+      "bytes": 8416704,
+      "finishedAt": "2026-10-07T07:49:12.111496+00:00"
+    },
+    {
+      "sha256": "f1e0205a893c70f0c557e6522fe803c036b6c649955cd20ec37060c3c4b73795",
+      "bytes": 8418762,
+      "finishedAt": "2026-10-07T07:49:38.542745+00:00"
+    },
+    {
+      "sha256": "2cbbb7ae85366a9b84e97faae10d75c8f8fd70b6760c96e96b49522897b723fa",
+      "bytes": 8419473,
+      "finishedAt": "2026-10-07T07:50:08.921548+00:00"
+    },
+    {
+      "sha256": "f0468bc84e37771e51e87c2589a7f8a934e2e7db357d7a84a65044b4119543fc",
+      "bytes": 8416704,
+      "finishedAt": "2026-10-07T07:58:44.763446+00:00"
+    },
+    {
+      "sha256": "f1e0205a893c70f0c557e6522fe803c036b6c649955cd20ec37060c3c4b73795",
+      "bytes": 8418762,
+      "finishedAt": "2026-10-07T07:59:12.974239+00:00"
+    },
+    {
+      "sha256": "2cbbb7ae85366a9b84e97faae10d75c8f8fd70b6760c96e96b49522897b723fa",
+      "bytes": 8419473,
+      "finishedAt": "2026-10-07T07:59:25.312969+00:00"
+    }
+  ],
+  "snapshotSha256": "389bfcd3af334d0a4841188738d96f94ed7347e598b899a458cde7b7158f10b9",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:43:01.788930Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "What are the exact field names in the supplied country polygons and fertility table, and do they expose ISO_A3, Country Code, benchmark_row_id, and the 2022 fertility value needed for the requested join and choropleth?"
+    },
+    {
+      "at": "2026-10-07T07:47:11.103390Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The source inspection answered the field-name question. The country polygons expose ISO_A3 and benchmark_row_id. The fertility table exposes Country Code and a numeric 2022 column. The fertility table does not expose benchmark_row_id, so the country benchmark_row_id must be preserved from the polygon source during the join.",
+      "limitations": [
+        "This trial confirmed schema and source fields only. It did not yet confirm join coverage counts, class breaks, or the final delivered layer."
+      ],
+      "next_action": "Run a full-scope trial with table-attribute-join and vector-classify to confirm exact join coverage, retained unknowns, and quantitative classes.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:48:04.768617Z",
+      "tool": "run_trial",
+      "status": "failed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full global method preserve all supplied country features and benchmark_row_id values while joining ISO_A3 to Country Code exactly, keeping unmatched or missing 2022 fertility values unknown, and producing a quantitative quantile class field for the choropleth?"
+    },
+    {
+      "at": "2026-10-07T07:48:30.669667Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full global method preserve all supplied country features and benchmark_row_id values while joining ISO_A3 to Country Code exactly, keeping unmatched or missing 2022 fertility values unknown, and producing a quantitative quantile class field for the choropleth?"
+    },
+    {
+      "at": "2026-10-07T07:51:50.059540Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The tested full-scope method preserves all 251 supplied country polygons and all benchmark_row_id values. The exact left join from ISO_A3 to Country Code leaves 34 countries unmatched and the final fertility_2022 field has 41 unknown values total, so unmatched or missing 2022 observations remain unknown rather than zero. The classified output retains 251 features and includes numeric fertility_2022 and quantitative fertility_class fields, with fertility_class using class 0 for No data and numeric classes up to 5 for known values.",
+      "limitations": [
+        "This trial confirms the computation at full scope, but I still need the exact class ranges and counts from the classified output and then the final saved map layer binding."
+      ],
+      "next_action": "Inspect the classified output for per-class ranges and counts, then save and execute the production workflow from this tested method.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:03:10.625309Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The final delivered country layer uses only the supplied frozen country polygons and the supplied frozen fertility table. The delivered artifact contains 251 country features, benchmark_row_id for all 251 countries, a numeric fertility_2022 field in births per woman, and a fertility_class field with five numeric quantile classes plus class 0 for No data. The exact left join used ISO_A3 to Country Code, preserving all original country features; join observations showed 34 unmatched country codes, and the final artifact has 41 unknown 2022 fertility values in total. The delivered map layer is already bound to the current map as layer [resource id withheld]. Known values count is 210 and unknown count is 41. Observed class ranges in the delivered output are 0.701–1.483, 1.487–1.781, 1.785–2.354, 2.369–3.463, and 3.507–6.749 births per woman, with No data shown separately.",
+      "limitations": [
+        "This is a country-level 2022 indicator map only; it does not show subnational variation or any new regional aggregation.",
+        "41 countries remain No data because the supplied frozen inputs have nonmatching identifiers or missing 2022 measurements."
+      ],
+      "next_action": "Use the added layer to review countries and inspect class 0 where the supplied inputs left No data.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:03:42.731854Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The final delivered country layer uses only the supplied frozen country polygons and the supplied frozen fertility table. The delivered artifact contains 251 country features, benchmark_row_id for all 251 countries, a numeric fertility_2022 field in births per woman, and a fertility_class field with five numeric quantile classes plus class 0 for No data. The exact left join used ISO_A3 to Country Code, preserving all original country features; join observations showed 34 unmatched country codes, and the final artifact has 41 unknown 2022 fertility values in total. The delivered map layer is already bound to the current map as layer [resource id withheld]. Known values count is 210 and unknown count is 41. Observed class ranges in the delivered output are 0.701–1.483, 1.487–1.781, 1.785–2.354, 2.369–3.463, and 3.507–6.749 births per woman, with No data shown separately.",
+      "limitations": [
+        "This is a country-level 2022 indicator map only; it does not show subnational variation or any new regional aggregation.",
+        "41 countries remain No data because the supplied frozen inputs have nonmatching identifiers or missing 2022 measurements."
+      ],
+      "next_action": "Use the added layer to review countries and inspect class 0 where the supplied inputs left No data.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "3b61735c019a0765cea01467b162a3b60fcb41b8c2cc0f6d9a389493d6d265c8",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

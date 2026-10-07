@@ -1,0 +1,25 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "782046",
+  "question": "Make a heatmap final size of fire incidents in USA.",
+  "submittedPrompt": null,
+  "finalAnswer": null,
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": null,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": null
+  },
+  "activity": [],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": null,
+  "investigations": []
+}

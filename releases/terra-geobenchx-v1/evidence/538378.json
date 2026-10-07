@@ -1,0 +1,72 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "538378",
+  "question": "Calculate the average freshwater withdrawal in regions with significant mining activities in Africa",
+  "submittedPrompt": "Calculate the average freshwater withdrawal in regions with significant mining activities in Africa\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "I can’t calculate a trustworthy numeric average from the supplied catalog metadata alone. The inventory shows the relevant source types — **Annual freshwater withdrawals, total (billion cubic meters)**, **Mineral extraction facilities in Africa**, and **Countries** — but it does not provide the actual withdrawal values or mining records, and it does not define what counts as **significant** mining.\n\nOne more limit: the listed water source is **total freshwater withdrawal**, not **mining-specific** water use. So the average is **not yet confirmed** in this environment. The closest supported version would be a **country-level** average of total freshwater withdrawal across African countries classified as mining-heavy once the underlying records and a mining threshold are available.\n\n### Limitations\n\n- The supplied environment provides source inventory names rather than the underlying measurement files.\n- The phrase 'significant mining activity' does not include a threshold.\n- The listed water source is total freshwater withdrawal, not mining-specific withdrawal.\n- A numeric average cannot be confirmed from source inventory names alone.\n- **Water withdrawal:** The prompt does not provide the actual withdrawal values to average.\n- **Mining activity:** The prompt does not provide facility records or a threshold for what counts as significant.\n- **Regions:** The requested region unit is not specified, and no subnational Africa regions are listed.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T07:11:19.467027+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "7497304856be2455da8bc4dbe79ebec645b4f4a6e9fdff2781a80b56b94a593c",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "3a5e3c37a71c09d962e2b3a13fa23780a5724a7c8e9cdb5ba5594240e0818887",
+      "snapshotSha256AtReview": "85c2b0de765227bde65a42227ef267743abdd9cb20445d147bae4a824e36f00d",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies absent withdrawal values/mining records, undefined significant-mining threshold and unspecified regional units."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Separates total withdrawals from mining-specific use and proposes country-level averaging only as a different supported version."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Acknowledges the listed relevant source types and limits uncertainty to metadata without observation files."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "No average, country classification or completed analysis is invented; two bookkeeping calls and no jobs/artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests underlying records and a mining threshold before a explicitly country-level comparison."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:03:23.421376Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:03:46.222055Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "2a6791b15f02b040593a49d3e4e7016ab570ca81ab086cda6957692f8a803dc4",
+  "investigations": []
+}

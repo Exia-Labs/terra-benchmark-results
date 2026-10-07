@@ -1,0 +1,967 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "486122",
+  "question": "Generate a heatmap of mineral extraction facilities in regions with high water withdrawals in Africa. ",
+  "submittedPrompt": "Generate a heatmap of mineral extraction facilities in regions with high water withdrawals in Africa. \n\nTask conventions: Use supplied countries with CONTINENT=Africa. High withdrawals means at least 18.29 billion cubic metres per year, WDI ER.H2O.FWTL.K3 2021. Use one unit weight per facility, not the commodity descriptor DsgAttr07. Use original point records strictly within the original selected country polygons; no clipped polygons, location guesses or current data. Join country ISO_A3 to the supplied indicator table's Country Code exactly. Unknown country indicators, nonpositive ratio denominators, missing geometry and missing/nonfinite weights are unknown, not zero. Known zero weights remain valid. Exclude valid points outside the specified geography. Include only eligible points with a finite nonnegative weight in the contributing artifact; report other potentially eligible points as unknown. Use this explicit geographic heatmap convention: grid={\"bounds\": [-18000000, -7325000, 18000000, 7325000], \"crs\": \"EPSG:6933\", \"resolutionX\": 25000, \"resolutionY\": 25000}, radius 150000 metres = three Gaussian standard deviations. First bin each point into its containing grid cell and sum its weight. Smooth using a normalized separable Gaussian, numerical support four standard deviations, constant-zero exterior; do not renormalize edges. Use both grid resolutions for the two axes; keep original grid alignment. This is a declared metric raster adaptation to the original interactive screen-pixel heatmap, not an equivalent zoom-dependent rendering. Output unit: events per grid cell. Zero cells are valid; this is not density per square kilometre. Do not rescale the values for presentation.\n\n\n\nAdd the heatmap raster to the map and retain an inspectable selected-point artifact with original geometry and benchmark_row_id. End with one fenced JSON object: {count: contributing point records, unknown_count: records with unknown eligibility or weight, unlocated_count: original points lacking valid geometry, coverage_note: string, selection: {collectionId,itemId,assetKey}, density: {collectionId,itemId,assetKey}, map_layer_id: heatmap_layer_id}. Explain the data edition, numerical weights, grid, smoothing and coverage limitations. The source-point artifact is not itself the requested heatmap.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"African mineral extraction facilities\",\n    \"edition\": \"USGS 2021 benchmark snapshot\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank ER.H2O.FWTL.K3\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2021\",\n    \"units\": {\n      \"2021\": \"billion m\\u00b3 per year\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": null,
+  "checks": {
+    "expectedCount": 665,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": false,
+    "answerFulfilled": false,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": [
+      "40-minute task deadline exceeded.",
+      "No accepted final answer was published."
+    ]
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:49:50.108919Z",
+      "title": "Progress update",
+      "detail": "I’ll check the retained analysis state, inspect the supplied datasets, and test the exact heatmap method on a small private run before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T08:49:53.365499Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:13.134552Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:13.155944Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:13.918994Z",
+      "title": "Progress update",
+      "detail": "I found no retained work for this request yet. Next I’m inspecting the three supplied snapshots so I can use their exact fields and the authorized item selections, then I’ll test the required smoothing method on a small private run."
+    },
+    {
+      "at": "2026-10-07T08:50:14.088496Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:31.372811Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:31.577857Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:33.806379Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:50:40.692450Z",
+      "title": "Progress update",
+      "detail": "The three supplied inputs are available and their editions match your request. I’ve confirmed the facility and country snapshots are immutable Terra-hosted parquet assets, so the next step is to inspect the exact processor contracts for filtering, joining, gridding, smoothing, and map-ready raster output."
+    },
+    {
+      "at": "2026-10-07T08:50:57.740178Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:01.182986Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:12.718980Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:12.878572Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:15.386961Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:21.539350Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:51:48.849416Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:01.775027Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:54.740647Z",
+      "title": "Progress update",
+      "detail": "I’ve got the first field evidence back. The supplied snapshots do expose `benchmark_row_id`, `CONTINENT`, `ISO_A3`, and the WDI year columns. I’m now reading a few exact rows so I can wire the join and the strict within test without guessing any field names."
+    },
+    {
+      "at": "2026-10-07T08:53:54.817938Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:54.848192Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:54.868915Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:55:09.847457Z",
+      "title": "Progress update",
+      "detail": "I already have the core field names from the first trial. I’m resolving the exact WDI year column and sample rows now, then I’ll test the declared grid-and-smoothing method before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T08:56:24.412076Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:30.816611Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:30.987555Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:30.996031Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:31.126265Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:38.350304Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:55.316209Z",
+      "title": "Progress update",
+      "detail": "I’m pulling a few exact rows now. One earlier table inspection failed because I asked for fields before confirming the full WDI schema; I’m correcting that rather than treating it as a data gap."
+    },
+    {
+      "at": "2026-10-07T08:56:55.336426Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:55.341251Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:55.348674Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:59:30.376751Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the facility and country fields. Next I’m reading the full WDI schema so I can bind the exact `2021` column, then I’ll run the full heatmap method privately on the requested grid."
+    },
+    {
+      "at": "2026-10-07T08:59:30.783290Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:59:43.396080Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:06.782889Z",
+      "title": "Progress update",
+      "detail": "I now have the exact fields. I’m running one private end-to-end test of the actual requested method: exact Africa filter, exact ISO join, strict within, unit facility counts, and the fixed EPSG:6933 Gaussian heatmap."
+    },
+    {
+      "at": "2026-10-07T09:01:42.409877Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T09:01:50.877751Z",
+      "title": "Progress update",
+      "detail": "The trial itself is supported; the first call only used a too-wide investigation bbox. I’m retrying with the allowed study extent while keeping the same exact workflow steps and global output grid."
+    },
+    {
+      "at": "2026-10-07T09:02:15.263047Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:03:58.865101Z",
+      "title": "Progress update",
+      "detail": "The end-to-end method worked in private. I’ve confirmed 52 African countries in the supplied boundaries, 3 high-withdrawal countries at the requested threshold, 665 contributing points, zero unknown-country points, and a valid EPSG:6933 heatmap raster with the requested 25 km grid and 150 km radius. I’m doing one more inspection of the tested outputs before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T09:04:31.850126Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:04:31.999618Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:04:32.009120Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:05:37.402224Z",
+      "title": "Progress update",
+      "detail": "The method trial succeeded. I’m checking whether the selected-point output kept the facility row ID under the exact field name you asked for, because if it was suffixed during the spatial join I need one small cleanup step before I save the final workflow."
+    },
+    {
+      "at": "2026-10-07T09:05:37.588313Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:06:32.857504Z",
+      "title": "Progress update",
+      "detail": "The tested heatmap is fine. The remaining question is just the selected-point artifact field name: the join kept the facility row ID as `benchmark_row_id_target`, not plain `benchmark_row_id`. I’m checking whether there is a supported one-step field mapping so I can hand you the point artifact in the exact form you asked for."
+    },
+    {
+      "at": "2026-10-07T09:06:32.867419Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:06:32.871218Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:06:32.874428Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:07:06.668348Z",
+      "title": "Progress update",
+      "detail": "I found one possible cleanup path: merge the selected points with an empty compatible point set and map `benchmark_row_id_target` back to `benchmark_row_id`. I’m checking the exact merge syntax before I use it."
+    },
+    {
+      "at": "2026-10-07T09:07:06.681981Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:07:06.688030Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:07:06.816508Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:08:21.516217Z",
+      "title": "Progress update",
+      "detail": "I have the tested counts already. I’m doing one last tool check on the field-mapping processor, because if it supports the rename cleanly I can deliver the point layer exactly as requested instead of with the join suffix."
+    },
+    {
+      "at": "2026-10-07T09:08:21.530424Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:08:21.539545Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:08:21.546514Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:08:57.148247Z",
+      "title": "Progress update",
+      "detail": "I have enough to save the tested workflow. I’m just pulling the exact country rows and the raster preview receipt now so the saved plan reflects what the trial actually produced."
+    },
+    {
+      "at": "2026-10-07T09:08:57.156343Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:08:57.467734Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:08:57.498586Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:13:50.384411Z",
+      "title": "Progress update",
+      "detail": "I found a likely fix for the point-field name issue. I’m testing one focused correction now: use aggregate spatial join mode, which should keep the original facility fields while preserving the same matched point set and the same heatmap surface."
+    },
+    {
+      "at": "2026-10-07T09:14:29.765073Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:14:51.107219Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the high-withdrawal countries from the method trial: Egypt, Sudan, and South Africa. I’m now closing out that trial assessment, because Terra requires that before I run the one-point-field correction."
+    },
+    {
+      "at": "2026-10-07T09:14:51.119277Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:14:51.134694Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:15:00.760971Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:15:04.837260Z",
+      "title": "Progress update",
+      "detail": "I’ve recorded the method trial as incomplete for one concrete reason: the selected points came out with `benchmark_row_id_target` instead of `benchmark_row_id`. I’m running the focused correction now."
+    },
+    {
+      "at": "2026-10-07T09:15:39.715216Z",
+      "title": "Progress update",
+      "detail": "I’m running the focused correction now: same selected countries, same heatmap grid, but a different join mode to try to keep the facility row ID as plain `benchmark_row_id`."
+    },
+    {
+      "at": "2026-10-07T09:16:22.264481Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:16:22.265975Z",
+      "title": "Progress update",
+      "detail": "The correction trial finished. I’m checking one exact thing now: whether aggregate join mode finally kept the row ID as plain `benchmark_row_id`, or whether Terra still suffixes it."
+    },
+    {
+      "at": "2026-10-07T09:16:22.271014Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:16:41.082818Z",
+      "title": "Progress update",
+      "detail": "I’ve got the correction output back. I’m reading the exact field list now to confirm whether the suffix is still there before I decide on the last cleanup step."
+    },
+    {
+      "at": "2026-10-07T09:16:41.113536Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:16:41.250800Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:17:06.457910Z",
+      "title": "Progress update",
+      "detail": "The aggregate-join correction kept the same 665 points and the same heatmap, but it still kept the facility row ID as `benchmark_row_id_target`. I’m checking for one last supported field-mapping step rather than guessing a workaround."
+    },
+    {
+      "at": "2026-10-07T09:17:06.908368Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:17:27.802156Z",
+      "title": "Progress update",
+      "detail": "The aggregate-join correction did not solve the field-name issue. It kept the same 665 selected points and the same raster, but the selected-point artifact still only has `benchmark_row_id_target`. I’m recording that and then testing a field-mapping merge as the next supported correction."
+    },
+    {
+      "at": "2026-10-07T09:17:31.152949Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:17:40.084399Z",
+      "title": "Progress update",
+      "detail": "I’m testing the likely field-mapping syntax directly now. If the merge schema rejects it, I’ll use that exact feedback to correct the mapping rather than guessing further."
+    },
+    {
+      "at": "2026-10-07T09:17:48.456413Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:18:30.573755Z",
+      "title": "Progress update",
+      "detail": "I’ve got the merge trial back. I’m verifying the exact selected-point field names now. If `benchmark_row_id` is present, the method is ready to promote; if not, I’ll record the blocker precisely."
+    },
+    {
+      "at": "2026-10-07T09:18:30.582353Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:18:30.595441Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:18:54.001941Z",
+      "title": "Progress update",
+      "detail": "The merge trial likely added one new field, which is promising. I’m confirming whether that new field is the plain `benchmark_row_id` you asked for, then I can save the production workflow."
+    },
+    {
+      "at": "2026-10-07T09:18:54.010084Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:18:54.023039Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:20:52.746240Z",
+      "title": "Progress update",
+      "detail": "The first merge mapping did not create the requested field. I’ve recorded that and I’m trying the same merge with an empty original-facilities schema so the output can carry `benchmark_row_id` as a real field."
+    },
+    {
+      "at": "2026-10-07T09:20:55.925037Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:21:21.696569Z",
+      "title": "Progress update",
+      "detail": "I haven’t tried the most promising version yet. The next correction uses an empty original-facilities schema as the second merge source, so `benchmark_row_id` can exist as a real output field and the selected-point rows can map into it."
+    },
+    {
+      "at": "2026-10-07T09:21:32.829733Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:22:23.529824Z",
+      "title": "Progress update",
+      "detail": "The last correction looks promising: the merged points still have 665 rows and the heatmap still matches exactly. I’m confirming the selected-point field list now so I can promote the corrected method, not the earlier suffix-only version."
+    },
+    {
+      "at": "2026-10-07T09:22:23.554542Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:22:23.563264Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:23:14.520281Z",
+      "title": "Progress update",
+      "detail": "The remapped selection finished. I’m checking the actual row values now. If `benchmark_row_id` is present with values, the corrected method is ready to save and run."
+    },
+    {
+      "at": "2026-10-07T09:23:15.537879Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:24:13.906984Z",
+      "title": "Progress update",
+      "detail": "I found the likely mapping mistake. The previous merge appears to read mappings as source-field → output-field, not the other way around. I’m recording that and retrying with the corrected mapping."
+    },
+    {
+      "at": "2026-10-07T09:24:17.375853Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:25:45.061445Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the method and the heatmap numbers. One formatting detail is still wrong: the selected-point artifact keeps the original row ID under `benchmark_row_id_target` instead of the required `benchmark_row_id`. I’m fixing just that field mapping now, then I’ll publish the raster to the map and return the final result."
+    },
+    {
+      "at": "2026-10-07T09:26:15.655670Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:27:38.863789Z",
+      "title": "Progress update",
+      "detail": "I’ve isolated the problem to one column rename. The selection and the raster are already correct. I’m checking the safest supported way to copy `benchmark_row_id_target` into a real `benchmark_row_id` field without changing the 665 selected points or the heatmap values."
+    },
+    {
+      "at": "2026-10-07T09:27:39.241570Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:27:46.988808Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:28:06.269940Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Heatmap from remapped points",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "Empty facilities with original schema",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Original facilities schema",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Selected points with requested row id field",
+      "description": "Recorded vector-merge · succeeded"
+    },
+    {
+      "title": "Selected points with suffixed row id",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Empty facilities with original schema",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected points with requested row id field",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Heatmap from remapped points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Heatmap from mapped points",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "Empty compatible point set",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Selected points with mapped row id",
+      "description": "Recorded vector-merge · succeeded"
+    },
+    {
+      "title": "Selected points with suffixed row id",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Selected points with mapped row id",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Heatmap from mapped points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Contributing facilities with original fields",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Supplied facilities",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Heatmap raster from corrected selection",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "High-withdrawal countries from tested trial",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Contributing facilities with original fields",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown facilities with original fields",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Heatmap raster from corrected selection",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Unknown-withdrawal countries from tested trial",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Unknown facilities with original fields",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "African countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Facilities within African country polygons",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Contributing facilities",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Supplied countries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Countries with 2021 withdrawals",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Supplied facilities",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Heatmap raster",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "High-withdrawal countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "African countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "High-withdrawal countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Countries with unknown 2021 withdrawals",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Facilities within African country polygons",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Contributing facilities",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Facilities with unknown country eligibility",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Heatmap raster",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Countries with unknown 2021 withdrawals",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Facilities with unknown country eligibility",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Supplied withdrawals table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied countries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied facilities",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied facilities",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied WDI table",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied WDI table",
+      "description": "Recorded source · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T08:52:15.002565+00:00"
+    },
+    {
+      "sha256": "a5818522a2c966354fb044df972b1793a62ae6d4de4955ff7948a953555fae94",
+      "bytes": 290677,
+      "finishedAt": "2026-10-07T08:52:15.002565+00:00"
+    },
+    {
+      "sha256": "59dc8930c3d22c86063ce406aa166847b4233fee91708aad1ba292db4d831ef7",
+      "bytes": 101111,
+      "finishedAt": "2026-10-07T08:52:15.002565+00:00"
+    },
+    {
+      "sha256": "a1c538b74b7265882452aab9f505274a889f7c7d3ecb5744879c3722fcc74cf3",
+      "bytes": 919098,
+      "finishedAt": "2026-10-07T09:02:33.481815+00:00"
+    },
+    {
+      "sha256": "89757c249e9e6a63005e743359767d6b405e1ce0942c287ee9282309864665af",
+      "bytes": 357676,
+      "finishedAt": "2026-10-07T09:02:43.107409+00:00"
+    },
+    {
+      "sha256": "a54aa4c30d9906966c2605d94f9f059b9941ce53e832c76dd8e162cf4bff6a08",
+      "bytes": 922079,
+      "finishedAt": "2026-10-07T09:02:43.107409+00:00"
+    },
+    {
+      "sha256": "73b5abb4f54527eb3aaa78214d2c7849a35bf130f36696cf8f9d8fe854473c96",
+      "bytes": 123502,
+      "finishedAt": "2026-10-07T09:02:55.505195+00:00"
+    },
+    {
+      "sha256": "827cfd465e9aef701966b0c63e089862a15345310d86f62d320d1bc84a56874d",
+      "bytes": 109473,
+      "finishedAt": "2026-10-07T09:02:47.824761+00:00"
+    },
+    {
+      "sha256": "40c25c62c13aa4ef346c5189d5a4d7e3696b7cd254fff0fa065648ef64069dcc",
+      "bytes": 19848,
+      "finishedAt": "2026-10-07T09:02:47.824761+00:00"
+    },
+    {
+      "sha256": "5818d112e169137d591c79883d3985224d589b5ebf5e2acbf303b3480a26dfa2",
+      "bytes": 33500,
+      "finishedAt": "2026-10-07T09:02:55.505195+00:00"
+    },
+    {
+      "sha256": "8ba005507a5cf72e2804cf8765b8f80136625fc87221450343121f8511e45bf2",
+      "bytes": 51550,
+      "finishedAt": "2026-10-07T09:03:00.259183+00:00"
+    },
+    {
+      "sha256": "73b5abb4f54527eb3aaa78214d2c7849a35bf130f36696cf8f9d8fe854473c96",
+      "bytes": 123502,
+      "finishedAt": "2026-10-07T09:15:54.440378+00:00"
+    },
+    {
+      "sha256": "8ba005507a5cf72e2804cf8765b8f80136625fc87221450343121f8511e45bf2",
+      "bytes": 51550,
+      "finishedAt": "2026-10-07T09:15:58.773192+00:00"
+    },
+    {
+      "sha256": "5818d112e169137d591c79883d3985224d589b5ebf5e2acbf303b3480a26dfa2",
+      "bytes": 33500,
+      "finishedAt": "2026-10-07T09:15:54.440378+00:00"
+    },
+    {
+      "sha256": "a18e0f4b93c1512093f41e38bfcbf70455d3e969a9c7bb9e2ec9061c21dd9c97",
+      "bytes": 124139,
+      "finishedAt": "2026-10-07T09:17:56.936759+00:00"
+    },
+    {
+      "sha256": "8ba005507a5cf72e2804cf8765b8f80136625fc87221450343121f8511e45bf2",
+      "bytes": 51550,
+      "finishedAt": "2026-10-07T09:18:01.166677+00:00"
+    },
+    {
+      "sha256": "ef226138062c001d93aa00f71140b53b23941c63987d9dbe30f25d245a5c67f7",
+      "bytes": 20931,
+      "finishedAt": "2026-10-07T09:21:41.643385+00:00"
+    },
+    {
+      "sha256": "c4ee00103dbf41ea8fb3d453c6f623ef896be610c33594c7168b852e3e763673",
+      "bytes": 125369,
+      "finishedAt": "2026-10-07T09:21:45.872080+00:00"
+    },
+    {
+      "sha256": "8ba005507a5cf72e2804cf8765b8f80136625fc87221450343121f8511e45bf2",
+      "bytes": 51550,
+      "finishedAt": "2026-10-07T09:21:53.466670+00:00"
+    }
+  ],
+  "snapshotSha256": "2670e75de490bffeaba23bf27db36220e6489a6ba1527e7f4c04c47db1cbd030",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:52:01.775027Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Which exact fields in the supplied snapshots identify African countries, exact ISO join keys, 2021 withdrawal values, and facility benchmark row IDs for the requested heatmap workflow?"
+    },
+    {
+      "at": "2026-10-07T08:59:43.396080Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The supplied facility snapshot exposes point geometry and benchmark_row_id. The supplied country snapshot exposes CONTINENT and ISO_A3. The supplied WDI table exposes Country Code and the 2021 column needed for the exact join and threshold. This answers the field-selection question for the requested workflow.",
+      "limitations": [
+        "The trial confirmed field names and source structure, but it did not yet test the full country-selection and heatmap computation."
+      ],
+      "next_action": "Run a private full-method trial using exact joins, strict within selection, the declared EPSG:6933 grid, and Gaussian smoothing.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T09:01:42.409877Z",
+      "tool": "run_trial",
+      "status": "failed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full requested workflow produce the correct contributing-point selection and a heatmap on the declared EPSG:6933 grid using strict within selection and unit facility weights?"
+    },
+    {
+      "at": "2026-10-07T09:02:15.263047Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full requested workflow produce the correct contributing-point selection and a heatmap on the declared EPSG:6933 grid using strict within selection and unit facility weights?"
+    },
+    {
+      "at": "2026-10-07T09:14:29.765073Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does aggregate spatial join mode preserve the original facility benchmark_row_id field while keeping the same selected-point membership and heatmap values?"
+    },
+    {
+      "at": "2026-10-07T09:15:00.760971Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "insufficient",
+      "findings": "The private end-to-end method produced the correct geographic selection and heatmap behavior: 52 African countries were selected from the supplied boundaries, 3 countries met the 2021 withdrawal threshold (Egypt, Sudan, and South Africa), 665 facility points were strictly within those country polygons, unknown-country points were 0, and the raster used the declared EPSG:6933 grid at 25 km with a 150 km Gaussian radius and events-per-cell units. However, the selected-point artifact preserved the facility row identifier under the suffixed field name benchmark_row_id_target rather than the requested benchmark_row_id field.",
+      "limitations": [
+        "The tested selection and heatmap are scientifically correct, but the selected-point artifact still needs a field-name cleanup to match the requested deliverable exactly."
+      ],
+      "next_action": "Run a focused correction trial that preserves the same selected point set while keeping the original facility benchmark_row_id field name, then promote that corrected selection into the saved workflow.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T09:17:31.152949Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "insufficient",
+      "findings": "Aggregate spatial join mode preserved the same selected-point membership and the same heatmap values: contributing points remained 665, unknown points remained 0, and the corrected heatmap raster matched the declared EPSG:6933 grid, 25 km resolution, 150 km Gaussian radius, and events-per-cell statistics from the earlier full-method trial. However, the selected-point artifact still preserved the facility row identifier only as benchmark_row_id_target rather than the requested benchmark_row_id field.",
+      "limitations": [
+        "The selection and heatmap are stable, but the selected-point artifact still needs one supported field-mapping step to expose benchmark_row_id under the requested field name."
+      ],
+      "next_action": "Test a focused vector-merge field mapping that copies benchmark_row_id_target into benchmark_row_id while preserving point geometry and the 665 selected records.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T09:17:48.456413Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Can vector-merge map benchmark_row_id_target back to benchmark_row_id while preserving the same selected point set and heatmap?"
+    },
+    {
+      "at": "2026-10-07T09:20:55.925037Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "insufficient",
+      "findings": "The vector-merge mapping attempt preserved the same selected-point membership and the same heatmap values: the merged point artifact still had 665 rows, and the derived heatmap matched the earlier EPSG:6933 raster statistics exactly. However, the output still did not contain a benchmark_row_id field. It added blue_source_index and retained benchmark_row_id_target instead, so the requested selected-point artifact format was still not met.",
+      "limitations": [
+        "The field-mapping syntax used in this trial did not expose benchmark_row_id under the requested field name."
+      ],
+      "next_action": "Test vector-merge again using an empty original-facilities schema as the second source and per-source field mappings so benchmark_row_id is a real output field with values copied from benchmark_row_id_target.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T09:21:32.829733Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Can vector-merge map the selected-point benchmark_row_id_target values into a real benchmark_row_id field when the second source uses the original facilities schema?"
+    },
+    {
+      "at": "2026-10-07T09:24:17.375853Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "insufficient",
+      "findings": "Using an empty original-facilities schema as a second merge source preserved the same 665 selected points and the same EPSG:6933 heatmap statistics, but the merge still did not populate the requested benchmark_row_id field. The output contained benchmark_row_id as all null while benchmark_row_id_target retained the correct non-null facility row identifiers, which indicates the merge field mapping was specified in the wrong direction.",
+      "limitations": [
+        "The corrected selection and raster are stable, but the merge field-mapping direction still needs one more fix to expose benchmark_row_id with values."
+      ],
+      "next_action": "Retry vector-merge with source-field to output-field mappings so benchmark_row_id_target from the selected points populates benchmark_row_id in the output while preserving the same 665 records and heatmap.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "25913ad71becfb2b49979bc84a3240d70b3207191b09cfc32b45b4332a044bdb",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

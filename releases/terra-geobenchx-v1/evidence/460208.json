@@ -1,0 +1,458 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "460208",
+  "question": "Map total population distribution globally.",
+  "submittedPrompt": "Map total population distribution globally.\n\nTask conventions: Use the frozen country polygons and World Bank SP.POP.TOTL 2023 column, in people. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature and benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SP.POP.TOTL\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — I added the 2023 World Bank total population by country layer to your map, in people, with five quantile classes and a separate No data category.\n\nIt keeps all 251 supplied country features; 217 have known values and 34 remain No data under the exact ISO_A3 → Country Code join. This is a country-level indicator map, not a within-country population surface or a new aggregation.\n\nLegend breaks are 466,223.4, 4,035,963.2, 11,002,753.2, and 34,343,880.2 people. You can now inspect the layer and the derived country dataset on the map.\n\n### Limitations\n\n- Thirty-four country features remain unknown under the exact ISO_A3 to Country Code join and must stay in the neutral No data category.\n- This is a country-level 2023 indicator map, not a subnational population surface or a new regional aggregation.\n- Thirty-four country features have no exact ISO_A3 to Country Code match in the supplied frozen inputs, so they remain in the No data category.\n- This is a country-level 2023 indicator map in people, not a subnational population surface or a new regional aggregation.\n- This layer contains only the supplied country features.\n- Thirty-four country features remain unknown under the exact-key join and stay as No data.\n- This is a country-level comparison map, not within-country population distribution.",
+  "checks": {
+    "expectedCount": 217,
+    "actualCount": 217,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:47:46.801857Z",
+      "title": "Progress update",
+      "detail": "I’ll first recover the current analysis context, then inspect the two supplied inputs so I can build the exact join and legend the task asks for."
+    },
+    {
+      "at": "2026-10-07T08:47:57.566391Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:10.612376Z",
+      "title": "Progress update",
+      "detail": "I found no saved brief yet. I’m recording the goal now so I can test the join and classification against the exact 2023 inputs before I save the full production workflow."
+    },
+    {
+      "at": "2026-10-07T08:48:21.864583Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:31.113477Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:31.145660Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:40.715727Z",
+      "title": "Progress update",
+      "detail": "I have the two frozen inputs. Next I’m checking their actual field names and a small sample so I can use the exact ISO and 2023 columns instead of guessing."
+    },
+    {
+      "at": "2026-10-07T08:48:41.075634Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:41.125904Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:48.010709Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:48.020177Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:48.623878Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:48.645251Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:59.752438Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:59.761309Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:59.762452Z",
+      "title": "Progress update",
+      "detail": "I found the likely processor path: join the population table onto the country polygons, then classify the joined 2023 field with the choropleth processor that already publishes a legend and a distinct No data class. Now I’m checking the exact processor schemas before I test it."
+    },
+    {
+      "at": "2026-10-07T08:49:06.945612Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:07.938122Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:15.906129Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:16.402678Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:21.620877Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:38.967746Z",
+      "title": "Progress update",
+      "detail": "I expect the exact ISO_A3→Country Code left join to keep all 251 country polygons, leave nonmatches as unknown, and produce a joined 2023 numeric field that the classifier can split into quantile classes plus a separate No data category. I’m running that full global private test now because the dataset is small enough to test the real output directly."
+    },
+    {
+      "at": "2026-10-07T08:49:45.862474Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:55.922202Z",
+      "title": "Progress update",
+      "detail": "The first trial was blocked by a brief argument issue, not by the data. I recorded the study extent as strings, so I’m correcting the brief to an explicit numeric global bbox and refreshing the field notes before retrying the same test."
+    },
+    {
+      "at": "2026-10-07T08:50:04.545343Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:38.045772Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:45.914880Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:59.435520Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:59.500193Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:59.825365Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:01.549505Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:02.832135Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the full-scope method privately: 251 country polygons were retained, 217 have a known 2023 value, and 34 stay as No data under the exact-key rule. I’m saving that tested method as the production workflow now so I can execute the final map layer and inspect the delivered artifact."
+    },
+    {
+      "at": "2026-10-07T08:53:06.271219Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:06.288077Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:06.297376Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:07.079148Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:13.149117Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:13.404329Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:33.761057Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:43.231346Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:43.435818Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:05.021318Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:28.572647Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:55:52.138710Z",
+      "title": "Progress update",
+      "detail": "The saved workflow has now finished in the background. I’m inspecting the delivered output and binding that exact classified country dataset to the map, then I’ll record the final counts and layer ID on the accepted result."
+    },
+    {
+      "at": "2026-10-07T08:55:52.156783Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:55:52.167710Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:17.852931Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:17.883108Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:17.917761Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:19.208530Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:42.791162Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:42.925909Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:56:43.231940Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:57:19.457326Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:57:25.767219Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:57:26.095899Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:58:52.015311Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:58:59.896615Z",
+      "title": "Progress update",
+      "detail": "I hit an assessment formatting check, not a data problem. I’m resubmitting the same verified result with the six acceptance conditions written exactly as the saved brief expects."
+    },
+    {
+      "at": "2026-10-07T08:59:07.882559Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Classify joined 2023 values",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied frozen country polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "World Bank total population 2023 by country",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join 2023 population onto countries",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Supplied frozen World Bank population table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Classify joined 2023 values",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied frozen country polygons",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join 2023 population onto countries",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Supplied frozen World Bank population table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join 2023 population onto countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify joined 2023 values",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify joined 2023 values",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T08:50:30.828830+00:00"
+    },
+    {
+      "sha256": "88594296e94fe36d2810fac2feb2672aa3b7fc3985d9617914ddbf11d4157626",
+      "bytes": 171501,
+      "finishedAt": "2026-10-07T08:50:30.828830+00:00"
+    },
+    {
+      "sha256": "189474926de3f858e14a02434902bb10cc21b210f00c153ed319be493bc2033f",
+      "bytes": 8416876,
+      "finishedAt": "2026-10-07T08:50:57.633916+00:00"
+    },
+    {
+      "sha256": "ddee0cae6fa67b55c84f5d2e24d9f34afd55d9a15789e62ff5908b5035b370db",
+      "bytes": 8417599,
+      "finishedAt": "2026-10-07T08:51:36.274754+00:00"
+    },
+    {
+      "sha256": "189474926de3f858e14a02434902bb10cc21b210f00c153ed319be493bc2033f",
+      "bytes": 8416876,
+      "finishedAt": "2026-10-07T08:55:02.654989+00:00"
+    },
+    {
+      "sha256": "ddee0cae6fa67b55c84f5d2e24d9f34afd55d9a15789e62ff5908b5035b370db",
+      "bytes": 8417599,
+      "finishedAt": "2026-10-07T08:55:33.515173+00:00"
+    }
+  ],
+  "snapshotSha256": "6b31f16d523a48f4d19671c37fc49b1692b54c05582a630efc43bb4ebcc9ff05",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:49:45.862474Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the exact ISO_A3 to Country Code left join on the supplied frozen inputs retain every original country polygon and benchmark_row_id, preserve unknowns, and produce a valid 2023 population choropleth with quantile classes and a No data class?"
+    },
+    {
+      "at": "2026-10-07T08:52:45.914880Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The exact left join kept all 251 supplied country features and benchmark_row_id values. The joined 2023 field is numeric in people for 217 countries and null for 34 unmatched countries, which remain unknown instead of guessed. The classifier produced five quantile classes over the known values plus class 0 for No data; its summary reports breaks at 466223.4, 4035963.2000000025, 11002753.2, and 34343880.2 people.",
+      "limitations": [
+        "The exact-key join leaves 34 country features without a 2023 value, so those countries must stay in the neutral No data category.",
+        "This remains a country-level 2023 indicator map, not a subnational population surface or a new regional aggregation."
+      ],
+      "next_action": "Save the tested full-global method as the production workflow, then execute it, add the final classified country layer to the map, and inspect the final artifact and legend fields.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:58:52.015311Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "I delivered the global country choropleth on the map and preserved all 251 supplied country features. The final artifact keeps original geometry and benchmark_row_id, stores the numeric 2023 population field in people plus the population_class field, maps 217 known values, and leaves 34 countries as No data under the exact ISO_A3 to Country Code join. The displayed legend uses five quantile classes with breaks at 466223.4, 4035963.2000000025, 11002753.2, and 34343880.2 people, plus class 0 for No data.",
+      "limitations": [
+        "Thirty-four country features have no exact ISO_A3 to Country Code match in the supplied frozen inputs, so they remain in the No data category.",
+        "This is a country-level 2023 indicator map in people, not a subnational population surface or a new regional aggregation."
+      ],
+      "next_action": "Review the map layer or inspect the derived country dataset.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:59:07.882559Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I delivered the global country choropleth on the map and preserved all 251 supplied country features. The final artifact keeps original geometry and benchmark_row_id, stores the numeric 2023 population field in people plus the population_class field, maps 217 known values, and leaves 34 countries as No data under the exact ISO_A3 to Country Code join. The displayed legend uses five quantile classes with breaks at 466223.4, 4035963.2000000025, 11002753.2, and 34343880.2 people, plus class 0 for No data.",
+      "limitations": [
+        "Thirty-four country features have no exact ISO_A3 to Country Code match in the supplied frozen inputs, so they remain in the No data category.",
+        "This is a country-level 2023 indicator map in people, not a subnational population surface or a new regional aggregation."
+      ],
+      "next_action": "Review the map layer or inspect the derived country dataset.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "41897d8855d3e4a4a130092ccc6062b42258737b7956b4eb07095f4c0c5ec7d1",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

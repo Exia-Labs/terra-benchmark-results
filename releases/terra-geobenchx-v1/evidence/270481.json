@@ -1,0 +1,450 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "270481",
+  "question": "Show global labor force concentration.",
+  "submittedPrompt": "Show global labor force concentration.\n\nTask conventions: Use the frozen country polygons and World Bank SL.TLF.TOTL.IN 2023 column, in people. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature and benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SL.TLF.TOTL.IN\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the global labor force layer is on the map as **Global labor force concentration**.\n\nIt uses the supplied frozen **World Bank country boundaries** and the supplied frozen **World Bank SL.TLF.TOTL.IN 2023** values, in **people**. The legend is a five-class **quantile** choropleth with breaks at **801,197**, **2,912,540**, **5,806,355**, and **15,829,771** people, plus a neutral **No data** class.\n\nPractical limits: this is a **country-level 2023 total** map only, not a subnational surface. **65 countries remain No data** because the exact **ISO_A3 → Country Code** join did not yield a usable frozen 2023 value for them, so they were kept unknown rather than guessed.\n\nSources: supplied immutable GeoBenchX fixtures from Terra — **World Bank country boundaries** and **World Bank World Development Indicators SL.TLF.TOTL.IN (2023)**, retrieved in this run on **2026-10-07 UTC**.\n\n### Limitations\n\n- The map shows country-level totals only. It does not show subnational distribution within countries.\n- Unknown countries remain unknown when the supplied ISO_A3 and Country Code do not exactly match or the frozen 2023 value is missing.\n- This is a country-level map of 2023 totals in people. It does not show where workers are located inside each country.\n- Sixty-five countries remain No data because the exact ISO_A3 to Country Code join did not produce a usable frozen 2023 value for them.\n- The result is limited to the supplied frozen country polygons.\n- Unknowns remain where the exact code match fails or the frozen 2023 value is missing.\n- If tied values collapse quantile breaks, fewer classes would be produced.",
+  "checks": {
+    "expectedCount": 186,
+    "actualCount": 186,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:28:09.226816Z",
+      "title": "Progress update",
+      "detail": "I’ll inspect the supplied country and indicator items first, then test the exact join and quantile classification before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T06:28:19.918408Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:19.943712Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:19.963076Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:22.179802Z",
+      "title": "Progress update",
+      "detail": "I found the workflow and trial tools. Next I’m checking the exact fields in the supplied boundary and labor-force items so the join uses only the frozen inputs and exact keys you specified."
+    },
+    {
+      "at": "2026-10-07T06:28:28.341154Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:28:28.385643Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:28:29.466472Z",
+      "title": "Progress update",
+      "detail": "The inputs are the expected frozen Terra-generated fixtures. I’m sampling their schemas now to confirm the boundary key, the WDI country code field, the 2023 numeric column, and benchmark_row_id before I build the join."
+    },
+    {
+      "at": "2026-10-07T06:28:33.951138Z",
+      "title": "list_items",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:34.331853Z",
+      "title": "list_items",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:43.796139Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:44.279118Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:56.357925Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:56.635302Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:56.660104Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:57.823696Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:01.833299Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:02.108621Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:02.498457Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:26.953878Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:27.523548Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:36.432333Z",
+      "title": "Progress update",
+      "detail": "I confirmed the available processors: an exact left attribute join and a vector quantile classifier that keeps unknowns in a separate No data class. I’m checking the proposal schema now so the saved production method records the exact frozen sources, year, join key, and class rules."
+    },
+    {
+      "at": "2026-10-07T06:29:36.532683Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:36.570247Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:45.100692Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:45.291354Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:46.814276Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:52.800897Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:57.023714Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:58.657031Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:30:26.189690Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:35.602202Z",
+      "title": "Progress update",
+      "detail": "I’m running one full-world private test now. I expect a left join to keep all 251 countries, with known values on the exact code matches and a separate No data class for the unmatched or missing cases."
+    },
+    {
+      "at": "2026-10-07T06:30:40.194413Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:58.604474Z",
+      "title": "Progress update",
+      "detail": "The private test succeeded. It kept all 251 country features, joined 186 known 2023 values, and left 65 countries as No data. I’m checking the actual preview and sample rows now, then I’ll save and run the production workflow from this tested method."
+    },
+    {
+      "at": "2026-10-07T06:31:58.682593Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:58.706241Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:00.898870Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:01.645172Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:24.157050Z",
+      "title": "Progress update",
+      "detail": "The method is working on the full global extent. I’m finishing the evidence checks on the tested artifact, then I’ll save the production workflow from that tested computation, run it, add the verified map layer, and record the final answer object."
+    },
+    {
+      "at": "2026-10-07T06:32:39.807536Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:39.817858Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:41.703430Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:52.735271Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:06.875273Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:07.169766Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:07.210468Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:14.401914Z",
+      "title": "Progress update",
+      "detail": "The key evidence is confirmed now: 251 total country features, 186 known 2023 values, 65 unknowns, and five quantile classes with the required break handling. I’m saving the production workflow from this tested global method next."
+    },
+    {
+      "at": "2026-10-07T06:33:24.995570Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:45.764320Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:58.339245Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:43.791477Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:43.804174Z",
+      "title": "Progress update",
+      "detail": "The saved workflow finished in the background. I’m inspecting its exact final output and map-ready receipt now, then I’ll bind the verified country layer to the map and record the final answer object."
+    },
+    {
+      "at": "2026-10-07T06:35:45.300409Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:58.946184Z",
+      "title": "Progress update",
+      "detail": "The final workflow already produced the map layer. I’m reading the final artifact and final class summary now so the recorded result uses the delivered item and the exact final layer ID, not just the trial copy."
+    },
+    {
+      "at": "2026-10-07T06:36:58.979471Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:59.003076Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:00.366211Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:56.295008Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:04.165687Z",
+      "title": "Progress update",
+      "detail": "I have the final delivered item and final map layer ID already. I’m pulling the final preview receipt now so the last assessment cites the delivered artifact itself, not only the trial evidence."
+    },
+    {
+      "at": "2026-10-07T06:38:55.866870Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Quantile classification",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Global labor force concentration",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join frozen 2023 labor force to countries",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Quantile classification",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Join frozen 2023 labor force to countries",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join frozen 2023 labor force to countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Quantile classification",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Quantile classification",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "9ef01befe196b704ed8fb739b12807e2c3e489559fcb2acfd51a068aab87ccb7",
+      "bytes": 98393,
+      "finishedAt": "2026-10-07T06:30:50.395732+00:00"
+    },
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T06:30:50.395732+00:00"
+    },
+    {
+      "sha256": "9c4d3d12f2192656d38556ff9f65b12a140ca5b49f67deab786480b2f9ee7874",
+      "bytes": 8416660,
+      "finishedAt": "2026-10-07T06:31:04.628582+00:00"
+    },
+    {
+      "sha256": "2c686eca3fbfa629a5e303283af1ac7d8ed88c06ac174a4f09e7f13b61ba1ed6",
+      "bytes": 8417319,
+      "finishedAt": "2026-10-07T06:31:28.197292+00:00"
+    },
+    {
+      "sha256": "9c4d3d12f2192656d38556ff9f65b12a140ca5b49f67deab786480b2f9ee7874",
+      "bytes": 8416660,
+      "finishedAt": "2026-10-07T06:34:48.180062+00:00"
+    },
+    {
+      "sha256": "2c686eca3fbfa629a5e303283af1ac7d8ed88c06ac174a4f09e7f13b61ba1ed6",
+      "bytes": 8417319,
+      "finishedAt": "2026-10-07T06:35:26.321435+00:00"
+    }
+  ],
+  "snapshotSha256": "71d6d72a18417da344ff3723779d9758a017a98b39b411b34563fac4511b788d",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:30:40.194413Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the exact ISO_A3 to Country Code left join preserve every supplied country and produce the required 2023 quantile choropleth with a separate No data class?"
+    },
+    {
+      "at": "2026-10-07T06:32:52.735271Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-world test answered the method question. The exact left join preserved all 251 supplied country features and benchmark_row_id values, joined the frozen 2023 labor force field where Country Code exactly matched ISO_A3, and left 65 countries as unknown rather than guessing values. The classifier produced five quantile classes for the 186 known numeric values, with class 0 reserved for No data. Breaks were 801,197; 2,912,540; 5,806,355; and 15,829,771 people. The reported boundary convention is lower inclusive and upper exclusive, which places values equal to a break into the upper class as required.",
+      "limitations": [
+        "The map remains country-level only. It does not show any subnational distribution within countries.",
+        "Unknown countries reflect unmatched identifiers or missing frozen 2023 measurements in the supplied inputs."
+      ],
+      "next_action": "Promote this tested full-world computation into the saved workflow, run it, inspect the final output, add the resulting country layer to the map, and record the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:38:55.866870Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I delivered the requested global country choropleth from the supplied frozen inputs and added it to the map. The final layer contains all 251 supplied country features, 186 known 2023 labor force values in people, and 65 No data countries kept as unknowns. The final quantile breaks are 801,197; 2,912,540; 5,806,355; and 15,829,771 people, with class 0 reserved for No data. Sources used were the immutable Terra-produced GeoBenchX harmonized World Bank country boundaries item [resource id withheld] and the immutable Terra-produced frozen GeoBenchX World Development Indicators SL.TLF.TOTL.IN table item [resource id withheld], retrieved in this run on 2026-10-07 UTC.",
+      "limitations": [
+        "This is a country-level map of 2023 totals in people. It does not show where workers are located inside each country.",
+        "Sixty-five countries remain No data because the exact ISO_A3 to Country Code join did not produce a usable frozen 2023 value for them."
+      ],
+      "next_action": "Review the choropleth on the map and inspect countries of interest.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "265ac4ef8a69925eafb9cfdc0221ec4f8dd85b0edd48557e790e98cb37a7ee48",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

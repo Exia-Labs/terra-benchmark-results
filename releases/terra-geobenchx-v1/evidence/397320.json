@@ -1,0 +1,93 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "397320",
+  "question": "Generate a heatmap of population density around African mineral extraction sites",
+  "submittedPrompt": "Generate a heatmap of population density around African mineral extraction sites\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "**Delivered:** a source-availability answer, not a heatmap.\n\nI can’t generate the requested Africa-wide population-density heatmap from this closed catalog alone. The inventory lists **mineral extraction facilities in Africa**, **Algeria population density at 1 km**, and **Angola population at 1 km** (which would need preparation to become density), but it does not list comparable population-density coverage for most of Africa; the country-level population tables are too coarse for a site-level heatmap.\n\n**Unanswered:** no rendered heatmap or numerical analysis was produced, because this setup provides source listings rather than the observation files themselves.\n\n**Next step:** add an Africa-wide population-density source, or narrow the request to **Algeria** and possibly **Angola** after converting counts to density. Relevant listed sources: GEO_CATALOG **Mineral extraction facilities in Africa**; RASTER_CATALOG **Algeria population density per 1 km 2020**; RASTER_CATALOG **Angola population, 2020, people, resolution 1 km**.\n\n### Limitations\n\n- This task provides source listings only, not the observation files needed to compute or render a heatmap.\n- The supplied inventory does not list continent-wide population-density coverage for Africa.\n- Only a source-availability conclusion is supported here. No rendered heatmap can be produced from the supplied inventory alone.\n- **Mine sites:** This setup does not include the actual site features, so I cannot render or inspect them.\n- **Population density:** I do not have listed population-density coverage for most of Africa, so I cannot make the requested continent-wide heatmap.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T06:52:59.800961+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "46adc4d7d4d9a5186d64a8d12909ec22a130c95be3b2dd99c1b075392e7ec5a2",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "5cc7436923e578ab302fb6153269c55f89744e9ceb1f5d3587d979406a9c710f",
+      "snapshotSha256AtReview": "be6d28a644d9b53c78466d4ad095a70250f975f65b61535a102863e2cd8082fb",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies continental mine-point coverage versus population rasters for only selected African countries."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Rejects country population totals as site-level density and keeps an Algeria/Angola subset distinct from Africa-wide coverage."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Names the Algeria density and Angola count rasters while stating only listings, not observations, are available here."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Explicitly reports no rendered heatmap or numerical analysis; two bookkeeping calls and no jobs/artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests continent-wide density or an explicitly narrowed subset, with count-to-density preparation for Angola."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:50:30.624519Z",
+      "title": "Progress update",
+      "detail": "I’m checking the Terra tools now so I can record this result properly and confirm whether any actual analysis can run in this closed-catalog setup."
+    },
+    {
+      "at": "2026-10-07T06:50:34.051092Z",
+      "title": "Progress update",
+      "detail": "I found the Terra analysis tools. I’m reading the current analysis record so I can save the actual outcome cleanly before I answer again."
+    },
+    {
+      "at": "2026-10-07T06:50:34.291266Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:50:55.936579Z",
+      "title": "Progress update",
+      "detail": "I’m saving the actual analytical outcome now: this request can only be answered as a source-coverage limitation in this closed-catalog setup, not as a rendered heatmap."
+    },
+    {
+      "at": "2026-10-07T06:51:02.088547Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [],
+  "snapshotSha256": "a438c928ea62a94c543f85c386ab104d4610f7e200855acb07489ee4a1b0df74",
+  "investigations": [],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "f653572a836f69a4eabed2cb32c4fb3c467b245e0190ca097a3785f1505cf666",
+    "changes": [
+      "Product-name normalization"
+    ]
+  }
+}

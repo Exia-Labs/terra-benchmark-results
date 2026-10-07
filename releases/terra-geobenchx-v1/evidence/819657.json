@@ -1,0 +1,490 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "819657",
+  "question": "What percentage of Chile's population lives in areas with population density over 1000 people per square km?",
+  "submittedPrompt": "What percentage of Chile's population lives in areas with population density over 1000 people per square km?\n\nTask conventions: Use the frozen WorldPop 2020 UN-adjusted population-count raster, band 1, not current data. Its values are people PER CELL, not people/km². Define density as each original valid cell count divided by that geographic cell’s full WGS84 ellipsoidal area in km² (meridian/parallel cell edges). Do not use a constant 1 km² approximation or resample counts. Strict density >1000 qualifies; sum the original counts in qualifying cells and divide by the sum of original counts over all valid cells, then multiply by 100. The denominator is the supplied raster’s valid country coverage, not an invented census total. Genuine zeros remain zero; NoData is unknown, not zero. Return a full-grid selected-population raster: original population for qualifying cells, zero for other valid cells, and the original missing-data mask. Also retain the density raster with the same grid and mask.\n\n\n\nCompute the percentage and publish the two inspectable rasters. A map is optional. End with one fenced JSON object: {count: qualifying cell count, unknown_count: original masked/nonfinite cell count, coverage_note, selection:{collectionId,itemId,assetKey} for selected-population counts, density:{collectionId,itemId,assetKey}, metrics:{selected_people: number, total_people: number, percentage: number}}. Report original year and the valid-raster coverage limitation. Do not round the machine-readable metrics to whole people or whole percentages.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Chile population count, WorldPop 2020\",\n    \"edition\": \"2020 UN-adjusted population counts aggregated to 1 km cells\",\n    \"units\": {\n      \"band1\": \"people per cell\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Using the supplied WorldPop 2020 Chile raster, 67.99322101098751% of the valid-raster population lives in cells with density over 1000 people/km². That is 12,997,726.24017334 people out of 19,116,209.00864947 across 4,931 qualifying cells; the published density and selected-population rasters are attached, and 22,670,617 masked cells were unknown and excluded.\n\n### Limitations\n\n- Coverage follows the raster's valid-cell mask only; masked or nonfinite cells remain unknown and are excluded from numerator and denominator.\n- Coverage follows the supplied raster's valid-cell mask only; 22,670,617 masked cells are unknown and excluded from both numerator and denominator.\n- This is a share of the supplied WorldPop 2020 valid-raster population, not an external Chile census total.\n- Coverage is limited to the raster's valid-cell mask rather than an external census total.\n- Density is derived only for valid source cells; masked cells remain unknown.\n- The published rasters remain limited to the source raster's valid-cell coverage.",
+  "checks": {
+    "expectedCount": 4931,
+    "actualCount": 4931,
+    "expectedMetrics": {
+      "selected_people": 12997726.24017334,
+      "total_people": 19116209.00864947,
+      "percentage": 67.99322101098753
+    },
+    "actualMetrics": {
+      "percentage": 67.99322101098751,
+      "total_people": 19116209.00864947,
+      "selected_people": 12997726.24017334
+    },
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:56:32.909150Z",
+      "title": "Progress update",
+      "detail": "I’ll inspect the supplied raster first, then test the density calculation on its original grid so the final result uses the exact valid-cell coverage and mask."
+    },
+    {
+      "at": "2026-10-07T07:56:41.327126Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:48.380457Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:13.100404Z",
+      "title": "Progress update",
+      "detail": "I found the source raster. Next I’m checking which raster processors can keep the original grid and mask while deriving exact per-cell density and the selected-count output."
+    },
+    {
+      "at": "2026-10-07T07:57:21.421263Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:25.996130Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:38.643002Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:57:44.535499Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:49.490093Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:11.554910Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:56.671486Z",
+      "title": "Progress update",
+      "detail": "Before I run the test, I’m checking output shapes so I can publish only the two requested rasters and keep the summary tables as supporting evidence for the percentage."
+    },
+    {
+      "at": "2026-10-07T07:58:57.017972Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:59:15.299287Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:01:58.924308Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:11.606414Z",
+      "title": "Progress update",
+      "detail": "The trial finished successfully at full Chile extent. I’m reading the combined report now to confirm the grid, mask, and output structure before I save the production workflow and select the final rasters."
+    },
+    {
+      "at": "2026-10-07T08:02:27.355736Z",
+      "title": "Progress update",
+      "detail": "The full-area test supports the method: same grid and mask, strict threshold, and complete valid-cell totals. I’m recording that judgment and turning the tested computation into the final workflow so the two rasters can be selected as final outputs."
+    },
+    {
+      "at": "2026-10-07T08:02:30.857586Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:41.707106Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:48.352672Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:52.543763Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:56.262878Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:03:05.108152Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:03:11.145430Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:03:36.083519Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:01.378601Z",
+      "title": "Progress update",
+      "detail": "I’ve turned the tested full-area method into a saved workflow draft with the two final rasters and supporting totals. Next I’ll inspect the validated outputs from that exact workflow run and record the final answer object."
+    },
+    {
+      "at": "2026-10-07T08:04:13.778238Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:04:29.540014Z",
+      "title": "Progress update",
+      "detail": "Terra flagged one wiring choice as ambiguous, so I’m correcting that exact requirement binding and resaving the same tested workflow rather than changing the method."
+    },
+    {
+      "at": "2026-10-07T08:04:38.413078Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:49.848814Z",
+      "title": "Progress update",
+      "detail": "The saved draft exposed a fixable contract mistake: my fixed parameter paths were one level too deep. I’m correcting those paths on the same tested workflow so the final raster outputs are no longer withheld."
+    },
+    {
+      "at": "2026-10-07T08:04:59.940840Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:15.173138Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:16.657127Z",
+      "title": "Progress update",
+      "detail": "The workflow is now validated and matches the successful full-extent trial. I’m starting its execution so I can inspect the final deliverables and bind the answer to the published raster artifacts."
+    },
+    {
+      "at": "2026-10-07T08:07:21.623004Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:52.055377Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:52.766126Z",
+      "title": "Progress update",
+      "detail": "I have the published output identities. I’m doing bounded inspections on the final rasters and summary tables now so the final answer is tied to the production outputs, not only the earlier trial."
+    },
+    {
+      "at": "2026-10-07T08:08:02.475147Z",
+      "title": "Progress update",
+      "detail": "I’ve already verified the run created the right five outputs. Now I’m pulling the exact values from the two final rasters and the three supporting tables needed for the percentage."
+    },
+    {
+      "at": "2026-10-07T08:08:02.777875Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:02.828562Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:03.323513Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:05.533307Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:09.258742Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:30.480896Z",
+      "title": "Progress update",
+      "detail": "The bounded inspections finished in the background. I’m fetching their completed receipts now and then I’ll record the final result against the production outputs."
+    },
+    {
+      "at": "2026-10-07T08:08:30.516053Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:30.532034Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:31.722961Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:32.236449Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:35.766489Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:02.569719Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:33.114217Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Chile density raster from WorldPop 2020 counts",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Chile selected population raster over 1000 people per square kilometre",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Chile total valid population summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Chile selected population summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Chile qualifying cell count summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Population density",
+      "description": "Recorded raster-count-density · succeeded"
+    },
+    {
+      "title": "Qualifying cell mask",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Qualifying cell totals",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Selected population counts",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Selected population totals",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Source population totals",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Chile WorldPop 2020 counts",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Population density",
+      "description": "Recorded raster-count-density · succeeded"
+    },
+    {
+      "title": "Qualifying cell mask",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Qualifying cell totals",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Selected population counts",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Selected population totals",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Source population totals",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Chile WorldPop 2020 counts",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Population density",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected population counts",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Source population totals",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected population totals",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Qualifying cell totals",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Chile WorldPop 2020 counts",
+      "description": "Recorded source · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "16ec80cd26ac603d21001f72c36f89ed45c5838233fb6b89d9720900a6c3f4e5",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T07:59:47.267828+00:00"
+    },
+    {
+      "sha256": "5c0ba887829467d47abb9a2ba5d17386ca7329bb0134cff8da0576ce75b63b12",
+      "bytes": 6031362,
+      "finishedAt": "2026-10-07T07:59:30.180253+00:00"
+    },
+    {
+      "sha256": "bb9d23278e111fb8d1a2dcd6594f0bc185bde89a0b6bff8cf40b8375d2b79321",
+      "bytes": 12844259,
+      "finishedAt": "2026-10-07T08:00:00.524601+00:00"
+    },
+    {
+      "sha256": "7b80bd7c739543f2a751274a0c5727000d4020fd27991947d8862e9a1e12d5ba",
+      "bytes": 318163,
+      "finishedAt": "2026-10-07T08:00:38.869560+00:00"
+    },
+    {
+      "sha256": "c1405a702f377e78a6ff11147418fdb4806b19241d1c3082a5810185dbac5ea4",
+      "bytes": 354339,
+      "finishedAt": "2026-10-07T08:00:38.869560+00:00"
+    },
+    {
+      "sha256": "3cd2963db58da17ace13346638d6b78c804e7080f86b14c54a190cac7d9b8a28",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T08:01:14.698526+00:00"
+    },
+    {
+      "sha256": "47c2609e155be5312f29d8df39c40e2f0ab879aea034d85f544e411764320528",
+      "bytes": 8688,
+      "finishedAt": "2026-10-07T08:01:14.698526+00:00"
+    },
+    {
+      "sha256": "bb9d23278e111fb8d1a2dcd6594f0bc185bde89a0b6bff8cf40b8375d2b79321",
+      "bytes": 12844259,
+      "finishedAt": "2026-10-07T08:06:23.156330+00:00"
+    },
+    {
+      "sha256": "16ec80cd26ac603d21001f72c36f89ed45c5838233fb6b89d9720900a6c3f4e5",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T08:06:23.156330+00:00"
+    },
+    {
+      "sha256": "c1405a702f377e78a6ff11147418fdb4806b19241d1c3082a5810185dbac5ea4",
+      "bytes": 354339,
+      "finishedAt": "2026-10-07T08:06:46.164646+00:00"
+    },
+    {
+      "sha256": "7b80bd7c739543f2a751274a0c5727000d4020fd27991947d8862e9a1e12d5ba",
+      "bytes": 318163,
+      "finishedAt": "2026-10-07T08:06:46.164646+00:00"
+    },
+    {
+      "sha256": "47c2609e155be5312f29d8df39c40e2f0ab879aea034d85f544e411764320528",
+      "bytes": 8688,
+      "finishedAt": "2026-10-07T08:07:00.916408+00:00"
+    },
+    {
+      "sha256": "3cd2963db58da17ace13346638d6b78c804e7080f86b14c54a190cac7d9b8a28",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T08:07:00.916408+00:00"
+    }
+  ],
+  "snapshotSha256": "a1b05aaafb088daa7eab82a11de59072af315ecfd694d64dc370aee44324ec89",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:59:15.299287Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the original-grid density method preserve the source mask and produce the required strict-threshold selected-population raster and supporting totals on the supplied Chile WorldPop 2020 raster?"
+    },
+    {
+      "at": "2026-10-07T08:02:30.857586Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The tested full-extent computation used the supplied WorldPop 2020 Chile raster on its original EPSG:4326 grid (5166 by 4618 cells; 0.0083333333 degree resolution). The density output kept that grid and produced people/km2 values with the same valid-cell count as the source totals table: 1,185,971 valid cells and 22,670,617 missing cells. The selected-population raster also kept the same grid and missing-cell count, and map-algebra reported zero valid output pixels where any input was missing. The selected-population totals table confirms zeros remained valid values outside the strict threshold because the minimum is 0.0 while missing_count stayed 22,670,617. The qualifying 1/0 mask summed to 4,931.0, so 4,931 original valid cells exceeded 1000 people/km2. The selected-population sum, 12,997,726.24017334 people, is below the total valid-cell source sum, 19,116,209.00864947 people, so the threshold selection behaves as expected on the full requested extent.",
+      "limitations": [
+        "The percentage still needs final answer packaging from the inspected derived outputs.",
+        "Coverage is limited to the raster's valid-cell mask; the 22,670,617 masked cells remain unknown, not zero, and are excluded from numerator and denominator."
+      ],
+      "next_action": "Save the tested computation as the production workflow, execute or reuse its exact run if available, inspect the final raster artifacts, and record the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:10:33.114217Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published production outputs confirm the requested 2020 Chile calculation. The density raster and selected-population raster both use the original 5166 by 4618 EPSG:4326 grid at 0.0083333333 degree resolution, with 1,185,971 valid cells and 22,670,617 masked cells. The density raster is labeled in people/km2 and its inspected band describes counts divided by original ellipsoidal cell area. The selected-population raster is labeled in people, has minimum 0.0 on valid cells, and reports zero valid output pixels where an input was missing. The supporting production tables report total_people 19,116,209.00864947, selected_people 12,997,726.24017334, and 4,931 qualifying cells. That yields 67.99322101098751 percent of the supplied WorldPop 2020 valid-raster population in cells with density strictly greater than 1000 people per square kilometre.",
+      "limitations": [
+        "Coverage follows the supplied raster's valid-cell mask only; 22,670,617 masked cells are unknown and excluded from both numerator and denominator.",
+        "This is a share of the supplied WorldPop 2020 valid-raster population, not an external Chile census total."
+      ],
+      "next_action": "Inspect the published density and selected-population rasters if you want to review where the dense cells are located.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "3d1087f3ff514756dda3043f7b4a14952486c59b305c1d57d900af54bd20b542",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

@@ -1,0 +1,649 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "702872",
+  "question": "Make a series of maps with share of forest covered areas in countries of South Asia in 2005, 2015 and the last available year.",
+  "submittedPrompt": "Make a series of maps with share of forest covered areas in countries of South Asia in 2005, 2015 and the last available year.\n\nTask conventions: Use the frozen WDI AG.LND.FRST.ZS columns 2005, 2015 and 2021, each percent of land area. Last available year means 2021 in this frozen source, not a live replacement. Retain original country features with SUBREGION=Southern Asia and join ISO_A3 to Country Code exactly. Keep unmatched or missing measurements as unknown, not zero, and preserve benchmark_row_id and original geometry. Produce three separate quantitative maps, one per year. For each year independently use five quantile classes, fewer only for collapsed ties, upper class on equality, and a separate neutral No data category. Each legend must show numeric bounds and units; disclose that per-year class boundaries differ so equal colors do not imply equal percentages across years. This freezes the reference solution years and regional membership; no country may be dropped because its measurement is missing.\n\n\n\nAdd all three maps and retain their inspectable data artifacts. End with one fenced JSON object: {count: number of delivered year maps, unknown_count: total missing country-year measurements across all three panels, coverage_note: string, selection: artifact identity for the 2005 panel, panels: [{year: string, count: known country features, unknown_count: unknown country features, selection: {collectionId,itemId,assetKey}, value_field: numeric field, class_field: class field, map_layer_id: actual layer ID}]}. Give one panel for each required year and explain the observed changes without claiming comparability of different per-year colors.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank AG.LND.FRST.ZS\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2021\",\n    \"units\": {\n      \"2021\": \"% of land area\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — I added the three South Asia forest-share maps for 2005, 2015, and 2021, with inspectable country data for all 9 benchmark Southern Asia countries and no missing country-year values in this frozen subset.\n\nAcross the percentages, Bhutan, India, and Iran increase; Pakistan declines; Nepal rises then levels off; Sri Lanka is roughly flat; Bangladesh edges down slightly; Afghanistan and Maldives stay flat.\n\nImportant limit: each panel uses different quantile breaks, so compare the numeric percentages across years, not the colors.\n\n### Limitations\n\n- Per-year quantile class breaks differ, so the same color across different year panels does not imply the same forest-share percentage.\n- Per-year quantile breaks differ, so compare the numeric percentages rather than the colors across years.\n- Southern Asia membership follows the supplied benchmark SUBREGION definition exactly.\n- Last available year is fixed to 2021 in this frozen WDI source.\n- This follows the supplied benchmark SUBREGION membership exactly, which may differ from other regional definitions.\n- The values are frozen WDI percentages from the supplied source. Last available year is fixed to 2021 here, not a live replacement.\n- Per-year quantile breaks differ, so the same color across different year panels does not imply the same percentage.",
+  "checks": {
+    "expectedCount": 3,
+    "actualCount": 3,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:40:43.147764Z",
+      "title": "Progress update",
+      "detail": "I’ll build this from the two supplied frozen sources, test the join/classing on a small private slice first, then save the full three-panel method and add the final layers."
+    },
+    {
+      "at": "2026-10-07T07:40:49.064249Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:49.589016Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:49.625414Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:04.552865Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:41:06.386430Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:41:11.462247Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the two supplied sources are fixed benchmark files. Next I’m checking their actual field names and a few sample rows so I can join exactly on ISO_A3 ↔ Country Code and keep missing values as unknown."
+    },
+    {
+      "at": "2026-10-07T07:41:17.078477Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:17.145992Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:18.363899Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:18.472798Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:25.497016Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:27.166908Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:27.185418Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:37.483358Z",
+      "title": "list_items",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:37.510790Z",
+      "title": "list_items",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:39.114647Z",
+      "title": "Progress update",
+      "detail": "I found the processors I need: filter the country file, join the frozen WDI table, and classify each year into quantiles. The remaining uncertainty is the exact field schema inside the two parquet files, so I’m testing the actual join and classing path now instead of guessing column names."
+    },
+    {
+      "at": "2026-10-07T07:41:57.400452Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:57.486912Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:01.972646Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:01.991714Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:02.981610Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:06.962035Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:07.461477Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:07.510033Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:18.209084Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:19.114981Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:42:44.616902Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:53.649544Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:57.157078Z",
+      "title": "Progress update",
+      "detail": "I confirmed the boundary file has the key geography fields, and the WDI table has the year columns through at least 2019. I still need one tighter check for the exact 2021 column and a few sample rows, then I’ll test the real South Asia join and classing path."
+    },
+    {
+      "at": "2026-10-07T07:44:03.363497Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:03.430849Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:44:03.479300Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:05.527446Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the source check in the background. Next I’m reading a few exact South Asia rows and then I’ll test the real filter → join → classify method on the requested years."
+    },
+    {
+      "at": "2026-10-07T07:45:05.764086Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:05.807979Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:16.271097Z",
+      "title": "Progress update",
+      "detail": "The source check is now confirmed: the boundary file has 9 Southern Asia countries with unique ISO_A3 and benchmark_row_id, and the frozen WDI table has Country Code plus 2005, 2015, and 2021 for those same codes. I’m moving on to a private end-to-end test of the actual join and year-by-year quantile maps."
+    },
+    {
+      "at": "2026-10-07T07:45:18.014257Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:34.812673Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:21.512586Z",
+      "title": "Progress update",
+      "detail": "The end-to-end trial succeeded: the left join kept all 9 Southern Asia countries, and each year produced a separate classified map output. I’m now checking the exact rows and class outputs so I can save the final workflow cleanly and add the three real map layers."
+    },
+    {
+      "at": "2026-10-07T07:49:28.269558Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:28.609539Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:28.644559Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:30.467514Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:48.822505Z",
+      "title": "Progress update",
+      "detail": "The method is holding up: the full-area trial kept all 9 countries and matched all 9 WDI rows. I’m pulling the exact joined table and the three classified previews now so I can confirm the final artifacts before I publish them to the map."
+    },
+    {
+      "at": "2026-10-07T07:50:48.850991Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:48.859855Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:48.892543Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:50:48.901731Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:16.561693Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:16.675325Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:16.778294Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:18.398577Z",
+      "title": "Progress update",
+      "detail": "The checked output is clean: all 9 countries are still present, all 9 join keys match exactly, and each year produced five quantile classes with no dropped features. I’m recording that test, then I’ll save the final three-panel workflow and bind the actual map layers."
+    },
+    {
+      "at": "2026-10-07T07:51:32.665592Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:39.167794Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:39.602248Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:51:55.367089Z",
+      "title": "Progress update",
+      "detail": "I’ve now tested the exact method the final maps need. I’m saving that tested computation as the workflow draft, with the three year panels as the final deliverables, so I can add the verified outputs to the map instead of relying on private trial outputs."
+    },
+    {
+      "at": "2026-10-07T07:52:05.579682Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:25.809342Z",
+      "title": "Progress update",
+      "detail": "I’ve saved the tested method as a valid workflow draft. Before I run it, I’m cleaning up the brief so it reflects what’s now confirmed: 9 benchmark Southern Asia countries, exact ISO_A3 ↔ Country Code joins, and separate year panels with different within-year quantile breaks."
+    },
+    {
+      "at": "2026-10-07T07:52:30.980085Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:35.722873Z",
+      "title": "revise_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:52:42.390729Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:54:23.138938Z",
+      "title": "Progress update",
+      "detail": "The final workflow finished in the background and created the three deliverables. I’m inspecting those exact production outputs now, then I’ll add them to the map and record the final answer object with the real layer IDs."
+    },
+    {
+      "at": "2026-10-07T07:54:31.365804Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:36.822444Z",
+      "title": "Progress update",
+      "detail": "I’ve got the final production artifacts and real layer IDs. I’m doing the last check on the delivered panels themselves, including the class summaries, so the final answer object cites the finished outputs rather than the earlier trial copies."
+    },
+    {
+      "at": "2026-10-07T07:55:36.906352Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:36.921058Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:40.382123Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:41.418016Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:44.397676Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:49.186067Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:50.530577Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:28.926351Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:28.944948Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:30.554226Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the production class summaries too: each panel has 9 known country records, 0 missing country-year values, five quantile classes, and distinct break sets for 2005, 2015, and 2021. I’m making the final assessment now with the exact delivered artifacts and the layer IDs that were already bound to the map."
+    },
+    {
+      "at": "2026-10-07T07:56:45.632312Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:46.051337Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:47.936879Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:14.849546Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Classify 2005 forest share",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Classify 2015 forest share",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Classify 2021 forest share",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "South Asia forest share 2005",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "South Asia forest share 2015",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "South Asia forest share 2021",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied frozen WDI forest share",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join frozen forest-share values",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Keep Southern Asia countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Classify 2005 forest share",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Classify 2015 forest share",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Classify 2021 forest share",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Supplied frozen WDI forest share",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Join frozen forest-share values",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Keep Southern Asia countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join frozen forest-share values",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify 2005 forest share",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify 2015 forest share",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify 2021 forest share",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied country boundaries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied frozen WDI forest share",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied frozen WDI forest share",
+      "description": "Recorded source · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T07:43:03.882723+00:00"
+    },
+    {
+      "sha256": "595b2997fe9ecdcc9b70e118f3b95cdbda921aaa7c0a0e079a3d499eae72c2c5",
+      "bytes": 112649,
+      "finishedAt": "2026-10-07T07:43:03.882723+00:00"
+    },
+    {
+      "sha256": "9a5cc92841b3ef6d0fe86bbed67329ea9d6f7bbd70a8edcd536d8e65aa1a61e0",
+      "bytes": 346137,
+      "finishedAt": "2026-10-07T07:46:38.198215+00:00"
+    },
+    {
+      "sha256": "1817b1788bf138b5d82836d4abee892b1a7f9c7d861398c533b2ceb2ded9d167",
+      "bytes": 349257,
+      "finishedAt": "2026-10-07T07:47:19.000449+00:00"
+    },
+    {
+      "sha256": "d304548b4473e902a04117b967f1fefa979527bb34242eb0c5605ff91eac3253",
+      "bytes": 349831,
+      "finishedAt": "2026-10-07T07:47:41.077793+00:00"
+    },
+    {
+      "sha256": "ff42f4f444e71bfb075b073c1b53889a8e623f5852612b35e53262cc8b94b869",
+      "bytes": 349831,
+      "finishedAt": "2026-10-07T07:47:47.453148+00:00"
+    },
+    {
+      "sha256": "ebc324ecc72b98213571b4db9ba72d9c639dc94089a4b86db1380fa783f25023",
+      "bytes": 349831,
+      "finishedAt": "2026-10-07T07:48:05.608807+00:00"
+    },
+    {
+      "sha256": "9a5cc92841b3ef6d0fe86bbed67329ea9d6f7bbd70a8edcd536d8e65aa1a61e0",
+      "bytes": 346137,
+      "finishedAt": "2026-10-07T07:53:22.975932+00:00"
+    },
+    {
+      "sha256": "d304548b4473e902a04117b967f1fefa979527bb34242eb0c5605ff91eac3253",
+      "bytes": 349831,
+      "finishedAt": "2026-10-07T07:53:50.290473+00:00"
+    },
+    {
+      "sha256": "ff42f4f444e71bfb075b073c1b53889a8e623f5852612b35e53262cc8b94b869",
+      "bytes": 349831,
+      "finishedAt": "2026-10-07T07:53:50.290473+00:00"
+    },
+    {
+      "sha256": "1817b1788bf138b5d82836d4abee892b1a7f9c7d861398c533b2ceb2ded9d167",
+      "bytes": 349257,
+      "finishedAt": "2026-10-07T07:53:39.621945+00:00"
+    },
+    {
+      "sha256": "ebc324ecc72b98213571b4db9ba72d9c639dc94089a4b86db1380fa783f25023",
+      "bytes": 349831,
+      "finishedAt": "2026-10-07T07:53:57.145377+00:00"
+    }
+  ],
+  "snapshotSha256": "9194496c07a93fa86f2d49ee72214db10c472e878b0255d304dc6ba907410a8e",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:42:53.649544Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the supplied boundary and frozen WDI files expose the exact fields needed for SUBREGION filtering, ISO_A3 to Country Code joining, and year columns 2005, 2015, and 2021?"
+    },
+    {
+      "at": "2026-10-07T07:45:18.014257Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The supplied boundary snapshot exposes SUBREGION, ISO_A3, NAME_EN, benchmark_row_id, and valid country geometry. Filtering SUBREGION='Southern Asia' returns 9 countries with distinct ISO_A3 codes: AFG, BGD, BTN, IND, IRN, LKA, MDV, NPL, and PAK. The supplied frozen WDI snapshot exposes Country Code plus numeric year columns 2005, 2015, and 2021. Those same 9 country codes are present in the WDI table, so the intended ISO_A3 to Country Code join key is supported by the supplied files.",
+      "limitations": [
+        "This trial confirmed source fields and sample key compatibility, but it did not yet verify the executed left join output or the per-year quantile class fields and legends."
+      ],
+      "next_action": "Run a private South Asia filter, left join, and three independent quantile classifications, then inspect the joined rows and class outputs.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:45:34.812673Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full South Asia workflow preserve all nine original country features after the left join and create separate 2005, 2015, and 2021 quantile choropleths with independent No data handling?"
+    },
+    {
+      "at": "2026-10-07T07:51:32.665592Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full requested South Asia method ran successfully at the production study extent. The vector filter kept 9 country features with SUBREGION='Southern Asia' and preserved benchmark_row_id and geometry. The left join matched ISO_A3 to Country Code for all 9 features, with producer observations reporting matchedInputFeatures=9 and unmatchedInputFeatures=0. The joined output keeps the requested year fields 2005, 2015, and 2021, and all three have nullCount=0 for these 9 country records. Each year-specific classified output preserves the same 9 features, keeps the numeric year field with units '% of land area', and adds a separate class field: class_2005, class_2015, and class_2021. All three class fields use five classes with values 1 through 5 and no dropped features.",
+      "limitations": [
+        "This trial established the dataflow and final year-specific classified artifacts, but the final map-layer bindings and final result assessment still need to be recorded."
+      ],
+      "next_action": "Save the tested computation as the final three-panel workflow, add the three verified outputs to the map, and assess the delivered result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:58:14.849546Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The final workflow delivered three separate South Asia country maps for 2005, 2015, and 2021 and added all three to the current map. All 9 benchmark Southern Asia countries are present in every panel with retained benchmark_row_id and original geometry. The final join output reports ISO_A3 to Country Code with 9 matched input features and 0 unmatched features. Each panel has 9 known values and 0 unknown values. The final class summaries confirm five quantile classes in every year, percent-of-land-area units, distinct per-year break sets, and a reserved class 0 for No data that is unused here because no country-year values are missing.",
+      "limitations": [
+        "Per-year quantile breaks differ, so compare the numeric percentages rather than the colors across years.",
+        "Southern Asia membership follows the supplied benchmark SUBREGION definition exactly.",
+        "Last available year is fixed to 2021 in this frozen WDI source."
+      ],
+      "next_action": null,
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "28fb395d4bc824efa00b288560c97450e90a07c1cdb0020a91022ee3d64d2d8e",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

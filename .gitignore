@@ -1,0 +1,15 @@
+node_modules/
+.DS_Store
+.env*
+*.log
+raw-data/
+internal-runs/
+dist/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+.verify-venv/
+
+.ruff_cache/
+.venv/

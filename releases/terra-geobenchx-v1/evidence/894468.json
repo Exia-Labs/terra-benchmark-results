@@ -1,0 +1,586 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "894468",
+  "question": "Show agricultural GDP contribution in Himalayan nations.",
+  "submittedPrompt": "Show agricultural GDP contribution in Himalayan nations.\n\nTask conventions: Use the frozen country polygons and World Bank NV.AGR.TOTL.ZS 2022 column, in % of GDP. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature in the declared geography and its benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. Geography is fixed to original country features with NAME_EN in [\"Nepal\", \"Bhutan\", \"India\", \"China\", \"Pakistan\"]; retain all matching source geometries, and no others. Classification is calculated only over this geography. Membership reflects this disclosed benchmark edition, not current organization membership.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank NV.AGR.TOTL.ZS\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"% of GDP\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — I added **Agricultural GDP contribution by country (2022)** to your map.\n\n2022 values, in **% of GDP**:\n- China: **7.321760**\n- Bhutan: **14.671009**\n- India: **16.639431**\n- Nepal: **20.914370**\n- Pakistan: **22.348042**\n\nLegend:\n- **< 13.201159**\n- **13.201159 to < 15.852062**\n- **15.852062 to < 18.349407**\n- **18.349407 to < 21.201104**\n- **≥ 21.201104 % of GDP**\n- **No data** is a separate neutral class, but it is unused here because all 5 selected benchmark country features have known 2022 values.\n\nLimitation: this is a **country-level 2022 indicator only**. It does not show subnational variation or create a new Himalayan regional aggregate.\n\nSources: supplied **GeoBenchX harmonized World Bank country boundaries** and supplied **frozen GeoBenchX World Development Indicators NV.AGR.TOTL.ZS** snapshot, retrieved **2026-10-07**.\n\n### Limitations\n\n- Country-level indicator only; it does not show subnational variation or a new regional aggregate.\n- All 5 selected benchmark country rows have known 2022 values, so the neutral No data category is present but unused in this benchmark output.",
+  "checks": {
+    "expectedCount": 5,
+    "actualCount": 5,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:05:06.128941Z",
+      "title": "Progress update",
+      "detail": "I’ll inspect the saved analysis context and the two supplied datasets first, then build a small tested method that keeps the original country rows and marks unmatched or missing values as “No data.”"
+    },
+    {
+      "at": "2026-10-07T08:05:18.033091Z",
+      "title": "Progress update",
+      "detail": "I found the Terra workflow tools. Next I’m checking the saved brief and the two supplied snapshots so I can use the exact boundary rows and the exact indicator column you specified, without substituting years or country matches."
+    },
+    {
+      "at": "2026-10-07T08:05:18.067631Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:18.083764Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:18.095742Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:18.108234Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:19.084146Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:35.682511Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:05:35.784611Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:05:49.151843Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:49.244042Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:49.396312Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:52.068049Z",
+      "title": "Progress update",
+      "detail": "I confirmed the frozen indicator snapshot really has both 2022 and 2023 columns. The next step is a small private test that reads just the supplied rows, filters the five named countries, and checks the exact join and quantile classification before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T08:06:03.856179Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:05.878613Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:15.009243Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:15.561506Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:35.024054Z",
+      "title": "Progress update",
+      "detail": "I have the core method now: filter the supplied boundaries to the five named country rows, left-join the frozen World Bank table on `ISO_A3 = Country Code`, then classify the 2022 value field with a five-quantile country choropleth so unknowns stay as a separate “No data” class. I’m checking the workflow schema next so the saved draft delivers both the inspectable artifact and the map layer cleanly."
+    },
+    {
+      "at": "2026-10-07T08:06:35.192460Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:37.660693Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:37.759372Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:54.649517Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:55.046207Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:55.229860Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:55.596493Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:55.621511Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:02.588752Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:02.600216Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:03.146950Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:03.165070Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:35.015641Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:47.996068Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:09.555065Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:33.890742Z",
+      "title": "Progress update",
+      "detail": "The method test finished and it worked on the supplied frozen data: five country rows were kept, all five joined by exact country code, and the 2022 values classified cleanly. I’m inspecting the tested output now so I can save the final workflow, add the derived layer to the map, and deliver the exact artifact reference."
+    },
+    {
+      "at": "2026-10-07T08:09:39.921463Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:39.976767Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:44.214302Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:46.001290Z",
+      "title": "Progress update",
+      "detail": "I’ve already proved the method on the frozen benchmark inputs. Now I’m pulling the exact row values, class field, and processor receipt so the delivered layer points to the derived country dataset, not just the private trial check."
+    },
+    {
+      "at": "2026-10-07T08:10:46.018353Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:46.026923Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:46.791698Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:11:58.407701Z",
+      "title": "Progress update",
+      "detail": "I already have the five country values and classes. I’m checking the classifier’s summary next so I can verify the legend ranges and the neutral “No data” behavior before I publish the final layer."
+    },
+    {
+      "at": "2026-10-07T08:11:58.449014Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:11:58.460287Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:12:14.341116Z",
+      "title": "Progress update",
+      "detail": "The classification summary is clear: five known values, five quantile classes, missing count 0, and class `0` reserved for “No data.” I’m identifying the displayable output now so I can bind the derived choropleth to the map instead of just keeping it as a table."
+    },
+    {
+      "at": "2026-10-07T08:12:14.379500Z",
+      "title": "list_processor_jobs",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:12:14.412440Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:12:24.519132Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:12:24.870816Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:12:59.520566Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:13:09.578052Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:13:12.587929Z",
+      "title": "Progress update",
+      "detail": "The tested method is now stable. I’m saving it as the production workflow with the same exact filter, join key, year, and five-quantile classification so the final layer can reuse the verified computation instead of rebuilding a different one."
+    },
+    {
+      "at": "2026-10-07T08:13:30.222931Z",
+      "title": "Progress update",
+      "detail": "I’ve saved the tested method as a workflow draft. If validation succeeds cleanly, I’ll run it and then bind the derived classified country output to the map."
+    },
+    {
+      "at": "2026-10-07T08:13:40.045360Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:13:56.086757Z",
+      "title": "Progress update",
+      "detail": "The saved draft is close, but Terra blocked it because the copied trial still carries a world-sized scope while the contract names the five-country study area. I’m correcting that bookkeeping so the runnable workflow matches the actual geography of the task."
+    },
+    {
+      "at": "2026-10-07T08:13:56.213804Z",
+      "title": "get_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:13:56.227080Z",
+      "title": "get_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:10.461874Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:10.835100Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:22.031938Z",
+      "title": "Progress update",
+      "detail": "I found the saved node areas. They still use the copied world snapshot extent, so I’m replacing those with the actual five-country envelope and matching contract scope in one revision."
+    },
+    {
+      "at": "2026-10-07T08:14:22.116779Z",
+      "title": "get_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:22.126275Z",
+      "title": "get_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:39.269301Z",
+      "title": "revise_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:58.389295Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:25.313439Z",
+      "title": "Progress update",
+      "detail": "The production run appears to have finished in the background. I’m verifying the final output receipts and legend summary from that run now, then I’ll bind the derived country layer to the map and record the final answer object."
+    },
+    {
+      "at": "2026-10-07T08:16:43.080374Z",
+      "title": "Progress update",
+      "detail": "I’ve got the approved workflow revision and the completed run receipt. Next I’m inspecting the final derived item itself, not the earlier trial copy, so the delivered selection and map layer point to the exact production output."
+    },
+    {
+      "at": "2026-10-07T08:16:43.178652Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:43.875178Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:17:17.301189Z",
+      "title": "Progress update",
+      "detail": "I’ve got the final run’s item ID and map layer ID. I’m checking the final derived item’s rows and legend metadata one last time so the accepted result points to the exact displayed output."
+    },
+    {
+      "at": "2026-10-07T08:17:17.613983Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:17:17.663412Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:17:18.964956Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:17:19.443125Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:17:52.928504Z",
+      "title": "Progress update",
+      "detail": "The final output already has a verified map receipt from the production run. I’m just fetching the finished preview receipt and checking the active map layer list once more so the final assessment references the exact displayed artifact."
+    },
+    {
+      "at": "2026-10-07T08:17:52.942205Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:17:53.164341Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:18:32.660934Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the final production artifact, legend, and live map layer. I’m refreshing the brief notes so they match the completed work, then I’ll record the accepted final result object."
+    },
+    {
+      "at": "2026-10-07T08:18:38.820527Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:19:09.314632Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the exact final artifact, the classifier summary, and the live map layer. I’m recording the accepted result now with the explicit selection, field names, counts, and map layer ID you asked for."
+    },
+    {
+      "at": "2026-10-07T08:19:14.864544Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Frozen agricultural GDP table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Classify agricultural GDP share",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Frozen country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Filter named benchmark country rows",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Agricultural GDP contribution by country (2022)",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join World Bank 2022 values",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Create named 2022 value field",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Frozen agricultural GDP table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Classify agricultural GDP share",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Frozen country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Filter named benchmark country rows",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Join World Bank 2022 values",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Filter named benchmark country rows",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join World Bank 2022 values",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify agricultural GDP share",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Create named 2022 value field",
+      "description": "Recorded vector-field-calculate · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "aa597fd214172be60b0f51ef409b5e8ff1774fbf22b7586497812e066e778f4a",
+      "bytes": 140992,
+      "finishedAt": "2026-10-07T08:08:16.004544+00:00"
+    },
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T08:08:16.004544+00:00"
+    },
+    {
+      "sha256": "1091f31af6ba6f61af03aaddc01a27a15ccfb578dee54d179691f0757967015f",
+      "bytes": 438845,
+      "finishedAt": "2026-10-07T08:08:30.152553+00:00"
+    },
+    {
+      "sha256": "f9f1201ea6bb12132e6075f509083186255ce604e1c64786faba840df58a658c",
+      "bytes": 439977,
+      "finishedAt": "2026-10-07T08:08:42.404658+00:00"
+    },
+    {
+      "sha256": "cf580726cb925a1abeb31d6dc51286e8be184f6c99defb28a2ffde676e2c2cac",
+      "bytes": 441254,
+      "finishedAt": "2026-10-07T08:08:53.943758+00:00"
+    },
+    {
+      "sha256": "7c387bded0098a0662354776e72800b81f9416f0157a5c0376ca7bac30387780",
+      "bytes": 440643,
+      "finishedAt": "2026-10-07T08:08:48.435553+00:00"
+    },
+    {
+      "sha256": "1091f31af6ba6f61af03aaddc01a27a15ccfb578dee54d179691f0757967015f",
+      "bytes": 438845,
+      "finishedAt": "2026-10-07T08:15:29.213603+00:00"
+    },
+    {
+      "sha256": "f9f1201ea6bb12132e6075f509083186255ce604e1c64786faba840df58a658c",
+      "bytes": 439977,
+      "finishedAt": "2026-10-07T08:15:44.996413+00:00"
+    },
+    {
+      "sha256": "7c387bded0098a0662354776e72800b81f9416f0157a5c0376ca7bac30387780",
+      "bytes": 440643,
+      "finishedAt": "2026-10-07T08:15:56.821764+00:00"
+    },
+    {
+      "sha256": "cf580726cb925a1abeb31d6dc51286e8be184f6c99defb28a2ffde676e2c2cac",
+      "bytes": 441254,
+      "finishedAt": "2026-10-07T08:16:03.795657+00:00"
+    }
+  ],
+  "snapshotSha256": "4c577754947c7f71c750e9b845639abb3993201ddc4b744219fd1fe9dcfb50ac",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:08:09.555065Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the exact benchmark method preserve the five named country rows, join the frozen World Bank table on ISO_A3 = Country Code, keep unknowns as null, and produce the requested 2022 quantile choropleth classification with a separate No data class?"
+    },
+    {
+      "at": "2026-10-07T08:12:59.520566Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The private trial retained exactly 5 benchmark country rows with the requested names, preserved benchmark_row_id, joined all 5 rows by exact ISO_A3 = Country Code, and used the frozen 2022 NV.AGR.TOTL.ZS values in % of GDP. The classifier produced 5 quantile classes over the 5 known values, with class 0 reserved for No data and missingCount 0 in this benchmark subset. The published category labels and boundary convention place break-equal values in the upper class.",
+      "limitations": [
+        "This benchmark subset has no unmatched country codes and no missing 2022 values, so the neutral No data class is present but unused in the observed output.",
+        "The indicator is country-level only and does not represent subnational variation or a new regional aggregate."
+      ],
+      "next_action": "Save the tested computation as the production workflow, execute it, add the derived classified layer to the map, and assess the final artifact.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:19:14.864544Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The final production output contains the 5 benchmark country features for Bhutan, China, India, Nepal, and Pakistan, with preserved benchmark_row_id, exact ISO_A3-to-Country Code joins, the 2022 NV.AGR.TOTL.ZS value in % of GDP, and five quantile classes. The quantitative layer is on the map, and the legend shows five numeric class ranges plus a neutral No data category. In this fixed benchmark geography all 5 countries have known 2022 values, so the No data class is available but unused.",
+      "limitations": [
+        "Country-level indicator only; it does not show subnational variation or a new regional aggregate.",
+        "All 5 selected benchmark country rows have known 2022 values, so the neutral No data category is present but unused in this benchmark output."
+      ],
+      "next_action": "Use the map layer to compare the five countries, or request another layer if you want subnational agricultural patterns or a different benchmark year.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "cd0919586a6c25fc72160649e81edbd59ea98788627161c67cea8d1f19004738",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

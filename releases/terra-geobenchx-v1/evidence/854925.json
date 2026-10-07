@@ -1,0 +1,88 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "854925",
+  "question": "Display maternal mortality rates in West African countries.",
+  "submittedPrompt": "Display maternal mortality rates in West African countries.\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "I can show West African country borders, but I can’t color them by maternal mortality rate from this closed catalog.\n\nIn the supplied inventory, the relevant geography is `GEO_CATALOG: Countries`, but there is no maternal mortality dataset or country health table listed. So the borders are available, but the requested rate values are not.\n\nNext step: add a country-level maternal mortality table and join it to the Countries layer.\n\n### Limitations\n\n- The supplied closed catalog includes country boundaries but no maternal mortality dataset.\n- Maternal mortality rate values are not available in the supplied closed catalog, so the requested map cannot be produced here.\n- **Maternal mortality:** The supplied closed catalog does not include a maternal mortality dataset or other country health table for this request.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T08:07:47.538924+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "04356828c512640b372053eb811e1ba2742184f515b394afb1c38a649fcc5b15",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "2d512872fdf2b50a19b510753d3192840361efaa6747633f0897c1046e0e1dde",
+      "snapshotSha256AtReview": "8fc95523caefa97694b4deb45861873ea5027febc7ce099209e64a0b5892a0c8",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies missing maternal mortality observations for West African countries while acknowledging country geography."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Does not substitute fertility or other country indicators for maternal deaths."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Limits missing rates to the supplied closed inventory, not worldwide availability."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Claims no colored mortality map or rates were produced; two brief/context calls and no jobs/artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests a country-level maternal mortality table joined to country geography."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:03:03.284284Z",
+      "title": "Progress update",
+      "detail": "I’ll check the available Terra tools, then confirm whether the supplied catalog includes a maternal mortality dataset or only country boundaries."
+    },
+    {
+      "at": "2026-10-07T08:03:58.943717Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:03:59.680432Z",
+      "title": "Progress update",
+      "detail": "I’m recording this request in the retained analysis brief so the result and limitation are explicit in the workspace before I answer."
+    },
+    {
+      "at": "2026-10-07T08:04:14.608340Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [],
+  "snapshotSha256": "6815f9bd9b0dd6b6ca060d1eb622df95f4ed0a9b14e6cdf16b75c3d31839f401",
+  "investigations": [],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "db48597545b683db0683322984b5b2d5709d4439c5c1d9c27e4e1c61f21ad588",
+    "changes": [
+      "Product-name normalization"
+    ]
+  }
+}

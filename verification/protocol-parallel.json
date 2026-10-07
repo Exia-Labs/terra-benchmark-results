@@ -1,0 +1,71 @@
+{
+  "adaptations": [
+    "Original questions, source editions and missing-value conventions were fixed before measurement.",
+    "Numeric-answer tasks additionally require an inspectable contributing-feature artifact and a final JSON object; this is an evaluation adaptation, not the original benchmark's tool-trace grader.",
+    "Comparisons use unweighted country means, the supplied country classification, and explicit years; no population-weighted substitution or current live data."
+  ],
+  "tasks": {
+    "883928": {
+      "title": "Snow-exposed Amtrak stations by state",
+      "question": "Which US states have the highest number of Amtrak stations in snow-covered areas (>1 foot)?",
+      "bbox": [
+        -180,
+        17,
+        180,
+        72
+      ],
+      "clarification": "Use the supplied frozen 2024–25 snowfall raster in inches and the pixel containing each station. Strictly greater than 12 inches qualifies; zero is valid, NoData/outside raster is unknown. Use each station's supplied State attribute to group the 50 US states, rather than reassigning its location to a new geography. Count original station records once by benchmark_row_id. Give all positive state counts in descending order, retaining ties; do not substitute unique state names for station counts. Non-US province codes and DC are outside this state comparison. Maps are optional.",
+      "outputContract": "Produce an inspectable selected-station data artifact retaining original geometry, benchmark_row_id, State and sampled snowfall, plus the computed state comparison. End with one fenced JSON object: {count: total selected US station records, unknown_count: eligible US records with unknown snow, coverage_note: string, selection: {collectionId, itemId, assetKey}, groups: {state_code: integer_count}, value_field: name_of_sampled_snowfall_column_in_selection}. Include all positive groups, not just the largest. These field names are mandatory for grading, but choose your own valid workflow."
+    },
+    "806525": {
+      "title": "Water withdrawals in power-station countries",
+      "coverageContract": "Some supplied power-station records lack geometry. They cannot satisfy a spatial relationship; do not assign them using a country-name guess. Disclose this coverage limitation and add unlocated_count to the final JSON: the number of original power-station records without a usable location. The requested station counts and country mean describe located records only.",
+      "question": "What is the average freshwater withdrawal percentage in African countries with more than 5 power stations?",
+      "bbox": [
+        -26,
+        -36,
+        65,
+        39
+      ],
+      "clarification": "Use the supplied country's CONTINENT=Africa classification, and original power-station points strictly within each original country polygon. Count source rows, regardless of operational status; no live stations. Select countries with strictly more than five stations. Use WDI ER.H2O.FWTL.ZS for 2021, the latest populated year in this frozen file: percent of internal freshwater resources. Calculate an unweighted mean of the eligible countries with nonmissing values, counting each country once. Missing values are unknown, not zero. Join country identity to WDI Country Code using matching ISO_A3; preserve country geometry and original benchmark_row_id. Maps are optional.",
+      "outputContract": "Produce an inspectable contributing-country artifact including the measured station count and the 2021 withdrawal value, retaining original geometry and benchmark_row_id. End with one fenced JSON object: {count: contributing countries with a known value, unknown_count: eligible countries missing that value, coverage_note: string, selection: {collectionId, itemId, assetKey}, metrics: {mean: number}, value_field: name_of_withdrawal_column_in_selection}. Report the mean and units in prose as well."
+    },
+    "429627": {
+      "title": "Electricity use in large-power-station countries",
+      "coverageContract": "Some supplied power-station records lack geometry. They cannot satisfy a spatial relationship; do not assign them using a country-name guess. Disclose this coverage limitation and add unlocated_count to the final JSON: the number of capacity-above-1000MW station records without a usable location. The country selection and mean describe located qualifying records only.",
+      "question": "Calculate the average electric power consumption in African countries with power stations capacity above 1000MW",
+      "bbox": [
+        -26,
+        -36,
+        65,
+        39
+      ],
+      "clarification": "Use CONTINENT=Africa on supplied countries. A qualifying country strictly contains at least one supplied power-station point whose DsgAttr02 capacity is strictly greater than 1000 MW. Use the original country polygon, not a clipped boundary; no operating-status restriction. Calculate the unweighted mean of 2014 WDI EG.USE.ELEC.KH.PC values (kWh per capita) for qualifying countries with known data, one observation per country, not one per station. 2014 is the latest populated year in the frozen table. Join by ISO_A3/Country Code; missing values remain unknown. Maps are optional.",
+      "outputContract": "Produce an inspectable contributing-country artifact with 2014 consumption, original geometry and benchmark_row_id. End with one fenced JSON object: {count: contributing countries with known consumption, unknown_count: qualifying countries missing consumption, coverage_note: string, selection: {collectionId, itemId, assetKey}, metrics: {mean: number}, value_field: name_of_consumption_column_in_selection}. Explain the average and units in prose."
+    },
+    "918547": {
+      "title": "GDP in earthquake-affected countries",
+      "question": "What is the average GDP per capita in 2020 for countries that experienced earthquakes in the last 30 days?",
+      "bbox": [
+        -180,
+        -85,
+        180,
+        85
+      ],
+      "clarification": "Last 30 days means all records of the supplied earthquake file, not today's date: the frozen snapshot labelled Feb142025 actually contains UTC times 2025-01-16 through 2025-02-15. A country qualifies if its original polygon strictly contains at least one event point. Boundary/offshore events do not qualify. Use WDI NY.GDP.PCAP.CD 2020 in current US dollars per capita and an unweighted country mean, counting each qualifying country once. Match ISO_A3 to Country Code. Missing GDP is excluded from the mean and separately reported, never replaced with zero. Maps are optional.",
+      "outputContract": "Produce an inspectable contributing-country artifact with 2020 GDP, original geometry and benchmark_row_id. End with one fenced JSON object: {count: contributing countries with known GDP, unknown_count: qualifying countries missing GDP, coverage_note: string, selection: {collectionId, itemId, assetKey}, metrics: {mean: number}, value_field: name_of_GDP_column_in_selection}. Explain the average and units in prose."
+    },
+    "977524": {
+      "title": "Fertility comparison by income group",
+      "question": "Compare fertility rates between high-income and low-income nations",
+      "bbox": [
+        -180,
+        -85,
+        180,
+        85
+      ],
+      "clarification": "Use supplied INCOME_GRP values: combine '1. High income: OECD' and '2. High income: nonOECD' as high income; '5. Low income' is low income. Exclude other/unknown income groups. Compare unweighted country means of 2022 SP.DYN.TFRT.IN fertility in births per woman, one observation per supplied country feature. This is the frozen classification, not today's classification or an inferred GDP threshold. Match ISO_A3 to Country Code. Missing fertility is unknown, not zero; omit it from the means and report it. Maps are optional.",
+      "outputContract": "Produce an inspectable contributing-country artifact containing both income groups, INCOME_GRP and the 2022 fertility field, retaining original geometry and benchmark_row_id. End with one fenced JSON object: {count: total contributing countries in both groups with known fertility, unknown_count: eligible countries missing fertility, coverage_note: string, selection: {collectionId, itemId, assetKey}, metrics: {high_income: number, low_income: number}, value_field: name_of_fertility_column_in_selection}. Explain the comparison and units in prose."
+    }
+  }
+}

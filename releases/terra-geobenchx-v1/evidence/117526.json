@@ -1,0 +1,72 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "117526",
+  "question": "Map drought severity indices for agricultural regions in Southern Africa?",
+  "submittedPrompt": "Map drought severity indices for agricultural regions in Southern Africa?\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "I can only justify a rough country reference, not a real drought-severity map for agricultural regions in Southern Africa.\n\nBased on the supplied inventory, the relevant entries are mainly **GEO_CATALOG: Countries** and country-level context tables like **Agriculture, value added (% of GDP)** and **Annual freshwater withdrawals**. But the list does **not** include a drought index for Southern Africa, and it does **not** include agricultural-region or cropland boundaries there. Those national indicators are context only, not drought measurements, and this task provides catalog metadata rather than the observation files.\n\nNext step: add a drought layer for the same dates and area (for example SPI, SPEI, PDSI, rainfall anomaly, or soil-moisture anomaly), add an agricultural extent/region layer, and specify which countries you want included in “Southern Africa.”\n\n### Limitations\n\n- The supplied inventory lists metadata only, not the underlying observation files.\n- The listed sources do not include a drought severity dataset for Southern Africa.\n- The listed sources do not include agricultural-region or cropland boundaries for Southern Africa.\n- Not currently producible from the supplied inventory because it lacks both a drought severity source and an agricultural-region or cropland layer for Southern Africa.\n- **Drought:** The inventory does not list a drought index source for Southern Africa.\n- **Agricultural areas:** The inventory does not list agricultural-region or cropland boundaries for Southern Africa.\n- **Region boundary:** Southern Africa is not a single fixed boundary in the supplied inventory.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T06:10:51.406862+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "588a7d1cbe8ee9c74a8767c1ca00c6ceecc2e80d287d5e8a4cc0c0ff462d19a8",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "366420c1cb84606f27fd4a6aa2726b4f374dbef44bf506e59c391ec12c40160b",
+      "snapshotSha256AtReview": "75e0a7a179c295f021575d21c723561c98ca5b4a2d4ca823281991dbfa7dfb45",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies both missing drought-severity observations and Southern African agricultural/cropland geography."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Explicitly distinguishes national agricultural value and water-withdrawal context from drought measurements."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Limits the conclusion to the supplied metadata-only inventory, not worldwide data availability."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Claims no drought values or completed map; two bookkeeping tools and no jobs were recorded."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests time-matched drought indices, agricultural extent, and an explicit Southern Africa membership."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:08:05.992993Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:44.373071Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "0d25be236ef84147ced2fe45d22648b73a5c8f3385257a573b95e395e600d5de",
+  "investigations": []
+}

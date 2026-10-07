@@ -1,0 +1,447 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "333321",
+  "question": "How many US towns with population over 5000 are located in areas with snow cover exceeding 3 feet?",
+  "submittedPrompt": "How many US towns with population over 5000 are located in areas with snow cover exceeding 3 feet?\n\nTask conventions: Use the source's 2010 population field and the frozen 2024-09-30 through 2025-05-20 snowfall raster, measured in inches. Both thresholds are strictly greater than. Count source records, retaining benchmark_row_id; repeated GNIS IDs are not a deduplication instruction. Sample the pixel containing each point. Report the count supported by valid snowfall cells, and separately the number of population-eligible records whose snowfall is unknown (outside coverage or NoData). Do not claim complete nationwide coverage.\n\n\n\nCompute the answer using only the supplied immutable fixtures. Save the selected features with their benchmark_row_id and original geometry as an inspectable data artifact. In your accepted final answer include one JSON code block with count (integer), unknown_count (integer), coverage_note (string), and selection (an object with collectionId, itemId, assetKey for that artifact). Maps are optional. Do not request clarification: the task conventions are fixed. Do not use live substitutes, shrink the study question, or use external benchmark answers.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"US cities and towns, 2014\",\n    \"edition\": \"2014; pop_2010 is 2010 population\",\n    \"units\": {\n      \"pop_2010\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"US snowfall, 2024\\u201325 frozen season\",\n    \"edition\": \"2024-09-30 to 2025-05-20\",\n    \"units\": {\n      \"band1\": \"inches\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Using the supplied 2014 towns fixture and the frozen 2024-09-30 to 2025-05-20 snowfall raster, 460 town records meet both thresholds. Another 236 population-eligible records have unknown snowfall because the sampled raster value is null, so this is not a complete nationwide count. The selected records artifact is attached for inspection.\n\n### Limitations\n\n- Supported count uses only valid sampled snowfall cells from the supplied raster; population-eligible towns with null snowfall samples remain unknown and are reported separately.\n- This filter does not establish snowfall coverage or snowfall threshold compliance by itself.\n- The supported count is limited to valid sampled raster cells. Null samples remain unknown because they are outside coverage or NoData.",
+  "checks": {
+    "expectedCount": 460,
+    "actualCount": 460,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:36:52.126241Z",
+      "title": "Progress update",
+      "detail": "I’m checking the saved analysis context and the fixed input files first, then I’ll build the smallest valid workflow to count eligible towns and keep an inspectable selection artifact."
+    },
+    {
+      "at": "2026-10-07T06:37:04.508109Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:15.999614Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:16.000540Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:25.683598Z",
+      "title": "list_items",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:25.726318Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:25.816393Z",
+      "title": "list_items",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:30.749497Z",
+      "title": "Progress update",
+      "detail": "I found the fixed vector and raster fixtures and their declared extents. Next I’m checking the actual item metadata/fields so I can test the exact population and snowfall columns without guessing processor inputs."
+    },
+    {
+      "at": "2026-10-07T06:37:35.442052Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:35.726086Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:35.815829Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:36.264934Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:52.652199Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:52.705473Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:04.139171Z",
+      "title": "Progress update",
+      "detail": "I’ve narrowed the method to three simple steps: filter towns by `pop_2010 > 5000`, sample the snowfall raster at each point, then split the sampled towns into “snow > 36” and “snow unknown”. I’m reading the exact processor contracts now so I don’t guess how null/NoData sampling is represented."
+    },
+    {
+      "at": "2026-10-07T06:38:12.572464Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:37.364932Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:38.210277Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:38:38.336922Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:06.944888Z",
+      "title": "Progress update",
+      "detail": "I’ve got the exact full-scope method. I’m testing it privately once before saving the public workflow so I can confirm the sampled snowfall field and null handling on the real nationwide inputs rather than guessing."
+    },
+    {
+      "at": "2026-10-07T06:39:10.345354Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:00.397308Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:01.446481Z",
+      "title": "Progress update",
+      "detail": "The private full-scope test worked: it found 5,919 population-eligible town records, added a `snow_inches` sample field, and separated 460 supported selected towns from 236 eligible towns with unknown snowfall. I’m inspecting that test result and turning the same tested method into the final saved workflow now."
+    },
+    {
+      "at": "2026-10-07T06:42:11.364994Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:12.909050Z",
+      "title": "Progress update",
+      "detail": "The trial confirmed the exact field behavior I needed: the sampled field is `snow_inches`, selected rows all have valid `snow_inches > 36`, and unknown rows are null samples. I’m saving the tested nationwide method as the final workflow so I can inspect the final artifacts and attach the answer cleanly."
+    },
+    {
+      "at": "2026-10-07T06:42:16.941678Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:17.260273Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:17.333747Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:33.771222Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:34.541534Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:35.226475Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:50.838564Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:17.200829Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:29.384691Z",
+      "title": "Progress update",
+      "detail": "The final workflow is validated and matches the successful nationwide trial exactly. I’m executing it now so I can attach the final selected-features artifact and the machine-readable answer from the saved workflow outputs."
+    },
+    {
+      "at": "2026-10-07T06:43:31.435631Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:49:51.821316Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:50:36.645548Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:50:36.697492Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:50:41.693346Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:12.615427Z",
+      "title": "Progress update",
+      "detail": "I’ve already got the final counts from the saved workflow. I’m refreshing the bounded inspections one more time to pull the immutable receipts for the selected rows, the unknown rows, and the sampled towns table before I record the final answer."
+    },
+    {
+      "at": "2026-10-07T06:51:12.641724Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:12.663604Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:12.675290Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:26.453915Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:26.506674Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:29.364096Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the final saved outputs themselves: 460 selected rows, 236 unknown rows, and the sampled table shows 236 null snowfall values among 5,919 population-eligible rows. I’m recording the final result now with the selected-features artifact attached."
+    },
+    {
+      "at": "2026-10-07T06:51:44.439711Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the final saved artifacts now, so I’m clearing the stale “not yet run” notes before filing the result. Then I’ll give the short answer that matches the attached selection."
+    },
+    {
+      "at": "2026-10-07T06:51:50.382000Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:51:59.461471Z",
+      "title": "revise_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:52:01.234486Z",
+      "title": "Progress update",
+      "detail": "I refreshed the brief notes after the outputs were confirmed. I’m revalidating the saved workflow reference once so the retained planning record stays in sync with the finished result, then I’ll file the final assessment."
+    },
+    {
+      "at": "2026-10-07T06:52:45.551499Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Selected towns with snowfall over 36 inches",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Population-eligible towns with unknown snowfall",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Population-eligible towns",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Sample snowfall at eligible towns",
+      "description": "Recorded raster-sample · succeeded"
+    },
+    {
+      "title": "Selected towns with snowfall over 36 inches",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Supplied snowfall fixture",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied towns fixture",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Eligible towns with unknown snowfall",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Population-eligible towns",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Sample snowfall at eligible towns",
+      "description": "Recorded raster-sample · succeeded"
+    },
+    {
+      "title": "Selected towns with snowfall over 36 inches",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Supplied snowfall fixture",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied towns fixture",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Population-eligible towns",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Sample snowfall at eligible towns",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected towns with snowfall over 36 inches",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Eligible towns with unknown snowfall",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Eligible towns with unknown snowfall",
+      "description": "Recorded vector-filter · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "8b418f3c402abb1737aa9bca44d5030dd946ee6587df13726b4f45bb23371a5d",
+      "bytes": 6180538,
+      "finishedAt": "2026-10-07T06:39:25.224435+00:00"
+    },
+    {
+      "sha256": "160ee5bf8bbbfa0ae6db92d81dc1e5a0c2f19948ac6f457cc535066b83890c56",
+      "bytes": 3577310,
+      "finishedAt": "2026-10-07T06:39:25.224435+00:00"
+    },
+    {
+      "sha256": "feff9c0395f3d02fd19ba50b0a64a9ed4ae96409bc079699bb20cade76d802f8",
+      "bytes": 834601,
+      "finishedAt": "2026-10-07T06:39:51.388976+00:00"
+    },
+    {
+      "sha256": "7fb4561c32988601cc3c2870a1de7b91e3431361eb498369d923ba5b0b863eab",
+      "bytes": 870820,
+      "finishedAt": "2026-10-07T06:40:40.656393+00:00"
+    },
+    {
+      "sha256": "f16788851db1101a2f341238d8304694bef03562f1cf3a19a68a24a105f8c4e8",
+      "bytes": 87962,
+      "finishedAt": "2026-10-07T06:41:10.674369+00:00"
+    },
+    {
+      "sha256": "510eb2715fda9db0177ecac4a3d2c34f6d449a47f08527b6ce7d4c015861554c",
+      "bytes": 52541,
+      "finishedAt": "2026-10-07T06:41:10.674369+00:00"
+    },
+    {
+      "sha256": "feff9c0395f3d02fd19ba50b0a64a9ed4ae96409bc079699bb20cade76d802f8",
+      "bytes": 834601,
+      "finishedAt": "2026-10-07T06:44:39.615620+00:00"
+    },
+    {
+      "sha256": "7fb4561c32988601cc3c2870a1de7b91e3431361eb498369d923ba5b0b863eab",
+      "bytes": 870820,
+      "finishedAt": "2026-10-07T06:45:45.848983+00:00"
+    },
+    {
+      "sha256": "510eb2715fda9db0177ecac4a3d2c34f6d449a47f08527b6ce7d4c015861554c",
+      "bytes": 52541,
+      "finishedAt": "2026-10-07T06:49:29.406698+00:00"
+    },
+    {
+      "sha256": "f16788851db1101a2f341238d8304694bef03562f1cf3a19a68a24a105f8c4e8",
+      "bytes": 87962,
+      "finishedAt": "2026-10-07T06:49:35.244771+00:00"
+    }
+  ],
+  "snapshotSha256": "7b4baef95d322ed0ae47120a4fbfafd1177c59d4174a60412f84cededb60ea83",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:39:10.345354Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Using only the supplied immutable fixtures, does filtering towns by pop_2010 > 5000, sampling the frozen snowfall raster at each point, and splitting the sampled records into snowfall > 36 inches versus unknown null samples produce the required selected and unknown town sets nationwide?"
+    },
+    {
+      "at": "2026-10-07T06:42:50.838564Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The nationwide fixed-input trial answered the method question. Filtering the supplied towns fixture with pop_2010 > 5000 produced 5,919 eligible source records. Sampling the supplied snowfall raster added a snow_inches field while preserving benchmark_row_id and point geometry. Filtering sampled rows with valid snow_inches > 36 produced 460 selected records, and filtering sampled rows where snow_inches is null produced 236 eligible records with unknown snowfall. The selected set retains source records without deduplication, and the unknown set captures the required outside-coverage or NoData outcomes as null samples.",
+      "limitations": [
+        "This trial confirms the full fixed-input method and counts, but the final answer must still state that the supported count is limited to valid sampled snowfall cells and is not complete nationwide coverage."
+      ],
+      "next_action": "Save the tested computation as the production workflow, inspect the final output artifacts, and assess the result with the selected features artifact and machine-readable answer fields.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:52:45.551499Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "Using only the supplied immutable fixtures, the saved workflow counted 460 source town records with pop_2010 > 5000 and sampled snowfall > 36 inches, and it found 236 population-eligible source records whose snowfall sample is unknown because the sampled raster value is null. The selected artifact preserves benchmark_row_id, original point geometry, pop_2010, and snow_inches for inspection. This is a supported count only for valid sampled snowfall cells from the supplied frozen-season raster, not a complete nationwide coverage claim.",
+      "limitations": [
+        "Supported count uses only valid sampled snowfall cells from the supplied raster; population-eligible towns with null snowfall samples remain unknown and are reported separately."
+      ],
+      "next_action": null,
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "be871eabde5b6292c43fc85cf922b2fc978f2d58cc847b5f574ff4dc4daf9d24",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

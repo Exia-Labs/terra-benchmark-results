@@ -1,0 +1,117 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "305778",
+  "question": "How many power stations in Africa are located in economically strategic regions?",
+  "submittedPrompt": "How many power stations in Africa are located in economically strategic regions?\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "I can’t give a reliable count here.\n\nThe supplied inventory lists a **“Power stations in Africa”** source type and some possible economic proxies, but this task only exposes **catalog metadata**, not the underlying station records, and it does not define **“economically strategic regions.”** A catalog check here also did not return usable collections for making that count.\n\nSo the number is **not yet confirmed**. Next step: define what counts as an economically strategic region, then use the actual observation files to count which African power stations fall inside those regions.\n\n### Limitations\n\n- This task environment provides source-inventory metadata rather than the underlying observation files needed for a spatial count.\n- No confirmed Africa-wide definition or boundary for 'economically strategic regions' is available in the supplied information.\n- Only source-inventory metadata is available here, and no confirmed strategic-region definition is provided.\n- **Power stations:** This environment does not expose the station observations needed to count sites in regions.\n- **Strategic regions:** No confirmed Africa-wide strategic-region definition or geometry is available here.\n- **Economic proxies:** Those listings do not by themselves define regions or support a numeric overlap count.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T06:36:48.556157+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "5a774667bc72b650e9c6f2037d5584df9f082bb08de7a183991a536652b841f0",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "b9ac547e7e09dffe30525fe38ab91fa8ab67046fee14bad1a5d2745d1deee299",
+      "snapshotSha256AtReview": "051419b6cf6bc68797531d50164649f03c615450f0b6d611b3cfb009681409a7",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies absent measurable boundaries or selection rules for economically strategic African regions and unavailable station observations."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Does not treat power-station presence or broad economic indicators as proof of strategic importance."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Acknowledges the listed station source and confines its unavailable-data statement to this metadata-only environment."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Reports no count or executed overlap, and no jobs or artifacts exist; the catalog check and failed assessment do not become claimed analytical results."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests a strategic-region definition and actual station/boundary observations before a spatial count."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:34:46.856521Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:34:57.869511Z",
+      "title": "search_catalog",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:34:58.585204Z",
+      "title": "Progress update",
+      "detail": "Quick check of the closed catalog: I’m confirming what source types exist for African power stations and for any defensible definition of “economically strategic regions.” Then I’ll answer with the strongest supported statement, without inventing a count."
+    },
+    {
+      "at": "2026-10-07T06:35:23.713448Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:34.918548Z",
+      "title": "Progress update",
+      "detail": "I checked the catalog side now. The key finding is simple: this environment supports a defensible limitation statement, not a numeric count. I’m recording that final result so the answer stays tied to the evidence rather than to guesswork."
+    },
+    {
+      "at": "2026-10-07T06:35:38.049920Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:35:42.582301Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [],
+  "snapshotSha256": "4fe46869c6c916b950b107f60c9407b05b0d21073ab6beef0b5f19178bc342c2",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:35:38.049920Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The supplied task inventory lists source types such as Power stations in Africa and several possible economic or infrastructure proxies, but it does not provide the underlying observation files needed for a spatial count. A Terra catalog search for runnable collections matching the requested needs returned no candidates in this environment on 2026-10-06. Because 'economically strategic regions' is also undefined here, a defensible numeric count cannot be produced from this information alone.",
+      "limitations": [
+        "This environment provides source-inventory metadata rather than the observation files needed to count stations in regions.",
+        "No confirmed Africa-wide definition or boundary for economically strategic regions is available here."
+      ],
+      "next_action": "Provide a clear geographic definition for economically strategic regions and the underlying observation files if a numeric count is needed.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "b52ff748eb7662d9b5030e3d6d3b510de0c11a30631d8ed213deab3ebe033869",
+    "changes": [
+      "Product-name normalization"
+    ]
+  }
+}

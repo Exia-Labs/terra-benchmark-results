@@ -1,0 +1,793 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "130168",
+  "question": "How many mineral extraction facilities in Africa are located in countries with negative net migration?",
+  "submittedPrompt": "How many mineral extraction facilities in Africa are located in countries with negative net migration?\n\nTask conventions: Use 2023 net migration and countries classified as Africa in the provided boundaries. Count source facility records once, retaining benchmark_row_id; repeated FeatureUID values are not a deduplication instruction. Use point-within-polygon membership (boundary points are excluded). Resolve country identity using the supplied fields; differing country-name spellings are not evidence that migration data is missing. Report any records in countries with unresolved migration as unknown. Offshore or otherwise outside-country points do not satisfy within.\n\n\n\nCompute the answer using only the supplied immutable fixtures. Save the selected features with their benchmark_row_id and original geometry as an inspectable data artifact. In your accepted final answer include one JSON code block with count (integer), unknown_count (integer), coverage_note (string), and selection (an object with collectionId, itemId, assetKey for that artifact). Maps are optional. Do not request clarification: the task conventions are fixed. Do not use live substitutes, shrink the study question, or use external benchmark answers.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"African mineral extraction facilities\",\n    \"edition\": \"USGS 2021 benchmark snapshot\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Net migration, World Development Indicators\",\n    \"edition\": \"2024-11-13 snapshot; use 2023\",\n    \"units\": {\n      \"2023\": \"people (net migration)\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "I found 1,642 mineral extraction facility records in Africa that are strictly within an African country polygon and in countries with negative 2023 net migration. Unknown count is 0.\n\nImportant limit: 192 source facility points fell outside every African country polygon under the strict within rule, so they were excluded from the within-country count.\n\nNext: open the attached saved selection to inspect the records; the source facility ID is kept in `benchmark_row_id_target`.\n\nSources used: the supplied USGS 2021 facilities snapshot, World Bank Official Boundaries with GeoBenchX harmonized names, and the supplied WDI snapshot dated 2024-11-13 using 2023 net migration.\n\n### Limitations\n\n- 192 source facility points fall outside every African country polygon under the strict within-country rule and are excluded from the within-country count.\n- The saved counted-features artifact preserves the source facility benchmark row ID under benchmark_row_id_target because joined field suffixes are applied.\n- The final selected artifact preserves the source facility benchmark row ID under benchmark_row_id_target.\n- Source records are counted once; repeated FeatureUID values are not used as a deduplication rule.\n- Strict within-country membership excludes facilities outside every African country polygon.\n- Country identity is resolved with the supplied code fields using ISO_A3 to Country Code.",
+  "checks": {
+    "expectedCount": 1642,
+    "actualCount": 1642,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:08:17.949172Z",
+      "title": "Progress update",
+      "detail": "I’ll inspect the retained analysis context and the exact Terra operations for fixture inspection, private trials, workflow drafting, and final assessment."
+    },
+    {
+      "at": "2026-10-07T06:08:29.526328Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:36.859116Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed there isn’t an existing saved analysis for this task. Next I’m reading the three immutable fixtures so I can use their exact fields and authorized input selections."
+    },
+    {
+      "at": "2026-10-07T06:08:36.880196Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:36.887827Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:36.892559Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:47.325774Z",
+      "title": "Progress update",
+      "detail": "I have the fixture metadata. Next I’m checking sample rows and field names so I can match countries correctly and enforce the strict point-within-polygon rule."
+    },
+    {
+      "at": "2026-10-07T06:08:47.338186Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:47.342844Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:47.346979Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:54.855698Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:58.045344Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:15.115483Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:19.862651Z",
+      "title": "Progress update",
+      "detail": "I’ve saved the analysis goal. Now I’m materializing the three fixtures privately so I can inspect their actual schemas and verify which country fields support the strict count."
+    },
+    {
+      "at": "2026-10-07T06:09:22.719509Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:56.465787Z",
+      "title": "Progress update",
+      "detail": "The source trial finished. I found usable country and migration identity fields, and now I’m checking the detailed report so I can confirm the exact 2023 field and build the strict full-area selection method."
+    },
+    {
+      "at": "2026-10-07T06:09:56.725684Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:08.138352Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the fixtures expose the needed country and facility identifiers, but I still need the exact 2023 field and the right processors for strict point-in-polygon plus country-code joining. I’m checking those next before I save the full workflow draft."
+    },
+    {
+      "at": "2026-10-07T06:10:08.161331Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:08.168450Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:09.133318Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:44.755119Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:45.002992Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:05.438947Z",
+      "title": "Progress update",
+      "detail": "I found the likely processor path. Next I’m verifying the exact schemas for Africa filtering, point-in-polygon joining, and country-code joining so the saved workflow matches the tested method exactly."
+    },
+    {
+      "at": "2026-10-07T06:11:05.469104Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:57.197371Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:12:03.456422Z",
+      "title": "Progress update",
+      "detail": "I’ve got the method. I’m testing the full count privately now: Africa-only country filter, strict point-within-polygon join, country-code migration join, then separate negative and unknown selections."
+    },
+    {
+      "at": "2026-10-07T06:12:10.545174Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:19:35.624595Z",
+      "title": "Progress update",
+      "detail": "The first full trial found an avoidable join problem, not missing migration data. The Africa country code WB_A3 includes legacy ZAR for Congo, Dem. Rep., and the trial itself showed ISO_A3 matches the migration table’s Country Code for those records. I’m correcting the join key now instead of treating those 115 facilities as unknown."
+    },
+    {
+      "at": "2026-10-07T06:19:38.394288Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:19:46.687870Z",
+      "title": "Progress update",
+      "detail": "I’ve isolated the only real uncertainty now: the final country-code join. I’m reusing the exact strict-within African facility set from the prior trial and correcting just the join key to ISO_A3 so the final count is based on the best supported country identity field in the supplied fixtures."
+    },
+    {
+      "at": "2026-10-07T06:19:50.667476Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:23:41.240982Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:23:41.394125Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:23:41.670179Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:23:48.323143Z",
+      "title": "Progress update",
+      "detail": "The corrected trial finished cleanly. I’m checking the exact workflow-drafting and final-assessment tool shapes now so I can save the final selected features as the inspectable artifact and attach the answer object to the accepted result."
+    },
+    {
+      "at": "2026-10-07T06:24:30.038677Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:24:30.142330Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:24:34.105259Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:24:35.976913Z",
+      "title": "Progress update",
+      "detail": "I already have the corrected final counts from the tested method. Before I record the accepted result, I’m checking the exact assess_result shape so I attach the derived selected-features artifact correctly rather than guessing the final reference format."
+    },
+    {
+      "at": "2026-10-07T06:24:45.523766Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:24:47.235830Z",
+      "title": "Progress update",
+      "detail": "I have the final negative count and unknown count already. I’m doing one last check for a lightweight field-selection step so the saved output keeps the original facility benchmark_row_id cleanly in the derived artifact instead of relying on the join-suffixed name."
+    },
+    {
+      "at": "2026-10-07T06:25:04.853232Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the corrected method. Now I’m checking the stored artifact/reference format so I can file the accepted result against the exact derived output instead of guessing at the final artifact_ref string."
+    },
+    {
+      "at": "2026-10-07T06:25:04.934041Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:04.957279Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:06.367137Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:20.863796Z",
+      "title": "Progress update",
+      "detail": "I’ve got the artifact references now. I’m making one last private check that the selected output visibly contains the original facility ID field and that the empty unknown set is a real zero, then I’ll save the tested workflow draft and record the accepted final result."
+    },
+    {
+      "at": "2026-10-07T06:25:20.934184Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:21.021825Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:23.087513Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:39.633390Z",
+      "title": "Progress update",
+      "detail": "I’m verifying the final artifact contents now. Then I’ll record the accepted result with the attached selection object and finish with the plain-language count."
+    },
+    {
+      "at": "2026-10-07T06:26:39.813534Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:40.689463Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:17.759455Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:23.430923Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:38.040539Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:49.821758Z",
+      "title": "Progress update",
+      "detail": "I’ve recorded the corrected trial as sufficient. I’m refreshing the artifact list once so the final assessment references the exact current inspected outputs, then I’ll file the accepted answer."
+    },
+    {
+      "at": "2026-10-07T06:28:13.694861Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:28:24.696243Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:24.721600Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:25.984876Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:28.996691Z",
+      "title": "Progress update",
+      "detail": "The final result needs a verified workflow output, not a private trial artifact. I’m promoting the tested method into a saved workflow now and will execute that exact corrected computation before I file the accepted answer."
+    },
+    {
+      "at": "2026-10-07T06:28:36.128988Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:36.504915Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:36.820592Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:45.648310Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:46.149061Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:50.088102Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:25.792466Z",
+      "title": "Progress update",
+      "detail": "I’ve moved from private testing to the final saved workflow. It will rerun the corrected computation from the supplied fixtures so the attached result points to a proper final output artifact."
+    },
+    {
+      "at": "2026-10-07T06:29:37.493056Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:29:55.196017Z",
+      "title": "Progress update",
+      "detail": "The workflow draft only needed one small bookkeeping fix: the migration requirement must point to processors that feed the selected final deliverable. I’m correcting that now and keeping the tested computation unchanged."
+    },
+    {
+      "at": "2026-10-07T06:29:56.466201Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:06.040622Z",
+      "title": "Progress update",
+      "detail": "The workflow is saved. The only remaining step before running it is to record that the earlier code-mismatch finding is resolved by the corrected ISO_A3 trial, so the saved workflow can use that exact fix."
+    },
+    {
+      "at": "2026-10-07T06:30:11.843074Z",
+      "title": "assess_plan",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:25.146092Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:05.726973Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:34:14.714856Z",
+      "title": "Progress update",
+      "detail": "I’m verifying the final saved output directly: one quick check of the deliverable rows to confirm the retained source ID field, and one check that the final unknown set is truly zero in the workflow run."
+    },
+    {
+      "at": "2026-10-07T06:34:14.790060Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:34:14.800330Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:35:00.921042Z",
+      "title": "Progress update",
+      "detail": "The saved workflow has finished. I’m refreshing its outputs, then I’ll attach the final deliverable artifact and the verified zero-unknown check to the accepted result."
+    },
+    {
+      "at": "2026-10-07T06:35:02.361176Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:53.616223Z",
+      "title": "Progress update",
+      "detail": "I’m confirming one last final-workflow fact: the saved deliverable keeps the source facility ID field, and the final joined workflow has no null 2023 migration values. Then I can file the accepted answer cleanly."
+    },
+    {
+      "at": "2026-10-07T06:35:53.704941Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:53.760136Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:43.194125Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:37:43.339429Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:37:47.117186Z",
+      "title": "Progress update",
+      "detail": "I’ve already verified the final deliverable count and the retained source ID field. I’m fetching the final workflow’s empty unknown-selection receipt now so the accepted answer cites both the selected output and the verified zero unknowns."
+    },
+    {
+      "at": "2026-10-07T06:38:38.056736Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:39:02.159466Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the final saved selection artifact and the workflow join coverage. I’m recording the accepted result now with the final output’s selection object attached."
+    }
+  ],
+  "workflow": [
+    {
+      "title": "africa boundaries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "boundaries src",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Facilities in African countries with negative 2023 net migration",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "facilities migration",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "facilities src",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "migration src",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "negative selection",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "unknown selection",
+      "description": "Recorded vector-filter · skipped"
+    },
+    {
+      "title": "within africa",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "facilities migration iso",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "migration src",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "negative selection",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "facilities migration iso",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "negative selection",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "unknown selection",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "unknown selection",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "within africa src",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "africa boundaries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "boundaries src",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "facilities migration",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "facilities src",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "migration src",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "negative selection",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "africa boundaries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "within africa",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "facilities migration",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "negative selection",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "unknown selection",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "unknown selection",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "within africa",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "boundaries src",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "facilities src",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "migration src",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "facilities src",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "boundaries src",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "migration src",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T06:09:28.888229+00:00"
+    },
+    {
+      "sha256": "a5818522a2c966354fb044df972b1793a62ae6d4de4955ff7948a953555fae94",
+      "bytes": 290677,
+      "finishedAt": "2026-10-07T06:09:28.888229+00:00"
+    },
+    {
+      "sha256": "f80ac51aa813bae2e14b0dcab21097697cf7d936ccd9ed0ce7d74bf56191c5f7",
+      "bytes": 151811,
+      "finishedAt": "2026-10-07T06:09:28.888229+00:00"
+    },
+    {
+      "sha256": "a1c538b74b7265882452aab9f505274a889f7c7d3ecb5744879c3722fcc74cf3",
+      "bytes": 919098,
+      "finishedAt": "2026-10-07T06:14:23.023808+00:00"
+    },
+    {
+      "sha256": "89757c249e9e6a63005e743359767d6b405e1ce0942c287ee9282309864665af",
+      "bytes": 357676,
+      "finishedAt": "2026-10-07T06:15:31.535725+00:00"
+    },
+    {
+      "sha256": "4af84115c9510ab8f2e68af8dbf143b2ff9c79f4a70cf98a2aa1fda582c1e842",
+      "bytes": 360854,
+      "finishedAt": "2026-10-07T06:17:14.256405+00:00"
+    },
+    {
+      "sha256": "a20fb2a715f19abde85910409646b6d6b7b77b8907095fa7acc73ad15eae413e",
+      "bytes": 274999,
+      "finishedAt": "2026-10-07T06:18:27.604946+00:00"
+    },
+    {
+      "sha256": "744320703b28caa99d8f3ad5a4f3c67d0d47007611a2aabc07e2455c117cd524",
+      "bytes": 59893,
+      "finishedAt": "2026-10-07T06:18:27.604946+00:00"
+    },
+    {
+      "sha256": "695efc71e9d0ab62c74e066f7d46dc28619b5fb3416d105c9632efd1f60c31a5",
+      "bytes": 360875,
+      "finishedAt": "2026-10-07T06:21:11.869127+00:00"
+    },
+    {
+      "sha256": "7282287c9d39723fdf4af61f4f9a34230b1355ed66d296d3eb6c5746c99f105f",
+      "bytes": 289840,
+      "finishedAt": "2026-10-07T06:22:48.253956+00:00"
+    },
+    {
+      "sha256": "0d96fbbed741be397ae096910d06956ee6368631102ac21951a9ef4c8c396388",
+      "bytes": 33500,
+      "finishedAt": "2026-10-07T06:22:48.253956+00:00"
+    },
+    {
+      "sha256": "a1c538b74b7265882452aab9f505274a889f7c7d3ecb5744879c3722fcc74cf3",
+      "bytes": 919098,
+      "finishedAt": "2026-10-07T06:31:22.404107+00:00"
+    },
+    {
+      "sha256": "89757c249e9e6a63005e743359767d6b405e1ce0942c287ee9282309864665af",
+      "bytes": 357676,
+      "finishedAt": "2026-10-07T06:31:39.975866+00:00"
+    },
+    {
+      "sha256": "695efc71e9d0ab62c74e066f7d46dc28619b5fb3416d105c9632efd1f60c31a5",
+      "bytes": 360875,
+      "finishedAt": "2026-10-07T06:32:13.633247+00:00"
+    },
+    {
+      "sha256": "7282287c9d39723fdf4af61f4f9a34230b1355ed66d296d3eb6c5746c99f105f",
+      "bytes": 289840,
+      "finishedAt": "2026-10-07T06:32:44.581819+00:00"
+    }
+  ],
+  "snapshotSha256": "f94cb1bb734690194f344c8c404ab1c0d3ac5b6f05e00ce32f91a20b6efc7106",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:09:22.719509Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Which fields in the supplied facility, boundary, and migration fixtures support strict African country membership and the 2023 net migration join?"
+    },
+    {
+      "at": "2026-10-07T06:11:57.197371Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full immutable-fixture method produce a clean strict within-country assignment for African facilities and a usable 2023 migration join for negative and unknown counts?"
+    },
+    {
+      "at": "2026-10-07T06:12:10.545174Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The fixture inspection answered the schema question. The facility fixture has 2,408 point records and includes benchmark_row_id, Country, FeatureUID, Latitude, Longitude, and original point geometry. The boundary fixture has 251 country polygons and includes CONTINENT, REGION_UN, NAME_EN, WB_A3, ISO_A3, and benchmark_row_id, which is enough to identify countries classified as Africa and join country codes. The migration fixture has 266 table rows and includes Country Code, Country Name, and a numeric 2023 field for net migration.",
+      "limitations": [
+        "This trial confirmed usable fields and geometry types, not yet the full strict within-country count or join coverage."
+      ],
+      "next_action": "Run the full immutable-fixture trial using CONTINENT for Africa filtering, a strict within spatial join, and a WB_A3 to Country Code attribute join, then inspect the negative and unknown selections.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:19:38.394288Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "insufficient",
+      "findings": "The full-area trial established the main method structure and strict within-country behavior. Filtering CONTINENT='Africa' produced 52 African country polygons. A strict within spatial join matched 2,216 of 2,408 facility points to African country polygons and left 192 facilities outside strict within-country membership, so those points do not count as within. The migration join using WB_A3 to Country Code was not sufficient because 115 matched facilities remained unmatched with legacy country code ZAR, and the join diagnostics showed exact alternative matches on ISO_A3 for those same records.",
+      "limitations": [
+        "The count from this trial is not final because the country-code join used an avoidable mismatched identifier for Congo, Dem. Rep. facilities.",
+        "Unknown migration from this run is not evidence of missing data; the fixtures expose a better country identity field."
+      ],
+      "next_action": "Rerun the full immutable-fixture trial with the same strict within-country method but join migration using ISO_A3 to Country Code, then inspect negative and unknown selections and promote the corrected tested computation to the saved workflow.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:19:50.667476Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "After correcting the country-code join to ISO_A3, what are the final negative-migration and unresolved-migration counts for strictly within-country African facilities?"
+    },
+    {
+      "at": "2026-10-07T06:27:23.430923Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The corrected join answered the final count question. Reusing the strict within-country African facilities set, joining ISO_A3 to Country Code matched all 2,216 within-country African facilities to 2023 migration records with zero unmatched features. Filtering 2023 < 0 selected 1,642 facilities. Filtering 2023 is null selected 0 facilities. The saved counted-features artifact preserves original point geometry and the source facility benchmark row ID under benchmark_row_id_target.",
+      "limitations": [
+        "The final count follows the supplied fixture editions and the task's strict within-country rule, so 192 source facility points outside any African country polygon are excluded from within-country counts."
+      ],
+      "next_action": "Assess the saved negative-selection artifact and the empty unknown-selection artifact as the final result, and attach the answer object with count, unknown_count, coverage_note and selection.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:28:13.694861Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "Using only the supplied immutable fixtures, I filtered the supplied World Bank boundary fixture to 52 African country polygons, applied a strict within spatial join to the supplied USGS 2021 facilities fixture, and joined the supplied WDI 2023 migration table by ISO_A3 to Country Code after the trial showed WB_A3 carried a legacy Congo code. This matched 2,216 of 2,408 source facility records to an African country polygon and excluded 192 offshore or otherwise outside-country points from within-country counting. All 2,216 within-country facilities resolved a 2023 migration value after the corrected code join. Filtering 2023 < 0 selected 1,642 facility records, and filtering 2023 is null selected 0 records. The selected derived artifact preserves original point geometry and the source facility benchmark row ID under benchmark_row_id_target.",
+      "limitations": [
+        "The answer follows the supplied fixture editions and the task's strict within-country rule, so 192 source facility points outside every African country polygon are excluded from the within-country count.",
+        "The selected artifact preserves the source facility benchmark row ID under benchmark_row_id_target because joined field suffixes are applied."
+      ],
+      "next_action": "Inspect the attached selected artifact if you want to review the counted facility records on the map or in a table.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:38:38.056736Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "Using only the supplied immutable fixtures, the final saved workflow filtered the supplied boundary fixture to 52 African country polygons, assigned facilities with a strict within spatial join, and joined 2023 net migration by ISO_A3 to Country Code. The strict within step matched 2,216 of 2,408 source facilities to an African country polygon and excluded 192 offshore or otherwise outside-country points from within-country counting. The corrected country-code join matched all 2,216 within-country African facilities to migration records with zero unmatched features and no null 2023 values. Filtering 2023 < 0 produced the final selected artifact with 1,642 facility records. The saved output preserves original point geometry and the source facility benchmark row ID under benchmark_row_id_target.",
+      "limitations": [
+        "192 source facility points fall outside every African country polygon under the strict within-country rule and are excluded from the within-country count.",
+        "The final selected artifact preserves the source facility benchmark row ID under benchmark_row_id_target."
+      ],
+      "next_action": "Open the saved selection artifact if you want to inspect the counted facility records.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "a425dbe3ede2426fed38558ac650cdb374dc124678fb280e0da495c769eb1bb4",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

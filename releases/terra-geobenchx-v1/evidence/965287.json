@@ -1,0 +1,448 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "965287",
+  "question": "Map rural population distribution in Central Asian nations",
+  "submittedPrompt": "Map rural population distribution in Central Asian nations\n\nTask conventions: Use the frozen country polygons and World Bank SP.RUR.TOTL 2023 column, in people. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature in the declared geography and its benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. Geography is fixed to original country features with SUBREGION in [\"Central Asia\"]; retain all matching source geometries, and no others. Classification is calculated only over this geography. Membership reflects this disclosed benchmark edition, not current organization membership.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SP.RUR.TOTL\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the 2023 rural population choropleth is on your map for the 5 benchmark Central Asia country features. It uses the frozen World Bank SP.RUR.TOTL 2023 values in people, with 5 quantile classes and breaks at 4,132,743.8, 6,134,419.8, 7,696,750.2, and 10,260,454.6; no countries are unknown in this edition, so the No data class is available but unused.\n\nLimitation: this is a country-level benchmark map, not a within-country rural population surface, and Central Asia membership follows the supplied benchmark boundary edition rather than current organization membership.\n\nNext: hover the countries to inspect each feature’s `benchmark_row_id`, 2023 value, and class.\n\nSources: supplied World Bank country boundaries benchmark fixture and supplied frozen World Bank SP.RUR.TOTL 2023 benchmark table, Terra-hosted copies retrieved 2026-10-07 UTC.\n\n### Limitations\n\n- The user fixed the supplied boundary and indicator snapshots, the 2023 year, and the exact ISO_A3 to Country Code join, so this workflow does not replace them with live updates or alternate identifiers.\n- This result maps country-level 2023 totals only; it does not estimate rural population distribution within countries.\n- No retained Central Asia country is unknown in this benchmark edition, so the distinct No data handling is supported by the classifier but unused in the final map.\n- This is a country-level 2023 benchmark choropleth, not a within-country rural population surface.\n- Central Asia membership follows the supplied benchmark boundary edition, not current organization membership.\n- The result uses the supplied frozen benchmark snapshots and exact join rule, not live updates or alternate identifiers.\n- No retained country is unknown in this geography, so the neutral No data category is available but unused on this map.\n- Country membership is fixed by the supplied benchmark boundary rows using SUBREGION = Central Asia.\n- The result uses the frozen SP.RUR.TOTL 2023 column in people and keeps unmatched or missing values unknown.\n- Values equal to a class break enter the upper class, and missing values use a distinct No data class.",
+  "checks": {
+    "expectedCount": 5,
+    "actualCount": 5,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:20:05.395066Z",
+      "title": "Progress update",
+      "detail": "I’ll first inspect the supplied boundary and indicator files so I can confirm the exact fields, Central Asia membership, and a safe way to keep unknowns distinct. Then I’ll run a small private test of the join and classing before I save the full map workflow."
+    },
+    {
+      "at": "2026-10-07T08:20:10.683051Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:10.764000Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:12.690958Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:12.803634Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:21.609708Z",
+      "title": "Progress update",
+      "detail": "I found the two frozen benchmark inputs. They’re managed snapshots, so I’m now checking the exact item schema and sample values to confirm the join fields and the benchmark geography before I test the method."
+    },
+    {
+      "at": "2026-10-07T08:20:24.680855Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:24.708984Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:32.356886Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:20:40.211437Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:20:40.437419Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:06.693321Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:19.868176Z",
+      "title": "Progress update",
+      "detail": "I now have the exact source fields: the boundary file includes `SUBREGION`, `ISO_A3`, and `benchmark_row_id`, and the WDI table includes `Country Code` and `2023`. Next I’m finding the right processors for an exact attribute filter, join, and quantile class assignment, then I’ll test the full method on the supplied snapshots."
+    },
+    {
+      "at": "2026-10-07T08:21:19.916074Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:19.936139Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:21.071648Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:21.118872Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:34.739338Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:40.446934Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:49.020922Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:21:54.567640Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:22:13.393042Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:24:00.657654Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:24:00.678071Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:24:05.392040Z",
+      "title": "Progress update",
+      "detail": "The private test finished and the core method worked: the benchmark filter returned 5 Central Asia country features, the exact code join matched all 5, and the classing produced 5 quantile classes. I’m checking the saved trial outputs in a bit more detail now, then I’ll save the production workflow from that tested method and add the final layer to the map."
+    },
+    {
+      "at": "2026-10-07T08:24:43.855492Z",
+      "title": "Progress update",
+      "detail": "The first test answered the main question, but one rule still needs confirmation before I can finish: whether a value exactly on a class break goes into the upper class, as required. I’m inspecting the joined rows now and then I’ll run one small equality check using the retained trial output instead of rebuilding the whole method."
+    },
+    {
+      "at": "2026-10-07T08:24:49.673999Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:24:50.055638Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:29.086656Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:29.417313Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:29.616594Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:31.184813Z",
+      "title": "Progress update",
+      "detail": "I’ve already confirmed the five retained countries and their joined 2023 values from the classified trial output. Next I’m pulling the exact workflow proposal schema so I can save the tested method cleanly and promote it to the final map layer without rebuilding it by guesswork."
+    },
+    {
+      "at": "2026-10-07T08:25:37.560406Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:37.588792Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:37.616338Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:41.818902Z",
+      "title": "Progress update",
+      "detail": "I now have the exact joined rows: all five Central Asia boundary features matched the 2023 WDI table one-to-one, with no unknowns in this geography. I’m pulling the exact proposal contract fields next so I can save the tested workflow with the right source-to-result bindings and move straight to final execution."
+    },
+    {
+      "at": "2026-10-07T08:25:43.196133Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:43.538405Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:46.057493Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:26:21.990770Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:27:05.054598Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:27:18.194401Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:27:18.224813Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:27:19.554013Z",
+      "title": "Progress update",
+      "detail": "The saved draft only needs one correction: the copied trial scope stayed at the world bbox, while the contract correctly says the study area is Central Asia. I’m fixing the draft in place now so the executable scope and the contract match before I run it."
+    },
+    {
+      "at": "2026-10-07T08:27:32.331583Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:27:54.248569Z",
+      "title": "Progress update",
+      "detail": "I’ve got the exact fix: keep the tested steps unchanged, but save them as a direct computation with the Central Asia study bbox instead of the inherited trial-wide bbox. That should make the draft runnable without changing the scientific method."
+    },
+    {
+      "at": "2026-10-07T08:28:05.911513Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:17.189427Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:29:27.715633Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:29:28.124080Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:30:02.335799Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the workflow succeeded and the layer is already on the map. I’m doing one bounded inspection of the final country artifact and the final class summary now so I can record the exact counts, fields, legend breaks, and layer ID in the accepted result."
+    },
+    {
+      "at": "2026-10-07T08:30:02.466834Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:30:02.505973Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:30:49.716207Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:41.215000Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Benchmark country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Keep benchmark Central Asia countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Classify 2023 rural population",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Central Asia rural population 2023 choropleth",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join 2023 rural population by exact code",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Frozen SP.RUR.TOTL table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Benchmark country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Keep benchmark Central Asia countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Classify 2023 rural population",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Join 2023 rural population by exact code",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Frozen SP.RUR.TOTL table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Keep benchmark Central Asia countries",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join 2023 rural population by exact code",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify 2023 rural population",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify 2023 rural population",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T08:22:20.910967+00:00"
+    },
+    {
+      "sha256": "76b640002e24f52a92b33a5ce7db88a9ad9b5a44ec6ba83bd834d079975f9726",
+      "bytes": 182861,
+      "finishedAt": "2026-10-07T08:22:29.661371+00:00"
+    },
+    {
+      "sha256": "e0e43ea828288c75af3a1081c9150d052e7327b4e99efde1fb6bfa0ab57c22b7",
+      "bytes": 164004,
+      "finishedAt": "2026-10-07T08:22:20.910967+00:00"
+    },
+    {
+      "sha256": "a5049a416cbbf469a4fcea75577a3863c2514fe0432f2075de9b1c6d2f4085a0",
+      "bytes": 184625,
+      "finishedAt": "2026-10-07T08:22:35.264403+00:00"
+    },
+    {
+      "sha256": "2349a6da4aeb656f7c5308f69270dafe0e8b48740cb24cf8798d84b090c36378",
+      "bytes": 185240,
+      "finishedAt": "2026-10-07T08:23:01.211211+00:00"
+    },
+    {
+      "sha256": "76b640002e24f52a92b33a5ce7db88a9ad9b5a44ec6ba83bd834d079975f9726",
+      "bytes": 182861,
+      "finishedAt": "2026-10-07T08:28:49.744834+00:00"
+    },
+    {
+      "sha256": "a5049a416cbbf469a4fcea75577a3863c2514fe0432f2075de9b1c6d2f4085a0",
+      "bytes": 184625,
+      "finishedAt": "2026-10-07T08:29:00.911907+00:00"
+    },
+    {
+      "sha256": "2349a6da4aeb656f7c5308f69270dafe0e8b48740cb24cf8798d84b090c36378",
+      "bytes": 185240,
+      "finishedAt": "2026-10-07T08:29:10.701935+00:00"
+    }
+  ],
+  "snapshotSha256": "219ac9cb82eb0491ef17e810268baad931c6abf20faeae3e55529921d0184e72",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:22:13.393042Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the supplied benchmark country boundaries filter to the benchmark Central Asia rows, join exactly from ISO_A3 to Country Code for SP.RUR.TOTL 2023, and produce a quantitative choropleth with preserved unknowns and quantile classes?"
+    },
+    {
+      "at": "2026-10-07T08:26:21.990770Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The filter kept 5 country features and all retained rows had SUBREGION = Central Asia, preserving benchmark_row_id and geometry. The exact left join from ISO_A3 to Country Code matched all 5 retained countries with 0 unmatched input features and 0 null 2023 values. The classifier used the joined 2023 field in people, produced 5 quantile classes with breaks at 4,132,743.8; 6,134,419.8; 7,696,750.2; and 10,260,454.6, and assigned one country to each class. The classifier summary states a lower-inclusive, upper-exclusive convention, which means a value exactly on a break enters the upper class, and missing data would use class 0 rather than zero as a numeric value.",
+      "limitations": [
+        "No retained Central Asia country was unmatched or missing in this benchmark edition, so the distinct No data handling was confirmed from the classifier contract and summary rather than from an observed country row in this geography."
+      ],
+      "next_action": "Save the tested computation as the production workflow, execute it, add the final classified country layer to the map, and inspect the final artifact and map binding.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:31:41.215000Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The final output retains the 5 benchmark Central Asia country features, preserves benchmark_row_id and geometry, joins the frozen World Bank SP.RUR.TOTL 2023 values exactly from ISO_A3 to Country Code, and classifies the known values into 5 quantile classes. All 5 retained countries have known 2023 values in this frozen edition, so the No data category is supported but unused here. The delivered choropleth artifact is [resource id withheld] / [resource id withheld] / data, and the verified map layer ID is [resource id withheld].",
+      "limitations": [
+        "This is a country-level 2023 benchmark choropleth, not a within-country rural population surface.",
+        "Central Asia membership follows the supplied benchmark boundary edition, not current organization membership.",
+        "The result uses the supplied frozen benchmark snapshots and exact join rule, not live updates or alternate identifiers.",
+        "No retained country is unknown in this geography, so the neutral No data category is available but unused on this map."
+      ],
+      "next_action": "Inspect the map layer and hover the countries to review the 2023 people value, benchmark_row_id, and rural_pop_class for each benchmark feature.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "b422497d1be2ac4e2164ae09a717f753c099227abcf98ab1a8275d7ce18527fd",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

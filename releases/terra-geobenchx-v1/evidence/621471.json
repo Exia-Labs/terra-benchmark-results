@@ -1,0 +1,526 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "621471",
+  "question": "Make a heatmap of seaport density along the Pacific coast of South America",
+  "submittedPrompt": "Make a heatmap of seaport density along the Pacific coast of South America\n\nTask conventions: Use supplied point records with COUNTRY in [\"Chile\", \"Peru\", \"Ecuador\", \"Colombia\"]. Use the reference's country-attribute approximation: ports whose COUNTRY is Chile, Peru, Ecuador or Colombia. This includes the full supplied port inventory in those countries, not a measured coastal buffer. Count each port with unit weight; FACID_NUM is an identifier, not port size or density. The source reference uses that identifier as a weight; this protocol explicitly corrects that dimensional error. Use original point records and the declared attribute/raster selection; do not infer a separate geographic boundary. Unknown country indicators, nonpositive ratio denominators, missing geometry and missing/nonfinite weights are unknown, not zero. Known zero weights remain valid. Exclude valid points outside the specified geography. Include only eligible points with a finite nonnegative weight in the contributing artifact; report other potentially eligible points as unknown. Use this explicit geographic heatmap convention: grid={\"bounds\": [-18000000, -7325000, 18000000, 7325000], \"crs\": \"EPSG:6933\", \"resolutionX\": 25000, \"resolutionY\": 25000}, radius 150000 metres = three Gaussian standard deviations. First bin each point into its containing grid cell and sum its weight. Smooth using a normalized separable Gaussian, numerical support four standard deviations, constant-zero exterior; do not renormalize edges. Use both grid resolutions for the two axes; keep original grid alignment. This is a declared metric raster adaptation to the original interactive screen-pixel heatmap, not an equivalent zoom-dependent rendering. Output unit: events per grid cell. Zero cells are valid; this is not density per square kilometre. Do not rescale the values for presentation.\n\n\n\nAdd the heatmap raster to the map and retain an inspectable selected-point artifact with original geometry and benchmark_row_id. End with one fenced JSON object: {count: contributing point records, unknown_count: records with unknown eligibility or weight, unlocated_count: original points lacking valid geometry, coverage_note: string, selection: {collectionId,itemId,assetKey}, density: {collectionId,itemId,assetKey}, map_layer_id: heatmap_layer_id}. Explain the data edition, numerical weights, grid, smoothing and coverage limitations. The source-point artifact is not itself the requested heatmap.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Latin American mineral-exporting seaports\",\n    \"edition\": \"USGS OFR 2017-1079 frozen benchmark compilation\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the heatmap is on your map, and the contributing-point artifact is saved for inspection.\n\nIt uses the USGS OFR 2017-1079 frozen benchmark compilation, counts 94 eligible port records once each with unit weight 1, bins them to the fixed EPSG:6933 25 km grid, and smooths with a 150 km Gaussian. Values are events per grid cell, not per square kilometre.\n\nLimits: the scope comes only from the source COUNTRY field for Chile, Peru, Ecuador, and Colombia, not from a measured coastal boundary, and constant-zero edge handling can reduce mass near the grid edge.\n\nNext: review the heatmap layer, or inspect the selected points to trace hotspots back to individual benchmark_row_id records.\n\n### Limitations\n\n- Source edition: USGS OFR 2017-1079 frozen benchmark compilation hosted by Terra; this is not a live port inventory.\n- Geographic eligibility follows the source COUNTRY attribute for Chile, Peru, Ecuador, and Colombia; this is the requested approximation, not a measured coastal boundary.\n- Heatmap values are Gaussian-smoothed events per 25 km EPSG:6933 grid cell; they are not density per square kilometre, and constant-zero edge handling can reduce mass near grid edges.",
+  "checks": {
+    "expectedCount": 94,
+    "actualCount": 94,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": false,
+    "answerFulfilled": false,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": [
+      "Heatmap units do not match the declared weights per cell."
+    ]
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:27:31.784074Z",
+      "title": "Progress update",
+      "detail": "I’m checking the saved analysis context, the supplied port dataset, and the raster/map tools I can use for a tested heatmap workflow."
+    },
+    {
+      "at": "2026-10-07T07:27:47.026803Z",
+      "title": "Progress update",
+      "detail": "I found the Terra geospatial tools. Next I’m inspecting the supplied port dataset and the available processors so I can build the heatmap with the exact grid, weights, and edge behavior you specified."
+    },
+    {
+      "at": "2026-10-07T07:27:55.295033Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:56.120677Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:56.135026Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:56.152974Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:27:56.225771Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:09.337155Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:09.392605Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:28:09.446979Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:28:44.596498Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:28:49.243186Z",
+      "title": "Progress update",
+      "detail": "I’ve recorded the job and acceptance checks. Now I’m doing a small private inspection of the supplied points so I can confirm the field names and the exact density setup before I run the full workflow."
+    },
+    {
+      "at": "2026-10-07T07:28:51.571744Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:29:50.330104Z",
+      "title": "Progress update",
+      "detail": "I confirmed the supplied fields are there: 230 point records, with COUNTRY, FACID_NUM, and benchmark_row_id present. Next I’m testing the actual heatmap method so the saved workflow reflects the exact grid and smoothing you requested, not just the source selection."
+    },
+    {
+      "at": "2026-10-07T07:30:17.485574Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:30:17.934379Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:37.775036Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the source fields and point geometry. Now I’m recording that inspection and running one full-method private test: filter the four countries, make the unit weight explicit, and generate the heatmap on the exact fixed EPSG:6933 grid."
+    },
+    {
+      "at": "2026-10-07T07:31:37.811237Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:40.111889Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:40.279113Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:41.388215Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:31:53.249869Z",
+      "title": "Progress update",
+      "detail": "I have the processor contracts. I’m now running the exact method privately on the full requested grid so I can verify the selected port records and the heatmap raster before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T07:31:59.388191Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:57.133903Z",
+      "title": "Progress update",
+      "detail": "I’ve tested the exact method successfully: 94 contributing port records, explicit unit weight 1, and a valid EPSG:6933 heatmap on the requested 25 km grid. I’m saving that tested method as the production workflow now, then I’ll run it, inspect the final outputs, and add the raster to the map."
+    },
+    {
+      "at": "2026-10-07T07:34:57.196018Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:57.250491Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:34:58.242162Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:07.662145Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:35:34.460284Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:01.227861Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:31.516113Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:36:44.188459Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:56.070216Z",
+      "title": "Progress update",
+      "detail": "The final workflow run completed. I’m inspecting the exact delivered outputs now so I can bind the raster layer to the map and select the final artifact IDs for the result."
+    },
+    {
+      "at": "2026-10-07T07:37:56.131722Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:37:56.135577Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:39:03.487410Z",
+      "title": "Progress update",
+      "detail": "I have the final output IDs and the heatmap layer is already bound to the map. I’m doing the last bounded inspections now so the accepted result points to the exact final raster and selected-port artifact, with verified counts and fields."
+    },
+    {
+      "at": "2026-10-07T07:39:03.587516Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:39:03.775443Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:39:03.855845Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:10.440457Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:10.494595Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:10.622910Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:42.288401Z",
+      "title": "Progress update",
+      "detail": "I already have the final heatmap artifact and map layer. I’m pulling back the finished source inspection once so I can confirm the unknown count from the original 230 records before I record the accepted result."
+    },
+    {
+      "at": "2026-10-07T07:40:45.967751Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:40:58.120770Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:08.946523Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the delivered point artifact and raster. One last source inspection is finishing now so I can lock the unknown count against the original benchmark records rather than the filtered subset."
+    },
+    {
+      "at": "2026-10-07T07:41:15.117899Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:20.090732Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:27.166917Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:41:43.211942Z",
+      "title": "Progress update",
+      "detail": "I’ve already confirmed there are no null COUNTRY values and no invalid source geometries in the benchmark summary. I’m doing one lighter source pass with just the country field so the unknown count is tied to the original records cleanly."
+    },
+    {
+      "at": "2026-10-07T07:41:43.224302Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:32.806265Z",
+      "title": "Progress update",
+      "detail": "The source country-only inspection is finished. I’m pulling its receipt now so I can verify the original-country inventory and close out the final counts cleanly."
+    },
+    {
+      "at": "2026-10-07T07:42:36.018076Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:42:51.835608Z",
+      "title": "Progress update",
+      "detail": "I have everything needed for the final selection: 94 contributing ports, no invalid source geometries, and the verified heatmap layer on the map. I’m refreshing the brief notes to remove stale planning steps, then I’ll record the accepted result object against the exact final artifacts."
+    },
+    {
+      "at": "2026-10-07T07:42:59.244462Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:18.937657Z",
+      "title": "read_evidence",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:43:39.162576Z",
+      "title": "Progress update",
+      "detail": "I’m using the smaller country-only inspection to verify the original benchmark’s country values directly, so the unknown count is based on the supplied source rather than on the filtered output."
+    },
+    {
+      "at": "2026-10-07T07:44:01.998650Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the exact final raster, the delivered selected points, the map layer binding, and the source-wide null/geometry checks. I’m recording the accepted result now with the final artifact identities and counts."
+    },
+    {
+      "at": "2026-10-07T07:44:12.790803Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:44:24.420313Z",
+      "title": "Progress update",
+      "detail": "Terra wants a spatial preview for the selected-point artifact as well, not just the table view. I’m getting that last preview now and then I’ll record the final result again."
+    },
+    {
+      "at": "2026-10-07T07:44:24.881375Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:31.115678Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:45:32.631540Z",
+      "title": "Progress update",
+      "detail": "I have the final heatmap preview already. I’m fetching the matching spatial preview for the delivered selected points now so Terra can accept the final result against both final outputs."
+    },
+    {
+      "at": "2026-10-07T07:45:50.278859Z",
+      "title": "Progress update",
+      "detail": "I now have spatial previews for both final outputs, so I’m recording the accepted result against the exact delivered point artifact and heatmap raster."
+    },
+    {
+      "at": "2026-10-07T07:45:56.017905Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Assign unit weight",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Contributing seaport points",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Seaport density heatmap",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Seaport heatmap",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "Select requested countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Supplied port benchmark",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Assign unit weight",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Seaport heatmap",
+      "description": "Recorded point-density · succeeded"
+    },
+    {
+      "title": "Select requested countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Supplied port benchmark",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Assign unit weight",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Seaport heatmap",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied port benchmark",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Supplied port benchmark",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "fb0341457a978ceabd3d797fc40afb32b14a87e03b5419c361361f6812350d9e",
+      "bytes": 38006,
+      "finishedAt": "2026-10-07T07:28:58.396182+00:00"
+    },
+    {
+      "sha256": "661a48d1a650dad249ca714c8ba473323a02cc42f1d7b027b4f04b8c7795a2ea",
+      "bytes": 29458,
+      "finishedAt": "2026-10-07T07:33:11.799238+00:00"
+    },
+    {
+      "sha256": "eff505574cd3a0cfb8c4e0c639dfb0d5de768769afe4a99b86030235d49956c6",
+      "bytes": 30055,
+      "finishedAt": "2026-10-07T07:33:51.192665+00:00"
+    },
+    {
+      "sha256": "d46cbd98ab9def0715a77e0569d9026fcacf5f81bfdc8f437f6b35ede393e190",
+      "bytes": 30941,
+      "finishedAt": "2026-10-07T07:34:08.426672+00:00"
+    },
+    {
+      "sha256": "eff505574cd3a0cfb8c4e0c639dfb0d5de768769afe4a99b86030235d49956c6",
+      "bytes": 30055,
+      "finishedAt": "2026-10-07T07:37:23.111081+00:00"
+    },
+    {
+      "sha256": "d46cbd98ab9def0715a77e0569d9026fcacf5f81bfdc8f437f6b35ede393e190",
+      "bytes": 30941,
+      "finishedAt": "2026-10-07T07:37:30.093787+00:00"
+    },
+    {
+      "sha256": "661a48d1a650dad249ca714c8ba473323a02cc42f1d7b027b4f04b8c7795a2ea",
+      "bytes": 29458,
+      "finishedAt": "2026-10-07T07:37:16.679318+00:00"
+    }
+  ],
+  "snapshotSha256": "830300c9c042d29d73fc2d388ccabc7cd58b93ce301e98dce0efae4b4feee26d",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:28:51.571744Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the supplied seaport points expose the fields needed for the country filter, constant unit weighting, and retained benchmark_row_id selection?"
+    },
+    {
+      "at": "2026-10-07T07:31:37.811237Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The supplied benchmark source has 230 valid Point records and exposes COUNTRY, FACID_NUM, and benchmark_row_id. COUNTRY has no nulls in the inspected source summary, so eligibility can be determined by the source attribute, and benchmark_row_id can be retained in the selected-point artifact.",
+      "limitations": [
+        "This source-only trial confirms field availability and point geometry, but it does not yet confirm the final selected-country count or the raster heatmap behavior."
+      ],
+      "next_action": "Run a full-method trial that filters Chile, Peru, Ecuador, and Colombia, assigns constant unit weight 1, and computes the fixed-grid Gaussian heatmap.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:31:59.388191Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the exact requested method produce a valid fixed-grid seaport heatmap and an inspectable selected-point artifact for Chile, Peru, Ecuador, and Colombia?"
+    },
+    {
+      "at": "2026-10-07T07:36:01.227861Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The exact requested method succeeded on the full declared grid. The selected-point artifact contains 94 valid Point records, retains benchmark_row_id, and has unit_weight=1.0 for all selected records with no null unit weights. The density raster uses EPSG:6933 bounds [-18000000,-7325000,18000000,7325000], resolution 25000 by 25000 metres, radius 150000 metres, four-sigma kernel truncation, constant-zero exterior, and nonnegative values in sum of events per grid cell. The preview shows the expected concentration along the Pacific coast of western South America. Producer observations report usedPointCount 94, outsideGridCount 0, and unknownWeightCount 0.",
+      "limitations": [
+        "This trial validates the scientific method, but final delivery still requires a saved production workflow, inspected final artifacts, and verified map binding."
+      ],
+      "next_action": "Save the tested computation as the production workflow, execute it, inspect the final outputs, and add the heatmap raster to the map.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:44:12.790803Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "I delivered the requested fixed-grid seaport heatmap and kept the contributing benchmark points inspectable. The delivered point artifact contains 94 contributing records with original Point geometry, benchmark_row_id, and unit_weight=1. The delivered raster is on the requested EPSG:6933 grid with 25 km cells and 150 km Gaussian smoothing, and the map layer is already bound to the current map. Source inspection of the full 230-record benchmark found no null COUNTRY values and no invalid geometries, so unknown_count is 0 and unlocated_count is 0; the remaining 136 valid records are outside the requested country approximation and were excluded.",
+      "limitations": [
+        "Source edition: USGS OFR 2017-1079 frozen benchmark compilation hosted by Terra; this is not a live port inventory.",
+        "Geographic eligibility follows the source COUNTRY attribute for Chile, Peru, Ecuador, and Colombia; this is the requested approximation, not a measured coastal boundary.",
+        "Heatmap values are Gaussian-smoothed events per 25 km EPSG:6933 grid cell; they are not density per square kilometre, and constant-zero edge handling can reduce mass near grid edges."
+      ],
+      "next_action": "Review the heatmap layer on the map, and inspect the selected contributing points when you want to trace hotspots back to individual benchmark records.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:45:56.017905Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I delivered the requested fixed-grid seaport heatmap and kept the contributing benchmark points inspectable. The delivered point artifact contains 94 contributing records with original Point geometry, benchmark_row_id, and unit_weight=1. The delivered raster is on the requested EPSG:6933 grid with 25 km cells and 150 km Gaussian smoothing, and the heatmap layer is already bound to the current map. Source inspection of the full 230-record benchmark found no null COUNTRY values and no invalid geometries, so unknown_count is 0 and unlocated_count is 0; the remaining 136 valid records are outside the requested country approximation and were excluded.",
+      "limitations": [
+        "Source edition: USGS OFR 2017-1079 frozen benchmark compilation hosted by Terra; this is not a live port inventory.",
+        "Geographic eligibility follows the source COUNTRY attribute for Chile, Peru, Ecuador, and Colombia; this is the requested approximation, not a measured coastal boundary.",
+        "Heatmap values are Gaussian-smoothed events per 25 km EPSG:6933 grid cell; they are not density per square kilometre, and constant-zero edge handling can reduce mass near grid edges."
+      ],
+      "next_action": "Review the heatmap layer on the map, and inspect the selected contributing points when you want to trace hotspots back to individual benchmark records.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "3bf9f4ddb7c7bfc650a9547883b93ed4c3288acc8fc1234d038c2fe64bfa9142",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

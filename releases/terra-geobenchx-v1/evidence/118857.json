@@ -1,0 +1,431 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "118857",
+  "question": "Chart contour lines for accumulated snow fall in winter 2023-2024 in USA",
+  "submittedPrompt": "Chart contour lines for accumulated snow fall in winter 2023-2024 in USA\n\nTask conventions: Use band 1 of the frozen snow_previous raster at the original grid without resampling, smoothing or clipping. Draw the explicit contour levels [20, 40, 80, 160, 320, 640] in inches. These levels are a disclosed evaluation convention, not a requested interval. Use piecewise-linear marching-squares isolines through pixel-center values, low-valued connectivity at ambiguous saddles. Respect the native mask, NoData and nonfinite cells; do not bridge holes or extrapolate at the outside edge. Apply any source scale and offset. NoData means unknown, never zero. Preserve source coverage; levels outside the observed range may have no line. Do not substitute a current raster. Count nonempty requested contour LEVELS, not polyline fragments. The population-count raster, where supplied, is people per original cell; do not label it population density. \n\n\n\nDeliver an inspectable vector contour artifact and add it to the map with a level/units legend. End with one fenced JSON object containing: count (number of nonempty requested levels), unknown_count (number of masked or nonfinite source pixels), coverage_note, selection: {collectionId,itemId,assetKey}, level_field, feature_count (actual contour feature rows), map_layer_id. Explain the source season/year, units, missing coverage, and visual relationship where an overlay is requested.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"US snowfall, 2023\\u201324 frozen season\",\n    \"edition\": \"2023-09-30 to 2024-09-30\",\n    \"units\": {\n      \"band1\": \"inches\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — I added the 2023–24 frozen-season snowfall contours to the map as an inspectable vector layer.\n\nThey use band 1 of the supplied snowfall raster in inches, and all six requested contour levels are present. Missing or masked source cells stay unknown, so the lines break at gaps instead of being filled or extended.\n\n### Limitations\n\n- Coverage follows the supplied raster extent only.\n- Masked or nonfinite source cells remain unknown and appear as gaps, not zero snowfall.\n- Coverage follows the supplied raster extent rather than a separate national-boundary cut.\n- Masked or nonfinite source pixels remain unknown gaps, not zero snowfall.\n- This table summarizes the supplied raster only and does not expand its geographic coverage.\n- The result can only cover the supplied raster extent.\n- Masked or nonfinite source cells remain unknown rather than zero.",
+  "checks": {
+    "expectedCount": 6,
+    "actualCount": 6,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:07:19.519402Z",
+      "title": "Progress update",
+      "detail": "I’ll check the saved analysis context, inspect the supplied snowfall raster, and test a minimal contour workflow before I save the production method."
+    },
+    {
+      "at": "2026-10-07T06:07:26.077062Z",
+      "title": "Progress update",
+      "detail": "I found the core Terra analysis tools. Next I’m checking the raster metadata and the exact contour/vector-display processor so I can keep the lines on the source grid and publish the result as a real map layer."
+    },
+    {
+      "at": "2026-10-07T06:07:26.096840Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:07:26.101666Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:07:26.106392Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:07:26.110471Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:07:26.763098Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:07:26.865920Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:00.712171Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:00.829681Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:08:00.836535Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:00.933162Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:01.321811Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:08:01.705892Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:31.056621Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the exact source item and the contour processor matches your convention: explicit levels, linear interpolation between pixel centers, low-valued saddle connectivity, mask-aware, no extrapolation. Now I’m recording the goal and testing the same method on the supplied raster before I save the production run."
+    },
+    {
+      "at": "2026-10-07T06:08:31.064713Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:31.309559Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:31.313524Z",
+      "title": "validate_processor",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:31.669769Z",
+      "title": "validate_processor",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:37.489205Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:37.607711Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:37.616731Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:38.186108Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:08:49.381172Z",
+      "title": "Progress update",
+      "detail": "I’ve got the exact processor schema. I’m running one private full-extent test with the supplied raster, the requested levels, and a full-raster stats check so I can confirm the output fields, missing-cell count, and which contour levels are actually nonempty before I save the final run."
+    },
+    {
+      "at": "2026-10-07T06:08:56.318308Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:42.891922Z",
+      "title": "Progress update",
+      "detail": "The private test succeeded. It shows band 1 ranges from 0.0 to 870.65 inches, the source has 1,032,448 unknown cells, and all six requested contour levels appear in the trial output. I’m checking the preview image and then I’ll save the production workflow from this tested method, run it, and publish the verified contour layer to the map."
+    },
+    {
+      "at": "2026-10-07T06:09:43.189642Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:43.209976Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:43.355826Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:44.348415Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:44.385040Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:00.875153Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:02.231380Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:02.240631Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:02.537557Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:45.643440Z",
+      "title": "Progress update",
+      "detail": "I finished the method check and I’m saving the full production workflow from that exact tested computation now. After that I’ll run it, inspect the published artifacts, and bind the final contour layer to the map."
+    },
+    {
+      "at": "2026-10-07T06:11:54.168246Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:12:11.779884Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:14:43.714591Z",
+      "title": "Progress update",
+      "detail": "The background run finished while the turn was interrupted. I’m inspecting those final published outputs now, then I’ll add the verified contour layer to the map and record the final answer object from the actual result."
+    },
+    {
+      "at": "2026-10-07T06:14:47.072679Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:14:47.164914Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:14:48.316835Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:15:11.234635Z",
+      "title": "Progress update",
+      "detail": "The run has already published the contour layer to the map. I’m doing the last verification now: inspect the final contour vector and stats table, confirm the level field and counts, and check the current map layer entry so the recorded result points to the actual displayed layer."
+    },
+    {
+      "at": "2026-10-07T06:15:32.423817Z",
+      "title": "Progress update",
+      "detail": "I’m on the last check now: the published contour item, the published stats table, and the live map layer entry. That will let me record the exact contour selection, level field, feature count, unknown-cell count, and displayed layer ID from the final run."
+    },
+    {
+      "at": "2026-10-07T06:15:32.481951Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:15:32.509437Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:15:33.153615Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:16:03.444812Z",
+      "title": "Progress update",
+      "detail": "The map layer entry is confirmed. I’m pulling the finished inspection receipts for the final contour layer and stats table now so I can record the exact counts from the published outputs rather than the earlier private trial."
+    },
+    {
+      "at": "2026-10-07T06:16:03.516610Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:16:03.964277Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:17:02.212329Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the published contour vector, the published stats table, and the live map layer ID. I’m recording the final result now with the exact selected contour artifact and the inspected source-missing count from the final run."
+    },
+    {
+      "at": "2026-10-07T06:17:02.239458Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:17:02.908084Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Requested snowfall contours",
+      "description": "Recorded raster-contours · succeeded"
+    },
+    {
+      "title": "Snowfall contours 2023–24",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Snowfall raster stats 2023–24",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Supplied snowfall raster",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Band 1 full-raster statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Requested snowfall contours",
+      "description": "Recorded raster-contours · succeeded"
+    },
+    {
+      "title": "Supplied snowfall raster",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Band 1 full-raster statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Band 1 full-raster statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Requested snowfall contours",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [
+    {
+      "path": "assets/118857-workflow.png",
+      "alt": "Actual executed workflow and step outcomes",
+      "caption": "Diagram generated from the saved workflow. This is not a map or proof of correctness; see independent checks.",
+      "attribution": "Exia Labs, generated from benchmark execution metadata.",
+      "license": "Exia Labs study illustration; publication pending owner review.",
+      "sha256": "47480d7c853f87d2385551854d0a1be3fbdf3a4902bdf13255597312717de2d3"
+    },
+    {
+      "path": "assets/118857-snowfall-contours.png",
+      "sha256": "81533d7d52ca2e8e830bb975644c91b9c8966faf1bb314b982aea5c63b8dc87f",
+      "alt": "Actual final snowfall contours, with six independently checked levels in inches",
+      "caption": "Saved final artifact: 2,657 contour features at 20, 40, 80, 160, 320 and 640 inches. No invented basemap or interpolation. Rendering is presentation-only; independent checks are retained below.",
+      "attribution": "NOAA/NWS NOHRSC 2023–24 snowfall; GeoBenchX frozen input; Terra-derived contours.",
+      "license": "Public-domain source observations; Exia Labs study illustration pending owner publication review."
+    }
+  ],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "8294f93c76839e156673fd5335b1209771d506edec63492cc68a8c2b14faa546",
+      "bytes": 1119584,
+      "finishedAt": "2026-10-07T06:09:09.422469+00:00"
+    },
+    {
+      "sha256": "2d96b3a969d53fdfe4b53753ea5f8e1005bc55d9054d4a1cc7ffff4b7bd04fef",
+      "bytes": 6180538,
+      "finishedAt": "2026-10-07T06:09:01.265059+00:00"
+    },
+    {
+      "sha256": "3940835db56b66ae34491e7606fd1f49d3ed41dd52f6aeaa4fb5592641617f24",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T06:09:09.422469+00:00"
+    },
+    {
+      "sha256": "8294f93c76839e156673fd5335b1209771d506edec63492cc68a8c2b14faa546",
+      "bytes": 1119584,
+      "finishedAt": "2026-10-07T06:14:23.002711+00:00"
+    },
+    {
+      "sha256": "3940835db56b66ae34491e7606fd1f49d3ed41dd52f6aeaa4fb5592641617f24",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T06:14:23.002711+00:00"
+    }
+  ],
+  "snapshotSha256": "699761a765a7a4a674693e7c9a50c0420872c525f29e4f7df3ef15854c999ec8",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:08:56.318308Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the supplied 2023–24 snowfall raster produce mask-aware contour lines at the requested inch levels on band 1, and what are the complete-source missing-cell count and observed range needed to report nonempty levels?"
+    },
+    {
+      "at": "2026-10-07T06:10:00.875153Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The full-extent trial used the exact supplied raster selection, band 1, and explicit levels 20, 40, 80, 160, 320 and 640 inches. Full-raster statistics reported minimum 0.0, maximum 870.6484985351562, missing_count 1032448, valid_count 511052, scale 1.0 and offset 0.0. The contour output is a vector line dataset with fields contour_id and level, units level=inches, 2657 feature rows, and six distinct nonempty requested levels. The spatial preview shows lines broken by gaps and edge terminations rather than bridged holes or extrapolated outside coverage, which is consistent with the requested mask-aware contour method.",
+      "limitations": [
+        "Coverage is only the supplied raster extent, and 1032448 masked source cells remain unknown rather than zero.",
+        "The preview image is a sampled display aid, not separate proof beyond the inspected counts and fields."
+      ],
+      "next_action": "Save the tested full-extent computation as the production workflow, run it, inspect the final artifact, add the verified contour layer to the map, and assess the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:17:02.239458Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published band 1 statistics table for the supplied 2023–24 snowfall raster is sufficient. It confirms full-source minimum 0.0 inches, maximum 870.6484985351562 inches, valid_count 511052, missing_count 1032448, nonfinite_count 0, scale 1.0 and offset 0.0.",
+      "limitations": [
+        "This table summarizes the supplied raster only and does not expand its geographic coverage."
+      ],
+      "next_action": "Use this inspected missing-count and range evidence to finalize the contour result assessment.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:17:02.908084Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published contour result is sufficient. It is an inspectable vector line artifact derived from the supplied 2023–24 frozen-season snowfall raster using band 1 and the requested inch levels. The final artifact has 2657 contour features, a level field in inches, six nonempty requested levels, and a verified live map layer.",
+      "limitations": [
+        "Coverage follows the supplied raster extent rather than a separate national-boundary cut.",
+        "Masked or nonfinite source pixels remain unknown gaps, not zero snowfall."
+      ],
+      "next_action": "Review the contour layer on the map or inspect the published contour and stats artifacts for more detail.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "17f6ef847cb384a6e77c592e2f7d7d88ddcef92071bdd0c111dd6383ef16c01e",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

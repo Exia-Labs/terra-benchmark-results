@@ -1,0 +1,8979 @@
+{
+  "fixtureFingerprint": "3c5cfc521180ea47954557755136119ab2f93361922a8a2f8d36a529d85d93f7",
+  "assets": {
+    "seaports": {
+      "file": "Ports_Latin_America.shp",
+      "kind": "vector",
+      "title": "Latin American mineral-exporting seaports",
+      "edition": "USGS OFR 2017-1079 frozen benchmark compilation",
+      "sourceSha256": "6a49dad55ed166b203ba22df16722940c458a26d9dbabf8e170b65a1c4a2a47a",
+      "rowCount": 230,
+      "fields": [
+        {
+          "name": "ROWID",
+          "dtype": "int64"
+        },
+        {
+          "name": "GENC_CC",
+          "dtype": "str"
+        },
+        {
+          "name": "FACID_NUM",
+          "dtype": "int64"
+        },
+        {
+          "name": "FACID",
+          "dtype": "str"
+        },
+        {
+          "name": "PORTPRODID",
+          "dtype": "str"
+        },
+        {
+          "name": "WPICODE",
+          "dtype": "str"
+        },
+        {
+          "name": "MULTIREC",
+          "dtype": "str"
+        },
+        {
+          "name": "NEWPORT",
+          "dtype": "str"
+        },
+        {
+          "name": "COUNTRY",
+          "dtype": "str"
+        },
+        {
+          "name": "ADM1",
+          "dtype": "str"
+        },
+        {
+          "name": "PORTNAME",
+          "dtype": "str"
+        },
+        {
+          "name": "OWNER",
+          "dtype": "str"
+        },
+        {
+          "name": "COMM_EXPD",
+          "dtype": "str"
+        },
+        {
+          "name": "FORM_COMM",
+          "dtype": "str"
+        },
+        {
+          "name": "EST_ANN_TO",
+          "dtype": "str"
+        },
+        {
+          "name": "DEST",
+          "dtype": "str"
+        },
+        {
+          "name": "FEED_SOURC",
+          "dtype": "str"
+        },
+        {
+          "name": "LOCACC",
+          "dtype": "str"
+        },
+        {
+          "name": "DDLAT",
+          "dtype": "float64"
+        },
+        {
+          "name": "DDLONG",
+          "dtype": "float64"
+        },
+        {
+          "name": "SOURCEID",
+          "dtype": "str"
+        },
+        {
+          "name": "benchmark_row_id",
+          "dtype": "str"
+        }
+      ],
+      "crs": "EPSG:4326",
+      "bounds": [
+        -116.6173,
+        -45.465,
+        -36.933,
+        31.8459
+      ],
+      "geometryTypes": [
+        "Point"
+      ],
+      "missingGeometryCount": 0,
+      "identity": "benchmark_row_id",
+      "path": "prepared/seaports.parquet",
+      "sha256": "fb0341457a978ceabd3d797fc40afb32b14a87e03b5419c361361f6812350d9e",
+      "bytes": 38006
+    },
+    "countries": {
+      "file": "WB_countries_Admin0_10m.shp",
+      "kind": "vector",
+      "title": "World Bank country boundaries",
+      "edition": "GeoBenchX harmonized names",
+      "sourceSha256": "d7b785c11ba49dfa1045224a3d98d608056e0ac5db27e041fa81e8b875629a9e",
+      "rowCount": 251,
+      "fields": [
+        {
+          "name": "OBJECTID",
+          "dtype": "int64"
+        },
+        {
+          "name": "featurecla",
+          "dtype": "str"
+        },
+        {
+          "name": "LEVEL",
+          "dtype": "int32"
+        },
+        {
+          "name": "TYPE",
+          "dtype": "str"
+        },
+        {
+          "name": "POP_EST",
+          "dtype": "int64"
+        },
+        {
+          "name": "POP_RANK",
+          "dtype": "int32"
+        },
+        {
+          "name": "GDP_MD_EST",
+          "dtype": "float64"
+        },
+        {
+          "name": "POP_YEAR",
+          "dtype": "int32"
+        },
+        {
+          "name": "LASTCENSUS",
+          "dtype": "int32"
+        },
+        {
+          "name": "GDP_YEAR",
+          "dtype": "int32"
+        },
+        {
+          "name": "ECONOMY",
+          "dtype": "str"
+        },
+        {
+          "name": "INCOME_GRP",
+          "dtype": "str"
+        },
+        {
+          "name": "ISO_A2",
+          "dtype": "str"
+        },
+        {
+          "name": "ISO_A3",
+          "dtype": "str"
+        },
+        {
+          "name": "ISO_N3",
+          "dtype": "str"
+        },
+        {
+          "name": "UN_A3",
+          "dtype": "str"
+        },
+        {
+          "name": "WB_A2",
+          "dtype": "str"
+        },
+        {
+          "name": "WB_A3",
+          "dtype": "str"
+        },
+        {
+          "name": "CONTINENT",
+          "dtype": "str"
+        },
+        {
+          "name": "REGION_UN",
+          "dtype": "str"
+        },
+        {
+          "name": "SUBREGION",
+          "dtype": "str"
+        },
+        {
+          "name": "REGION_WB",
+          "dtype": "str"
+        },
+        {
+          "name": "NAME_EN",
+          "dtype": "str"
+        },
+        {
+          "name": "WB_REGION",
+          "dtype": "str"
+        },
+        {
+          "name": "Shape_Leng",
+          "dtype": "float64"
+        },
+        {
+          "name": "Shape_Area",
+          "dtype": "float64"
+        },
+        {
+          "name": "benchmark_row_id",
+          "dtype": "str"
+        }
+      ],
+      "crs": "EPSG:4326",
+      "bounds": [
+        -179.99999999990004,
+        -59.47275155973665,
+        180.00000000010004,
+        83.63410065282295
+      ],
+      "geometryTypes": [
+        "MultiPolygon",
+        "Polygon"
+      ],
+      "missingGeometryCount": 0,
+      "identity": "benchmark_row_id",
+      "path": "prepared/countries.parquet",
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920
+    },
+    "population": {
+      "file": "API_SP.POP.TOTL_DS2_en_csv_v2_56.zip",
+      "kind": "table",
+      "title": "World Bank SP.POP.TOTL",
+      "edition": "Frozen GeoBenchX World Development Indicators; use 2023",
+      "units": {
+        "2023": "people"
+      },
+      "sourceSha256": "e5b846397a7063830737414516d03872af4cedbde948cf431f36bcf1c27878a0",
+      "rowCount": 266,
+      "fields": [
+        {
+          "name": "Country Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Country Code",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Code",
+          "dtype": "str"
+        },
+        {
+          "name": "1960",
+          "dtype": "float64"
+        },
+        {
+          "name": "1961",
+          "dtype": "float64"
+        },
+        {
+          "name": "1962",
+          "dtype": "float64"
+        },
+        {
+          "name": "1963",
+          "dtype": "float64"
+        },
+        {
+          "name": "1964",
+          "dtype": "float64"
+        },
+        {
+          "name": "1965",
+          "dtype": "float64"
+        },
+        {
+          "name": "1966",
+          "dtype": "float64"
+        },
+        {
+          "name": "1967",
+          "dtype": "float64"
+        },
+        {
+          "name": "1968",
+          "dtype": "float64"
+        },
+        {
+          "name": "1969",
+          "dtype": "float64"
+        },
+        {
+          "name": "1970",
+          "dtype": "float64"
+        },
+        {
+          "name": "1971",
+          "dtype": "float64"
+        },
+        {
+          "name": "1972",
+          "dtype": "float64"
+        },
+        {
+          "name": "1973",
+          "dtype": "float64"
+        },
+        {
+          "name": "1974",
+          "dtype": "float64"
+        },
+        {
+          "name": "1975",
+          "dtype": "float64"
+        },
+        {
+          "name": "1976",
+          "dtype": "float64"
+        },
+        {
+          "name": "1977",
+          "dtype": "float64"
+        },
+        {
+          "name": "1978",
+          "dtype": "float64"
+        },
+        {
+          "name": "1979",
+          "dtype": "float64"
+        },
+        {
+          "name": "1980",
+          "dtype": "float64"
+        },
+        {
+          "name": "1981",
+          "dtype": "float64"
+        },
+        {
+          "name": "1982",
+          "dtype": "float64"
+        },
+        {
+          "name": "1983",
+          "dtype": "float64"
+        },
+        {
+          "name": "1984",
+          "dtype": "float64"
+        },
+        {
+          "name": "1985",
+          "dtype": "float64"
+        },
+        {
+          "name": "1986",
+          "dtype": "float64"
+        },
+        {
+          "name": "1987",
+          "dtype": "float64"
+        },
+        {
+          "name": "1988",
+          "dtype": "float64"
+        },
+        {
+          "name": "1989",
+          "dtype": "float64"
+        },
+        {
+          "name": "1990",
+          "dtype": "float64"
+        },
+        {
+          "name": "1991",
+          "dtype": "float64"
+        },
+        {
+          "name": "1992",
+          "dtype": "float64"
+        },
+        {
+          "name": "1993",
+          "dtype": "float64"
+        },
+        {
+          "name": "1994",
+          "dtype": "float64"
+        },
+        {
+          "name": "1995",
+          "dtype": "float64"
+        },
+        {
+          "name": "1996",
+          "dtype": "float64"
+        },
+        {
+          "name": "1997",
+          "dtype": "float64"
+        },
+        {
+          "name": "1998",
+          "dtype": "float64"
+        },
+        {
+          "name": "1999",
+          "dtype": "float64"
+        },
+        {
+          "name": "2000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2001",
+          "dtype": "float64"
+        },
+        {
+          "name": "2002",
+          "dtype": "float64"
+        },
+        {
+          "name": "2003",
+          "dtype": "float64"
+        },
+        {
+          "name": "2004",
+          "dtype": "float64"
+        },
+        {
+          "name": "2005",
+          "dtype": "float64"
+        },
+        {
+          "name": "2006",
+          "dtype": "float64"
+        },
+        {
+          "name": "2007",
+          "dtype": "float64"
+        },
+        {
+          "name": "2008",
+          "dtype": "float64"
+        },
+        {
+          "name": "2009",
+          "dtype": "float64"
+        },
+        {
+          "name": "2010",
+          "dtype": "float64"
+        },
+        {
+          "name": "2011",
+          "dtype": "float64"
+        },
+        {
+          "name": "2012",
+          "dtype": "float64"
+        },
+        {
+          "name": "2013",
+          "dtype": "float64"
+        },
+        {
+          "name": "2014",
+          "dtype": "float64"
+        },
+        {
+          "name": "2015",
+          "dtype": "float64"
+        },
+        {
+          "name": "2016",
+          "dtype": "float64"
+        },
+        {
+          "name": "2017",
+          "dtype": "float64"
+        },
+        {
+          "name": "2018",
+          "dtype": "float64"
+        },
+        {
+          "name": "2019",
+          "dtype": "float64"
+        },
+        {
+          "name": "2020",
+          "dtype": "float64"
+        },
+        {
+          "name": "2021",
+          "dtype": "float64"
+        },
+        {
+          "name": "2022",
+          "dtype": "float64"
+        },
+        {
+          "name": "2023",
+          "dtype": "float64"
+        }
+      ],
+      "path": "prepared/population.parquet",
+      "sha256": "88594296e94fe36d2810fac2feb2672aa3b7fc3985d9617914ddbf11d4157626",
+      "bytes": 171501
+    },
+    "stations": {
+      "file": "Amtrak_Stations.shp",
+      "kind": "vector",
+      "title": "Amtrak railway stations",
+      "edition": "USDOT BTS frozen GeoBenchX 2025 snapshot",
+      "sourceSha256": "efe24edc608375e490824a08a0fd808c4579a7dc6316ac82c2abd82e93059335",
+      "rowCount": 1020,
+      "fields": [
+        {
+          "name": "StaType",
+          "dtype": "str"
+        },
+        {
+          "name": "StnType",
+          "dtype": "str"
+        },
+        {
+          "name": "ZipCode",
+          "dtype": "str"
+        },
+        {
+          "name": "State",
+          "dtype": "str"
+        },
+        {
+          "name": "City",
+          "dtype": "str"
+        },
+        {
+          "name": "Address2",
+          "dtype": "str"
+        },
+        {
+          "name": "Address1",
+          "dtype": "str"
+        },
+        {
+          "name": "Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Code",
+          "dtype": "str"
+        },
+        {
+          "name": "StationNam",
+          "dtype": "str"
+        },
+        {
+          "name": "StationFac",
+          "dtype": "str"
+        },
+        {
+          "name": "StationAli",
+          "dtype": "str"
+        },
+        {
+          "name": "DateModif",
+          "dtype": "str"
+        },
+        {
+          "name": "lon",
+          "dtype": "float64"
+        },
+        {
+          "name": "lat",
+          "dtype": "float64"
+        },
+        {
+          "name": "benchmark_row_id",
+          "dtype": "str"
+        }
+      ],
+      "crs": "EPSG:4326",
+      "bounds": [
+        -124.2883110002154,
+        25.849554000308068,
+        -68.67001500030132,
+        49.2737569998778
+      ],
+      "geometryTypes": [
+        "Point"
+      ],
+      "missingGeometryCount": 0,
+      "identity": "benchmark_row_id",
+      "path": "prepared/stations.parquet",
+      "sha256": "1707883d56cf62e398dd20c736761ead05287fc48d30717a620032ff5f6eed8d",
+      "bytes": 125623
+    },
+    "snow": {
+      "file": "sfav2_CONUS_2024093012_to_2025052012_processed.tif",
+      "kind": "raster",
+      "title": "US snowfall, 2024–25 frozen season",
+      "edition": "2024-09-30 to 2025-05-20",
+      "units": {
+        "band1": "inches"
+      },
+      "sourceSha256": "8b418f3c402abb1737aa9bca44d5030dd946ee6587df13726b4f45bb23371a5d",
+      "crs": "EPSG:4326",
+      "bounds": [
+        -127.52,
+        18.439999999999998,
+        -64.52,
+        57.64
+      ],
+      "shape": [
+        980,
+        1575
+      ],
+      "nodata": -99999.0,
+      "transform": [
+        0.04,
+        0.0,
+        -127.52,
+        0.0,
+        -0.04,
+        57.64,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bandCount": 1,
+      "path": "prepared/snow.tif",
+      "sha256": "8b418f3c402abb1737aa9bca44d5030dd946ee6587df13726b4f45bb23371a5d",
+      "bytes": 6180538
+    },
+    "snow_previous": {
+      "file": "sfav2_CONUS_2023093012_to_2024093012_processed.tif",
+      "kind": "raster",
+      "title": "US snowfall, 2023–24 frozen season",
+      "edition": "2023-09-30 to 2024-09-30",
+      "units": {
+        "band1": "inches"
+      },
+      "sourceSha256": "2d96b3a969d53fdfe4b53753ea5f8e1005bc55d9054d4a1cc7ffff4b7bd04fef",
+      "crs": "EPSG:4326",
+      "bounds": [
+        -127.52,
+        18.439999999999998,
+        -64.52,
+        57.64
+      ],
+      "shape": [
+        980,
+        1575
+      ],
+      "nodata": -99999.0,
+      "transform": [
+        0.04,
+        0.0,
+        -127.52,
+        0.0,
+        -0.04,
+        57.64,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bandCount": 1,
+      "path": "prepared/snow_previous.tif",
+      "sha256": "2d96b3a969d53fdfe4b53753ea5f8e1005bc55d9054d4a1cc7ffff4b7bd04fef",
+      "bytes": 6180538
+    },
+    "na_lakes": {
+      "file": "northamerica_lakes_cec_2023.shp",
+      "kind": "vector",
+      "title": "North American lakes, CEC 2023 frozen benchmark source",
+      "edition": "CEC North American Environmental Atlas version 4.0 (2023), original benchmark snapshot; benchmark-only use",
+      "sourceSha256": "1bb72f433df48944cf5fa6e554238bdb9cf70189302710099a3cf1d055081685",
+      "rowCount": 13135,
+      "fields": [
+        {
+          "name": "Country",
+          "dtype": "str"
+        },
+        {
+          "name": "Type",
+          "dtype": "str"
+        },
+        {
+          "name": "NameEn",
+          "dtype": "str"
+        },
+        {
+          "name": "NameEs",
+          "dtype": "str"
+        },
+        {
+          "name": "NameFr",
+          "dtype": "str"
+        },
+        {
+          "name": "AreaSqKm",
+          "dtype": "float64"
+        },
+        {
+          "name": "benchmark_row_id",
+          "dtype": "str"
+        }
+      ],
+      "crs": "PROJCS[\"Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area\",GEOGCS[\"GCS_Sphere_ARC_INFO\",DATUM[\"D_Sphere_ARC_INFO\",SPHEROID[\"Sphere_ARC_INFO\",6370997,0]],PRIMEM[\"Greenwich\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Lambert_Azimuthal_Equal_Area\"],PARAMETER[\"latitude_of_center\",45],PARAMETER[\"longitude_of_center\",-100],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+      "bounds": [
+        -167.23924263417985,
+        15.906932818000055,
+        -52.76767906399992,
+        81.9521119520001
+      ],
+      "geometryTypes": [
+        "MultiPolygon",
+        "Polygon"
+      ],
+      "missingGeometryCount": 0,
+      "identity": "benchmark_row_id",
+      "path": "prepared/na_lakes.parquet",
+      "sha256": "acdb56a19ddd4d7aafdd839def6379dbdeec2eb62e4c6c8859cb2b7fa2c6ad97",
+      "bytes": 115787112
+    },
+    "facilities": {
+      "file": "Africa mineral facilities.shp",
+      "kind": "vector",
+      "title": "African mineral extraction facilities",
+      "edition": "USGS 2021 benchmark snapshot",
+      "sourceSha256": "55bb78dc7a9f177ef90e3a6706e7c07d12f08797a2618b45eca1a75285359091",
+      "rowCount": 2408,
+      "fields": [
+        {
+          "name": "OBJECTID",
+          "dtype": "float64"
+        },
+        {
+          "name": "FeatureUID",
+          "dtype": "str"
+        },
+        {
+          "name": "Label1",
+          "dtype": "str"
+        },
+        {
+          "name": "Country",
+          "dtype": "str"
+        },
+        {
+          "name": "FeatureNam",
+          "dtype": "str"
+        },
+        {
+          "name": "FeatureTyp",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr01",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr02",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr03",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr04",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr05",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr06",
+          "dtype": "int64"
+        },
+        {
+          "name": "DsgAttr08",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr09",
+          "dtype": "str"
+        },
+        {
+          "name": "LocOpStat",
+          "dtype": "str"
+        },
+        {
+          "name": "MemoOther",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr10",
+          "dtype": "str"
+        },
+        {
+          "name": "MemoLoc",
+          "dtype": "str"
+        },
+        {
+          "name": "Latitude",
+          "dtype": "float64"
+        },
+        {
+          "name": "Longitude",
+          "dtype": "float64"
+        },
+        {
+          "name": "LocConfid",
+          "dtype": "str"
+        },
+        {
+          "name": "LocSource1",
+          "dtype": "str"
+        },
+        {
+          "name": "InfSource1",
+          "dtype": "str"
+        },
+        {
+          "name": "OperateNam",
+          "dtype": "str"
+        },
+        {
+          "name": "OwnerName1",
+          "dtype": "str"
+        },
+        {
+          "name": "OwnerName2",
+          "dtype": "str"
+        },
+        {
+          "name": "OwnerName3",
+          "dtype": "str"
+        },
+        {
+          "name": "OwnerName4",
+          "dtype": "str"
+        },
+        {
+          "name": "ADM1",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr07",
+          "dtype": "float64"
+        },
+        {
+          "name": "source_measure_m",
+          "dtype": "float64"
+        },
+        {
+          "name": "benchmark_row_id",
+          "dtype": "str"
+        }
+      ],
+      "crs": "EPSG:4326",
+      "bounds": [
+        -23.727950000541284,
+        -35.306733000071915,
+        57.610900999784405,
+        37.2648639999328
+      ],
+      "geometryTypes": [
+        "Point"
+      ],
+      "identity": "benchmark_row_id",
+      "path": "prepared/facilities.parquet",
+      "sha256": "a5818522a2c966354fb044df972b1793a62ae6d4de4955ff7948a953555fae94",
+      "bytes": 290677,
+      "missingGeometryCount": 0
+    },
+    "migration": {
+      "file": "API_SM.POP.NETM_DS2_en_csv_v2_91.zip",
+      "kind": "table",
+      "title": "Net migration, World Development Indicators",
+      "edition": "2024-11-13 snapshot; use 2023",
+      "units": {
+        "2023": "people (net migration)"
+      },
+      "sourceSha256": "951629fb5249761b911a51d5aabc2fdfb13a22e7b9982f470980855957f4294c",
+      "rowCount": 266,
+      "fields": [
+        {
+          "name": "Country Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Country Code",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Code",
+          "dtype": "str"
+        },
+        {
+          "name": "1960",
+          "dtype": "float64"
+        },
+        {
+          "name": "1961",
+          "dtype": "float64"
+        },
+        {
+          "name": "1962",
+          "dtype": "float64"
+        },
+        {
+          "name": "1963",
+          "dtype": "float64"
+        },
+        {
+          "name": "1964",
+          "dtype": "float64"
+        },
+        {
+          "name": "1965",
+          "dtype": "float64"
+        },
+        {
+          "name": "1966",
+          "dtype": "float64"
+        },
+        {
+          "name": "1967",
+          "dtype": "float64"
+        },
+        {
+          "name": "1968",
+          "dtype": "float64"
+        },
+        {
+          "name": "1969",
+          "dtype": "float64"
+        },
+        {
+          "name": "1970",
+          "dtype": "float64"
+        },
+        {
+          "name": "1971",
+          "dtype": "float64"
+        },
+        {
+          "name": "1972",
+          "dtype": "float64"
+        },
+        {
+          "name": "1973",
+          "dtype": "float64"
+        },
+        {
+          "name": "1974",
+          "dtype": "float64"
+        },
+        {
+          "name": "1975",
+          "dtype": "float64"
+        },
+        {
+          "name": "1976",
+          "dtype": "float64"
+        },
+        {
+          "name": "1977",
+          "dtype": "float64"
+        },
+        {
+          "name": "1978",
+          "dtype": "float64"
+        },
+        {
+          "name": "1979",
+          "dtype": "float64"
+        },
+        {
+          "name": "1980",
+          "dtype": "float64"
+        },
+        {
+          "name": "1981",
+          "dtype": "float64"
+        },
+        {
+          "name": "1982",
+          "dtype": "float64"
+        },
+        {
+          "name": "1983",
+          "dtype": "float64"
+        },
+        {
+          "name": "1984",
+          "dtype": "float64"
+        },
+        {
+          "name": "1985",
+          "dtype": "float64"
+        },
+        {
+          "name": "1986",
+          "dtype": "float64"
+        },
+        {
+          "name": "1987",
+          "dtype": "float64"
+        },
+        {
+          "name": "1988",
+          "dtype": "float64"
+        },
+        {
+          "name": "1989",
+          "dtype": "float64"
+        },
+        {
+          "name": "1990",
+          "dtype": "float64"
+        },
+        {
+          "name": "1991",
+          "dtype": "float64"
+        },
+        {
+          "name": "1992",
+          "dtype": "float64"
+        },
+        {
+          "name": "1993",
+          "dtype": "float64"
+        },
+        {
+          "name": "1994",
+          "dtype": "float64"
+        },
+        {
+          "name": "1995",
+          "dtype": "float64"
+        },
+        {
+          "name": "1996",
+          "dtype": "float64"
+        },
+        {
+          "name": "1997",
+          "dtype": "float64"
+        },
+        {
+          "name": "1998",
+          "dtype": "float64"
+        },
+        {
+          "name": "1999",
+          "dtype": "float64"
+        },
+        {
+          "name": "2000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2001",
+          "dtype": "float64"
+        },
+        {
+          "name": "2002",
+          "dtype": "float64"
+        },
+        {
+          "name": "2003",
+          "dtype": "float64"
+        },
+        {
+          "name": "2004",
+          "dtype": "float64"
+        },
+        {
+          "name": "2005",
+          "dtype": "float64"
+        },
+        {
+          "name": "2006",
+          "dtype": "float64"
+        },
+        {
+          "name": "2007",
+          "dtype": "float64"
+        },
+        {
+          "name": "2008",
+          "dtype": "float64"
+        },
+        {
+          "name": "2009",
+          "dtype": "float64"
+        },
+        {
+          "name": "2010",
+          "dtype": "float64"
+        },
+        {
+          "name": "2011",
+          "dtype": "float64"
+        },
+        {
+          "name": "2012",
+          "dtype": "float64"
+        },
+        {
+          "name": "2013",
+          "dtype": "float64"
+        },
+        {
+          "name": "2014",
+          "dtype": "float64"
+        },
+        {
+          "name": "2015",
+          "dtype": "float64"
+        },
+        {
+          "name": "2016",
+          "dtype": "float64"
+        },
+        {
+          "name": "2017",
+          "dtype": "float64"
+        },
+        {
+          "name": "2018",
+          "dtype": "float64"
+        },
+        {
+          "name": "2019",
+          "dtype": "float64"
+        },
+        {
+          "name": "2020",
+          "dtype": "float64"
+        },
+        {
+          "name": "2021",
+          "dtype": "float64"
+        },
+        {
+          "name": "2022",
+          "dtype": "float64"
+        },
+        {
+          "name": "2023",
+          "dtype": "float64"
+        }
+      ],
+      "path": "prepared/migration.parquet",
+      "sha256": "f80ac51aa813bae2e14b0dcab21097697cf7d936ccd9ed0ce7d74bf56191c5f7",
+      "bytes": 151811
+    },
+    "earthquakes": {
+      "file": "earthquakes_30_days_Feb142025.shp",
+      "kind": "vector",
+      "title": "Earthquake points, frozen 30-day snapshot",
+      "edition": "Archive labelled Feb142025; observed event timestamps 2025-01-16 through 2025-02-15 UTC",
+      "sourceSha256": "2c28bf426a195a00b594d8c110c857c33594ec06be3010b79abb7521dad4465e",
+      "rowCount": 9176,
+      "fields": [
+        {
+          "name": "time",
+          "dtype": "str"
+        },
+        {
+          "name": "latitude",
+          "dtype": "float64"
+        },
+        {
+          "name": "longitude",
+          "dtype": "float64"
+        },
+        {
+          "name": "depth",
+          "dtype": "float64"
+        },
+        {
+          "name": "mag",
+          "dtype": "float64"
+        },
+        {
+          "name": "magType",
+          "dtype": "str"
+        },
+        {
+          "name": "nst",
+          "dtype": "float64"
+        },
+        {
+          "name": "gap",
+          "dtype": "float64"
+        },
+        {
+          "name": "dmin",
+          "dtype": "float64"
+        },
+        {
+          "name": "rms",
+          "dtype": "float64"
+        },
+        {
+          "name": "net",
+          "dtype": "str"
+        },
+        {
+          "name": "id",
+          "dtype": "str"
+        },
+        {
+          "name": "updated",
+          "dtype": "str"
+        },
+        {
+          "name": "place",
+          "dtype": "str"
+        },
+        {
+          "name": "type",
+          "dtype": "str"
+        },
+        {
+          "name": "horizontal",
+          "dtype": "float64"
+        },
+        {
+          "name": "depthError",
+          "dtype": "float64"
+        },
+        {
+          "name": "magError",
+          "dtype": "float64"
+        },
+        {
+          "name": "magNst",
+          "dtype": "float64"
+        },
+        {
+          "name": "status",
+          "dtype": "str"
+        },
+        {
+          "name": "locationSo",
+          "dtype": "str"
+        },
+        {
+          "name": "magSource",
+          "dtype": "str"
+        },
+        {
+          "name": "benchmark_row_id",
+          "dtype": "str"
+        }
+      ],
+      "crs": "EPSG:4326",
+      "bounds": [
+        -179.964,
+        -73.2204,
+        179.9716,
+        82.4793
+      ],
+      "geometryTypes": [
+        "Point"
+      ],
+      "missingGeometryCount": 0,
+      "identity": "benchmark_row_id",
+      "path": "prepared/earthquakes.parquet",
+      "sha256": "d65a70744c33156a86486daa0121936bb3cbaa710a6cee0ebeb1c5d343efaed0",
+      "bytes": 975661
+    },
+    "towns": {
+      "file": "bx729wr3020.shp",
+      "kind": "vector",
+      "title": "US cities and towns, 2014",
+      "edition": "2014; pop_2010 is 2010 population",
+      "units": {
+        "pop_2010": "people"
+      },
+      "sourceSha256": "1476f6391c151c8e19a7d1a79e6affe4c251500fe9ae46123f23618b5fb7ae81",
+      "rowCount": 38186,
+      "fields": [
+        {
+          "name": "gnis_id",
+          "dtype": "float64"
+        },
+        {
+          "name": "ansicode",
+          "dtype": "str"
+        },
+        {
+          "name": "feature",
+          "dtype": "str"
+        },
+        {
+          "name": "feature2",
+          "dtype": "str"
+        },
+        {
+          "name": "name",
+          "dtype": "str"
+        },
+        {
+          "name": "pop_2010",
+          "dtype": "float64"
+        },
+        {
+          "name": "county",
+          "dtype": "str"
+        },
+        {
+          "name": "countyfips",
+          "dtype": "str"
+        },
+        {
+          "name": "state",
+          "dtype": "str"
+        },
+        {
+          "name": "state_fips",
+          "dtype": "str"
+        },
+        {
+          "name": "latitude",
+          "dtype": "float64"
+        },
+        {
+          "name": "longitude",
+          "dtype": "float64"
+        },
+        {
+          "name": "poppllat",
+          "dtype": "float64"
+        },
+        {
+          "name": "poppllong",
+          "dtype": "float64"
+        },
+        {
+          "name": "elev_in_m",
+          "dtype": "float64"
+        },
+        {
+          "name": "elev_in_ft",
+          "dtype": "float64"
+        },
+        {
+          "name": "benchmark_row_id",
+          "dtype": "str"
+        }
+      ],
+      "crs": "EPSG:4326",
+      "bounds": [
+        -176.65805560000015,
+        17.71247460000014,
+        178.87750000000023,
+        71.29055560000025
+      ],
+      "geometryTypes": [
+        "Point"
+      ],
+      "missingGeometryCount": 0,
+      "identity": "benchmark_row_id",
+      "path": "prepared/towns.parquet",
+      "sha256": "160ee5bf8bbbfa0ae6db92d81dc1e5a0c2f19948ac6f457cc535066b83890c56",
+      "bytes": 3577310
+    },
+    "na_rivers": {
+      "file": "northamerica_rivers_cec_2023.shp",
+      "kind": "vector",
+      "title": "North American rivers, CEC 2023 frozen benchmark source",
+      "edition": "CEC North American Environmental Atlas version 4.0 (2023), original benchmark snapshot; benchmark-only use",
+      "sourceSha256": "3221429c55c44448f93ddb72c11d0cb0530e38b12930061fa03d1b85ba0c7154",
+      "rowCount": 5811,
+      "fields": [
+        {
+          "name": "Country",
+          "dtype": "str"
+        },
+        {
+          "name": "NameEn",
+          "dtype": "str"
+        },
+        {
+          "name": "NameEs",
+          "dtype": "str"
+        },
+        {
+          "name": "NameFr",
+          "dtype": "str"
+        },
+        {
+          "name": "LengthKm",
+          "dtype": "float64"
+        },
+        {
+          "name": "benchmark_row_id",
+          "dtype": "str"
+        }
+      ],
+      "crs": "PROJCS[\"Sphere_ARC_INFO_Lambert_Azimuthal_Equal_Area\",GEOGCS[\"GCS_Sphere_ARC_INFO\",DATUM[\"D_Sphere_ARC_INFO\",SPHEROID[\"Sphere_ARC_INFO\",6370997,0]],PRIMEM[\"Greenwich\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Lambert_Azimuthal_Equal_Area\"],PARAMETER[\"latitude_of_center\",45],PARAMETER[\"longitude_of_center\",-100],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+      "bounds": [
+        -166.20969171514437,
+        14.533570197277289,
+        -52.840647704999974,
+        82.80713924300018
+      ],
+      "geometryTypes": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "missingGeometryCount": 0,
+      "identity": "benchmark_row_id",
+      "path": "prepared/na_rivers.parquet",
+      "sha256": "375bd3d22950804c0b7dc826ff2b639689078659d3caf84d0ac46f7b3ec34e8a",
+      "bytes": 42374280
+    },
+    "water_volume": {
+      "file": "API_ER.H2O.FWTL.K3_DS2_en_csv_v2_8364.zip",
+      "kind": "table",
+      "title": "World Bank ER.H2O.FWTL.K3",
+      "edition": "Frozen GeoBenchX World Development Indicators; use 2021",
+      "units": {
+        "2021": "billion m³ per year"
+      },
+      "sourceSha256": "249ef4377d4deb5dfc8aab2e04737ced102f5518cee4ef99fda1db40d8220ebb",
+      "rowCount": 266,
+      "fields": [
+        {
+          "name": "Country Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Country Code",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Code",
+          "dtype": "str"
+        },
+        {
+          "name": "1960",
+          "dtype": "float64"
+        },
+        {
+          "name": "1961",
+          "dtype": "float64"
+        },
+        {
+          "name": "1962",
+          "dtype": "float64"
+        },
+        {
+          "name": "1963",
+          "dtype": "float64"
+        },
+        {
+          "name": "1964",
+          "dtype": "float64"
+        },
+        {
+          "name": "1965",
+          "dtype": "float64"
+        },
+        {
+          "name": "1966",
+          "dtype": "float64"
+        },
+        {
+          "name": "1967",
+          "dtype": "float64"
+        },
+        {
+          "name": "1968",
+          "dtype": "float64"
+        },
+        {
+          "name": "1969",
+          "dtype": "float64"
+        },
+        {
+          "name": "1970",
+          "dtype": "float64"
+        },
+        {
+          "name": "1971",
+          "dtype": "float64"
+        },
+        {
+          "name": "1972",
+          "dtype": "float64"
+        },
+        {
+          "name": "1973",
+          "dtype": "float64"
+        },
+        {
+          "name": "1974",
+          "dtype": "float64"
+        },
+        {
+          "name": "1975",
+          "dtype": "float64"
+        },
+        {
+          "name": "1976",
+          "dtype": "float64"
+        },
+        {
+          "name": "1977",
+          "dtype": "float64"
+        },
+        {
+          "name": "1978",
+          "dtype": "float64"
+        },
+        {
+          "name": "1979",
+          "dtype": "float64"
+        },
+        {
+          "name": "1980",
+          "dtype": "float64"
+        },
+        {
+          "name": "1981",
+          "dtype": "float64"
+        },
+        {
+          "name": "1982",
+          "dtype": "float64"
+        },
+        {
+          "name": "1983",
+          "dtype": "float64"
+        },
+        {
+          "name": "1984",
+          "dtype": "float64"
+        },
+        {
+          "name": "1985",
+          "dtype": "float64"
+        },
+        {
+          "name": "1986",
+          "dtype": "float64"
+        },
+        {
+          "name": "1987",
+          "dtype": "float64"
+        },
+        {
+          "name": "1988",
+          "dtype": "float64"
+        },
+        {
+          "name": "1989",
+          "dtype": "float64"
+        },
+        {
+          "name": "1990",
+          "dtype": "float64"
+        },
+        {
+          "name": "1991",
+          "dtype": "float64"
+        },
+        {
+          "name": "1992",
+          "dtype": "float64"
+        },
+        {
+          "name": "1993",
+          "dtype": "float64"
+        },
+        {
+          "name": "1994",
+          "dtype": "float64"
+        },
+        {
+          "name": "1995",
+          "dtype": "float64"
+        },
+        {
+          "name": "1996",
+          "dtype": "float64"
+        },
+        {
+          "name": "1997",
+          "dtype": "float64"
+        },
+        {
+          "name": "1998",
+          "dtype": "float64"
+        },
+        {
+          "name": "1999",
+          "dtype": "float64"
+        },
+        {
+          "name": "2000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2001",
+          "dtype": "float64"
+        },
+        {
+          "name": "2002",
+          "dtype": "float64"
+        },
+        {
+          "name": "2003",
+          "dtype": "float64"
+        },
+        {
+          "name": "2004",
+          "dtype": "float64"
+        },
+        {
+          "name": "2005",
+          "dtype": "float64"
+        },
+        {
+          "name": "2006",
+          "dtype": "float64"
+        },
+        {
+          "name": "2007",
+          "dtype": "float64"
+        },
+        {
+          "name": "2008",
+          "dtype": "float64"
+        },
+        {
+          "name": "2009",
+          "dtype": "float64"
+        },
+        {
+          "name": "2010",
+          "dtype": "float64"
+        },
+        {
+          "name": "2011",
+          "dtype": "float64"
+        },
+        {
+          "name": "2012",
+          "dtype": "float64"
+        },
+        {
+          "name": "2013",
+          "dtype": "float64"
+        },
+        {
+          "name": "2014",
+          "dtype": "float64"
+        },
+        {
+          "name": "2015",
+          "dtype": "float64"
+        },
+        {
+          "name": "2016",
+          "dtype": "float64"
+        },
+        {
+          "name": "2017",
+          "dtype": "float64"
+        },
+        {
+          "name": "2018",
+          "dtype": "float64"
+        },
+        {
+          "name": "2019",
+          "dtype": "float64"
+        },
+        {
+          "name": "2020",
+          "dtype": "float64"
+        },
+        {
+          "name": "2021",
+          "dtype": "float64"
+        },
+        {
+          "name": "2022",
+          "dtype": "float64"
+        },
+        {
+          "name": "2023",
+          "dtype": "float64"
+        }
+      ],
+      "path": "prepared/water_volume.parquet",
+      "sha256": "59dc8930c3d22c86063ce406aa166847b4233fee91708aad1ba292db4d831ef7",
+      "bytes": 101111
+    },
+    "agriculture": {
+      "file": "API_NV.AGR.TOTL.ZS_DS2_en_csv_v2_4614.zip",
+      "kind": "table",
+      "title": "World Bank NV.AGR.TOTL.ZS",
+      "edition": "Frozen GeoBenchX World Development Indicators; use 2023",
+      "units": {
+        "2023": "% of GDP"
+      },
+      "sourceSha256": "6a2bfa4535332b7f441936b7176d62b9a39fb5c46a505d57fb22b21b0b59099c",
+      "rowCount": 266,
+      "fields": [
+        {
+          "name": "Country Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Country Code",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Code",
+          "dtype": "str"
+        },
+        {
+          "name": "1960",
+          "dtype": "float64"
+        },
+        {
+          "name": "1961",
+          "dtype": "float64"
+        },
+        {
+          "name": "1962",
+          "dtype": "float64"
+        },
+        {
+          "name": "1963",
+          "dtype": "float64"
+        },
+        {
+          "name": "1964",
+          "dtype": "float64"
+        },
+        {
+          "name": "1965",
+          "dtype": "float64"
+        },
+        {
+          "name": "1966",
+          "dtype": "float64"
+        },
+        {
+          "name": "1967",
+          "dtype": "float64"
+        },
+        {
+          "name": "1968",
+          "dtype": "float64"
+        },
+        {
+          "name": "1969",
+          "dtype": "float64"
+        },
+        {
+          "name": "1970",
+          "dtype": "float64"
+        },
+        {
+          "name": "1971",
+          "dtype": "float64"
+        },
+        {
+          "name": "1972",
+          "dtype": "float64"
+        },
+        {
+          "name": "1973",
+          "dtype": "float64"
+        },
+        {
+          "name": "1974",
+          "dtype": "float64"
+        },
+        {
+          "name": "1975",
+          "dtype": "float64"
+        },
+        {
+          "name": "1976",
+          "dtype": "float64"
+        },
+        {
+          "name": "1977",
+          "dtype": "float64"
+        },
+        {
+          "name": "1978",
+          "dtype": "float64"
+        },
+        {
+          "name": "1979",
+          "dtype": "float64"
+        },
+        {
+          "name": "1980",
+          "dtype": "float64"
+        },
+        {
+          "name": "1981",
+          "dtype": "float64"
+        },
+        {
+          "name": "1982",
+          "dtype": "float64"
+        },
+        {
+          "name": "1983",
+          "dtype": "float64"
+        },
+        {
+          "name": "1984",
+          "dtype": "float64"
+        },
+        {
+          "name": "1985",
+          "dtype": "float64"
+        },
+        {
+          "name": "1986",
+          "dtype": "float64"
+        },
+        {
+          "name": "1987",
+          "dtype": "float64"
+        },
+        {
+          "name": "1988",
+          "dtype": "float64"
+        },
+        {
+          "name": "1989",
+          "dtype": "float64"
+        },
+        {
+          "name": "1990",
+          "dtype": "float64"
+        },
+        {
+          "name": "1991",
+          "dtype": "float64"
+        },
+        {
+          "name": "1992",
+          "dtype": "float64"
+        },
+        {
+          "name": "1993",
+          "dtype": "float64"
+        },
+        {
+          "name": "1994",
+          "dtype": "float64"
+        },
+        {
+          "name": "1995",
+          "dtype": "float64"
+        },
+        {
+          "name": "1996",
+          "dtype": "float64"
+        },
+        {
+          "name": "1997",
+          "dtype": "float64"
+        },
+        {
+          "name": "1998",
+          "dtype": "float64"
+        },
+        {
+          "name": "1999",
+          "dtype": "float64"
+        },
+        {
+          "name": "2000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2001",
+          "dtype": "float64"
+        },
+        {
+          "name": "2002",
+          "dtype": "float64"
+        },
+        {
+          "name": "2003",
+          "dtype": "float64"
+        },
+        {
+          "name": "2004",
+          "dtype": "float64"
+        },
+        {
+          "name": "2005",
+          "dtype": "float64"
+        },
+        {
+          "name": "2006",
+          "dtype": "float64"
+        },
+        {
+          "name": "2007",
+          "dtype": "float64"
+        },
+        {
+          "name": "2008",
+          "dtype": "float64"
+        },
+        {
+          "name": "2009",
+          "dtype": "float64"
+        },
+        {
+          "name": "2010",
+          "dtype": "float64"
+        },
+        {
+          "name": "2011",
+          "dtype": "float64"
+        },
+        {
+          "name": "2012",
+          "dtype": "float64"
+        },
+        {
+          "name": "2013",
+          "dtype": "float64"
+        },
+        {
+          "name": "2014",
+          "dtype": "float64"
+        },
+        {
+          "name": "2015",
+          "dtype": "float64"
+        },
+        {
+          "name": "2016",
+          "dtype": "float64"
+        },
+        {
+          "name": "2017",
+          "dtype": "float64"
+        },
+        {
+          "name": "2018",
+          "dtype": "float64"
+        },
+        {
+          "name": "2019",
+          "dtype": "float64"
+        },
+        {
+          "name": "2020",
+          "dtype": "float64"
+        },
+        {
+          "name": "2021",
+          "dtype": "float64"
+        },
+        {
+          "name": "2022",
+          "dtype": "float64"
+        },
+        {
+          "name": "2023",
+          "dtype": "float64"
+        }
+      ],
+      "path": "prepared/agriculture.parquet",
+      "sha256": "aa597fd214172be60b0f51ef409b5e8ff1774fbf22b7586497812e066e778f4a",
+      "bytes": 140992
+    },
+    "peru_population": {
+      "file": "per_ppp_2018_1km_Aggregated_UNadj.tif",
+      "kind": "raster",
+      "title": "Peru population count, WorldPop 2018",
+      "edition": "2018 UN-adjusted population counts, aggregated to 1 km cells",
+      "units": {
+        "band1": "people per cell"
+      },
+      "sourceSha256": "3f085a13c7ef83d72672d9909812145fe34fd4f53c653989524e50c92e20e37c",
+      "crs": "EPSG:4326",
+      "bounds": [
+        -81.334583017037,
+        -18.358749716256654,
+        -68.651249734437,
+        -0.03374978955665142
+      ],
+      "shape": [
+        2199,
+        1522
+      ],
+      "nodata": -99999.0,
+      "transform": [
+        0.0083333333,
+        0.0,
+        -81.334583017037,
+        0.0,
+        -0.0083333333,
+        -0.03374978955665142,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bandCount": 1,
+      "path": "prepared/peru_population.tif",
+      "sha256": "3f085a13c7ef83d72672d9909812145fe34fd4f53c653989524e50c92e20e37c",
+      "bytes": 6931939
+    },
+    "bangladesh_density": {
+      "file": "bgd_pd_2018_1km_UNadj.tif",
+      "kind": "raster",
+      "title": "Bangladesh population density, WorldPop 2018",
+      "edition": "2018 UN-adjusted 1 km density; exact bytes verified against WorldPop product 45189, DOI WP00675",
+      "units": {
+        "band1": "people/km²"
+      },
+      "sourceSha256": "c7eede1eb6bbf27e203de10c49c01155c1841a2011079e4c47fef332dfc167a4",
+      "crs": "EPSG:4326",
+      "bounds": [
+        88.01541632437963,
+        20.5745834483479,
+        92.67374963907963,
+        26.641250090747903
+      ],
+      "shape": [
+        728,
+        559
+      ],
+      "nodata": -99999.0,
+      "transform": [
+        0.0083333333,
+        0.0,
+        88.01541632437963,
+        0.0,
+        -0.0083333333,
+        26.641250090747903,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bandCount": 1,
+      "path": "prepared/bangladesh_density.tif",
+      "sha256": "c7eede1eb6bbf27e203de10c49c01155c1841a2011079e4c47fef332dfc167a4",
+      "bytes": 850416
+    },
+    "bangladesh_railways": {
+      "file": "Bangladesh_gis_osm_railways_free_1.shp",
+      "kind": "vector",
+      "title": "Bangladesh railway lines, frozen OpenStreetMap extract",
+      "edition": "GeoBenchX Geofabrik Bangladesh extract, 2025-02-01; ODbL attribution required",
+      "sourceSha256": "a991fb24a69a6e7200340f75ffa29cbac23d6016becda1e88a1edf7685a57641",
+      "rowCount": 2506,
+      "fields": [
+        {
+          "name": "osm_id",
+          "dtype": "str"
+        },
+        {
+          "name": "code",
+          "dtype": "int32"
+        },
+        {
+          "name": "fclass",
+          "dtype": "str"
+        },
+        {
+          "name": "name",
+          "dtype": "str"
+        },
+        {
+          "name": "layer",
+          "dtype": "int64"
+        },
+        {
+          "name": "bridge",
+          "dtype": "str"
+        },
+        {
+          "name": "tunnel",
+          "dtype": "str"
+        },
+        {
+          "name": "benchmark_row_id",
+          "dtype": "str"
+        }
+      ],
+      "crs": "EPSG:4326",
+      "bounds": [
+        88.1741902,
+        21.4051778,
+        92.4935438,
+        26.4002306
+      ],
+      "geometryTypes": [
+        "LineString"
+      ],
+      "missingGeometryCount": 0,
+      "identity": "benchmark_row_id",
+      "path": "prepared/bangladesh_railways.parquet",
+      "sha256": "10f0d0c115b4ad683ff121da002f5beb4a29833e13165d2e0e7e14ab2df6d1a7",
+      "bytes": 502538
+    },
+    "labor": {
+      "file": "API_SL.TLF.TOTL.IN_DS2_en_csv_v2_4341.zip",
+      "kind": "table",
+      "title": "World Bank SL.TLF.TOTL.IN",
+      "edition": "Frozen GeoBenchX World Development Indicators; use 2023",
+      "units": {
+        "2023": "people"
+      },
+      "sourceSha256": "623f04c3e15e7941d50f15470174edb72d949b380fc198e31c544b132ec647d1",
+      "rowCount": 266,
+      "fields": [
+        {
+          "name": "Country Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Country Code",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Code",
+          "dtype": "str"
+        },
+        {
+          "name": "1960",
+          "dtype": "float64"
+        },
+        {
+          "name": "1961",
+          "dtype": "float64"
+        },
+        {
+          "name": "1962",
+          "dtype": "float64"
+        },
+        {
+          "name": "1963",
+          "dtype": "float64"
+        },
+        {
+          "name": "1964",
+          "dtype": "float64"
+        },
+        {
+          "name": "1965",
+          "dtype": "float64"
+        },
+        {
+          "name": "1966",
+          "dtype": "float64"
+        },
+        {
+          "name": "1967",
+          "dtype": "float64"
+        },
+        {
+          "name": "1968",
+          "dtype": "float64"
+        },
+        {
+          "name": "1969",
+          "dtype": "float64"
+        },
+        {
+          "name": "1970",
+          "dtype": "float64"
+        },
+        {
+          "name": "1971",
+          "dtype": "float64"
+        },
+        {
+          "name": "1972",
+          "dtype": "float64"
+        },
+        {
+          "name": "1973",
+          "dtype": "float64"
+        },
+        {
+          "name": "1974",
+          "dtype": "float64"
+        },
+        {
+          "name": "1975",
+          "dtype": "float64"
+        },
+        {
+          "name": "1976",
+          "dtype": "float64"
+        },
+        {
+          "name": "1977",
+          "dtype": "float64"
+        },
+        {
+          "name": "1978",
+          "dtype": "float64"
+        },
+        {
+          "name": "1979",
+          "dtype": "float64"
+        },
+        {
+          "name": "1980",
+          "dtype": "float64"
+        },
+        {
+          "name": "1981",
+          "dtype": "float64"
+        },
+        {
+          "name": "1982",
+          "dtype": "float64"
+        },
+        {
+          "name": "1983",
+          "dtype": "float64"
+        },
+        {
+          "name": "1984",
+          "dtype": "float64"
+        },
+        {
+          "name": "1985",
+          "dtype": "float64"
+        },
+        {
+          "name": "1986",
+          "dtype": "float64"
+        },
+        {
+          "name": "1987",
+          "dtype": "float64"
+        },
+        {
+          "name": "1988",
+          "dtype": "float64"
+        },
+        {
+          "name": "1989",
+          "dtype": "float64"
+        },
+        {
+          "name": "1990",
+          "dtype": "float64"
+        },
+        {
+          "name": "1991",
+          "dtype": "float64"
+        },
+        {
+          "name": "1992",
+          "dtype": "float64"
+        },
+        {
+          "name": "1993",
+          "dtype": "float64"
+        },
+        {
+          "name": "1994",
+          "dtype": "float64"
+        },
+        {
+          "name": "1995",
+          "dtype": "float64"
+        },
+        {
+          "name": "1996",
+          "dtype": "float64"
+        },
+        {
+          "name": "1997",
+          "dtype": "float64"
+        },
+        {
+          "name": "1998",
+          "dtype": "float64"
+        },
+        {
+          "name": "1999",
+          "dtype": "float64"
+        },
+        {
+          "name": "2000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2001",
+          "dtype": "float64"
+        },
+        {
+          "name": "2002",
+          "dtype": "float64"
+        },
+        {
+          "name": "2003",
+          "dtype": "float64"
+        },
+        {
+          "name": "2004",
+          "dtype": "float64"
+        },
+        {
+          "name": "2005",
+          "dtype": "float64"
+        },
+        {
+          "name": "2006",
+          "dtype": "float64"
+        },
+        {
+          "name": "2007",
+          "dtype": "float64"
+        },
+        {
+          "name": "2008",
+          "dtype": "float64"
+        },
+        {
+          "name": "2009",
+          "dtype": "float64"
+        },
+        {
+          "name": "2010",
+          "dtype": "float64"
+        },
+        {
+          "name": "2011",
+          "dtype": "float64"
+        },
+        {
+          "name": "2012",
+          "dtype": "float64"
+        },
+        {
+          "name": "2013",
+          "dtype": "float64"
+        },
+        {
+          "name": "2014",
+          "dtype": "float64"
+        },
+        {
+          "name": "2015",
+          "dtype": "float64"
+        },
+        {
+          "name": "2016",
+          "dtype": "float64"
+        },
+        {
+          "name": "2017",
+          "dtype": "float64"
+        },
+        {
+          "name": "2018",
+          "dtype": "float64"
+        },
+        {
+          "name": "2019",
+          "dtype": "float64"
+        },
+        {
+          "name": "2020",
+          "dtype": "float64"
+        },
+        {
+          "name": "2021",
+          "dtype": "float64"
+        },
+        {
+          "name": "2022",
+          "dtype": "float64"
+        },
+        {
+          "name": "2023",
+          "dtype": "float64"
+        }
+      ],
+      "path": "prepared/labor.parquet",
+      "sha256": "9ef01befe196b704ed8fb739b12807e2c3e489559fcb2acfd51a068aab87ccb7",
+      "bytes": 98393
+    },
+    "electricity": {
+      "file": "API_EG.USE.ELEC.KH.PC_DS2_en_csv_v2_2767.zip",
+      "kind": "table",
+      "title": "Electric power consumption per capita",
+      "edition": "Frozen WDI; use 2014",
+      "units": {
+        "2014": "kWh per capita"
+      },
+      "sourceSha256": "503cbc50f0a3177750d7fbfad0d4544bab29f47b3b4a41afcea9b5c14ee96ec7",
+      "rowCount": 266,
+      "fields": [
+        {
+          "name": "Country Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Country Code",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Code",
+          "dtype": "str"
+        },
+        {
+          "name": "1960",
+          "dtype": "float64"
+        },
+        {
+          "name": "1961",
+          "dtype": "float64"
+        },
+        {
+          "name": "1962",
+          "dtype": "float64"
+        },
+        {
+          "name": "1963",
+          "dtype": "float64"
+        },
+        {
+          "name": "1964",
+          "dtype": "float64"
+        },
+        {
+          "name": "1965",
+          "dtype": "float64"
+        },
+        {
+          "name": "1966",
+          "dtype": "float64"
+        },
+        {
+          "name": "1967",
+          "dtype": "float64"
+        },
+        {
+          "name": "1968",
+          "dtype": "float64"
+        },
+        {
+          "name": "1969",
+          "dtype": "float64"
+        },
+        {
+          "name": "1970",
+          "dtype": "float64"
+        },
+        {
+          "name": "1971",
+          "dtype": "float64"
+        },
+        {
+          "name": "1972",
+          "dtype": "float64"
+        },
+        {
+          "name": "1973",
+          "dtype": "float64"
+        },
+        {
+          "name": "1974",
+          "dtype": "float64"
+        },
+        {
+          "name": "1975",
+          "dtype": "float64"
+        },
+        {
+          "name": "1976",
+          "dtype": "float64"
+        },
+        {
+          "name": "1977",
+          "dtype": "float64"
+        },
+        {
+          "name": "1978",
+          "dtype": "float64"
+        },
+        {
+          "name": "1979",
+          "dtype": "float64"
+        },
+        {
+          "name": "1980",
+          "dtype": "float64"
+        },
+        {
+          "name": "1981",
+          "dtype": "float64"
+        },
+        {
+          "name": "1982",
+          "dtype": "float64"
+        },
+        {
+          "name": "1983",
+          "dtype": "float64"
+        },
+        {
+          "name": "1984",
+          "dtype": "float64"
+        },
+        {
+          "name": "1985",
+          "dtype": "float64"
+        },
+        {
+          "name": "1986",
+          "dtype": "float64"
+        },
+        {
+          "name": "1987",
+          "dtype": "float64"
+        },
+        {
+          "name": "1988",
+          "dtype": "float64"
+        },
+        {
+          "name": "1989",
+          "dtype": "float64"
+        },
+        {
+          "name": "1990",
+          "dtype": "float64"
+        },
+        {
+          "name": "1991",
+          "dtype": "float64"
+        },
+        {
+          "name": "1992",
+          "dtype": "float64"
+        },
+        {
+          "name": "1993",
+          "dtype": "float64"
+        },
+        {
+          "name": "1994",
+          "dtype": "float64"
+        },
+        {
+          "name": "1995",
+          "dtype": "float64"
+        },
+        {
+          "name": "1996",
+          "dtype": "float64"
+        },
+        {
+          "name": "1997",
+          "dtype": "float64"
+        },
+        {
+          "name": "1998",
+          "dtype": "float64"
+        },
+        {
+          "name": "1999",
+          "dtype": "float64"
+        },
+        {
+          "name": "2000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2001",
+          "dtype": "float64"
+        },
+        {
+          "name": "2002",
+          "dtype": "float64"
+        },
+        {
+          "name": "2003",
+          "dtype": "float64"
+        },
+        {
+          "name": "2004",
+          "dtype": "float64"
+        },
+        {
+          "name": "2005",
+          "dtype": "float64"
+        },
+        {
+          "name": "2006",
+          "dtype": "float64"
+        },
+        {
+          "name": "2007",
+          "dtype": "float64"
+        },
+        {
+          "name": "2008",
+          "dtype": "float64"
+        },
+        {
+          "name": "2009",
+          "dtype": "float64"
+        },
+        {
+          "name": "2010",
+          "dtype": "float64"
+        },
+        {
+          "name": "2011",
+          "dtype": "float64"
+        },
+        {
+          "name": "2012",
+          "dtype": "float64"
+        },
+        {
+          "name": "2013",
+          "dtype": "float64"
+        },
+        {
+          "name": "2014",
+          "dtype": "float64"
+        },
+        {
+          "name": "2015",
+          "dtype": "float64"
+        },
+        {
+          "name": "2016",
+          "dtype": "float64"
+        },
+        {
+          "name": "2017",
+          "dtype": "float64"
+        },
+        {
+          "name": "2018",
+          "dtype": "float64"
+        },
+        {
+          "name": "2019",
+          "dtype": "float64"
+        },
+        {
+          "name": "2020",
+          "dtype": "float64"
+        },
+        {
+          "name": "2021",
+          "dtype": "float64"
+        },
+        {
+          "name": "2022",
+          "dtype": "float64"
+        },
+        {
+          "name": "2023",
+          "dtype": "float64"
+        }
+      ],
+      "path": "prepared/electricity.parquet",
+      "sha256": "35c5d7efcc03e05918af7f00fd37d7ac6235980c9f43ad3513579270318cfd0d",
+      "bytes": 112643
+    },
+    "gdp": {
+      "file": "API_NY.GDP.PCAP.CD_DS2_en_csv_v2_77536.zip",
+      "kind": "table",
+      "title": "GDP per capita",
+      "edition": "Frozen WDI; current US dollars by year",
+      "units": {
+        "2023": "current USD per capita",
+        "2020": "current USD per capita",
+        "2022": "current USD per capita"
+      },
+      "sourceSha256": "b7c4e79787f1de2852aaf6b9302c8725208cec8c0ea180069f5a14037ac116bf",
+      "rowCount": 266,
+      "fields": [
+        {
+          "name": "Country Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Country Code",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Code",
+          "dtype": "str"
+        },
+        {
+          "name": "1960",
+          "dtype": "float64"
+        },
+        {
+          "name": "1961",
+          "dtype": "float64"
+        },
+        {
+          "name": "1962",
+          "dtype": "float64"
+        },
+        {
+          "name": "1963",
+          "dtype": "float64"
+        },
+        {
+          "name": "1964",
+          "dtype": "float64"
+        },
+        {
+          "name": "1965",
+          "dtype": "float64"
+        },
+        {
+          "name": "1966",
+          "dtype": "float64"
+        },
+        {
+          "name": "1967",
+          "dtype": "float64"
+        },
+        {
+          "name": "1968",
+          "dtype": "float64"
+        },
+        {
+          "name": "1969",
+          "dtype": "float64"
+        },
+        {
+          "name": "1970",
+          "dtype": "float64"
+        },
+        {
+          "name": "1971",
+          "dtype": "float64"
+        },
+        {
+          "name": "1972",
+          "dtype": "float64"
+        },
+        {
+          "name": "1973",
+          "dtype": "float64"
+        },
+        {
+          "name": "1974",
+          "dtype": "float64"
+        },
+        {
+          "name": "1975",
+          "dtype": "float64"
+        },
+        {
+          "name": "1976",
+          "dtype": "float64"
+        },
+        {
+          "name": "1977",
+          "dtype": "float64"
+        },
+        {
+          "name": "1978",
+          "dtype": "float64"
+        },
+        {
+          "name": "1979",
+          "dtype": "float64"
+        },
+        {
+          "name": "1980",
+          "dtype": "float64"
+        },
+        {
+          "name": "1981",
+          "dtype": "float64"
+        },
+        {
+          "name": "1982",
+          "dtype": "float64"
+        },
+        {
+          "name": "1983",
+          "dtype": "float64"
+        },
+        {
+          "name": "1984",
+          "dtype": "float64"
+        },
+        {
+          "name": "1985",
+          "dtype": "float64"
+        },
+        {
+          "name": "1986",
+          "dtype": "float64"
+        },
+        {
+          "name": "1987",
+          "dtype": "float64"
+        },
+        {
+          "name": "1988",
+          "dtype": "float64"
+        },
+        {
+          "name": "1989",
+          "dtype": "float64"
+        },
+        {
+          "name": "1990",
+          "dtype": "float64"
+        },
+        {
+          "name": "1991",
+          "dtype": "float64"
+        },
+        {
+          "name": "1992",
+          "dtype": "float64"
+        },
+        {
+          "name": "1993",
+          "dtype": "float64"
+        },
+        {
+          "name": "1994",
+          "dtype": "float64"
+        },
+        {
+          "name": "1995",
+          "dtype": "float64"
+        },
+        {
+          "name": "1996",
+          "dtype": "float64"
+        },
+        {
+          "name": "1997",
+          "dtype": "float64"
+        },
+        {
+          "name": "1998",
+          "dtype": "float64"
+        },
+        {
+          "name": "1999",
+          "dtype": "float64"
+        },
+        {
+          "name": "2000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2001",
+          "dtype": "float64"
+        },
+        {
+          "name": "2002",
+          "dtype": "float64"
+        },
+        {
+          "name": "2003",
+          "dtype": "float64"
+        },
+        {
+          "name": "2004",
+          "dtype": "float64"
+        },
+        {
+          "name": "2005",
+          "dtype": "float64"
+        },
+        {
+          "name": "2006",
+          "dtype": "float64"
+        },
+        {
+          "name": "2007",
+          "dtype": "float64"
+        },
+        {
+          "name": "2008",
+          "dtype": "float64"
+        },
+        {
+          "name": "2009",
+          "dtype": "float64"
+        },
+        {
+          "name": "2010",
+          "dtype": "float64"
+        },
+        {
+          "name": "2011",
+          "dtype": "float64"
+        },
+        {
+          "name": "2012",
+          "dtype": "float64"
+        },
+        {
+          "name": "2013",
+          "dtype": "float64"
+        },
+        {
+          "name": "2014",
+          "dtype": "float64"
+        },
+        {
+          "name": "2015",
+          "dtype": "float64"
+        },
+        {
+          "name": "2016",
+          "dtype": "float64"
+        },
+        {
+          "name": "2017",
+          "dtype": "float64"
+        },
+        {
+          "name": "2018",
+          "dtype": "float64"
+        },
+        {
+          "name": "2019",
+          "dtype": "float64"
+        },
+        {
+          "name": "2020",
+          "dtype": "float64"
+        },
+        {
+          "name": "2021",
+          "dtype": "float64"
+        },
+        {
+          "name": "2022",
+          "dtype": "float64"
+        },
+        {
+          "name": "2023",
+          "dtype": "float64"
+        }
+      ],
+      "path": "prepared/gdp.parquet",
+      "sha256": "18ce25b448f6b5a314e9d5dd91cefdbd54b1703becb9c687208c7c02acfa1d18",
+      "bytes": 169677
+    },
+    "counties": {
+      "file": "tl_2024_us_county.shp",
+      "kind": "vector",
+      "title": "US county boundaries",
+      "edition": "Census TIGER/Line 2024",
+      "sourceSha256": "4bdd1476ffeb7e5a4bc6a2eb60d39e6ceae3d385b2d87793a634ffe1552aafe4",
+      "rowCount": 3235,
+      "fields": [
+        {
+          "name": "STATEFP",
+          "dtype": "str"
+        },
+        {
+          "name": "COUNTYFP",
+          "dtype": "str"
+        },
+        {
+          "name": "COUNTYNS",
+          "dtype": "str"
+        },
+        {
+          "name": "GEOID",
+          "dtype": "str"
+        },
+        {
+          "name": "GEOIDFQ",
+          "dtype": "str"
+        },
+        {
+          "name": "NAME",
+          "dtype": "str"
+        },
+        {
+          "name": "NAMELSAD",
+          "dtype": "str"
+        },
+        {
+          "name": "LSAD",
+          "dtype": "str"
+        },
+        {
+          "name": "CLASSFP",
+          "dtype": "str"
+        },
+        {
+          "name": "MTFCC",
+          "dtype": "str"
+        },
+        {
+          "name": "CSAFP",
+          "dtype": "str"
+        },
+        {
+          "name": "CBSAFP",
+          "dtype": "str"
+        },
+        {
+          "name": "METDIVFP",
+          "dtype": "str"
+        },
+        {
+          "name": "FUNCSTAT",
+          "dtype": "str"
+        },
+        {
+          "name": "ALAND",
+          "dtype": "int64"
+        },
+        {
+          "name": "AWATER",
+          "dtype": "int64"
+        },
+        {
+          "name": "INTPTLAT",
+          "dtype": "str"
+        },
+        {
+          "name": "INTPTLON",
+          "dtype": "str"
+        },
+        {
+          "name": "benchmark_row_id",
+          "dtype": "str"
+        }
+      ],
+      "crs": "EPSG:4269",
+      "bounds": [
+        -179.231086,
+        -14.601813,
+        179.85968107125612,
+        71.439786
+      ],
+      "geometryTypes": [
+        "MultiPolygon",
+        "Polygon"
+      ],
+      "missingGeometryCount": 0,
+      "identity": "benchmark_row_id",
+      "path": "prepared/counties.parquet",
+      "sha256": "587f3dd3f8be86a8db7fe808d71205a207f00cdb77d9a4327464f17a5a23d880",
+      "bytes": 126729265
+    },
+    "tb_ny": {
+      "file": "NYS TB cases 2023.csv",
+      "kind": "table",
+      "format": "csv",
+      "textFields": [
+        "County"
+      ],
+      "nullTokens": [
+        "---"
+      ],
+      "title": "New York county tuberculosis cases and rates, 2019–2023",
+      "edition": "NYSDOH 2024 report, frozen GeoBenchX transcription; use 2023 counts",
+      "units": {
+        "2023 cases": "cases",
+        "2023 cases per 100 000": "cases per 100,000 people"
+      },
+      "sourceSha256": "541bd380b0781cf8c38325c55d08d2b4398af77a1c15165a8f2d31323fcab9f5",
+      "rowCount": 69,
+      "fields": [
+        {
+          "name": "County",
+          "dtype": "str"
+        },
+        {
+          "name": "2019 cases",
+          "dtype": "float64"
+        },
+        {
+          "name": "2019 cases per 100 000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2020 cases",
+          "dtype": "float64"
+        },
+        {
+          "name": "2020 cases per 100 000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2021 cases",
+          "dtype": "float64"
+        },
+        {
+          "name": "2021 cases per 100 000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2022 cases",
+          "dtype": "float64"
+        },
+        {
+          "name": "2022 cases per 100 000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2023 cases",
+          "dtype": "float64"
+        },
+        {
+          "name": "2023 cases per 100 000",
+          "dtype": "float64"
+        }
+      ],
+      "path": "prepared/tb_ny.parquet",
+      "sha256": "06be6e8be91618a9c861ee74913e275fc69a9209692592c4839940442d9ae3f5",
+      "bytes": 9576
+    },
+    "rural": {
+      "file": "API_SP.RUR.TOTL_DS2_en_csv_v2_6835.zip",
+      "kind": "table",
+      "title": "World Bank SP.RUR.TOTL",
+      "edition": "Frozen GeoBenchX World Development Indicators; use 2023",
+      "units": {
+        "2023": "people"
+      },
+      "sourceSha256": "16276676e34bdc58a6b931e7417da5413fea2dbf28ee26bbf9a353b7ac9e6d4a",
+      "rowCount": 266,
+      "fields": [
+        {
+          "name": "Country Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Country Code",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Code",
+          "dtype": "str"
+        },
+        {
+          "name": "1960",
+          "dtype": "float64"
+        },
+        {
+          "name": "1961",
+          "dtype": "float64"
+        },
+        {
+          "name": "1962",
+          "dtype": "float64"
+        },
+        {
+          "name": "1963",
+          "dtype": "float64"
+        },
+        {
+          "name": "1964",
+          "dtype": "float64"
+        },
+        {
+          "name": "1965",
+          "dtype": "float64"
+        },
+        {
+          "name": "1966",
+          "dtype": "float64"
+        },
+        {
+          "name": "1967",
+          "dtype": "float64"
+        },
+        {
+          "name": "1968",
+          "dtype": "float64"
+        },
+        {
+          "name": "1969",
+          "dtype": "float64"
+        },
+        {
+          "name": "1970",
+          "dtype": "float64"
+        },
+        {
+          "name": "1971",
+          "dtype": "float64"
+        },
+        {
+          "name": "1972",
+          "dtype": "float64"
+        },
+        {
+          "name": "1973",
+          "dtype": "float64"
+        },
+        {
+          "name": "1974",
+          "dtype": "float64"
+        },
+        {
+          "name": "1975",
+          "dtype": "float64"
+        },
+        {
+          "name": "1976",
+          "dtype": "float64"
+        },
+        {
+          "name": "1977",
+          "dtype": "float64"
+        },
+        {
+          "name": "1978",
+          "dtype": "float64"
+        },
+        {
+          "name": "1979",
+          "dtype": "float64"
+        },
+        {
+          "name": "1980",
+          "dtype": "float64"
+        },
+        {
+          "name": "1981",
+          "dtype": "float64"
+        },
+        {
+          "name": "1982",
+          "dtype": "float64"
+        },
+        {
+          "name": "1983",
+          "dtype": "float64"
+        },
+        {
+          "name": "1984",
+          "dtype": "float64"
+        },
+        {
+          "name": "1985",
+          "dtype": "float64"
+        },
+        {
+          "name": "1986",
+          "dtype": "float64"
+        },
+        {
+          "name": "1987",
+          "dtype": "float64"
+        },
+        {
+          "name": "1988",
+          "dtype": "float64"
+        },
+        {
+          "name": "1989",
+          "dtype": "float64"
+        },
+        {
+          "name": "1990",
+          "dtype": "float64"
+        },
+        {
+          "name": "1991",
+          "dtype": "float64"
+        },
+        {
+          "name": "1992",
+          "dtype": "float64"
+        },
+        {
+          "name": "1993",
+          "dtype": "float64"
+        },
+        {
+          "name": "1994",
+          "dtype": "float64"
+        },
+        {
+          "name": "1995",
+          "dtype": "float64"
+        },
+        {
+          "name": "1996",
+          "dtype": "float64"
+        },
+        {
+          "name": "1997",
+          "dtype": "float64"
+        },
+        {
+          "name": "1998",
+          "dtype": "float64"
+        },
+        {
+          "name": "1999",
+          "dtype": "float64"
+        },
+        {
+          "name": "2000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2001",
+          "dtype": "float64"
+        },
+        {
+          "name": "2002",
+          "dtype": "float64"
+        },
+        {
+          "name": "2003",
+          "dtype": "float64"
+        },
+        {
+          "name": "2004",
+          "dtype": "float64"
+        },
+        {
+          "name": "2005",
+          "dtype": "float64"
+        },
+        {
+          "name": "2006",
+          "dtype": "float64"
+        },
+        {
+          "name": "2007",
+          "dtype": "float64"
+        },
+        {
+          "name": "2008",
+          "dtype": "float64"
+        },
+        {
+          "name": "2009",
+          "dtype": "float64"
+        },
+        {
+          "name": "2010",
+          "dtype": "float64"
+        },
+        {
+          "name": "2011",
+          "dtype": "float64"
+        },
+        {
+          "name": "2012",
+          "dtype": "float64"
+        },
+        {
+          "name": "2013",
+          "dtype": "float64"
+        },
+        {
+          "name": "2014",
+          "dtype": "float64"
+        },
+        {
+          "name": "2015",
+          "dtype": "float64"
+        },
+        {
+          "name": "2016",
+          "dtype": "float64"
+        },
+        {
+          "name": "2017",
+          "dtype": "float64"
+        },
+        {
+          "name": "2018",
+          "dtype": "float64"
+        },
+        {
+          "name": "2019",
+          "dtype": "float64"
+        },
+        {
+          "name": "2020",
+          "dtype": "float64"
+        },
+        {
+          "name": "2021",
+          "dtype": "float64"
+        },
+        {
+          "name": "2022",
+          "dtype": "float64"
+        },
+        {
+          "name": "2023",
+          "dtype": "float64"
+        }
+      ],
+      "path": "prepared/rural.parquet",
+      "sha256": "e0e43ea828288c75af3a1081c9150d052e7327b4e99efde1fb6bfa0ab57c22b7",
+      "bytes": 164004
+    },
+    "angola_population": {
+      "file": "ago_ppp_2020_1km_Aggregated_UNadj.tif",
+      "kind": "raster",
+      "title": "Angola population count, WorldPop 2020",
+      "edition": "2020 UN-adjusted population aggregated to 1 km cells",
+      "units": {
+        "band1": "people per cell"
+      },
+      "sourceSha256": "531e52fbe896889a591ddec9b422ec59e2fa42e543037d3568f557016c4a0d7d",
+      "crs": "EPSG:4326",
+      "bounds": [
+        11.665416621296288,
+        -18.03374971544551,
+        24.08208323829629,
+        -4.367083103445509
+      ],
+      "shape": [
+        1640,
+        1490
+      ],
+      "nodata": -99999.0,
+      "transform": [
+        0.0083333333,
+        0.0,
+        11.665416621296288,
+        0.0,
+        -0.0083333333,
+        -4.367083103445509,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bandCount": 1,
+      "path": "prepared/angola_population.tif",
+      "sha256": "531e52fbe896889a591ddec9b422ec59e2fa42e543037d3568f557016c4a0d7d",
+      "bytes": 6566448
+    },
+    "power_stations": {
+      "file": "Africa Power Stations.shp",
+      "kind": "vector",
+      "title": "African power stations",
+      "edition": "USGS 2021 frozen compilation",
+      "units": {
+        "DsgAttr02": "MW"
+      },
+      "sourceSha256": "0b3acf2c8c826177aca3e762b8282ecaad57913780e382255b28e6b8d9e6be65",
+      "rowCount": 3034,
+      "fields": [
+        {
+          "name": "OBJECTID",
+          "dtype": "float64"
+        },
+        {
+          "name": "Country",
+          "dtype": "str"
+        },
+        {
+          "name": "ADM1",
+          "dtype": "str"
+        },
+        {
+          "name": "FeatureUID",
+          "dtype": "int64"
+        },
+        {
+          "name": "LocDesc",
+          "dtype": "str"
+        },
+        {
+          "name": "FeatureNam",
+          "dtype": "str"
+        },
+        {
+          "name": "FeatureTyp",
+          "dtype": "str"
+        },
+        {
+          "name": "Latitude",
+          "dtype": "float64"
+        },
+        {
+          "name": "Longitude",
+          "dtype": "float64"
+        },
+        {
+          "name": "LocOpStat",
+          "dtype": "str"
+        },
+        {
+          "name": "OwnerName",
+          "dtype": "str"
+        },
+        {
+          "name": "ControlAth",
+          "dtype": "str"
+        },
+        {
+          "name": "InfSource1",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr01",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr02",
+          "dtype": "float64"
+        },
+        {
+          "name": "DsgAttr03",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr04",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr05",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr06",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr07",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr08",
+          "dtype": "str"
+        },
+        {
+          "name": "LocConfid",
+          "dtype": "str"
+        },
+        {
+          "name": "benchmark_row_id",
+          "dtype": "str"
+        }
+      ],
+      "crs": "EPSG:4326",
+      "bounds": [
+        -25.330306999622337,
+        -34.5870611983633,
+        63.49310199955028,
+        37.20246000003243
+      ],
+      "geometryTypes": [
+        "Point"
+      ],
+      "missingGeometryCount": 31,
+      "identity": "benchmark_row_id",
+      "path": "prepared/power_stations.parquet",
+      "sha256": "6466e315e8ff63739ef14b89300a4ecb739e3753d503760233466dcc207a1a51",
+      "bytes": 337674
+    },
+    "forest_percent": {
+      "file": "API_AG.LND.FRST.ZS_DS2_en_csv_v2_102.zip",
+      "kind": "table",
+      "title": "World Bank AG.LND.FRST.ZS",
+      "edition": "Frozen GeoBenchX World Development Indicators; use 2021",
+      "units": {
+        "2021": "% of land area"
+      },
+      "sourceSha256": "be91589155a1404e35d2df244ae91a12458318201bf498a4eef5ba5327796298",
+      "rowCount": 266,
+      "fields": [
+        {
+          "name": "Country Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Country Code",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Code",
+          "dtype": "str"
+        },
+        {
+          "name": "1960",
+          "dtype": "float64"
+        },
+        {
+          "name": "1961",
+          "dtype": "float64"
+        },
+        {
+          "name": "1962",
+          "dtype": "float64"
+        },
+        {
+          "name": "1963",
+          "dtype": "float64"
+        },
+        {
+          "name": "1964",
+          "dtype": "float64"
+        },
+        {
+          "name": "1965",
+          "dtype": "float64"
+        },
+        {
+          "name": "1966",
+          "dtype": "float64"
+        },
+        {
+          "name": "1967",
+          "dtype": "float64"
+        },
+        {
+          "name": "1968",
+          "dtype": "float64"
+        },
+        {
+          "name": "1969",
+          "dtype": "float64"
+        },
+        {
+          "name": "1970",
+          "dtype": "float64"
+        },
+        {
+          "name": "1971",
+          "dtype": "float64"
+        },
+        {
+          "name": "1972",
+          "dtype": "float64"
+        },
+        {
+          "name": "1973",
+          "dtype": "float64"
+        },
+        {
+          "name": "1974",
+          "dtype": "float64"
+        },
+        {
+          "name": "1975",
+          "dtype": "float64"
+        },
+        {
+          "name": "1976",
+          "dtype": "float64"
+        },
+        {
+          "name": "1977",
+          "dtype": "float64"
+        },
+        {
+          "name": "1978",
+          "dtype": "float64"
+        },
+        {
+          "name": "1979",
+          "dtype": "float64"
+        },
+        {
+          "name": "1980",
+          "dtype": "float64"
+        },
+        {
+          "name": "1981",
+          "dtype": "float64"
+        },
+        {
+          "name": "1982",
+          "dtype": "float64"
+        },
+        {
+          "name": "1983",
+          "dtype": "float64"
+        },
+        {
+          "name": "1984",
+          "dtype": "float64"
+        },
+        {
+          "name": "1985",
+          "dtype": "float64"
+        },
+        {
+          "name": "1986",
+          "dtype": "float64"
+        },
+        {
+          "name": "1987",
+          "dtype": "float64"
+        },
+        {
+          "name": "1988",
+          "dtype": "float64"
+        },
+        {
+          "name": "1989",
+          "dtype": "float64"
+        },
+        {
+          "name": "1990",
+          "dtype": "float64"
+        },
+        {
+          "name": "1991",
+          "dtype": "float64"
+        },
+        {
+          "name": "1992",
+          "dtype": "float64"
+        },
+        {
+          "name": "1993",
+          "dtype": "float64"
+        },
+        {
+          "name": "1994",
+          "dtype": "float64"
+        },
+        {
+          "name": "1995",
+          "dtype": "float64"
+        },
+        {
+          "name": "1996",
+          "dtype": "float64"
+        },
+        {
+          "name": "1997",
+          "dtype": "float64"
+        },
+        {
+          "name": "1998",
+          "dtype": "float64"
+        },
+        {
+          "name": "1999",
+          "dtype": "float64"
+        },
+        {
+          "name": "2000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2001",
+          "dtype": "float64"
+        },
+        {
+          "name": "2002",
+          "dtype": "float64"
+        },
+        {
+          "name": "2003",
+          "dtype": "float64"
+        },
+        {
+          "name": "2004",
+          "dtype": "float64"
+        },
+        {
+          "name": "2005",
+          "dtype": "float64"
+        },
+        {
+          "name": "2006",
+          "dtype": "float64"
+        },
+        {
+          "name": "2007",
+          "dtype": "float64"
+        },
+        {
+          "name": "2008",
+          "dtype": "float64"
+        },
+        {
+          "name": "2009",
+          "dtype": "float64"
+        },
+        {
+          "name": "2010",
+          "dtype": "float64"
+        },
+        {
+          "name": "2011",
+          "dtype": "float64"
+        },
+        {
+          "name": "2012",
+          "dtype": "float64"
+        },
+        {
+          "name": "2013",
+          "dtype": "float64"
+        },
+        {
+          "name": "2014",
+          "dtype": "float64"
+        },
+        {
+          "name": "2015",
+          "dtype": "float64"
+        },
+        {
+          "name": "2016",
+          "dtype": "float64"
+        },
+        {
+          "name": "2017",
+          "dtype": "float64"
+        },
+        {
+          "name": "2018",
+          "dtype": "float64"
+        },
+        {
+          "name": "2019",
+          "dtype": "float64"
+        },
+        {
+          "name": "2020",
+          "dtype": "float64"
+        },
+        {
+          "name": "2021",
+          "dtype": "float64"
+        },
+        {
+          "name": "2022",
+          "dtype": "float64"
+        },
+        {
+          "name": "2023",
+          "dtype": "float64"
+        }
+      ],
+      "path": "prepared/forest_percent.parquet",
+      "sha256": "595b2997fe9ecdcc9b70e118f3b95cdbda921aaa7c0a0e079a3d499eae72c2c5",
+      "bytes": 112649
+    },
+    "na_railways": {
+      "file": "North_American_Rail_Network_Lines.shp",
+      "kind": "vector",
+      "title": "North American Rail Network Lines, frozen GeoBenchX snapshot",
+      "edition": "Original pinned GeoBenchX NARN/FRA/BTS snapshot, not a live network",
+      "sourceSha256": "755d1337cd3e992e1afb71f50622f86fa54d931e2750d5b02f41e19ca802674e",
+      "rowCount": 302492,
+      "fields": [
+        {
+          "name": "FRAARCID",
+          "dtype": "int64"
+        },
+        {
+          "name": "FRFRANODE",
+          "dtype": "int64"
+        },
+        {
+          "name": "TOFRANODE",
+          "dtype": "int64"
+        },
+        {
+          "name": "STFIPS",
+          "dtype": "str"
+        },
+        {
+          "name": "CNTYFIPS",
+          "dtype": "str"
+        },
+        {
+          "name": "STCNTYFIPS",
+          "dtype": "str"
+        },
+        {
+          "name": "STATEAB",
+          "dtype": "str"
+        },
+        {
+          "name": "COUNTRY",
+          "dtype": "str"
+        },
+        {
+          "name": "FRADISTRCT",
+          "dtype": "int32"
+        },
+        {
+          "name": "RROWNER1",
+          "dtype": "str"
+        },
+        {
+          "name": "RROWNER2",
+          "dtype": "str"
+        },
+        {
+          "name": "RROWNER3",
+          "dtype": "str"
+        },
+        {
+          "name": "TRKRGHTS1",
+          "dtype": "str"
+        },
+        {
+          "name": "TRKRGHTS2",
+          "dtype": "str"
+        },
+        {
+          "name": "TRKRGHTS3",
+          "dtype": "str"
+        },
+        {
+          "name": "TRKRGHTS4",
+          "dtype": "str"
+        },
+        {
+          "name": "TRKRGHTS5",
+          "dtype": "str"
+        },
+        {
+          "name": "TRKRGHTS6",
+          "dtype": "str"
+        },
+        {
+          "name": "TRKRGHTS7",
+          "dtype": "str"
+        },
+        {
+          "name": "TRKRGHTS8",
+          "dtype": "str"
+        },
+        {
+          "name": "TRKRGHTS9",
+          "dtype": "str"
+        },
+        {
+          "name": "DIVISION",
+          "dtype": "str"
+        },
+        {
+          "name": "SUBDIV",
+          "dtype": "str"
+        },
+        {
+          "name": "BRANCH",
+          "dtype": "str"
+        },
+        {
+          "name": "YARDNAME",
+          "dtype": "str"
+        },
+        {
+          "name": "PASSNGR",
+          "dtype": "str"
+        },
+        {
+          "name": "STRACNET",
+          "dtype": "str"
+        },
+        {
+          "name": "TRACKS",
+          "dtype": "int64"
+        },
+        {
+          "name": "NET",
+          "dtype": "str"
+        },
+        {
+          "name": "MILES",
+          "dtype": "float64"
+        },
+        {
+          "name": "KM",
+          "dtype": "float64"
+        },
+        {
+          "name": "TIMEZONE",
+          "dtype": "str"
+        },
+        {
+          "name": "benchmark_row_id",
+          "dtype": "str"
+        }
+      ],
+      "crs": "EPSG:4326",
+      "bounds": [
+        -156.68977173810396,
+        14.672258000071423,
+        -59.927231000261614,
+        64.92614460638065
+      ],
+      "geometryTypes": [
+        "LineString"
+      ],
+      "missingGeometryCount": 0,
+      "identity": "benchmark_row_id",
+      "path": "prepared/na_railways.parquet",
+      "sha256": "55424fbafc274a23b172e4f5b8ae4f1ccc9415ad660df6f6ae3b1ab98feaa8a8",
+      "bytes": 84810186
+    },
+    "fires": {
+      "file": "Incidents.shp",
+      "kind": "vector",
+      "title": "Frozen US fire incident locations and recorded sizes",
+      "edition": "Frozen GeoBenchX archive; not a current active-fire feed",
+      "units": {
+        "IncidentSi": "acres"
+      },
+      "sourceSha256": "10ffa43b7739559e179236510380d0a8084484515a8366cff1cbb1d9fa98c9d5",
+      "rowCount": 633,
+      "fields": [
+        {
+          "name": "OBJECTID",
+          "dtype": "int32"
+        },
+        {
+          "name": "SourceOID",
+          "dtype": "int32"
+        },
+        {
+          "name": "ABCDMisc",
+          "dtype": "str"
+        },
+        {
+          "name": "ADSPermiss",
+          "dtype": "str"
+        },
+        {
+          "name": "Containmen",
+          "dtype": "datetime64[ms]"
+        },
+        {
+          "name": "ControlDat",
+          "dtype": "datetime64[ms]"
+        },
+        {
+          "name": "CreatedByS",
+          "dtype": "str"
+        },
+        {
+          "name": "IncidentSi",
+          "dtype": "float64"
+        },
+        {
+          "name": "DiscoveryA",
+          "dtype": "float64"
+        },
+        {
+          "name": "DispatchCe",
+          "dtype": "str"
+        },
+        {
+          "name": "EstimatedC",
+          "dtype": "float64"
+        },
+        {
+          "name": "FinalAcres",
+          "dtype": "float64"
+        },
+        {
+          "name": "FinalFireR",
+          "dtype": "object"
+        },
+        {
+          "name": "FinalFir_1",
+          "dtype": "object"
+        },
+        {
+          "name": "FinalFir_2",
+          "dtype": "datetime64[ms]"
+        },
+        {
+          "name": "FireBehavi",
+          "dtype": "str"
+        },
+        {
+          "name": "FireBeha_1",
+          "dtype": "str"
+        },
+        {
+          "name": "FireBeha_2",
+          "dtype": "str"
+        },
+        {
+          "name": "FireBeha_3",
+          "dtype": "str"
+        },
+        {
+          "name": "FireCause",
+          "dtype": "str"
+        },
+        {
+          "name": "FireCauseG",
+          "dtype": "str"
+        },
+        {
+          "name": "FireCauseS",
+          "dtype": "str"
+        },
+        {
+          "name": "FireCode",
+          "dtype": "str"
+        },
+        {
+          "name": "FireDepart",
+          "dtype": "str"
+        },
+        {
+          "name": "FireDiscov",
+          "dtype": "datetime64[ms]"
+        },
+        {
+          "name": "FireMgmtCo",
+          "dtype": "str"
+        },
+        {
+          "name": "FireOutDat",
+          "dtype": "datetime64[ms]"
+        },
+        {
+          "name": "FireStrate",
+          "dtype": "float64"
+        },
+        {
+          "name": "FireStra_1",
+          "dtype": "float64"
+        },
+        {
+          "name": "FireStra_2",
+          "dtype": "float64"
+        },
+        {
+          "name": "FireStra_3",
+          "dtype": "float64"
+        },
+        {
+          "name": "FSJobCode",
+          "dtype": "str"
+        },
+        {
+          "name": "FSOverride",
+          "dtype": "str"
+        },
+        {
+          "name": "GACC",
+          "dtype": "str"
+        },
+        {
+          "name": "ICS209Repo",
+          "dtype": "datetime64[ms]"
+        },
+        {
+          "name": "ICS209Re_1",
+          "dtype": "datetime64[ms]"
+        },
+        {
+          "name": "ICS209Re_2",
+          "dtype": "datetime64[ms]"
+        },
+        {
+          "name": "ICS209Re_3",
+          "dtype": "str"
+        },
+        {
+          "name": "IncidentMa",
+          "dtype": "str"
+        },
+        {
+          "name": "IncidentNa",
+          "dtype": "str"
+        },
+        {
+          "name": "IncidentSh",
+          "dtype": "str"
+        },
+        {
+          "name": "IncidentTy",
+          "dtype": "str"
+        },
+        {
+          "name": "Incident_1",
+          "dtype": "str"
+        },
+        {
+          "name": "InitialLat",
+          "dtype": "float64"
+        },
+        {
+          "name": "InitialLon",
+          "dtype": "float64"
+        },
+        {
+          "name": "InitialRes",
+          "dtype": "float64"
+        },
+        {
+          "name": "InitialR_1",
+          "dtype": "datetime64[ms]"
+        },
+        {
+          "name": "IrwinID",
+          "dtype": "str"
+        },
+        {
+          "name": "IsFireCaus",
+          "dtype": "float64"
+        },
+        {
+          "name": "IsFireCode",
+          "dtype": "int32"
+        },
+        {
+          "name": "IsFSAssist",
+          "dtype": "float64"
+        },
+        {
+          "name": "IsMultiJur",
+          "dtype": "float64"
+        },
+        {
+          "name": "IsReimburs",
+          "dtype": "float64"
+        },
+        {
+          "name": "IsTrespass",
+          "dtype": "float64"
+        },
+        {
+          "name": "IsUnifiedC",
+          "dtype": "float64"
+        },
+        {
+          "name": "LocalIncid",
+          "dtype": "str"
+        },
+        {
+          "name": "ModifiedBy",
+          "dtype": "str"
+        },
+        {
+          "name": "PercentCon",
+          "dtype": "float64"
+        },
+        {
+          "name": "PercentPer",
+          "dtype": "float64"
+        },
+        {
+          "name": "POOCity",
+          "dtype": "str"
+        },
+        {
+          "name": "POOCounty",
+          "dtype": "str"
+        },
+        {
+          "name": "POODispatc",
+          "dtype": "str"
+        },
+        {
+          "name": "POOFips",
+          "dtype": "str"
+        },
+        {
+          "name": "POOJurisdi",
+          "dtype": "str"
+        },
+        {
+          "name": "POOJuris_1",
+          "dtype": "str"
+        },
+        {
+          "name": "POOJuris_2",
+          "dtype": "object"
+        },
+        {
+          "name": "POOLandown",
+          "dtype": "str"
+        },
+        {
+          "name": "POOLando_1",
+          "dtype": "str"
+        },
+        {
+          "name": "POOLegalDe",
+          "dtype": "str"
+        },
+        {
+          "name": "POOLegal_1",
+          "dtype": "object"
+        },
+        {
+          "name": "POOLegal_2",
+          "dtype": "object"
+        },
+        {
+          "name": "POOLegal_3",
+          "dtype": "str"
+        },
+        {
+          "name": "POOLegal_4",
+          "dtype": "float64"
+        },
+        {
+          "name": "POOLegal_5",
+          "dtype": "str"
+        },
+        {
+          "name": "POOPredict",
+          "dtype": "str"
+        },
+        {
+          "name": "POOProtect",
+          "dtype": "str"
+        },
+        {
+          "name": "POOProte_1",
+          "dtype": "str"
+        },
+        {
+          "name": "POOState",
+          "dtype": "str"
+        },
+        {
+          "name": "Predominan",
+          "dtype": "object"
+        },
+        {
+          "name": "Predomin_1",
+          "dtype": "object"
+        },
+        {
+          "name": "PrimaryFue",
+          "dtype": "str"
+        },
+        {
+          "name": "SecondaryF",
+          "dtype": "str"
+        },
+        {
+          "name": "TotalIncid",
+          "dtype": "float64"
+        },
+        {
+          "name": "UniqueFire",
+          "dtype": "str"
+        },
+        {
+          "name": "WFDSSDecis",
+          "dtype": "str"
+        },
+        {
+          "name": "EstimatedF",
+          "dtype": "float64"
+        },
+        {
+          "name": "Organizati",
+          "dtype": "str"
+        },
+        {
+          "name": "StrategicD",
+          "dtype": "datetime64[ms]"
+        },
+        {
+          "name": "CreatedOnD",
+          "dtype": "datetime64[ms]"
+        },
+        {
+          "name": "ModifiedOn",
+          "dtype": "datetime64[ms]"
+        },
+        {
+          "name": "IsCpxChild",
+          "dtype": "int32"
+        },
+        {
+          "name": "CpxName",
+          "dtype": "object"
+        },
+        {
+          "name": "CpxID",
+          "dtype": "object"
+        },
+        {
+          "name": "SourceGlob",
+          "dtype": "str"
+        },
+        {
+          "name": "GlobalID",
+          "dtype": "str"
+        },
+        {
+          "name": "benchmark_row_id",
+          "dtype": "str"
+        }
+      ],
+      "crs": "EPSG:4269",
+      "bounds": [
+        -119.9905556,
+        13.352500000000077,
+        144.72194400000012,
+        48.92625300000003
+      ],
+      "geometryTypes": [
+        "Point"
+      ],
+      "missingGeometryCount": 0,
+      "identity": "benchmark_row_id",
+      "path": "prepared/fires.parquet",
+      "sha256": "b46d825aabcf5e21e30dd200304cc2c1a414f297925db3fe11b5389a3c0e4177",
+      "bytes": 207104
+    },
+    "us_population": {
+      "file": "usa_ppp_2020_1km_Aggregated_UNadj.tif",
+      "kind": "raster",
+      "title": "USA population count, WorldPop 2020",
+      "edition": "2020 UN-adjusted population counts aggregated to 1 km cells",
+      "units": {
+        "band1": "people per cell"
+      },
+      "sourceSha256": "0b75ab7c839bfa81439fafa204f0fba930f15467993c574694be98831fcafb94",
+      "crs": "EPSG:4326",
+      "bounds": [
+        -179.15124930330558,
+        18.90791676654655,
+        179.78208259429442,
+        71.39124988994655
+      ],
+      "shape": [
+        6298,
+        43072
+      ],
+      "nodata": -99999.0,
+      "transform": [
+        0.0083333333,
+        0.0,
+        -179.15124930330558,
+        0.0,
+        -0.0083333333,
+        71.39124988994655,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bandCount": 1,
+      "path": "prepared/us_population.tif",
+      "sha256": "0b75ab7c839bfa81439fafa204f0fba930f15467993c574694be98831fcafb94",
+      "bytes": 51821771
+    },
+    "density": {
+      "file": "dza_pd_2020_1km_UNadj.tif",
+      "kind": "raster",
+      "title": "Algeria population density, WorldPop 2020",
+      "edition": "2020 UN-adjusted; 1 km grid",
+      "units": {
+        "band1": "people/km²"
+      },
+      "sourceSha256": "96b6621e69226f5b52ed62b3cdc8365b78f82a53608d3132ee491bcf3c205454",
+      "crs": "EPSG:4326",
+      "bounds": [
+        -8.676249966263896,
+        18.96625011635281,
+        11.982083284436104,
+        37.09958337715281
+      ],
+      "shape": [
+        2176,
+        2479
+      ],
+      "nodata": -99999.0,
+      "transform": [
+        0.0083333333,
+        0.0,
+        -8.676249966263896,
+        0.0,
+        -0.0083333333,
+        37.09958337715281,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bandCount": 1,
+      "path": "prepared/density.tif",
+      "sha256": "96b6621e69226f5b52ed62b3cdc8365b78f82a53608d3132ee491bcf3c205454",
+      "bytes": 13005103
+    },
+    "forest_area": {
+      "file": "API_AG.LND.FRST.K2_DS2_en_csv_v2_2627.zip",
+      "kind": "table",
+      "title": "World Bank AG.LND.FRST.K2",
+      "edition": "Frozen GeoBenchX World Development Indicators; use 2021",
+      "units": {
+        "2021": "km²"
+      },
+      "sourceSha256": "729df8a256d4518e2a88d0ef5c7d7d121aacb6a079c1ec15a65c1ab207a626b7",
+      "rowCount": 266,
+      "fields": [
+        {
+          "name": "Country Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Country Code",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Code",
+          "dtype": "str"
+        },
+        {
+          "name": "1960",
+          "dtype": "float64"
+        },
+        {
+          "name": "1961",
+          "dtype": "float64"
+        },
+        {
+          "name": "1962",
+          "dtype": "float64"
+        },
+        {
+          "name": "1963",
+          "dtype": "float64"
+        },
+        {
+          "name": "1964",
+          "dtype": "float64"
+        },
+        {
+          "name": "1965",
+          "dtype": "float64"
+        },
+        {
+          "name": "1966",
+          "dtype": "float64"
+        },
+        {
+          "name": "1967",
+          "dtype": "float64"
+        },
+        {
+          "name": "1968",
+          "dtype": "float64"
+        },
+        {
+          "name": "1969",
+          "dtype": "float64"
+        },
+        {
+          "name": "1970",
+          "dtype": "float64"
+        },
+        {
+          "name": "1971",
+          "dtype": "float64"
+        },
+        {
+          "name": "1972",
+          "dtype": "float64"
+        },
+        {
+          "name": "1973",
+          "dtype": "float64"
+        },
+        {
+          "name": "1974",
+          "dtype": "float64"
+        },
+        {
+          "name": "1975",
+          "dtype": "float64"
+        },
+        {
+          "name": "1976",
+          "dtype": "float64"
+        },
+        {
+          "name": "1977",
+          "dtype": "float64"
+        },
+        {
+          "name": "1978",
+          "dtype": "float64"
+        },
+        {
+          "name": "1979",
+          "dtype": "float64"
+        },
+        {
+          "name": "1980",
+          "dtype": "float64"
+        },
+        {
+          "name": "1981",
+          "dtype": "float64"
+        },
+        {
+          "name": "1982",
+          "dtype": "float64"
+        },
+        {
+          "name": "1983",
+          "dtype": "float64"
+        },
+        {
+          "name": "1984",
+          "dtype": "float64"
+        },
+        {
+          "name": "1985",
+          "dtype": "float64"
+        },
+        {
+          "name": "1986",
+          "dtype": "float64"
+        },
+        {
+          "name": "1987",
+          "dtype": "float64"
+        },
+        {
+          "name": "1988",
+          "dtype": "float64"
+        },
+        {
+          "name": "1989",
+          "dtype": "float64"
+        },
+        {
+          "name": "1990",
+          "dtype": "float64"
+        },
+        {
+          "name": "1991",
+          "dtype": "float64"
+        },
+        {
+          "name": "1992",
+          "dtype": "float64"
+        },
+        {
+          "name": "1993",
+          "dtype": "float64"
+        },
+        {
+          "name": "1994",
+          "dtype": "float64"
+        },
+        {
+          "name": "1995",
+          "dtype": "float64"
+        },
+        {
+          "name": "1996",
+          "dtype": "float64"
+        },
+        {
+          "name": "1997",
+          "dtype": "float64"
+        },
+        {
+          "name": "1998",
+          "dtype": "float64"
+        },
+        {
+          "name": "1999",
+          "dtype": "float64"
+        },
+        {
+          "name": "2000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2001",
+          "dtype": "float64"
+        },
+        {
+          "name": "2002",
+          "dtype": "float64"
+        },
+        {
+          "name": "2003",
+          "dtype": "float64"
+        },
+        {
+          "name": "2004",
+          "dtype": "float64"
+        },
+        {
+          "name": "2005",
+          "dtype": "float64"
+        },
+        {
+          "name": "2006",
+          "dtype": "float64"
+        },
+        {
+          "name": "2007",
+          "dtype": "float64"
+        },
+        {
+          "name": "2008",
+          "dtype": "float64"
+        },
+        {
+          "name": "2009",
+          "dtype": "float64"
+        },
+        {
+          "name": "2010",
+          "dtype": "float64"
+        },
+        {
+          "name": "2011",
+          "dtype": "float64"
+        },
+        {
+          "name": "2012",
+          "dtype": "float64"
+        },
+        {
+          "name": "2013",
+          "dtype": "float64"
+        },
+        {
+          "name": "2014",
+          "dtype": "float64"
+        },
+        {
+          "name": "2015",
+          "dtype": "float64"
+        },
+        {
+          "name": "2016",
+          "dtype": "float64"
+        },
+        {
+          "name": "2017",
+          "dtype": "float64"
+        },
+        {
+          "name": "2018",
+          "dtype": "float64"
+        },
+        {
+          "name": "2019",
+          "dtype": "float64"
+        },
+        {
+          "name": "2020",
+          "dtype": "float64"
+        },
+        {
+          "name": "2021",
+          "dtype": "float64"
+        },
+        {
+          "name": "2022",
+          "dtype": "float64"
+        },
+        {
+          "name": "2023",
+          "dtype": "float64"
+        }
+      ],
+      "path": "prepared/forest_area.parquet",
+      "sha256": "db279c795b5f549e2b45ab57600a4e860bc75be5f60be3230215bf964062c6ba",
+      "bytes": 98864
+    },
+    "sa_rivers": {
+      "file": "rivers_samerica_37330.shp",
+      "kind": "vector",
+      "title": "FAO AQUAmaps South American river segments",
+      "edition": "Frozen regional HydroSHEDS-derived rivers_samerica_37330; internal research only, no promotional sharing",
+      "sourceSha256": "d18a4a2229f3cdef7a246cc3820a8242027447844c9512700cdb92e71e5555be",
+      "rowCount": 100557,
+      "fields": [
+        {
+          "name": "FID_sa_str",
+          "dtype": "int32"
+        },
+        {
+          "name": "ARCID",
+          "dtype": "int32"
+        },
+        {
+          "name": "FROM_NODE",
+          "dtype": "int32"
+        },
+        {
+          "name": "TO_NODE",
+          "dtype": "int32"
+        },
+        {
+          "name": "FID_subbas",
+          "dtype": "int32"
+        },
+        {
+          "name": "SUB_BAS",
+          "dtype": "int32"
+        },
+        {
+          "name": "MAJ_BAS",
+          "dtype": "int32"
+        },
+        {
+          "name": "MAJ_NAME",
+          "dtype": "str"
+        },
+        {
+          "name": "SUB_NAME",
+          "dtype": "str"
+        },
+        {
+          "name": "MAJ_AREA",
+          "dtype": "int32"
+        },
+        {
+          "name": "LEGEND",
+          "dtype": "int32"
+        },
+        {
+          "name": "SUBBAS_ID",
+          "dtype": "int64"
+        },
+        {
+          "name": "TOBAS_ID",
+          "dtype": "int64"
+        },
+        {
+          "name": "RASTERVALU",
+          "dtype": "int32"
+        },
+        {
+          "name": "Strahler",
+          "dtype": "int32"
+        },
+        {
+          "name": "RASTERVA_1",
+          "dtype": "float64"
+        },
+        {
+          "name": "A_Strahler",
+          "dtype": "int32"
+        },
+        {
+          "name": "Regime",
+          "dtype": "str"
+        },
+        {
+          "name": "benchmark_row_id",
+          "dtype": "str"
+        }
+      ],
+      "crs": "EPSG:4326",
+      "bounds": [
+        -91.38541666666663,
+        -55.26458333333336,
+        -34.806250000000944,
+        14.604166666665577
+      ],
+      "geometryTypes": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "missingGeometryCount": 0,
+      "identity": "benchmark_row_id",
+      "path": "prepared/sa_rivers.parquet",
+      "sha256": "0ed97842d2ffe36f603e38a57943d65c6bb31e4e83d3e2c4cf7df178f5ef28aa",
+      "bytes": 10478271
+    },
+    "flood_peru": {
+      "file": "DFO_4569_From_20180201_to_20180221.tif",
+      "kind": "raster",
+      "title": "GFD observed flood 4569, 2018-02-01 to 2018-02-21",
+      "edition": "Original five-band GFD v1 benchmark snapshot, not a current flood map; benchmark-only use",
+      "units": {
+        "band1": "binary flooded flag",
+        "band2": "days",
+        "band3": "observations",
+        "band4": "fraction",
+        "band5": "binary permanent-water flag"
+      },
+      "sourceSha256": "0dfbd5939e217d5d5a4196aa8154aacb3d438e0648a48a2f33bd196428540645",
+      "crs": "EPSG:4326",
+      "bounds": [
+        -71.11737525553222,
+        -33.15906292506184,
+        -53.1398406320903,
+        -14.054142620049914
+      ],
+      "shape": [
+        8507,
+        8005
+      ],
+      "nodata": null,
+      "transform": [
+        0.002245788210298804,
+        0.0,
+        -71.11737525553222,
+        0.0,
+        -0.002245788210298804,
+        -14.054142620049914,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bandCount": 5,
+      "path": "prepared/flood_peru.tif",
+      "sha256": "0dfbd5939e217d5d5a4196aa8154aacb3d438e0648a48a2f33bd196428540645",
+      "bytes": 45011673
+    },
+    "water_withdrawal": {
+      "file": "API_ER.H2O.FWTL.ZS_DS2_en_csv_v2_7098.zip",
+      "kind": "table",
+      "title": "Freshwater withdrawals as percent of internal resources",
+      "edition": "Frozen World Development Indicators; use 2021",
+      "units": {
+        "2021": "percent of internal freshwater resources"
+      },
+      "sourceSha256": "8eb6d91beb17abb44183f03903d37ceea99cb94206d471ac2bae6be45ad8b31f",
+      "rowCount": 266,
+      "fields": [
+        {
+          "name": "Country Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Country Code",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Code",
+          "dtype": "str"
+        },
+        {
+          "name": "1960",
+          "dtype": "float64"
+        },
+        {
+          "name": "1961",
+          "dtype": "float64"
+        },
+        {
+          "name": "1962",
+          "dtype": "float64"
+        },
+        {
+          "name": "1963",
+          "dtype": "float64"
+        },
+        {
+          "name": "1964",
+          "dtype": "float64"
+        },
+        {
+          "name": "1965",
+          "dtype": "float64"
+        },
+        {
+          "name": "1966",
+          "dtype": "float64"
+        },
+        {
+          "name": "1967",
+          "dtype": "float64"
+        },
+        {
+          "name": "1968",
+          "dtype": "float64"
+        },
+        {
+          "name": "1969",
+          "dtype": "float64"
+        },
+        {
+          "name": "1970",
+          "dtype": "float64"
+        },
+        {
+          "name": "1971",
+          "dtype": "float64"
+        },
+        {
+          "name": "1972",
+          "dtype": "float64"
+        },
+        {
+          "name": "1973",
+          "dtype": "float64"
+        },
+        {
+          "name": "1974",
+          "dtype": "float64"
+        },
+        {
+          "name": "1975",
+          "dtype": "float64"
+        },
+        {
+          "name": "1976",
+          "dtype": "float64"
+        },
+        {
+          "name": "1977",
+          "dtype": "float64"
+        },
+        {
+          "name": "1978",
+          "dtype": "float64"
+        },
+        {
+          "name": "1979",
+          "dtype": "float64"
+        },
+        {
+          "name": "1980",
+          "dtype": "float64"
+        },
+        {
+          "name": "1981",
+          "dtype": "float64"
+        },
+        {
+          "name": "1982",
+          "dtype": "float64"
+        },
+        {
+          "name": "1983",
+          "dtype": "float64"
+        },
+        {
+          "name": "1984",
+          "dtype": "float64"
+        },
+        {
+          "name": "1985",
+          "dtype": "float64"
+        },
+        {
+          "name": "1986",
+          "dtype": "float64"
+        },
+        {
+          "name": "1987",
+          "dtype": "float64"
+        },
+        {
+          "name": "1988",
+          "dtype": "float64"
+        },
+        {
+          "name": "1989",
+          "dtype": "float64"
+        },
+        {
+          "name": "1990",
+          "dtype": "float64"
+        },
+        {
+          "name": "1991",
+          "dtype": "float64"
+        },
+        {
+          "name": "1992",
+          "dtype": "float64"
+        },
+        {
+          "name": "1993",
+          "dtype": "float64"
+        },
+        {
+          "name": "1994",
+          "dtype": "float64"
+        },
+        {
+          "name": "1995",
+          "dtype": "float64"
+        },
+        {
+          "name": "1996",
+          "dtype": "float64"
+        },
+        {
+          "name": "1997",
+          "dtype": "float64"
+        },
+        {
+          "name": "1998",
+          "dtype": "float64"
+        },
+        {
+          "name": "1999",
+          "dtype": "float64"
+        },
+        {
+          "name": "2000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2001",
+          "dtype": "float64"
+        },
+        {
+          "name": "2002",
+          "dtype": "float64"
+        },
+        {
+          "name": "2003",
+          "dtype": "float64"
+        },
+        {
+          "name": "2004",
+          "dtype": "float64"
+        },
+        {
+          "name": "2005",
+          "dtype": "float64"
+        },
+        {
+          "name": "2006",
+          "dtype": "float64"
+        },
+        {
+          "name": "2007",
+          "dtype": "float64"
+        },
+        {
+          "name": "2008",
+          "dtype": "float64"
+        },
+        {
+          "name": "2009",
+          "dtype": "float64"
+        },
+        {
+          "name": "2010",
+          "dtype": "float64"
+        },
+        {
+          "name": "2011",
+          "dtype": "float64"
+        },
+        {
+          "name": "2012",
+          "dtype": "float64"
+        },
+        {
+          "name": "2013",
+          "dtype": "float64"
+        },
+        {
+          "name": "2014",
+          "dtype": "float64"
+        },
+        {
+          "name": "2015",
+          "dtype": "float64"
+        },
+        {
+          "name": "2016",
+          "dtype": "float64"
+        },
+        {
+          "name": "2017",
+          "dtype": "float64"
+        },
+        {
+          "name": "2018",
+          "dtype": "float64"
+        },
+        {
+          "name": "2019",
+          "dtype": "float64"
+        },
+        {
+          "name": "2020",
+          "dtype": "float64"
+        },
+        {
+          "name": "2021",
+          "dtype": "float64"
+        },
+        {
+          "name": "2022",
+          "dtype": "float64"
+        },
+        {
+          "name": "2023",
+          "dtype": "float64"
+        }
+      ],
+      "path": "prepared/water_withdrawal.parquet",
+      "sha256": "7ad1675e724eea5166e37131840bb0a2d10ef1cf25313023ecaf542043641662",
+      "bytes": 101281
+    },
+    "africa_railways": {
+      "file": "Africa railways.shp",
+      "kind": "vector",
+      "title": "African railways, USGS 2021 compiled network",
+      "edition": "Original frozen GeoBenchX USGS 2021 compilation, not current routing data",
+      "sourceSha256": "3782af346c935ba8682b1ddf45cda0d962652e6498c7ec8a03307877e9330a45",
+      "rowCount": 47127,
+      "fields": [
+        {
+          "name": "OBJECTID",
+          "dtype": "float64"
+        },
+        {
+          "name": "FeatureUID",
+          "dtype": "str"
+        },
+        {
+          "name": "FeatureTyp",
+          "dtype": "str"
+        },
+        {
+          "name": "FeatureNam",
+          "dtype": "str"
+        },
+        {
+          "name": "InfSource1",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr01",
+          "dtype": "str"
+        },
+        {
+          "name": "DsgAttr02",
+          "dtype": "str"
+        },
+        {
+          "name": "Country",
+          "dtype": "str"
+        },
+        {
+          "name": "Shape_Leng",
+          "dtype": "float64"
+        },
+        {
+          "name": "benchmark_row_id",
+          "dtype": "str"
+        }
+      ],
+      "crs": "EPSG:4326",
+      "bounds": [
+        -17.44197669977308,
+        -34.527489599651176,
+        49.42858009971644,
+        37.26882000020083
+      ],
+      "geometryTypes": [
+        "LineString"
+      ],
+      "missingGeometryCount": 0,
+      "identity": "benchmark_row_id",
+      "path": "prepared/africa_railways.parquet",
+      "sha256": "dbf290a8bb44ae1d19e5a788dfc794029f9c6ca9359dd6c79b04c9595b8eaef3",
+      "bytes": 15086527
+    },
+    "tb_ma": {
+      "file": "Incidence of Tuberculosis Disease 2023 Massachusetts Counties.csv",
+      "kind": "table",
+      "format": "csv",
+      "title": "Massachusetts county tuberculosis cases and published rates, 2023",
+      "edition": "Massachusetts DPH 2023 summary, frozen GeoBenchX transcription",
+      "textFields": [
+        "County"
+      ],
+      "units": {
+        "Number of Cases": "cases",
+        "TB Case Rate[1] 2023(cases per 100,000)": "cases per 100,000 people"
+      },
+      "sourceSha256": "271d70fd4e5b8d63e4436fd770755edeee012aebbcb9b19dfc3f305fb2c416d3",
+      "rowCount": 15,
+      "fields": [
+        {
+          "name": "County",
+          "dtype": "str"
+        },
+        {
+          "name": "Number of Cases",
+          "dtype": "float64"
+        },
+        {
+          "name": "TB Case Rate[1] 2023(cases per 100,000)",
+          "dtype": "float64"
+        }
+      ],
+      "path": "prepared/tb_ma.parquet",
+      "sha256": "ddbdab166b734df900897371c5300a28e51874714b19702351ff9de2ba965569",
+      "bytes": 3659
+    },
+    "co2": {
+      "file": "per-capita-co-emissions_OWID_tons.csv",
+      "kind": "table",
+      "format": "csv",
+      "textFields": [
+        "Country name"
+      ],
+      "title": "CO2 emissions per capita, OWID frozen historical table",
+      "edition": "Frozen GeoBenchX OWID snapshot; no current data replacement",
+      "units": {
+        "1990": "tonnes CO2 per person",
+        "2020": "tonnes CO2 per person"
+      },
+      "sourceSha256": "2b7db980effa42e2c7bacc18f6d131cce5d9ade519e93832cc7a486541742197",
+      "rowCount": 231,
+      "fields": [
+        {
+          "name": "Country name",
+          "dtype": "str"
+        },
+        {
+          "name": "1750",
+          "dtype": "float64"
+        },
+        {
+          "name": "1760",
+          "dtype": "float64"
+        },
+        {
+          "name": "1770",
+          "dtype": "float64"
+        },
+        {
+          "name": "1780",
+          "dtype": "float64"
+        },
+        {
+          "name": "1790",
+          "dtype": "float64"
+        },
+        {
+          "name": "1800",
+          "dtype": "float64"
+        },
+        {
+          "name": "1801",
+          "dtype": "float64"
+        },
+        {
+          "name": "1802",
+          "dtype": "float64"
+        },
+        {
+          "name": "1803",
+          "dtype": "float64"
+        },
+        {
+          "name": "1804",
+          "dtype": "float64"
+        },
+        {
+          "name": "1805",
+          "dtype": "float64"
+        },
+        {
+          "name": "1806",
+          "dtype": "float64"
+        },
+        {
+          "name": "1807",
+          "dtype": "float64"
+        },
+        {
+          "name": "1808",
+          "dtype": "float64"
+        },
+        {
+          "name": "1809",
+          "dtype": "float64"
+        },
+        {
+          "name": "1810",
+          "dtype": "float64"
+        },
+        {
+          "name": "1811",
+          "dtype": "float64"
+        },
+        {
+          "name": "1812",
+          "dtype": "float64"
+        },
+        {
+          "name": "1813",
+          "dtype": "float64"
+        },
+        {
+          "name": "1814",
+          "dtype": "float64"
+        },
+        {
+          "name": "1815",
+          "dtype": "float64"
+        },
+        {
+          "name": "1816",
+          "dtype": "float64"
+        },
+        {
+          "name": "1817",
+          "dtype": "float64"
+        },
+        {
+          "name": "1818",
+          "dtype": "float64"
+        },
+        {
+          "name": "1819",
+          "dtype": "float64"
+        },
+        {
+          "name": "1820",
+          "dtype": "float64"
+        },
+        {
+          "name": "1821",
+          "dtype": "float64"
+        },
+        {
+          "name": "1822",
+          "dtype": "float64"
+        },
+        {
+          "name": "1823",
+          "dtype": "float64"
+        },
+        {
+          "name": "1824",
+          "dtype": "float64"
+        },
+        {
+          "name": "1825",
+          "dtype": "float64"
+        },
+        {
+          "name": "1826",
+          "dtype": "float64"
+        },
+        {
+          "name": "1827",
+          "dtype": "float64"
+        },
+        {
+          "name": "1828",
+          "dtype": "float64"
+        },
+        {
+          "name": "1829",
+          "dtype": "float64"
+        },
+        {
+          "name": "1830",
+          "dtype": "float64"
+        },
+        {
+          "name": "1831",
+          "dtype": "float64"
+        },
+        {
+          "name": "1832",
+          "dtype": "float64"
+        },
+        {
+          "name": "1833",
+          "dtype": "float64"
+        },
+        {
+          "name": "1834",
+          "dtype": "float64"
+        },
+        {
+          "name": "1835",
+          "dtype": "float64"
+        },
+        {
+          "name": "1836",
+          "dtype": "float64"
+        },
+        {
+          "name": "1837",
+          "dtype": "float64"
+        },
+        {
+          "name": "1838",
+          "dtype": "float64"
+        },
+        {
+          "name": "1839",
+          "dtype": "float64"
+        },
+        {
+          "name": "1840",
+          "dtype": "float64"
+        },
+        {
+          "name": "1841",
+          "dtype": "float64"
+        },
+        {
+          "name": "1842",
+          "dtype": "float64"
+        },
+        {
+          "name": "1843",
+          "dtype": "float64"
+        },
+        {
+          "name": "1844",
+          "dtype": "float64"
+        },
+        {
+          "name": "1845",
+          "dtype": "float64"
+        },
+        {
+          "name": "1846",
+          "dtype": "float64"
+        },
+        {
+          "name": "1847",
+          "dtype": "float64"
+        },
+        {
+          "name": "1848",
+          "dtype": "float64"
+        },
+        {
+          "name": "1849",
+          "dtype": "float64"
+        },
+        {
+          "name": "1850",
+          "dtype": "float64"
+        },
+        {
+          "name": "1851",
+          "dtype": "float64"
+        },
+        {
+          "name": "1852",
+          "dtype": "float64"
+        },
+        {
+          "name": "1853",
+          "dtype": "float64"
+        },
+        {
+          "name": "1854",
+          "dtype": "float64"
+        },
+        {
+          "name": "1855",
+          "dtype": "float64"
+        },
+        {
+          "name": "1856",
+          "dtype": "float64"
+        },
+        {
+          "name": "1857",
+          "dtype": "float64"
+        },
+        {
+          "name": "1858",
+          "dtype": "float64"
+        },
+        {
+          "name": "1859",
+          "dtype": "float64"
+        },
+        {
+          "name": "1860",
+          "dtype": "float64"
+        },
+        {
+          "name": "1861",
+          "dtype": "float64"
+        },
+        {
+          "name": "1862",
+          "dtype": "float64"
+        },
+        {
+          "name": "1863",
+          "dtype": "float64"
+        },
+        {
+          "name": "1864",
+          "dtype": "float64"
+        },
+        {
+          "name": "1865",
+          "dtype": "float64"
+        },
+        {
+          "name": "1866",
+          "dtype": "float64"
+        },
+        {
+          "name": "1867",
+          "dtype": "float64"
+        },
+        {
+          "name": "1868",
+          "dtype": "float64"
+        },
+        {
+          "name": "1869",
+          "dtype": "float64"
+        },
+        {
+          "name": "1870",
+          "dtype": "float64"
+        },
+        {
+          "name": "1871",
+          "dtype": "float64"
+        },
+        {
+          "name": "1872",
+          "dtype": "float64"
+        },
+        {
+          "name": "1873",
+          "dtype": "float64"
+        },
+        {
+          "name": "1874",
+          "dtype": "float64"
+        },
+        {
+          "name": "1875",
+          "dtype": "float64"
+        },
+        {
+          "name": "1876",
+          "dtype": "float64"
+        },
+        {
+          "name": "1877",
+          "dtype": "float64"
+        },
+        {
+          "name": "1878",
+          "dtype": "float64"
+        },
+        {
+          "name": "1879",
+          "dtype": "float64"
+        },
+        {
+          "name": "1880",
+          "dtype": "float64"
+        },
+        {
+          "name": "1881",
+          "dtype": "float64"
+        },
+        {
+          "name": "1882",
+          "dtype": "float64"
+        },
+        {
+          "name": "1883",
+          "dtype": "float64"
+        },
+        {
+          "name": "1884",
+          "dtype": "float64"
+        },
+        {
+          "name": "1885",
+          "dtype": "float64"
+        },
+        {
+          "name": "1886",
+          "dtype": "float64"
+        },
+        {
+          "name": "1887",
+          "dtype": "float64"
+        },
+        {
+          "name": "1888",
+          "dtype": "float64"
+        },
+        {
+          "name": "1889",
+          "dtype": "float64"
+        },
+        {
+          "name": "1890",
+          "dtype": "float64"
+        },
+        {
+          "name": "1891",
+          "dtype": "float64"
+        },
+        {
+          "name": "1892",
+          "dtype": "float64"
+        },
+        {
+          "name": "1893",
+          "dtype": "float64"
+        },
+        {
+          "name": "1894",
+          "dtype": "float64"
+        },
+        {
+          "name": "1895",
+          "dtype": "float64"
+        },
+        {
+          "name": "1896",
+          "dtype": "float64"
+        },
+        {
+          "name": "1897",
+          "dtype": "float64"
+        },
+        {
+          "name": "1898",
+          "dtype": "float64"
+        },
+        {
+          "name": "1899",
+          "dtype": "float64"
+        },
+        {
+          "name": "1900",
+          "dtype": "float64"
+        },
+        {
+          "name": "1901",
+          "dtype": "float64"
+        },
+        {
+          "name": "1902",
+          "dtype": "float64"
+        },
+        {
+          "name": "1903",
+          "dtype": "float64"
+        },
+        {
+          "name": "1904",
+          "dtype": "float64"
+        },
+        {
+          "name": "1905",
+          "dtype": "float64"
+        },
+        {
+          "name": "1906",
+          "dtype": "float64"
+        },
+        {
+          "name": "1907",
+          "dtype": "float64"
+        },
+        {
+          "name": "1908",
+          "dtype": "float64"
+        },
+        {
+          "name": "1909",
+          "dtype": "float64"
+        },
+        {
+          "name": "1910",
+          "dtype": "float64"
+        },
+        {
+          "name": "1911",
+          "dtype": "float64"
+        },
+        {
+          "name": "1912",
+          "dtype": "float64"
+        },
+        {
+          "name": "1913",
+          "dtype": "float64"
+        },
+        {
+          "name": "1914",
+          "dtype": "float64"
+        },
+        {
+          "name": "1915",
+          "dtype": "float64"
+        },
+        {
+          "name": "1916",
+          "dtype": "float64"
+        },
+        {
+          "name": "1917",
+          "dtype": "float64"
+        },
+        {
+          "name": "1918",
+          "dtype": "float64"
+        },
+        {
+          "name": "1919",
+          "dtype": "float64"
+        },
+        {
+          "name": "1920",
+          "dtype": "float64"
+        },
+        {
+          "name": "1921",
+          "dtype": "float64"
+        },
+        {
+          "name": "1922",
+          "dtype": "float64"
+        },
+        {
+          "name": "1923",
+          "dtype": "float64"
+        },
+        {
+          "name": "1924",
+          "dtype": "float64"
+        },
+        {
+          "name": "1925",
+          "dtype": "float64"
+        },
+        {
+          "name": "1926",
+          "dtype": "float64"
+        },
+        {
+          "name": "1927",
+          "dtype": "float64"
+        },
+        {
+          "name": "1928",
+          "dtype": "float64"
+        },
+        {
+          "name": "1929",
+          "dtype": "float64"
+        },
+        {
+          "name": "1930",
+          "dtype": "float64"
+        },
+        {
+          "name": "1931",
+          "dtype": "float64"
+        },
+        {
+          "name": "1932",
+          "dtype": "float64"
+        },
+        {
+          "name": "1933",
+          "dtype": "float64"
+        },
+        {
+          "name": "1934",
+          "dtype": "float64"
+        },
+        {
+          "name": "1935",
+          "dtype": "float64"
+        },
+        {
+          "name": "1936",
+          "dtype": "float64"
+        },
+        {
+          "name": "1937",
+          "dtype": "float64"
+        },
+        {
+          "name": "1938",
+          "dtype": "float64"
+        },
+        {
+          "name": "1939",
+          "dtype": "float64"
+        },
+        {
+          "name": "1940",
+          "dtype": "float64"
+        },
+        {
+          "name": "1941",
+          "dtype": "float64"
+        },
+        {
+          "name": "1942",
+          "dtype": "float64"
+        },
+        {
+          "name": "1943",
+          "dtype": "float64"
+        },
+        {
+          "name": "1944",
+          "dtype": "float64"
+        },
+        {
+          "name": "1945",
+          "dtype": "float64"
+        },
+        {
+          "name": "1946",
+          "dtype": "float64"
+        },
+        {
+          "name": "1947",
+          "dtype": "float64"
+        },
+        {
+          "name": "1948",
+          "dtype": "float64"
+        },
+        {
+          "name": "1949",
+          "dtype": "float64"
+        },
+        {
+          "name": "1950",
+          "dtype": "float64"
+        },
+        {
+          "name": "1951",
+          "dtype": "float64"
+        },
+        {
+          "name": "1952",
+          "dtype": "float64"
+        },
+        {
+          "name": "1953",
+          "dtype": "float64"
+        },
+        {
+          "name": "1954",
+          "dtype": "float64"
+        },
+        {
+          "name": "1955",
+          "dtype": "float64"
+        },
+        {
+          "name": "1956",
+          "dtype": "float64"
+        },
+        {
+          "name": "1957",
+          "dtype": "float64"
+        },
+        {
+          "name": "1958",
+          "dtype": "float64"
+        },
+        {
+          "name": "1959",
+          "dtype": "float64"
+        },
+        {
+          "name": "1960",
+          "dtype": "float64"
+        },
+        {
+          "name": "1961",
+          "dtype": "float64"
+        },
+        {
+          "name": "1962",
+          "dtype": "float64"
+        },
+        {
+          "name": "1963",
+          "dtype": "float64"
+        },
+        {
+          "name": "1964",
+          "dtype": "float64"
+        },
+        {
+          "name": "1965",
+          "dtype": "float64"
+        },
+        {
+          "name": "1966",
+          "dtype": "float64"
+        },
+        {
+          "name": "1967",
+          "dtype": "float64"
+        },
+        {
+          "name": "1968",
+          "dtype": "float64"
+        },
+        {
+          "name": "1969",
+          "dtype": "float64"
+        },
+        {
+          "name": "1970",
+          "dtype": "float64"
+        },
+        {
+          "name": "1971",
+          "dtype": "float64"
+        },
+        {
+          "name": "1972",
+          "dtype": "float64"
+        },
+        {
+          "name": "1973",
+          "dtype": "float64"
+        },
+        {
+          "name": "1974",
+          "dtype": "float64"
+        },
+        {
+          "name": "1975",
+          "dtype": "float64"
+        },
+        {
+          "name": "1976",
+          "dtype": "float64"
+        },
+        {
+          "name": "1977",
+          "dtype": "float64"
+        },
+        {
+          "name": "1978",
+          "dtype": "float64"
+        },
+        {
+          "name": "1979",
+          "dtype": "float64"
+        },
+        {
+          "name": "1980",
+          "dtype": "float64"
+        },
+        {
+          "name": "1981",
+          "dtype": "float64"
+        },
+        {
+          "name": "1982",
+          "dtype": "float64"
+        },
+        {
+          "name": "1983",
+          "dtype": "float64"
+        },
+        {
+          "name": "1984",
+          "dtype": "float64"
+        },
+        {
+          "name": "1985",
+          "dtype": "float64"
+        },
+        {
+          "name": "1986",
+          "dtype": "float64"
+        },
+        {
+          "name": "1987",
+          "dtype": "float64"
+        },
+        {
+          "name": "1988",
+          "dtype": "float64"
+        },
+        {
+          "name": "1989",
+          "dtype": "float64"
+        },
+        {
+          "name": "1990",
+          "dtype": "float64"
+        },
+        {
+          "name": "1991",
+          "dtype": "float64"
+        },
+        {
+          "name": "1992",
+          "dtype": "float64"
+        },
+        {
+          "name": "1993",
+          "dtype": "float64"
+        },
+        {
+          "name": "1994",
+          "dtype": "float64"
+        },
+        {
+          "name": "1995",
+          "dtype": "float64"
+        },
+        {
+          "name": "1996",
+          "dtype": "float64"
+        },
+        {
+          "name": "1997",
+          "dtype": "float64"
+        },
+        {
+          "name": "1998",
+          "dtype": "float64"
+        },
+        {
+          "name": "1999",
+          "dtype": "float64"
+        },
+        {
+          "name": "2000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2001",
+          "dtype": "float64"
+        },
+        {
+          "name": "2002",
+          "dtype": "float64"
+        },
+        {
+          "name": "2003",
+          "dtype": "float64"
+        },
+        {
+          "name": "2004",
+          "dtype": "float64"
+        },
+        {
+          "name": "2005",
+          "dtype": "float64"
+        },
+        {
+          "name": "2006",
+          "dtype": "float64"
+        },
+        {
+          "name": "2007",
+          "dtype": "float64"
+        },
+        {
+          "name": "2008",
+          "dtype": "float64"
+        },
+        {
+          "name": "2009",
+          "dtype": "float64"
+        },
+        {
+          "name": "2010",
+          "dtype": "float64"
+        },
+        {
+          "name": "2011",
+          "dtype": "float64"
+        },
+        {
+          "name": "2012",
+          "dtype": "float64"
+        },
+        {
+          "name": "2013",
+          "dtype": "float64"
+        },
+        {
+          "name": "2014",
+          "dtype": "float64"
+        },
+        {
+          "name": "2015",
+          "dtype": "float64"
+        },
+        {
+          "name": "2016",
+          "dtype": "float64"
+        },
+        {
+          "name": "2017",
+          "dtype": "float64"
+        },
+        {
+          "name": "2018",
+          "dtype": "float64"
+        },
+        {
+          "name": "2019",
+          "dtype": "float64"
+        },
+        {
+          "name": "2020",
+          "dtype": "float64"
+        },
+        {
+          "name": "2021",
+          "dtype": "float64"
+        },
+        {
+          "name": "2022",
+          "dtype": "float64"
+        },
+        {
+          "name": "2023",
+          "dtype": "float64"
+        },
+        {
+          "name": "Grand Total",
+          "dtype": "float64"
+        }
+      ],
+      "path": "prepared/co2.parquet",
+      "sha256": "cdf13681cec78031faadd6b15a0fcedc27a90f97899d95d966a2163f56b548f6",
+      "bytes": 366697
+    },
+    "ghg": {
+      "file": "GHG_emissions_OWID_wide.csv",
+      "kind": "table",
+      "format": "csv",
+      "textFields": [
+        "Country Name"
+      ],
+      "title": "Greenhouse gas emissions per capita, OWID frozen historical table",
+      "edition": "Frozen GeoBenchX OWID snapshot; CO2-equivalent emissions including land use",
+      "units": {
+        "1990": "tonnes CO2e per person",
+        "2020": "tonnes CO2e per person"
+      },
+      "sourceSha256": "3126eec81adb240fdc0efd80ab3c2e5555202988792c8d0033d23d33adfa2666",
+      "rowCount": 208,
+      "fields": [
+        {
+          "name": "Country Name",
+          "dtype": "str"
+        },
+        {
+          "name": "1850",
+          "dtype": "float64"
+        },
+        {
+          "name": "1851",
+          "dtype": "float64"
+        },
+        {
+          "name": "1852",
+          "dtype": "float64"
+        },
+        {
+          "name": "1853",
+          "dtype": "float64"
+        },
+        {
+          "name": "1854",
+          "dtype": "float64"
+        },
+        {
+          "name": "1855",
+          "dtype": "float64"
+        },
+        {
+          "name": "1856",
+          "dtype": "float64"
+        },
+        {
+          "name": "1857",
+          "dtype": "float64"
+        },
+        {
+          "name": "1858",
+          "dtype": "float64"
+        },
+        {
+          "name": "1859",
+          "dtype": "float64"
+        },
+        {
+          "name": "1860",
+          "dtype": "float64"
+        },
+        {
+          "name": "1861",
+          "dtype": "float64"
+        },
+        {
+          "name": "1862",
+          "dtype": "float64"
+        },
+        {
+          "name": "1863",
+          "dtype": "float64"
+        },
+        {
+          "name": "1864",
+          "dtype": "float64"
+        },
+        {
+          "name": "1865",
+          "dtype": "float64"
+        },
+        {
+          "name": "1866",
+          "dtype": "float64"
+        },
+        {
+          "name": "1867",
+          "dtype": "float64"
+        },
+        {
+          "name": "1868",
+          "dtype": "float64"
+        },
+        {
+          "name": "1869",
+          "dtype": "float64"
+        },
+        {
+          "name": "1870",
+          "dtype": "float64"
+        },
+        {
+          "name": "1871",
+          "dtype": "float64"
+        },
+        {
+          "name": "1872",
+          "dtype": "float64"
+        },
+        {
+          "name": "1873",
+          "dtype": "float64"
+        },
+        {
+          "name": "1874",
+          "dtype": "float64"
+        },
+        {
+          "name": "1875",
+          "dtype": "float64"
+        },
+        {
+          "name": "1876",
+          "dtype": "float64"
+        },
+        {
+          "name": "1877",
+          "dtype": "float64"
+        },
+        {
+          "name": "1878",
+          "dtype": "float64"
+        },
+        {
+          "name": "1879",
+          "dtype": "float64"
+        },
+        {
+          "name": "1880",
+          "dtype": "float64"
+        },
+        {
+          "name": "1881",
+          "dtype": "float64"
+        },
+        {
+          "name": "1882",
+          "dtype": "float64"
+        },
+        {
+          "name": "1883",
+          "dtype": "float64"
+        },
+        {
+          "name": "1884",
+          "dtype": "float64"
+        },
+        {
+          "name": "1885",
+          "dtype": "float64"
+        },
+        {
+          "name": "1886",
+          "dtype": "float64"
+        },
+        {
+          "name": "1887",
+          "dtype": "float64"
+        },
+        {
+          "name": "1888",
+          "dtype": "float64"
+        },
+        {
+          "name": "1889",
+          "dtype": "float64"
+        },
+        {
+          "name": "1890",
+          "dtype": "float64"
+        },
+        {
+          "name": "1891",
+          "dtype": "float64"
+        },
+        {
+          "name": "1892",
+          "dtype": "float64"
+        },
+        {
+          "name": "1893",
+          "dtype": "float64"
+        },
+        {
+          "name": "1894",
+          "dtype": "float64"
+        },
+        {
+          "name": "1895",
+          "dtype": "float64"
+        },
+        {
+          "name": "1896",
+          "dtype": "float64"
+        },
+        {
+          "name": "1897",
+          "dtype": "float64"
+        },
+        {
+          "name": "1898",
+          "dtype": "float64"
+        },
+        {
+          "name": "1899",
+          "dtype": "float64"
+        },
+        {
+          "name": "1900",
+          "dtype": "float64"
+        },
+        {
+          "name": "1901",
+          "dtype": "float64"
+        },
+        {
+          "name": "1902",
+          "dtype": "float64"
+        },
+        {
+          "name": "1903",
+          "dtype": "float64"
+        },
+        {
+          "name": "1904",
+          "dtype": "float64"
+        },
+        {
+          "name": "1905",
+          "dtype": "float64"
+        },
+        {
+          "name": "1906",
+          "dtype": "float64"
+        },
+        {
+          "name": "1907",
+          "dtype": "float64"
+        },
+        {
+          "name": "1908",
+          "dtype": "float64"
+        },
+        {
+          "name": "1909",
+          "dtype": "float64"
+        },
+        {
+          "name": "1910",
+          "dtype": "float64"
+        },
+        {
+          "name": "1911",
+          "dtype": "float64"
+        },
+        {
+          "name": "1912",
+          "dtype": "float64"
+        },
+        {
+          "name": "1913",
+          "dtype": "float64"
+        },
+        {
+          "name": "1914",
+          "dtype": "float64"
+        },
+        {
+          "name": "1915",
+          "dtype": "float64"
+        },
+        {
+          "name": "1916",
+          "dtype": "float64"
+        },
+        {
+          "name": "1917",
+          "dtype": "float64"
+        },
+        {
+          "name": "1918",
+          "dtype": "float64"
+        },
+        {
+          "name": "1919",
+          "dtype": "float64"
+        },
+        {
+          "name": "1920",
+          "dtype": "float64"
+        },
+        {
+          "name": "1921",
+          "dtype": "float64"
+        },
+        {
+          "name": "1922",
+          "dtype": "float64"
+        },
+        {
+          "name": "1923",
+          "dtype": "float64"
+        },
+        {
+          "name": "1924",
+          "dtype": "float64"
+        },
+        {
+          "name": "1925",
+          "dtype": "float64"
+        },
+        {
+          "name": "1926",
+          "dtype": "float64"
+        },
+        {
+          "name": "1927",
+          "dtype": "float64"
+        },
+        {
+          "name": "1928",
+          "dtype": "float64"
+        },
+        {
+          "name": "1929",
+          "dtype": "float64"
+        },
+        {
+          "name": "1930",
+          "dtype": "float64"
+        },
+        {
+          "name": "1931",
+          "dtype": "float64"
+        },
+        {
+          "name": "1932",
+          "dtype": "float64"
+        },
+        {
+          "name": "1933",
+          "dtype": "float64"
+        },
+        {
+          "name": "1934",
+          "dtype": "float64"
+        },
+        {
+          "name": "1935",
+          "dtype": "float64"
+        },
+        {
+          "name": "1936",
+          "dtype": "float64"
+        },
+        {
+          "name": "1937",
+          "dtype": "float64"
+        },
+        {
+          "name": "1938",
+          "dtype": "float64"
+        },
+        {
+          "name": "1939",
+          "dtype": "float64"
+        },
+        {
+          "name": "1940",
+          "dtype": "float64"
+        },
+        {
+          "name": "1941",
+          "dtype": "float64"
+        },
+        {
+          "name": "1942",
+          "dtype": "float64"
+        },
+        {
+          "name": "1943",
+          "dtype": "float64"
+        },
+        {
+          "name": "1944",
+          "dtype": "float64"
+        },
+        {
+          "name": "1945",
+          "dtype": "float64"
+        },
+        {
+          "name": "1946",
+          "dtype": "float64"
+        },
+        {
+          "name": "1947",
+          "dtype": "float64"
+        },
+        {
+          "name": "1948",
+          "dtype": "float64"
+        },
+        {
+          "name": "1949",
+          "dtype": "float64"
+        },
+        {
+          "name": "1950",
+          "dtype": "float64"
+        },
+        {
+          "name": "1951",
+          "dtype": "float64"
+        },
+        {
+          "name": "1952",
+          "dtype": "float64"
+        },
+        {
+          "name": "1953",
+          "dtype": "float64"
+        },
+        {
+          "name": "1954",
+          "dtype": "float64"
+        },
+        {
+          "name": "1955",
+          "dtype": "float64"
+        },
+        {
+          "name": "1956",
+          "dtype": "float64"
+        },
+        {
+          "name": "1957",
+          "dtype": "float64"
+        },
+        {
+          "name": "1958",
+          "dtype": "float64"
+        },
+        {
+          "name": "1959",
+          "dtype": "float64"
+        },
+        {
+          "name": "1960",
+          "dtype": "float64"
+        },
+        {
+          "name": "1961",
+          "dtype": "float64"
+        },
+        {
+          "name": "1962",
+          "dtype": "float64"
+        },
+        {
+          "name": "1963",
+          "dtype": "float64"
+        },
+        {
+          "name": "1964",
+          "dtype": "float64"
+        },
+        {
+          "name": "1965",
+          "dtype": "float64"
+        },
+        {
+          "name": "1966",
+          "dtype": "float64"
+        },
+        {
+          "name": "1967",
+          "dtype": "float64"
+        },
+        {
+          "name": "1968",
+          "dtype": "float64"
+        },
+        {
+          "name": "1969",
+          "dtype": "float64"
+        },
+        {
+          "name": "1970",
+          "dtype": "float64"
+        },
+        {
+          "name": "1971",
+          "dtype": "float64"
+        },
+        {
+          "name": "1972",
+          "dtype": "float64"
+        },
+        {
+          "name": "1973",
+          "dtype": "float64"
+        },
+        {
+          "name": "1974",
+          "dtype": "float64"
+        },
+        {
+          "name": "1975",
+          "dtype": "float64"
+        },
+        {
+          "name": "1976",
+          "dtype": "float64"
+        },
+        {
+          "name": "1977",
+          "dtype": "float64"
+        },
+        {
+          "name": "1978",
+          "dtype": "float64"
+        },
+        {
+          "name": "1979",
+          "dtype": "float64"
+        },
+        {
+          "name": "1980",
+          "dtype": "float64"
+        },
+        {
+          "name": "1981",
+          "dtype": "float64"
+        },
+        {
+          "name": "1982",
+          "dtype": "float64"
+        },
+        {
+          "name": "1983",
+          "dtype": "float64"
+        },
+        {
+          "name": "1984",
+          "dtype": "float64"
+        },
+        {
+          "name": "1985",
+          "dtype": "float64"
+        },
+        {
+          "name": "1986",
+          "dtype": "float64"
+        },
+        {
+          "name": "1987",
+          "dtype": "float64"
+        },
+        {
+          "name": "1988",
+          "dtype": "float64"
+        },
+        {
+          "name": "1989",
+          "dtype": "float64"
+        },
+        {
+          "name": "1990",
+          "dtype": "float64"
+        },
+        {
+          "name": "1991",
+          "dtype": "float64"
+        },
+        {
+          "name": "1992",
+          "dtype": "float64"
+        },
+        {
+          "name": "1993",
+          "dtype": "float64"
+        },
+        {
+          "name": "1994",
+          "dtype": "float64"
+        },
+        {
+          "name": "1995",
+          "dtype": "float64"
+        },
+        {
+          "name": "1996",
+          "dtype": "float64"
+        },
+        {
+          "name": "1997",
+          "dtype": "float64"
+        },
+        {
+          "name": "1998",
+          "dtype": "float64"
+        },
+        {
+          "name": "1999",
+          "dtype": "float64"
+        },
+        {
+          "name": "2000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2001",
+          "dtype": "float64"
+        },
+        {
+          "name": "2002",
+          "dtype": "float64"
+        },
+        {
+          "name": "2003",
+          "dtype": "float64"
+        },
+        {
+          "name": "2004",
+          "dtype": "float64"
+        },
+        {
+          "name": "2005",
+          "dtype": "float64"
+        },
+        {
+          "name": "2006",
+          "dtype": "float64"
+        },
+        {
+          "name": "2007",
+          "dtype": "float64"
+        },
+        {
+          "name": "2008",
+          "dtype": "float64"
+        },
+        {
+          "name": "2009",
+          "dtype": "float64"
+        },
+        {
+          "name": "2010",
+          "dtype": "float64"
+        },
+        {
+          "name": "2011",
+          "dtype": "float64"
+        },
+        {
+          "name": "2012",
+          "dtype": "float64"
+        },
+        {
+          "name": "2013",
+          "dtype": "float64"
+        },
+        {
+          "name": "2014",
+          "dtype": "float64"
+        },
+        {
+          "name": "2015",
+          "dtype": "float64"
+        },
+        {
+          "name": "2016",
+          "dtype": "float64"
+        },
+        {
+          "name": "2017",
+          "dtype": "float64"
+        },
+        {
+          "name": "2018",
+          "dtype": "float64"
+        },
+        {
+          "name": "2019",
+          "dtype": "float64"
+        },
+        {
+          "name": "2020",
+          "dtype": "float64"
+        },
+        {
+          "name": "2021",
+          "dtype": "float64"
+        },
+        {
+          "name": "2022",
+          "dtype": "float64"
+        },
+        {
+          "name": "2023",
+          "dtype": "float64"
+        }
+      ],
+      "path": "prepared/ghg.parquet",
+      "sha256": "40ec1c6d601fd44db00ef1bdf07e6bd3a41840dac2d7640c1a54e7faa1885d1f",
+      "bytes": 420944
+    },
+    "fertility": {
+      "file": "API_SP.DYN.TFRT.IN_DS2_en_csv_v2_821.zip",
+      "kind": "table",
+      "title": "Fertility rate",
+      "edition": "Frozen WDI; use 2022",
+      "units": {
+        "2022": "births per woman"
+      },
+      "sourceSha256": "0ee3c3b9b18740a8035ce862a4211bba3f12cf111e657c99a2e0b3818b8357ac",
+      "rowCount": 266,
+      "fields": [
+        {
+          "name": "Country Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Country Code",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Code",
+          "dtype": "str"
+        },
+        {
+          "name": "1960",
+          "dtype": "float64"
+        },
+        {
+          "name": "1961",
+          "dtype": "float64"
+        },
+        {
+          "name": "1962",
+          "dtype": "float64"
+        },
+        {
+          "name": "1963",
+          "dtype": "float64"
+        },
+        {
+          "name": "1964",
+          "dtype": "float64"
+        },
+        {
+          "name": "1965",
+          "dtype": "float64"
+        },
+        {
+          "name": "1966",
+          "dtype": "float64"
+        },
+        {
+          "name": "1967",
+          "dtype": "float64"
+        },
+        {
+          "name": "1968",
+          "dtype": "float64"
+        },
+        {
+          "name": "1969",
+          "dtype": "float64"
+        },
+        {
+          "name": "1970",
+          "dtype": "float64"
+        },
+        {
+          "name": "1971",
+          "dtype": "float64"
+        },
+        {
+          "name": "1972",
+          "dtype": "float64"
+        },
+        {
+          "name": "1973",
+          "dtype": "float64"
+        },
+        {
+          "name": "1974",
+          "dtype": "float64"
+        },
+        {
+          "name": "1975",
+          "dtype": "float64"
+        },
+        {
+          "name": "1976",
+          "dtype": "float64"
+        },
+        {
+          "name": "1977",
+          "dtype": "float64"
+        },
+        {
+          "name": "1978",
+          "dtype": "float64"
+        },
+        {
+          "name": "1979",
+          "dtype": "float64"
+        },
+        {
+          "name": "1980",
+          "dtype": "float64"
+        },
+        {
+          "name": "1981",
+          "dtype": "float64"
+        },
+        {
+          "name": "1982",
+          "dtype": "float64"
+        },
+        {
+          "name": "1983",
+          "dtype": "float64"
+        },
+        {
+          "name": "1984",
+          "dtype": "float64"
+        },
+        {
+          "name": "1985",
+          "dtype": "float64"
+        },
+        {
+          "name": "1986",
+          "dtype": "float64"
+        },
+        {
+          "name": "1987",
+          "dtype": "float64"
+        },
+        {
+          "name": "1988",
+          "dtype": "float64"
+        },
+        {
+          "name": "1989",
+          "dtype": "float64"
+        },
+        {
+          "name": "1990",
+          "dtype": "float64"
+        },
+        {
+          "name": "1991",
+          "dtype": "float64"
+        },
+        {
+          "name": "1992",
+          "dtype": "float64"
+        },
+        {
+          "name": "1993",
+          "dtype": "float64"
+        },
+        {
+          "name": "1994",
+          "dtype": "float64"
+        },
+        {
+          "name": "1995",
+          "dtype": "float64"
+        },
+        {
+          "name": "1996",
+          "dtype": "float64"
+        },
+        {
+          "name": "1997",
+          "dtype": "float64"
+        },
+        {
+          "name": "1998",
+          "dtype": "float64"
+        },
+        {
+          "name": "1999",
+          "dtype": "float64"
+        },
+        {
+          "name": "2000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2001",
+          "dtype": "float64"
+        },
+        {
+          "name": "2002",
+          "dtype": "float64"
+        },
+        {
+          "name": "2003",
+          "dtype": "float64"
+        },
+        {
+          "name": "2004",
+          "dtype": "float64"
+        },
+        {
+          "name": "2005",
+          "dtype": "float64"
+        },
+        {
+          "name": "2006",
+          "dtype": "float64"
+        },
+        {
+          "name": "2007",
+          "dtype": "float64"
+        },
+        {
+          "name": "2008",
+          "dtype": "float64"
+        },
+        {
+          "name": "2009",
+          "dtype": "float64"
+        },
+        {
+          "name": "2010",
+          "dtype": "float64"
+        },
+        {
+          "name": "2011",
+          "dtype": "float64"
+        },
+        {
+          "name": "2012",
+          "dtype": "float64"
+        },
+        {
+          "name": "2013",
+          "dtype": "float64"
+        },
+        {
+          "name": "2014",
+          "dtype": "float64"
+        },
+        {
+          "name": "2015",
+          "dtype": "float64"
+        },
+        {
+          "name": "2016",
+          "dtype": "float64"
+        },
+        {
+          "name": "2017",
+          "dtype": "float64"
+        },
+        {
+          "name": "2018",
+          "dtype": "float64"
+        },
+        {
+          "name": "2019",
+          "dtype": "float64"
+        },
+        {
+          "name": "2020",
+          "dtype": "float64"
+        },
+        {
+          "name": "2021",
+          "dtype": "float64"
+        },
+        {
+          "name": "2022",
+          "dtype": "float64"
+        },
+        {
+          "name": "2023",
+          "dtype": "float64"
+        }
+      ],
+      "path": "prepared/fertility.parquet",
+      "sha256": "e4694fe761eacb7d240342583b3d819fc3fa5cb823d5d161149859de3670883d",
+      "bytes": 159757
+    },
+    "flood_bangladesh": {
+      "file": "DFO_4665_From_20180802_to_20180810.tif",
+      "kind": "raster",
+      "title": "GFD observed flood 4665, 2018-08-02 to 2018-08-10",
+      "edition": "Original five-band GFD v1 benchmark snapshot, not a current flood map; benchmark-only use",
+      "units": {
+        "band1": "binary flooded flag",
+        "band2": "days",
+        "band3": "observations",
+        "band4": "fraction",
+        "band5": "binary permanent-water flag"
+      },
+      "sourceSha256": "1cbd9e9a4d9fb25cae4be6a61ceb3a0c7482c8dfe5b79dad7dde092d7c9c548e",
+      "crs": "EPSG:4326",
+      "bounds": [
+        82.01393965190202,
+        23.80310924095702,
+        97.77712709998933,
+        31.27933819304174
+      ],
+      "shape": [
+        3329,
+        7019
+      ],
+      "nodata": null,
+      "transform": [
+        0.002245788210298804,
+        0.0,
+        82.01393965190202,
+        0.0,
+        -0.002245788210298804,
+        31.27933819304174,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bandCount": 5,
+      "path": "prepared/flood_bangladesh.tif",
+      "sha256": "1cbd9e9a4d9fb25cae4be6a61ceb3a0c7482c8dfe5b79dad7dde092d7c9c548e",
+      "bytes": 8850400
+    },
+    "brazil_population": {
+      "file": "bra_ppp_2018_1km_Aggregated_UNadj.tif",
+      "kind": "raster",
+      "title": "Brazil population count, WorldPop 2018",
+      "edition": "2018 UN-adjusted population counts, 1 km aggregate",
+      "units": {
+        "band1": "people per cell"
+      },
+      "sourceSha256": "15d3deda72482680d494ec6d4d8add5102b58faa729bf6595ec267bb6638a164",
+      "crs": "EPSG:4326",
+      "bounds": [
+        -73.99291637892128,
+        -33.74208299063871,
+        -28.842916559521278,
+        5.266250186661296
+      ],
+      "shape": [
+        4681,
+        5418
+      ],
+      "nodata": -99999.0,
+      "transform": [
+        0.0083333333,
+        0.0,
+        -73.99291637892128,
+        0.0,
+        -0.0083333333,
+        5.266250186661296,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bandCount": 1,
+      "path": "prepared/brazil_population.tif",
+      "sha256": "15d3deda72482680d494ec6d4d8add5102b58faa729bf6595ec267bb6638a164",
+      "bytes": 43610119
+    },
+    "peru_provinces": {
+      "file": "per_admbnda_adm2_ign_20200714.shp",
+      "kind": "vector",
+      "title": "Peru province boundaries (ADM2)",
+      "edition": "IGN / OCHA COD-AB frozen 2020-07-14 release, 196 provinces",
+      "sourceSha256": "371e418688ece24536b1e27299bb5281b24eebbf4d721a2600a8c2bf4576bc26",
+      "rowCount": 196,
+      "fields": [
+        {
+          "name": "Shape_Leng",
+          "dtype": "float64"
+        },
+        {
+          "name": "Shape_Area",
+          "dtype": "float64"
+        },
+        {
+          "name": "ADM2_ES",
+          "dtype": "str"
+        },
+        {
+          "name": "ADM2_PCODE",
+          "dtype": "str"
+        },
+        {
+          "name": "ADM2_REF",
+          "dtype": "str"
+        },
+        {
+          "name": "ADM2ALT1ES",
+          "dtype": "object"
+        },
+        {
+          "name": "ADM2ALT2ES",
+          "dtype": "object"
+        },
+        {
+          "name": "ADM1_ES",
+          "dtype": "str"
+        },
+        {
+          "name": "ADM1_PCODE",
+          "dtype": "str"
+        },
+        {
+          "name": "ADM0_EN",
+          "dtype": "str"
+        },
+        {
+          "name": "ADM0_ES",
+          "dtype": "str"
+        },
+        {
+          "name": "ADM0_PCODE",
+          "dtype": "str"
+        },
+        {
+          "name": "date",
+          "dtype": "datetime64[ms]"
+        },
+        {
+          "name": "validOn",
+          "dtype": "datetime64[ms]"
+        },
+        {
+          "name": "validTo",
+          "dtype": "datetime64[ms]"
+        },
+        {
+          "name": "benchmark_row_id",
+          "dtype": "str"
+        }
+      ],
+      "crs": "EPSG:4326",
+      "bounds": [
+        -81.32823048999995,
+        -18.35092773599996,
+        -68.65227910299996,
+        -0.03860596799995619
+      ],
+      "geometryTypes": [
+        "MultiPolygon",
+        "Polygon"
+      ],
+      "missingGeometryCount": 0,
+      "identity": "benchmark_row_id",
+      "path": "prepared/peru_provinces.parquet",
+      "sha256": "beb03197087e9a844ee0ce62a36863e8f75a70a1bd50e7a585250e6855917421",
+      "bytes": 10533390
+    },
+    "chile_population": {
+      "file": "chl_ppp_2020_1km_Aggregated_UNadj.tif",
+      "kind": "raster",
+      "title": "Chile population count, WorldPop 2020",
+      "edition": "2020 UN-adjusted population counts aggregated to 1 km cells",
+      "units": {
+        "band1": "people per cell"
+      },
+      "sourceSha256": "5c0ba887829467d47abb9a2ba5d17386ca7329bb0134cff8da0576ce75b63b12",
+      "crs": "EPSG:4326",
+      "bounds": [
+        -109.45958290766202,
+        -55.992082890543166,
+        -66.40958307986202,
+        -17.50874971114316
+      ],
+      "shape": [
+        4618,
+        5166
+      ],
+      "nodata": -99999.0,
+      "transform": [
+        0.0083333333,
+        0.0,
+        -109.45958290766202,
+        0.0,
+        -0.0083333333,
+        -17.50874971114316,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bandCount": 1,
+      "path": "prepared/chile_population.tif",
+      "sha256": "5c0ba887829467d47abb9a2ba5d17386ca7329bb0134cff8da0576ce75b63b12",
+      "bytes": 6031362
+    },
+    "states": {
+      "file": "tl_2024_us_state.shp",
+      "kind": "vector",
+      "title": "US state boundaries",
+      "edition": "Census TIGER/Line 2024",
+      "sourceSha256": "5eca8051ec802d987cb9bf67e899980a35b4ab7abb20084def7b9bbad8fe50e7",
+      "rowCount": 56,
+      "fields": [
+        {
+          "name": "REGION",
+          "dtype": "str"
+        },
+        {
+          "name": "DIVISION",
+          "dtype": "str"
+        },
+        {
+          "name": "STATEFP",
+          "dtype": "str"
+        },
+        {
+          "name": "STATENS",
+          "dtype": "str"
+        },
+        {
+          "name": "GEOID",
+          "dtype": "str"
+        },
+        {
+          "name": "GEOIDFQ",
+          "dtype": "str"
+        },
+        {
+          "name": "STUSPS",
+          "dtype": "str"
+        },
+        {
+          "name": "NAME",
+          "dtype": "str"
+        },
+        {
+          "name": "LSAD",
+          "dtype": "str"
+        },
+        {
+          "name": "MTFCC",
+          "dtype": "str"
+        },
+        {
+          "name": "FUNCSTAT",
+          "dtype": "str"
+        },
+        {
+          "name": "ALAND",
+          "dtype": "int64"
+        },
+        {
+          "name": "AWATER",
+          "dtype": "int64"
+        },
+        {
+          "name": "INTPTLAT",
+          "dtype": "str"
+        },
+        {
+          "name": "INTPTLON",
+          "dtype": "str"
+        },
+        {
+          "name": "benchmark_row_id",
+          "dtype": "str"
+        }
+      ],
+      "crs": "EPSG:4269",
+      "bounds": [
+        -179.231086,
+        -14.601813,
+        179.85968107125612,
+        71.439786
+      ],
+      "geometryTypes": [
+        "MultiPolygon",
+        "Polygon"
+      ],
+      "missingGeometryCount": 0,
+      "identity": "benchmark_row_id",
+      "path": "prepared/states.parquet",
+      "sha256": "69ff970f163d029daf0bc092d94751fa2aaf86f06d7e994e62fa95ca196f702c",
+      "bytes": 15033689
+    },
+    "rail_length": {
+      "file": "API_IS.RRS.TOTL.KM_DS2_en_csv_v2_1937.zip",
+      "kind": "table",
+      "title": "World Bank IS.RRS.TOTL.KM",
+      "edition": "Frozen GeoBenchX World Development Indicators; use 2018",
+      "units": {
+        "2018": "route-km"
+      },
+      "sourceSha256": "da302a44536162e28821d0a6ba4b69c923f224eb80e85100b7ef71827e32d250",
+      "rowCount": 266,
+      "fields": [
+        {
+          "name": "Country Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Country Code",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Name",
+          "dtype": "str"
+        },
+        {
+          "name": "Indicator Code",
+          "dtype": "str"
+        },
+        {
+          "name": "1960",
+          "dtype": "float64"
+        },
+        {
+          "name": "1961",
+          "dtype": "float64"
+        },
+        {
+          "name": "1962",
+          "dtype": "float64"
+        },
+        {
+          "name": "1963",
+          "dtype": "float64"
+        },
+        {
+          "name": "1964",
+          "dtype": "float64"
+        },
+        {
+          "name": "1965",
+          "dtype": "float64"
+        },
+        {
+          "name": "1966",
+          "dtype": "float64"
+        },
+        {
+          "name": "1967",
+          "dtype": "float64"
+        },
+        {
+          "name": "1968",
+          "dtype": "float64"
+        },
+        {
+          "name": "1969",
+          "dtype": "float64"
+        },
+        {
+          "name": "1970",
+          "dtype": "float64"
+        },
+        {
+          "name": "1971",
+          "dtype": "float64"
+        },
+        {
+          "name": "1972",
+          "dtype": "float64"
+        },
+        {
+          "name": "1973",
+          "dtype": "float64"
+        },
+        {
+          "name": "1974",
+          "dtype": "float64"
+        },
+        {
+          "name": "1975",
+          "dtype": "float64"
+        },
+        {
+          "name": "1976",
+          "dtype": "float64"
+        },
+        {
+          "name": "1977",
+          "dtype": "float64"
+        },
+        {
+          "name": "1978",
+          "dtype": "float64"
+        },
+        {
+          "name": "1979",
+          "dtype": "float64"
+        },
+        {
+          "name": "1980",
+          "dtype": "float64"
+        },
+        {
+          "name": "1981",
+          "dtype": "float64"
+        },
+        {
+          "name": "1982",
+          "dtype": "float64"
+        },
+        {
+          "name": "1983",
+          "dtype": "float64"
+        },
+        {
+          "name": "1984",
+          "dtype": "float64"
+        },
+        {
+          "name": "1985",
+          "dtype": "float64"
+        },
+        {
+          "name": "1986",
+          "dtype": "float64"
+        },
+        {
+          "name": "1987",
+          "dtype": "float64"
+        },
+        {
+          "name": "1988",
+          "dtype": "float64"
+        },
+        {
+          "name": "1989",
+          "dtype": "float64"
+        },
+        {
+          "name": "1990",
+          "dtype": "float64"
+        },
+        {
+          "name": "1991",
+          "dtype": "float64"
+        },
+        {
+          "name": "1992",
+          "dtype": "float64"
+        },
+        {
+          "name": "1993",
+          "dtype": "float64"
+        },
+        {
+          "name": "1994",
+          "dtype": "float64"
+        },
+        {
+          "name": "1995",
+          "dtype": "float64"
+        },
+        {
+          "name": "1996",
+          "dtype": "float64"
+        },
+        {
+          "name": "1997",
+          "dtype": "float64"
+        },
+        {
+          "name": "1998",
+          "dtype": "float64"
+        },
+        {
+          "name": "1999",
+          "dtype": "float64"
+        },
+        {
+          "name": "2000",
+          "dtype": "float64"
+        },
+        {
+          "name": "2001",
+          "dtype": "float64"
+        },
+        {
+          "name": "2002",
+          "dtype": "float64"
+        },
+        {
+          "name": "2003",
+          "dtype": "float64"
+        },
+        {
+          "name": "2004",
+          "dtype": "float64"
+        },
+        {
+          "name": "2005",
+          "dtype": "float64"
+        },
+        {
+          "name": "2006",
+          "dtype": "float64"
+        },
+        {
+          "name": "2007",
+          "dtype": "float64"
+        },
+        {
+          "name": "2008",
+          "dtype": "float64"
+        },
+        {
+          "name": "2009",
+          "dtype": "float64"
+        },
+        {
+          "name": "2010",
+          "dtype": "float64"
+        },
+        {
+          "name": "2011",
+          "dtype": "float64"
+        },
+        {
+          "name": "2012",
+          "dtype": "float64"
+        },
+        {
+          "name": "2013",
+          "dtype": "float64"
+        },
+        {
+          "name": "2014",
+          "dtype": "float64"
+        },
+        {
+          "name": "2015",
+          "dtype": "float64"
+        },
+        {
+          "name": "2016",
+          "dtype": "float64"
+        },
+        {
+          "name": "2017",
+          "dtype": "float64"
+        },
+        {
+          "name": "2018",
+          "dtype": "float64"
+        },
+        {
+          "name": "2019",
+          "dtype": "float64"
+        },
+        {
+          "name": "2020",
+          "dtype": "float64"
+        },
+        {
+          "name": "2021",
+          "dtype": "float64"
+        },
+        {
+          "name": "2022",
+          "dtype": "float64"
+        },
+        {
+          "name": "2023",
+          "dtype": "float64"
+        }
+      ],
+      "path": "prepared/rail_length.parquet",
+      "sha256": "74567542d36371b50dc790dc932d7c89ff25a1f13beb04ef378ce66c4cfa6f5d",
+      "bytes": 53139
+    }
+  },
+  "tasks": {
+    "104119": {
+      "assets": [
+        "seaports",
+        "countries",
+        "population"
+      ]
+    },
+    "112207": {
+      "assets": [
+        "stations",
+        "snow"
+      ]
+    },
+    "117526": {
+      "assets": []
+    },
+    "118857": {
+      "assets": [
+        "snow_previous"
+      ]
+    },
+    "123067": {
+      "assets": []
+    },
+    "128902": {
+      "assets": []
+    },
+    "129699": {
+      "assets": [
+        "na_lakes",
+        "countries"
+      ]
+    },
+    "130168": {
+      "assets": [
+        "facilities",
+        "countries",
+        "migration"
+      ]
+    },
+    "131687": {
+      "assets": [
+        "snow",
+        "na_lakes",
+        "countries"
+      ]
+    },
+    "133682": {
+      "assets": [
+        "earthquakes",
+        "countries",
+        "population"
+      ]
+    },
+    "138450": {
+      "assets": []
+    },
+    "146485": {
+      "assets": []
+    },
+    "149968": {
+      "assets": []
+    },
+    "150069": {
+      "assets": [
+        "na_lakes",
+        "snow"
+      ]
+    },
+    "154613": {
+      "assets": [
+        "towns",
+        "na_lakes",
+        "na_rivers"
+      ]
+    },
+    "169833": {
+      "assets": [
+        "countries",
+        "water_volume"
+      ]
+    },
+    "170096": {
+      "assets": [
+        "countries",
+        "population"
+      ]
+    },
+    "186506": {
+      "assets": [
+        "countries",
+        "agriculture"
+      ]
+    },
+    "191153": {
+      "assets": [
+        "countries",
+        "water_volume"
+      ]
+    },
+    "197777": {
+      "assets": [
+        "peru_population",
+        "seaports"
+      ]
+    },
+    "208110": {
+      "assets": [
+        "bangladesh_density",
+        "bangladesh_railways"
+      ]
+    },
+    "214430": {
+      "assets": []
+    },
+    "217200": {
+      "assets": [
+        "facilities",
+        "countries",
+        "labor"
+      ]
+    },
+    "221611": {
+      "assets": []
+    },
+    "222041": {
+      "assets": [
+        "countries",
+        "electricity"
+      ]
+    },
+    "227822": {
+      "assets": [
+        "countries",
+        "water_volume"
+      ]
+    },
+    "237711": {
+      "assets": []
+    },
+    "244529": {
+      "assets": []
+    },
+    "245463": {
+      "assets": []
+    },
+    "250712": {
+      "assets": [
+        "countries",
+        "migration"
+      ]
+    },
+    "251255": {
+      "assets": [
+        "snow",
+        "stations"
+      ]
+    },
+    "252796": {
+      "assets": [
+        "countries",
+        "gdp"
+      ]
+    },
+    "253892": {
+      "assets": [
+        "seaports",
+        "countries",
+        "gdp"
+      ]
+    },
+    "258248": {
+      "assets": [
+        "countries",
+        "labor"
+      ]
+    },
+    "264811": {
+      "assets": []
+    },
+    "265245": {
+      "assets": []
+    },
+    "270481": {
+      "assets": [
+        "countries",
+        "labor"
+      ]
+    },
+    "272016": {
+      "assets": []
+    },
+    "272736": {
+      "assets": [
+        "counties",
+        "tb_ny"
+      ]
+    },
+    "275666": {
+      "assets": [
+        "countries",
+        "rural",
+        "population"
+      ]
+    },
+    "279238": {
+      "assets": []
+    },
+    "281727": {
+      "assets": [
+        "bangladesh_density",
+        "bangladesh_railways"
+      ]
+    },
+    "291123": {
+      "assets": [
+        "angola_population",
+        "power_stations"
+      ]
+    },
+    "296055": {
+      "assets": [
+        "countries",
+        "forest_percent"
+      ]
+    },
+    "299410": {
+      "assets": []
+    },
+    "301626": {
+      "assets": [
+        "countries",
+        "gdp",
+        "electricity"
+      ]
+    },
+    "304935": {
+      "assets": []
+    },
+    "305778": {
+      "assets": []
+    },
+    "310610": {
+      "assets": [
+        "na_railways",
+        "snow"
+      ]
+    },
+    "311281": {
+      "assets": [
+        "fires",
+        "stations"
+      ]
+    },
+    "315340": {
+      "assets": []
+    },
+    "321268": {
+      "assets": [
+        "us_population",
+        "snow_previous"
+      ]
+    },
+    "332083": {
+      "assets": [
+        "facilities",
+        "density"
+      ]
+    },
+    "333321": {
+      "assets": [
+        "towns",
+        "snow"
+      ]
+    },
+    "342420": {
+      "assets": []
+    },
+    "345106": {
+      "assets": [
+        "us_population",
+        "fires"
+      ]
+    },
+    "348947": {
+      "assets": [
+        "countries",
+        "forest_area"
+      ]
+    },
+    "356076": {
+      "assets": [
+        "countries",
+        "forest_percent"
+      ]
+    },
+    "364138": {
+      "assets": []
+    },
+    "365343": {
+      "assets": [
+        "sa_rivers",
+        "countries",
+        "forest_percent"
+      ]
+    },
+    "367674": {
+      "assets": [
+        "earthquakes",
+        "us_population"
+      ]
+    },
+    "375632": {
+      "assets": [
+        "countries",
+        "gdp"
+      ]
+    },
+    "377506": {
+      "assets": []
+    },
+    "381719": {
+      "assets": [
+        "peru_population",
+        "flood_peru"
+      ]
+    },
+    "385630": {
+      "assets": [
+        "countries",
+        "forest_percent"
+      ]
+    },
+    "394050": {
+      "assets": [
+        "countries",
+        "rural",
+        "population"
+      ]
+    },
+    "397320": {
+      "assets": []
+    },
+    "399319": {
+      "assets": [
+        "countries",
+        "water_volume",
+        "water_withdrawal",
+        "population"
+      ]
+    },
+    "417961": {
+      "assets": [
+        "counties",
+        "earthquakes",
+        "stations"
+      ]
+    },
+    "418513": {
+      "assets": [
+        "power_stations",
+        "africa_railways"
+      ]
+    },
+    "419069": {
+      "assets": [
+        "counties",
+        "tb_ma",
+        "tb_ny",
+        "us_population"
+      ]
+    },
+    "422124": {
+      "assets": []
+    },
+    "429627": {
+      "assets": [
+        "countries",
+        "power_stations",
+        "electricity"
+      ]
+    },
+    "435973": {
+      "assets": [
+        "power_stations",
+        "countries",
+        "water_withdrawal"
+      ]
+    },
+    "436356": {
+      "assets": []
+    },
+    "438953": {
+      "assets": [
+        "countries",
+        "co2",
+        "ghg"
+      ]
+    },
+    "441352": {
+      "assets": [
+        "countries",
+        "fertility"
+      ]
+    },
+    "447179": {
+      "assets": []
+    },
+    "459898": {
+      "assets": []
+    },
+    "460208": {
+      "assets": [
+        "countries",
+        "population"
+      ]
+    },
+    "470604": {
+      "assets": [
+        "power_stations",
+        "countries",
+        "forest_percent"
+      ]
+    },
+    "476053": {
+      "assets": [
+        "counties",
+        "tb_ma"
+      ]
+    },
+    "476358": {
+      "assets": [
+        "countries",
+        "labor"
+      ]
+    },
+    "476928": {
+      "assets": []
+    },
+    "478472": {
+      "assets": []
+    },
+    "480358": {
+      "assets": [
+        "bangladesh_density",
+        "flood_bangladesh"
+      ]
+    },
+    "483163": {
+      "assets": []
+    },
+    "483194": {
+      "assets": []
+    },
+    "486122": {
+      "assets": [
+        "facilities",
+        "countries",
+        "water_volume"
+      ]
+    },
+    "487632": {
+      "assets": []
+    },
+    "488600": {
+      "assets": []
+    },
+    "488696": {
+      "assets": []
+    },
+    "498483": {
+      "assets": [
+        "countries",
+        "water_withdrawal"
+      ]
+    },
+    "501368": {
+      "assets": [
+        "countries",
+        "fertility"
+      ]
+    },
+    "518135": {
+      "assets": []
+    },
+    "523121": {
+      "assets": [
+        "countries",
+        "electricity"
+      ]
+    },
+    "526765": {
+      "assets": [
+        "countries",
+        "water_volume"
+      ]
+    },
+    "526880": {
+      "assets": []
+    },
+    "529248": {
+      "assets": []
+    },
+    "530802": {
+      "assets": [
+        "countries",
+        "agriculture"
+      ]
+    },
+    "535461": {
+      "assets": [
+        "countries",
+        "water_withdrawal"
+      ]
+    },
+    "536420": {
+      "assets": [
+        "bangladesh_density",
+        "flood_bangladesh"
+      ]
+    },
+    "537597": {
+      "assets": []
+    },
+    "538378": {
+      "assets": []
+    },
+    "544781": {
+      "assets": []
+    },
+    "551060": {
+      "assets": [
+        "angola_population"
+      ]
+    },
+    "553414": {
+      "assets": [
+        "countries",
+        "labor"
+      ]
+    },
+    "554817": {
+      "assets": [
+        "snow_previous",
+        "stations"
+      ]
+    },
+    "558813": {
+      "assets": []
+    },
+    "565545": {
+      "assets": [
+        "earthquakes",
+        "countries"
+      ]
+    },
+    "572164": {
+      "assets": []
+    },
+    "577156": {
+      "assets": []
+    },
+    "586288": {
+      "assets": [
+        "us_population",
+        "fires"
+      ]
+    },
+    "595832": {
+      "assets": [
+        "countries",
+        "water_volume"
+      ]
+    },
+    "596430": {
+      "assets": [
+        "countries",
+        "forest_percent"
+      ]
+    },
+    "596713": {
+      "assets": []
+    },
+    "598665": {
+      "assets": [
+        "countries",
+        "agriculture"
+      ]
+    },
+    "602318": {
+      "assets": [
+        "countries",
+        "water_withdrawal"
+      ]
+    },
+    "605895": {
+      "assets": [
+        "seaports",
+        "countries",
+        "water_withdrawal"
+      ]
+    },
+    "606612": {
+      "assets": []
+    },
+    "618282": {
+      "assets": [
+        "bangladesh_density",
+        "bangladesh_railways"
+      ]
+    },
+    "620811": {
+      "assets": [
+        "brazil_population",
+        "sa_rivers",
+        "countries"
+      ]
+    },
+    "621471": {
+      "assets": [
+        "seaports"
+      ]
+    },
+    "631643": {
+      "assets": [
+        "countries",
+        "fertility",
+        "migration",
+        "population"
+      ]
+    },
+    "634036": {
+      "assets": [
+        "countries",
+        "water_withdrawal"
+      ]
+    },
+    "645898": {
+      "assets": [
+        "counties",
+        "na_rivers"
+      ]
+    },
+    "646908": {
+      "assets": []
+    },
+    "655059": {
+      "assets": [
+        "peru_population",
+        "sa_rivers",
+        "peru_provinces"
+      ]
+    },
+    "663841": {
+      "assets": [
+        "countries",
+        "forest_percent",
+        "water_withdrawal"
+      ]
+    },
+    "663887": {
+      "assets": []
+    },
+    "664340": {
+      "assets": []
+    },
+    "673093": {
+      "assets": []
+    },
+    "673274": {
+      "assets": [
+        "bangladesh_density",
+        "bangladesh_railways"
+      ]
+    },
+    "677223": {
+      "assets": []
+    },
+    "695398": {
+      "assets": [
+        "counties",
+        "tb_ma",
+        "tb_ny"
+      ]
+    },
+    "702855": {
+      "assets": [
+        "countries",
+        "migration"
+      ]
+    },
+    "702872": {
+      "assets": [
+        "countries",
+        "forest_percent"
+      ]
+    },
+    "710732": {
+      "assets": [
+        "facilities",
+        "countries",
+        "rural",
+        "population"
+      ]
+    },
+    "714649": {
+      "assets": [
+        "countries",
+        "forest_area"
+      ]
+    },
+    "718627": {
+      "assets": [
+        "countries",
+        "fertility"
+      ]
+    },
+    "719909": {
+      "assets": []
+    },
+    "720013": {
+      "assets": [
+        "countries",
+        "electricity"
+      ]
+    },
+    "720409": {
+      "assets": [
+        "countries",
+        "fertility"
+      ]
+    },
+    "727667": {
+      "assets": []
+    },
+    "734213": {
+      "assets": [
+        "countries",
+        "migration",
+        "population"
+      ]
+    },
+    "737732": {
+      "assets": [
+        "countries",
+        "water_volume"
+      ]
+    },
+    "741001": {
+      "assets": [
+        "seaports",
+        "sa_rivers"
+      ]
+    },
+    "748943": {
+      "assets": [
+        "countries",
+        "rural",
+        "population"
+      ]
+    },
+    "761363": {
+      "assets": [
+        "countries",
+        "electricity"
+      ]
+    },
+    "763412": {
+      "assets": [
+        "chile_population",
+        "sa_rivers",
+        "countries"
+      ]
+    },
+    "765686": {
+      "assets": []
+    },
+    "768309": {
+      "assets": []
+    },
+    "772258": {
+      "assets": []
+    },
+    "785163": {
+      "assets": [
+        "angola_population",
+        "facilities"
+      ]
+    },
+    "792682": {
+      "assets": []
+    },
+    "794962": {
+      "assets": []
+    },
+    "797835": {
+      "assets": [
+        "countries",
+        "fertility"
+      ]
+    },
+    "806525": {
+      "assets": [
+        "countries",
+        "power_stations",
+        "water_withdrawal"
+      ]
+    },
+    "811107": {
+      "assets": []
+    },
+    "819657": {
+      "assets": [
+        "chile_population"
+      ]
+    },
+    "822439": {
+      "assets": [
+        "earthquakes",
+        "states"
+      ]
+    },
+    "826615": {
+      "assets": [
+        "countries",
+        "agriculture"
+      ]
+    },
+    "833409": {
+      "assets": []
+    },
+    "833518": {
+      "assets": []
+    },
+    "833697": {
+      "assets": [
+        "countries",
+        "water_withdrawal"
+      ]
+    },
+    "837688": {
+      "assets": [
+        "countries",
+        "fertility"
+      ]
+    },
+    "854050": {
+      "assets": [
+        "countries",
+        "rural",
+        "population",
+        "agriculture"
+      ]
+    },
+    "854925": {
+      "assets": []
+    },
+    "861416": {
+      "assets": [
+        "countries",
+        "gdp"
+      ]
+    },
+    "868995": {
+      "assets": []
+    },
+    "883928": {
+      "assets": [
+        "stations",
+        "snow"
+      ]
+    },
+    "894468": {
+      "assets": [
+        "countries",
+        "agriculture"
+      ]
+    },
+    "898861": {
+      "assets": [
+        "countries",
+        "agriculture"
+      ]
+    },
+    "901809": {
+      "assets": [
+        "countries",
+        "gdp"
+      ]
+    },
+    "903748": {
+      "assets": [
+        "countries",
+        "forest_percent"
+      ]
+    },
+    "908870": {
+      "assets": [
+        "countries",
+        "population"
+      ]
+    },
+    "911221": {
+      "assets": []
+    },
+    "911650": {
+      "assets": [
+        "power_stations",
+        "countries",
+        "rural",
+        "population"
+      ]
+    },
+    "913900": {
+      "assets": [
+        "countries",
+        "forest_percent"
+      ]
+    },
+    "914148": {
+      "assets": [
+        "countries",
+        "agriculture"
+      ]
+    },
+    "917242": {
+      "assets": [
+        "countries",
+        "rural"
+      ]
+    },
+    "918547": {
+      "assets": [
+        "countries",
+        "earthquakes",
+        "gdp"
+      ]
+    },
+    "921361": {
+      "assets": [
+        "earthquakes",
+        "countries"
+      ]
+    },
+    "931200": {
+      "assets": []
+    },
+    "932053": {
+      "assets": [
+        "power_stations",
+        "countries",
+        "forest_area"
+      ]
+    },
+    "938589": {
+      "assets": []
+    },
+    "945038": {
+      "assets": [
+        "countries",
+        "population"
+      ]
+    },
+    "946748": {
+      "assets": [
+        "countries",
+        "population"
+      ]
+    },
+    "954523": {
+      "assets": []
+    },
+    "955741": {
+      "assets": [
+        "counties",
+        "earthquakes",
+        "fires"
+      ]
+    },
+    "958938": {
+      "assets": [
+        "countries",
+        "population",
+        "forest_percent"
+      ]
+    },
+    "960622": {
+      "assets": [
+        "countries",
+        "forest_percent"
+      ]
+    },
+    "965208": {
+      "assets": []
+    },
+    "965287": {
+      "assets": [
+        "countries",
+        "rural"
+      ]
+    },
+    "968087": {
+      "assets": [
+        "earthquakes",
+        "na_railways"
+      ]
+    },
+    "971959": {
+      "assets": [
+        "countries",
+        "agriculture"
+      ]
+    },
+    "977524": {
+      "assets": [
+        "countries",
+        "fertility"
+      ]
+    },
+    "979234": {
+      "assets": []
+    },
+    "984439": {
+      "assets": [
+        "countries",
+        "water_volume",
+        "rail_length"
+      ]
+    },
+    "986773": {
+      "assets": [
+        "countries",
+        "population"
+      ]
+    },
+    "996706": {
+      "assets": [
+        "snow",
+        "na_lakes",
+        "na_rivers"
+      ]
+    }
+  },
+  "distribution": "Input and derived artifact bytes are not included. Original source terms continue to apply."
+}

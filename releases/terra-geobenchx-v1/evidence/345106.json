@@ -1,0 +1,648 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "345106",
+  "question": "Generate a heatmap of USA population density and overlay it with current wildfire locations.",
+  "submittedPrompt": "Generate a heatmap of USA population density and overlay it with current wildfire locations.\n\nTask conventions: Use the full original USA WorldPop 2020 count raster, band 1, and archived NIFC incident snapshot with latest ModifiedOn 2024-02-27. Active wildfires means supplied feed records with IncidentTy=WF, excluding prescribed burns RX; this is historical, not today's fire status. Convert nonnegative people-per-cell counts to people/km² by each original cell's full WGS84 ellipsoidal meridian/parallel surface area. Apply original scale/offset, keep native grid and missing/nonfinite mask, and genuine zeros. Do not approximate every cell as 1 km². Heatmap here means a continuous quantitative density raster, not a new smoothing kernel over population. Overlay every original selected wildfire point, retaining geometry and IDs; do not claim contemporaneous exposure or affected population from 2020 population and 2024 incidents. Use all supplied raster coverage including Alaska/Hawaii/islands; no mainland-only crop or resampling. Add density and fire layers to the same map. End with the stated JSON contract: count is wildfire features displayed, unknown_count is original masked/nonfinite raster cells.\n\n\n\nDeliver the two map layers and retain inspectable source or unchanged-result identities. End with one fenced JSON: {count: number of railway features displayed, unknown_count: masked or nonfinite density cells, coverage_note: string, selection:{collectionId,itemId,assetKey} for density, map_layer_id: density layer ID, overlay:{selection:{collectionId,itemId,assetKey},map_layer_id: railway layer ID}}. Explain what the overlay shows and its historical/coverage limits. A source layer can be used directly; no needless calculation is required.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"USA population count, WorldPop 2020\",\n    \"edition\": \"2020 UN-adjusted population counts aggregated to 1 km cells\",\n    \"units\": {\n      \"band1\": \"people per cell\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Frozen US fire incident locations and recorded sizes\",\n    \"edition\": \"Frozen GeoBenchX archive; not a current active-fire feed\",\n    \"units\": {\n      \"IncidentSi\": \"acres\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — I added both layers to your map.\n\nThe density layer uses the full supplied WorldPop 2020 raster on its native grid across the full USA coverage, including Alaska, Hawaii, and islands. The overlay shows 254 archived `WF` wildfire points from the frozen snapshot with latest `ModifiedOn` 2024-02-27.\n\nImportant limit: this is 2020 population plus a historical 2024 incident archive, so it does not show current fire status, affected population, or contemporaneous exposure.\n\nIf you want, I can next restyle the layers or zoom the map to the wildfire points.\n\n### Limitations\n\n- Population density is derived from the supplied 2020 WorldPop count raster and does not represent 2024 population.\n- Wildfire points come from a frozen archived incident snapshot with latest observed ModifiedOn 2024-02-27; they are historical records, not current fire status.\n- The overlay of 2020 population density and archived 2024 incidents is contextual only and should not be read as affected population or contemporaneous exposure.\n- The population density layer represents 2020 population density, not 2024 population.\n- The wildfire overlay is a frozen historical archive with latest ModifiedOn 2024-02-27, not current fire status.\n- Viewing the two layers together does not show affected population or contemporaneous exposure.",
+  "checks": {
+    "expectedCount": 254,
+    "actualCount": 254,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:44:30.860091Z",
+      "title": "Progress update",
+      "detail": "I’ll set up a small analysis brief, inspect the two supplied sources, then test the density conversion and fire filtering before I save the production workflow."
+    },
+    {
+      "at": "2026-10-07T08:44:48.893437Z",
+      "title": "Progress update",
+      "detail": "I found the source and trial tools. Next I’m checking the exact source metadata and the map-layer tools, then I’ll test the density conversion on a small USA subset before I save the full run."
+    },
+    {
+      "at": "2026-10-07T08:44:48.905419Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:44:48.908400Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:44:48.918150Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:44:49.408317Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:44:49.427512Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:44:49.878868Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:44:49.899798Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:20.952048Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the supplied sources exist and I found the exact density-conversion processor designed for this count-to-density job. Now I’m inspecting band/field details so I can test the method and avoid guessing any schema or filter names."
+    },
+    {
+      "at": "2026-10-07T08:45:20.963256Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:21.227308Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:21.230772Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:21.234736Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:21.807471Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:45:21.821605Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:45:35.423088Z",
+      "title": "Progress update",
+      "detail": "The direct source inspect tool only works on workflow or trial outputs, so I’m switching to a small source-backed trial. That will let me verify the raster band details and the incident fields before I build the full run."
+    },
+    {
+      "at": "2026-10-07T08:45:35.433253Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:35.437486Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:35.441818Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:36.068973Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:45:36.083769Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:46:16.582218Z",
+      "title": "Progress update",
+      "detail": "I have the exact processor contracts. Now I’m running a tiny source-backed check so I can read the real band and field schema instead of guessing from the collection descriptions."
+    },
+    {
+      "at": "2026-10-07T08:46:22.718270Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:13.643754Z",
+      "title": "Progress update",
+      "detail": "The source check finished. I’m reading the saved report and one deeper field sample now, so I can confirm the wildfire filter fields before I run the full USA density conversion."
+    },
+    {
+      "at": "2026-10-07T08:47:13.716980Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:13.724092Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:47:14.150938Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:15.923614Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the raster is the supplied native EPSG:4326 grid and the fire source is a point layer with 633 archived incidents. I’m pulling the exact field sample now, then I’ll run one representative density-and-filter trial before I save the full USA workflow."
+    },
+    {
+      "at": "2026-10-07T08:48:22.347654Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:22.536468Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:48:38.034109Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:05.045000Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:05.064570Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:49:06.039985Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the fire snapshot really has `ModifiedOn`, `IncidentTy`, and stable IDs, and the population raster band is documented as people per cell. I’m checking the safest way to clip a small test area so the next trial verifies the actual density conversion and wildfire filter without guessing any source-step behavior."
+    },
+    {
+      "at": "2026-10-07T08:49:40.031217Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:01.680617Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:01.969921Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:44.347760Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:44.818028Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:47.273027Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:49.764187Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:52:51.114591Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:01.124487Z",
+      "title": "Progress update",
+      "detail": "I’ve already proved the method on a representative clip and confirmed the full wildfire filter output exists. Next I’m turning that into the saved production run, then I’ll inspect the finished full-USA density result and add both final layers to the map."
+    },
+    {
+      "at": "2026-10-07T08:53:11.924044Z",
+      "title": "Progress update",
+      "detail": "I’ve got the exact filtered wildfire output identity already, so I can reuse that unchanged rather than recomputing it. I’m recording the tested method and fixed settings now, then I’ll run the full-USA density output and bind both final layers on the map."
+    },
+    {
+      "at": "2026-10-07T08:53:11.941745Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:11.948100Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:53:46.110169Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:11.080198Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:54:28.980251Z",
+      "title": "Progress update",
+      "detail": "The full production workflow is saved and valid. I’m launching it now, then I’ll inspect the finished density raster, add the density and wildfire layers to the map, and record the final counts and identities."
+    },
+    {
+      "at": "2026-10-07T08:54:32.878593Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:59:43.000348Z",
+      "title": "Progress update",
+      "detail": "The run appears to have completed in the background, so I’m inspecting the exact finished outputs now. Then I’ll add both verified layers to the map and record the final layer IDs and counts."
+    },
+    {
+      "at": "2026-10-07T09:00:15.954944Z",
+      "title": "Progress update",
+      "detail": "I’ve reached the finished workflow stage. Now I’m collecting the exact output identities and the full raster unknown-cell count, then I’ll add the verified density and wildfire layers and lock in the final map layer IDs."
+    },
+    {
+      "at": "2026-10-07T09:00:16.083291Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:16.106255Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:38.610807Z",
+      "title": "Progress update",
+      "detail": "The map already shows both finished layer names, so I’m only missing the exact output receipts and the density unknown-cell count for the final record. I’m pulling those now from the completed workflow so I can finish with the verified layer identities, not guesses."
+    },
+    {
+      "at": "2026-10-07T09:00:59.321783Z",
+      "title": "Progress update",
+      "detail": "I have the live layer IDs already. I’m doing one last bounded inspection of the completed workflow so the final record uses the exact output artifacts and the full raster missing-cell count from the finished result."
+    },
+    {
+      "at": "2026-10-07T09:00:59.341464Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:00:59.508037Z",
+      "title": "get_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:12.425820Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:12.434372Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:12.839170Z",
+      "title": "Progress update",
+      "detail": "I have the exact final artifact identities and both live layer IDs. I’m doing one final bounded read of the finished density output so the unknown-cell count comes from the completed raster itself, not from a rough fraction."
+    },
+    {
+      "at": "2026-10-07T09:01:35.798264Z",
+      "title": "Progress update",
+      "detail": "I have the finished density summary with the exact missing-cell count now. I’m grabbing the final density raster receipt and one bounded check on the final wildfire overlay so the result record uses the completed workflow outputs end to end."
+    },
+    {
+      "at": "2026-10-07T09:01:35.808805Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:01:35.816237Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:02:14.597845Z",
+      "title": "Progress update",
+      "detail": "I already have both live layer IDs and the finished density summary. I’m only refreshing the final wildfire overlay receipt now so the final assessment cites the exact displayed artifact, then I’ll record the finished result."
+    },
+    {
+      "at": "2026-10-07T09:02:15.974192Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:02:25.270048Z",
+      "title": "Progress update",
+      "detail": "I have all final evidence now: the density raster is the finished native-grid output, the wildfire overlay is the finished `WF` point layer, both are on the map, and the density summary reports the exact missing-cell count. I’m refreshing the brief notes and then recording the final assessed result with the explicit artifact and layer identities."
+    },
+    {
+      "at": "2026-10-07T09:02:31.737369Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:03:19.974806Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the final density artifact, the final wildfire artifact, the exact missing-cell count, and both live map bindings. I’m recording the accepted result now with the explicit selection objects and map layer IDs the user asked for."
+    },
+    {
+      "at": "2026-10-07T09:03:32.991083Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T09:03:44.328520Z",
+      "title": "Progress update",
+      "detail": "The result check asked for the exact recorded acceptance-condition wording, so I’m resubmitting the same evidence against those exact conditions now."
+    },
+    {
+      "at": "2026-10-07T09:03:52.524496Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T09:04:00.577135Z",
+      "title": "Progress update",
+      "detail": "The final check needs spatial previews for both final layers alongside the values, so I’m pulling those now and then I’ll immediately record the accepted result."
+    },
+    {
+      "at": "2026-10-07T09:04:00.589001Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:04:00.593018Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:04:18.672866Z",
+      "title": "Progress update",
+      "detail": "I have both preview jobs back. I’m converting them into final receipts now, then I’ll file the accepted result with the exact map layer IDs and source identities."
+    },
+    {
+      "at": "2026-10-07T09:04:18.680368Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:04:18.686933Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T09:04:27.245329Z",
+      "title": "Progress update",
+      "detail": "I’ve got the final preview receipts for both displayed layers now. I’m filing the accepted result with those exact finished artifacts and the map layer bindings."
+    },
+    {
+      "at": "2026-10-07T09:04:51.294789Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "USA population density heatmap",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Archived wildfire point overlay",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Population density",
+      "description": "Recorded raster-count-density · succeeded"
+    },
+    {
+      "title": "WorldPop 2020 count raster",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Archived wildfire-only points",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Density conversion",
+      "description": "Recorded raster-count-density · succeeded"
+    },
+    {
+      "title": "Density stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Archived fire source",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Representative raster clip",
+      "description": "Recorded spatial-clip · succeeded"
+    },
+    {
+      "title": "WorldPop source",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Clipped count stats",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Clipped count stats",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Density conversion",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Density stats",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Wildfire-only filter",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Wildfire-only filter",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Archived fire source",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "WorldPop source",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "WorldPop source",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Archived fire source",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "b46d825aabcf5e21e30dd200304cc2c1a414f297925db3fe11b5389a3c0e4177",
+      "bytes": 207104,
+      "finishedAt": "2026-10-07T08:46:27.179328+00:00"
+    },
+    {
+      "sha256": "0b75ab7c839bfa81439fafa204f0fba930f15467993c574694be98831fcafb94",
+      "bytes": 51821771,
+      "finishedAt": "2026-10-07T08:46:27.179328+00:00"
+    },
+    {
+      "sha256": "4c50129c56746342b84072114339b71a7dad0688b51d6804b312aec99374899e",
+      "bytes": 2678380,
+      "finishedAt": "2026-10-07T08:50:00.318078+00:00"
+    },
+    {
+      "sha256": "1b60957efa0c41e2cc7e7f17bb3b57e992afb537f6cc5f303c841518b0f2d914",
+      "bytes": 133418,
+      "finishedAt": "2026-10-07T08:50:00.318078+00:00"
+    },
+    {
+      "sha256": "f6de7e16c6f0820872cb8f01d370e4a73287b2a969e4d578615be88a2d795e16",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T08:50:09.148540+00:00"
+    },
+    {
+      "sha256": "9789c2dfdcb427596748b1c34aed56a99d506d29917f0e102039f7c71ce1f41d",
+      "bytes": 5498081,
+      "finishedAt": "2026-10-07T08:50:27.514170+00:00"
+    },
+    {
+      "sha256": "ddabc758da26c83584f5d27e777e869da788a16445b6ef61114738fcab77dd22",
+      "bytes": 8708,
+      "finishedAt": "2026-10-07T08:50:50.109225+00:00"
+    },
+    {
+      "sha256": "3a8162cee81c85be777d0ee33ba739583fa4baf3eb63d7dd6acd29bfa2d7356b",
+      "bytes": 106485718,
+      "finishedAt": "2026-10-07T08:59:24.306724+00:00"
+    }
+  ],
+  "snapshotSha256": "44c74410e2a8c0abf4ee93fdd85a4e71893b80f66d0331baf5061db8745388e4",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:46:22.718270Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Do the supplied source outputs expose the exact raster band and incident fields needed for the requested density conversion and wildfire filter?"
+    },
+    {
+      "at": "2026-10-07T08:48:38.034109Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The supplied population source is a geographic EPSG:4326 raster with band 1 present, documented as people per cell, nodata -99999, and native 0.0083333333 degree resolution across the supplied USA extent. The supplied incident source is a point dataset with 633 records and includes IncidentTy, ModifiedOn, benchmark_row_id, OBJECTID, and IrwinID fields; its observed ModifiedOn maximum is 2024-02-27 and IncidentTy contains both RX and WF values, so the requested historical wildfire selection is testable.",
+      "limitations": [
+        "This trial confirmed source structure, not the finished density conversion or final wildfire overlay count."
+      ],
+      "next_action": "Run a representative computation that converts population counts to density on the native grid and filters wildfire points to IncidentTy=WF so the analytical method is tested before saving the full USA workflow.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:49:40.031217Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the requested method preserve the native raster behavior on a representative population subset and correctly select only archived wildfire points while keeping their IDs and geometry?"
+    },
+    {
+      "at": "2026-10-07T08:53:46.110169Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "On the representative western subset, the density conversion preserved the clipped raster CRS and native 0.0083333333 degree resolution and kept the exact masked and missing count unchanged at 689262 cells, with minimum remaining 0.0 and units reported as people/km2. The wildfire filter returned 254 records, all with IncidentTy=WF, and retained benchmark_row_id, OBJECTID, IrwinID, ModifiedOn, and point geometry, so the requested selection method is suitable for the full archived overlay.",
+      "limitations": [
+        "This trial validated the method on a clipped raster subset; the full USA density output still needs to be run and inspected.",
+        "The wildfire selection is historical archive context, not a live fire-status layer."
+      ],
+      "next_action": "Save a production workflow that runs the full USA density conversion on the supplied raster and reuses the exact wildfire-only output for the overlay, then inspect the final outputs and add both layers to the map.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T09:03:32.991083Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "I delivered the requested map layers on the current map: a continuous USA population-density raster derived from the supplied WorldPop 2020 count raster on its native grid, and an archived wildfire-only point overlay from the supplied frozen incident snapshot. The density summary reports 15,849,306 valid cells and 255,418,150 masked or nonfinite cells, and the wildfire overlay displays 254 WF points. Source evidence: supplied WorldPop 2020 count raster, Terra-hosted immutable input, retrieved 2026-10-07T07:11:38Z; supplied archived NIFC incident snapshot, Terra-hosted immutable input, retrieved 2026-10-07T07:11:49Z.",
+      "limitations": [
+        "The population density layer represents 2020 population density, not 2024 population.",
+        "The wildfire overlay is a frozen historical archive with latest ModifiedOn 2024-02-27, not current fire status.",
+        "Viewing the two layers together does not show affected population or contemporaneous exposure."
+      ],
+      "next_action": "Review the two displayed layers together on the map; if you want, I can also adjust their styling or zoom to the wildfire points.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T09:03:52.524496Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "I delivered the requested map layers on the current map: a continuous USA population-density raster derived from the supplied WorldPop 2020 count raster on its native grid, and an archived wildfire-only point overlay from the supplied frozen incident snapshot. The density summary reports 15,849,306 valid cells and 255,418,150 masked or nonfinite cells, and the wildfire overlay displays 254 WF points. Source evidence: supplied WorldPop 2020 count raster, Terra-hosted immutable input, retrieved 2026-10-07T07:11:38Z; supplied archived NIFC incident snapshot, Terra-hosted immutable input, retrieved 2026-10-07T07:11:49Z.",
+      "limitations": [
+        "The population density layer represents 2020 population density, not 2024 population.",
+        "The wildfire overlay is a frozen historical archive with latest ModifiedOn 2024-02-27, not current fire status.",
+        "Viewing the two layers together does not show affected population or contemporaneous exposure."
+      ],
+      "next_action": "Review the two displayed layers together on the map; if you want, I can also adjust their styling or zoom to the wildfire points.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T09:04:51.294789Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I delivered the requested map layers on the current map: a continuous USA population-density raster derived from the supplied WorldPop 2020 count raster on its native grid, and an archived wildfire-only point overlay from the supplied frozen incident snapshot. The density summary reports 15,849,306 valid cells and 255,418,150 masked or nonfinite cells, and the wildfire overlay displays 254 WF points. Source evidence: supplied WorldPop 2020 count raster, Terra-hosted immutable input, retrieved 2026-10-07T07:11:38Z; supplied archived NIFC incident snapshot, Terra-hosted immutable input, retrieved 2026-10-07T07:11:49Z.",
+      "limitations": [
+        "The population density layer represents 2020 population density, not 2024 population.",
+        "The wildfire overlay is a frozen historical archive with latest ModifiedOn 2024-02-27, not current fire status.",
+        "Viewing the two layers together does not show affected population or contemporaneous exposure."
+      ],
+      "next_action": "Review the two displayed layers together on the map; if you want, I can also adjust their styling or zoom to the wildfire points.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "9de8f873d9e8efc556a26099f6af3620cddbec1d703ce03dcdc30cd802c1dadd",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

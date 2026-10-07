@@ -1,0 +1,765 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "734213",
+  "question": "Which Eastern African countries had the highest net migration rates in 2019?",
+  "submittedPrompt": "Which Eastern African countries had the highest net migration rates in 2019?\n\nTask conventions: Use the frozen country polygons and World Bank 2019 net migration in people and 2019 total population in people. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature in the declared geography and its benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched. Geography is fixed to original country features with SUBREGION in [\"Eastern Africa\"]; retain all matching source geometries, and no others. Classification is calculated only over this geography. Membership reflects this disclosed benchmark edition, not current organization membership.Define annual net migration rate as 1000 times net migration divided by total population, in net migrants per 1000 people. A missing numerator, missing denominator or nonpositive population is unknown. Identify the three highest known rates in descending order; break exact ties by NAME_EN alphabetically. These are rates, not absolute migrant counts.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response. Include top_countries as the three original NAME_EN country names in that ranking order in the final JSON.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Net migration, World Development Indicators\",\n    \"edition\": \"2024-11-13 snapshot; use 2023\",\n    \"units\": {\n      \"2023\": \"people (net migration)\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SP.POP.TOTL\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "For the fixed 2019 benchmark, the highest net migration rates in Eastern Africa were Seychelles (3.12), Somalia (3.01), and Uganda (2.50) net migrants per 1,000 people.\n\nI added the choropleth layer to your map. It uses five quantile classes across the 18 retained benchmark country rows, with a neutral No data legend category available but unused here because all 18 rows had known values.\n\nLimits: this uses the supplied GeoBenchX benchmark geography and frozen 2019 World Bank tables, so it is not current-membership or live data. Sources: Terra-hosted World Bank country boundaries benchmark, World Development Indicators net migration snapshot, and WDI total population snapshot, retrieved 2026-10-07 UTC.\n\n### Limitations\n\n- Uses the supplied GeoBenchX benchmark boundary edition for Eastern Africa membership, not a current-membership definition.\n- Uses the supplied frozen 2019 World Bank inputs rather than newer revisions or live replacements.\n- The five choropleth classes are quantiles calculated only within the retained Eastern Africa benchmark country rows, so class numbers are relative to this geography.\n- This result uses the supplied GeoBenchX benchmark boundary edition for Eastern Africa membership, not a current-membership definition.\n- This result uses the supplied frozen 2019 World Bank inputs rather than newer revisions or live replacements.\n- The five choropleth classes are quantiles calculated only within these 18 retained benchmark country rows, so class numbers are relative to this geography.\n- Uses the supplied benchmark geography edition for Eastern Africa membership.\n- Quantile classes are relative only within the retained Eastern Africa benchmark country rows.",
+  "checks": {
+    "expectedCount": 18,
+    "actualCount": 18,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T07:45:55.709924Z",
+      "title": "Progress update",
+      "detail": "I’m checking the supplied country boundaries and frozen World Bank tables first, so I can confirm whether the requested 2019 fields are actually present and then build the country-rate layer with the required unknown category."
+    },
+    {
+      "at": "2026-10-07T07:46:07.175208Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:07.472500Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:23.158223Z",
+      "title": "Progress update",
+      "detail": "I found no saved analysis yet. Next I’m inspecting the three supplied frozen inputs to confirm the exact row fields, the Eastern Africa filter field, and whether the requested 2019 values are present in the frozen World Bank tables."
+    },
+    {
+      "at": "2026-10-07T07:46:23.182717Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:23.191714Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:23.223468Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:31.877785Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:31.921565Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:35.115179Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:48.642159Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:48.825135Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:48.890183Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:49.250053Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:46:59.533026Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:00.028543Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:01.317152Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:01.788217Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:07.841984Z",
+      "title": "Progress update",
+      "detail": "The frozen tables do contain a `2019` column, so I can stay on the requested year. I’m now discovering the exact processors for filtering the Eastern Africa rows, joining by code, calculating the per-1000 rate, and classifying the five quantiles without dropping unknowns."
+    },
+    {
+      "at": "2026-10-07T07:47:18.358748Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:18.827541Z",
+      "title": "Progress update",
+      "detail": "I have the four key processors. Next I’m reading their exact schemas so I can test one short end-to-end slice: filter Eastern Africa rows, left-join both frozen tables by code, calculate the 2019 rate, and apply the required quantile classification with a separate No data class."
+    },
+    {
+      "at": "2026-10-07T07:47:22.771929Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:46.338538Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:53.472218Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:53.497307Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:47:54.198325Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:08.510250Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:09.761200Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:48:13.088249Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:48:26.344472Z",
+      "title": "Progress update",
+      "detail": "I’ve hit one practical uncertainty: both World Bank tables use a column literally named `2019`. I’m checking whether the join tool can safely carry both through or whether I need a small extra preparation step to rename one before the second join."
+    },
+    {
+      "at": "2026-10-07T07:48:26.363383Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:26.370133Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:27.320501Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:27.331739Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:27.491301Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:30.082903Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:48:46.292737Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:49:50.296074Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:26.920291Z",
+      "title": "Progress update",
+      "detail": "The private test finished while the turn was interrupted. It worked: 18 benchmark Eastern Africa country rows were kept, both 2019 joins matched all 18 exact codes, and the test produced a full rate field and quantile classes. I’m checking the final rows and legend details now, then I’ll turn that tested method into the deliverable layer and answer."
+    },
+    {
+      "at": "2026-10-07T07:53:26.969262Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:26.978887Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:53:31.790097Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:02.005179Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:02.616195Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:55:03.213795Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:38.844976Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:38.887083Z",
+      "title": "list_processor_jobs",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:38.915199Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:48.378063Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:48.793833Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:54.702453Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:56:57.210469Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:02.174862Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the final country values: all 18 retained Eastern Africa benchmark rows have known 2019 rates, so the unknown category is present as a rule but unused here. I’m now turning the tested computation into the final map result so I can bind the choropleth layer and submit the required answer object."
+    },
+    {
+      "at": "2026-10-07T07:57:05.132521Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:05.414833Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:05.477854Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:34.485434Z",
+      "title": "Progress update",
+      "detail": "I have the exact ranking now: Seychelles, Somalia, and Uganda. I’m checking whether the classified output exposes its published legend directly, so the map layer uses the intended quantile styling instead of a plain vector display."
+    },
+    {
+      "at": "2026-10-07T07:57:34.520952Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:34.531153Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:35.557725Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:35.693260Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:51.802354Z",
+      "title": "Progress update",
+      "detail": "I found the exact legend metadata on the classified artifact itself. It carries five quantile breaks, class counts, units, and a No data category value 0, so I can bind the final map layer with the right legend and finish the result."
+    },
+    {
+      "at": "2026-10-07T07:57:51.842806Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:57:55.360007Z",
+      "title": "add_catalog_layer",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:30.618182Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:31.222712Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T07:58:36.278770Z",
+      "title": "Progress update",
+      "detail": "The layer is added. I’m doing one quick map check so the final answer points to the live layer ID that’s actually on your map, then I’ll record the accepted result."
+    },
+    {
+      "at": "2026-10-07T07:59:05.598808Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T07:59:12.921595Z",
+      "title": "Progress update",
+      "detail": "I hit a validation check: the final assessment wants the acceptance-condition text matched exactly. I’m correcting that wording now and resubmitting the same evidence."
+    },
+    {
+      "at": "2026-10-07T07:59:22.024540Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:00:07.729071Z",
+      "title": "Progress update",
+      "detail": "I’m saving the tested computation as the formal result workflow now, because Terra won’t accept a private trial artifact as the final selected output. After that I can execute the same method as a final deliverable and bind the final map layer to it."
+    },
+    {
+      "at": "2026-10-07T08:00:14.127060Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:00:35.780314Z",
+      "title": "Progress update",
+      "detail": "The saved draft was blocked because copying the trial also copied its world-sized execution scope, which no longer matched the declared study area. I’m saving the same tested method again with the study scope bound explicitly to the Eastern Africa extent so it can run as the formal final output."
+    },
+    {
+      "at": "2026-10-07T08:00:51.904539Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:25.645065Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:02:27.318808Z",
+      "title": "Progress update",
+      "detail": "I’ve saved the runnable final workflow using the same tested method and the correct Eastern Africa scope. I’m executing that formal final output now so Terra can accept a final deliverable artifact, not just the private test."
+    },
+    {
+      "at": "2026-10-07T08:05:24.872034Z",
+      "title": "Progress update",
+      "detail": "The formal final workflow finished in the background. I’m inspecting its delivered output now and then I’ll bind that final artifact to the map so the accepted answer points to the live final layer, not the earlier private test layer."
+    },
+    {
+      "at": "2026-10-07T08:05:24.956603Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:25.292255Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:26.954325Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:33.295056Z",
+      "title": "Progress update",
+      "detail": "I’m inspecting the formal final artifact now. That gives me the final item ID, the verified map layer ID from the workflow, and the exact row values I need for the accepted result object."
+    },
+    {
+      "at": "2026-10-07T08:06:33.429787Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:33.565562Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:34.323452Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:19.278283Z",
+      "title": "Progress update",
+      "detail": "I’ve got the formal final item and verified final map layer from the completed workflow. I’m fetching the final inspection receipts now, then I can record the accepted result and answer plainly."
+    },
+    {
+      "at": "2026-10-07T08:07:20.435262Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:20.774624Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:02.823279Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Frozen country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Classify rate",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Combine migration and positive population",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Eastern Africa net migration rate (2019)",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Keep Eastern Africa rows",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Name migration field",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Join migration table",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Frozen net migration table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Name population field",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Join population table",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Keep positive populations",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Frozen population table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Calculate rate",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Frozen country boundaries",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Classify rate",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Combine migration and positive population",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "Keep Eastern Africa rows",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Name migration field",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Join migration table",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Frozen net migration table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Name population field",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Join population table",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Keep positive populations",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Frozen population table",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Calculate rate",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Keep Eastern Africa rows",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Join migration table",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Name population field",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Combine migration and positive population",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify rate",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T07:50:06.951206+00:00"
+    },
+    {
+      "sha256": "ef72e43eb4a0dfa8669bb2831aa63d076364617f8574d4ec929e47c366d79aa4",
+      "bytes": 279848,
+      "finishedAt": "2026-10-07T07:50:20.140669+00:00"
+    },
+    {
+      "sha256": "f80ac51aa813bae2e14b0dcab21097697cf7d936ccd9ed0ce7d74bf56191c5f7",
+      "bytes": 151811,
+      "finishedAt": "2026-10-07T07:50:06.951206+00:00"
+    },
+    {
+      "sha256": "88594296e94fe36d2810fac2feb2672aa3b7fc3985d9617914ddbf11d4157626",
+      "bytes": 171501,
+      "finishedAt": "2026-10-07T07:50:06.951206+00:00"
+    },
+    {
+      "sha256": "380704bd8bb0fa76ffcd935dcf1893b52bb39e527e1bca2ce58967a8863bd2b6",
+      "bytes": 281162,
+      "finishedAt": "2026-10-07T07:50:28.474019+00:00"
+    },
+    {
+      "sha256": "8774a11fe0f6ba22e69704a794b9572ba9d7cd0ace55263431d2583052762f11",
+      "bytes": 281876,
+      "finishedAt": "2026-10-07T07:50:42.758191+00:00"
+    },
+    {
+      "sha256": "d8a227db00fe1e0ddc264e4730e8fd5b2c338f10461b859f71a6667c373460e5",
+      "bytes": 281181,
+      "finishedAt": "2026-10-07T07:50:42.758191+00:00"
+    },
+    {
+      "sha256": "22a5840ccd69c03fcc7b3cf173664c4d939613a7aba3c2a44b01be972e55ba21",
+      "bytes": 281886,
+      "finishedAt": "2026-10-07T07:51:18.561071+00:00"
+    },
+    {
+      "sha256": "22a5840ccd69c03fcc7b3cf173664c4d939613a7aba3c2a44b01be972e55ba21",
+      "bytes": 281886,
+      "finishedAt": "2026-10-07T07:51:32.078713+00:00"
+    },
+    {
+      "sha256": "7c9492e6bf6ab43003c7589d0ad07fa477b08998675dfa0a0ddb53d350f8a707",
+      "bytes": 282589,
+      "finishedAt": "2026-10-07T07:51:45.764888+00:00"
+    },
+    {
+      "sha256": "cedd15527bbe61a88f285054b389fa3c7d65c1b350fa35cec7c194d6098525ed",
+      "bytes": 283379,
+      "finishedAt": "2026-10-07T07:51:51.436125+00:00"
+    },
+    {
+      "sha256": "0216d69597ac9c0261b752dc9aa5809d36249301b60ba50a98823345e0b89ccd",
+      "bytes": 283960,
+      "finishedAt": "2026-10-07T07:51:58.893729+00:00"
+    },
+    {
+      "sha256": "ef72e43eb4a0dfa8669bb2831aa63d076364617f8574d4ec929e47c366d79aa4",
+      "bytes": 279848,
+      "finishedAt": "2026-10-07T08:03:10.893924+00:00"
+    },
+    {
+      "sha256": "380704bd8bb0fa76ffcd935dcf1893b52bb39e527e1bca2ce58967a8863bd2b6",
+      "bytes": 281162,
+      "finishedAt": "2026-10-07T08:03:24.460558+00:00"
+    },
+    {
+      "sha256": "d8a227db00fe1e0ddc264e4730e8fd5b2c338f10461b859f71a6667c373460e5",
+      "bytes": 281181,
+      "finishedAt": "2026-10-07T08:03:24.460558+00:00"
+    },
+    {
+      "sha256": "8774a11fe0f6ba22e69704a794b9572ba9d7cd0ace55263431d2583052762f11",
+      "bytes": 281876,
+      "finishedAt": "2026-10-07T08:03:44.095769+00:00"
+    },
+    {
+      "sha256": "22a5840ccd69c03fcc7b3cf173664c4d939613a7aba3c2a44b01be972e55ba21",
+      "bytes": 281886,
+      "finishedAt": "2026-10-07T08:03:44.095769+00:00"
+    },
+    {
+      "sha256": "22a5840ccd69c03fcc7b3cf173664c4d939613a7aba3c2a44b01be972e55ba21",
+      "bytes": 281886,
+      "finishedAt": "2026-10-07T08:04:12.920315+00:00"
+    },
+    {
+      "sha256": "7c9492e6bf6ab43003c7589d0ad07fa477b08998675dfa0a0ddb53d350f8a707",
+      "bytes": 282589,
+      "finishedAt": "2026-10-07T08:04:27.718711+00:00"
+    },
+    {
+      "sha256": "cedd15527bbe61a88f285054b389fa3c7d65c1b350fa35cec7c194d6098525ed",
+      "bytes": 283379,
+      "finishedAt": "2026-10-07T08:04:40.543248+00:00"
+    },
+    {
+      "sha256": "0216d69597ac9c0261b752dc9aa5809d36249301b60ba50a98823345e0b89ccd",
+      "bytes": 283960,
+      "finishedAt": "2026-10-07T08:04:52.505348+00:00"
+    }
+  ],
+  "snapshotSha256": "d70d236cefb80f77cd3dfecfacebcf9811313f10343da2522747d09db21b13fd",
+  "investigations": [
+    {
+      "at": "2026-10-07T07:49:50.296074Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Can the supplied Eastern Africa benchmark country rows be joined to the frozen 2019 World Bank net migration and population tables, while keeping all original rows and producing the required per-1000 rate and quantile classes with unknowns preserved?"
+    },
+    {
+      "at": "2026-10-07T07:57:51.842806Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The tested computation retained all 18 benchmark Eastern Africa country rows, matched all 18 exact ISO_A3 to Country Code joins for both supplied 2019 World Bank tables, calculated 18 known 2019 net migration rates, and produced a five-class quantile choropleth with class counts 4, 3, 4, 3, and 4. The classified artifact also exposes the published legend metadata, including the neutral No data category value 0, numeric breakpoints, units, and the boundary rule that break values enter the upper class.",
+      "limitations": [
+        "This trial uses the supplied benchmark geography edition and frozen 2019 World Bank values, so it does not represent current membership or newer releases."
+      ],
+      "next_action": "Add the classified country artifact to the map, verify the binding, and assess the final result with the required answer object.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:59:05.598808Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "I mapped the 2019 annual net migration rate for all 18 benchmark Eastern Africa country rows and added the classified country layer to the map. The highest known rates are Seychelles, Somalia, and Uganda. All retained rows had known 2019 inputs after the exact code joins, so the neutral No data category is available in the legend but unused in this run.",
+      "limitations": [
+        "This result uses the supplied GeoBenchX benchmark boundary edition for Eastern Africa membership, not a current-membership definition.",
+        "This result uses the supplied frozen 2019 World Bank inputs rather than newer revisions or live replacements.",
+        "The five choropleth classes are quantiles calculated only within these 18 retained benchmark country rows, so class numbers are relative to this geography."
+      ],
+      "next_action": "You can inspect the live map layer and country artifact now. If you want, I can also export the 18-country table or label the top three on the map.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T07:59:22.024540Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "I mapped the 2019 annual net migration rate for all 18 benchmark Eastern Africa country rows and added the classified country layer to the map. The highest known rates are Seychelles, Somalia, and Uganda. All retained rows had known 2019 inputs after the exact code joins, so the neutral No data category is available in the legend but unused in this run.",
+      "limitations": [
+        "This result uses the supplied GeoBenchX benchmark boundary edition for Eastern Africa membership, not a current-membership definition.",
+        "This result uses the supplied frozen 2019 World Bank inputs rather than newer revisions or live replacements.",
+        "The five choropleth classes are quantiles calculated only within these 18 retained benchmark country rows, so class numbers are relative to this geography."
+      ],
+      "next_action": "You can inspect the live map layer and country artifact now. If you want, I can also export the 18-country table or label the top three on the map.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:08:02.823279Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I completed the formal final workflow, added its classified Eastern Africa country layer to the map, and verified the final artifact. The highest 2019 net migration rates are Seychelles, Somalia, and Uganda. All 18 retained benchmark country rows had known 2019 values after the exact code joins, so the No data legend category is available but unused in this run.",
+      "limitations": [
+        "This result uses the supplied GeoBenchX benchmark boundary edition for Eastern Africa membership, not a current-membership definition.",
+        "This result uses the supplied frozen 2019 World Bank inputs rather than newer revisions or live replacements.",
+        "The five choropleth classes are quantiles calculated only within these 18 retained benchmark country rows, so class numbers are relative to this geography."
+      ],
+      "next_action": "You can inspect the final map layer and artifact now. If you want, I can also export the 18-country table or label the top three on the map.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "7dd223f9730dc9721746dc593eafd6573259e036f3c3afd1c31d5cc02fe75860",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

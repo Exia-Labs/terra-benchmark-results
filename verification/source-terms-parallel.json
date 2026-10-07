@@ -1,0 +1,11 @@
+{
+  "reviewedAt": "2026-10-06",
+  "purpose": "Local engineering evaluation of frozen benchmark inputs; no raw-data redistribution or source endorsement.",
+  "assets": {
+    "power_stations": {"status": "verified", "license": "public-domain", "attribution": "USGS, Compilation of Geospatial Data for the Mineral Industries and Related Infrastructure of Africa, DOI 10.5066/P97EQWXP; embedded source credits retained.", "evidence": ["Pinned Data_Sources.bib: Africa-minerals-power-railways", "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits"], "finding": "Same USGS data release as previously verified facility fixture; preserve all embedded upstream credits and original snapshot."},
+    "water_withdrawal": {"status": "verified", "license": "CC-BY-4.0", "attribution": "World Bank WDI ER.H2O.FWTL.ZS; FAO AQUASTAT; frozen archive, 2021 values.", "evidence": "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS", "finding": "Official indicator page explicitly declares CC BY-4.0. No current-data substitution; original embedded metadata retained."},
+    "electricity": {"status": "verified", "license": "CC-BY-4.0", "attribution": "World Bank WDI EG.USE.ELEC.KH.PC; International Energy Agency; frozen archive, 2014 values.", "evidence": "https://data.worldbank.org/indicator/EG.USE.ELEC.KH.PC", "finding": "Official indicator page explicitly declares CC BY-4.0. Retain underlying source attribution and archived edition."},
+    "gdp": {"status": "verified", "license": "CC-BY-4.0", "attribution": "World Bank WDI NY.GDP.PCAP.CD; national accounts sources; frozen archive.", "evidence": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD", "finding": "Official indicator page explicitly declares CC BY-4.0. Preserve frozen values rather than replacing with revised live estimates."},
+    "fertility": {"status": "verified", "license": "CC-BY-4.0", "attribution": "World Bank WDI SP.DYN.TFRT.IN; frozen archive, 2022 values; embedded demographic source attribution retained.", "evidence": "https://data.worldbank.org/indicator/SP.DYN.TFRT.IN", "finding": "Official indicator page declares CC BY-4.0; retain archived input and its embedded metadata."}
+  }
+}

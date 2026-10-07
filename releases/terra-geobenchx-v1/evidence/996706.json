@@ -1,0 +1,579 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "996706",
+  "question": "Create contour lines of snow accumulation near major water bodies",
+  "submittedPrompt": "Create contour lines of snow accumulation near major water bodies\n\nTask conventions: Use band 1 of the frozen snow raster at the original grid without resampling, smoothing or clipping. Draw the explicit contour levels [5, 10, 20, 40, 80, 160, 320] in inches. These levels are a disclosed evaluation convention, not a requested interval. Use piecewise-linear marching-squares isolines through pixel-center values, low-valued connectivity at ambiguous saddles. Respect the native mask, NoData and nonfinite cells; do not bridge holes or extrapolate at the outside edge. Apply any source scale and offset. NoData means unknown, never zero. Preserve source coverage; levels outside the observed range may have no line. Do not substitute a current raster. Count nonempty requested contour LEVELS, not polyline fragments. The population-count raster, where supplied, is people per original cell; do not label it population density. Overlay the supplied na_lakes original geometries on the same map. Retain every original overlay row, including those outside the raster; disclose their lack of raster coverage. This is a visual spatial comparison; no invented causal correlation or extra buffer is requested.  Also add all original features from these context assets as separate map layers: na_rivers.  As in the released reference, near means visual comparison on the same map, not an invented proximity buffer. Major water bodies means the supplied CEC inventory, not an added size threshold. The seven explicit levels replace the reference's dense five-inch interval as a disclosed presentation convention. Keep the actual 2024-09-30 to 2025-05-20 season, not the reference's stale February plot title. Water data and derived maps are for this benchmark only.\n\n\n\nDeliver an inspectable vector contour artifact and add it to the map with a level/units legend. End with one fenced JSON object containing: count (number of nonempty requested levels), unknown_count (number of masked or nonfinite source pixels), coverage_note, selection: {collectionId,itemId,assetKey}, level_field, feature_count (actual contour feature rows), map_layer_id. Also include overlay: {selection: {collectionId,itemId,assetKey}, map_layer_id, count}, retaining original benchmark_row_id. Explain the source season/year, units, missing coverage, and visual relationship where an overlay is requested. Include context_layers: [{name:asset_name, selection:{collectionId,itemId,assetKey}, map_layer_id, count}] in the same final JSON.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"US snowfall, 2024\\u201325 frozen season\",\n    \"edition\": \"2024-09-30 to 2025-05-20\",\n    \"units\": {\n      \"band1\": \"inches\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"North American lakes, CEC 2023 frozen benchmark source\",\n    \"edition\": \"CEC North American Environmental Atlas version 4.0 (2023), original benchmark snapshot; benchmark-only use\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"North American rivers, CEC 2023 frozen benchmark source\",\n    \"edition\": \"CEC North American Environmental Atlas version 4.0 (2023), original benchmark snapshot; benchmark-only use\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the contour layer is on the map with the seven requested inch levels, plus the original lakes and rivers as separate layers.\n\nIt uses the supplied 2024-09-30 to 2025-05-20 snow raster on band 1 at the native grid. All seven requested levels are present. The contour artifact has 3,396 line features.\n\nImportant limit: 1,032,876 source cells are unknown, so lakes and rivers outside raster coverage are still shown but can only be compared visually. No causal relationship was inferred.\n\n### Limitations\n\n- Contours exist only where valid source cells cross the requested levels.\n- Snow remains unknown where the source raster is masked, nonfinite, or outside its coverage.\n- Some lake and river features extend beyond the raster coverage; they are retained on the map but have unknown snow comparison there.\n- This is a visual comparison only and does not establish proximity effects or causation.\n- 1,032,876 source raster cells are masked and therefore unknown; no contours are created there.\n- Lake and river features outside raster coverage remain on the map, but their snow comparison is unknown there.\n- This is a visual spatial comparison only and does not establish correlation or causation.",
+  "checks": {
+    "expectedCount": 7,
+    "actualCount": 7,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:22:42.738425Z",
+      "title": "Progress update",
+      "detail": "I’ll inspect the supplied raster and water layers, test the contour method on a small private slice, then build the final map layers and verify the output fields."
+    },
+    {
+      "at": "2026-10-07T08:22:57.001935Z",
+      "title": "get_map_context",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:22:57.788382Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:22:59.545919Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:00.275290Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:04.479226Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:04.597914Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:05.386150Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:05.889212Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:06.703713Z",
+      "title": "Progress update",
+      "detail": "I’ve got the Terra tools. Next I’m checking the exact source metadata and the available contour processor so I can keep the raster on its native grid and preserve the original lake and river rows."
+    },
+    {
+      "at": "2026-10-07T08:23:13.767317Z",
+      "title": "Progress update",
+      "detail": "I confirmed the exact inputs: the snow raster is one GeoTIFF band in inches with declared NoData -99999, and the benchmark lake and river layers already expose row counts and benchmark_row_id. Now I’m checking whether the contour processor can match the requested marching-squares settings before I run a small slice test."
+    },
+    {
+      "at": "2026-10-07T08:23:13.840713Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:13.861333Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:24.307729Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:24.339316Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:25.030960Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:54.805654Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:24:05.546098Z",
+      "title": "Progress update",
+      "detail": "I have the exact contour processor schema. I’m doing one small private slice now to confirm the output fields and summary behavior before I run the full raster-wide job."
+    },
+    {
+      "at": "2026-10-07T08:24:05.682983Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:24:10.651372Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:24:17.682791Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:24:39.289514Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:25:44.155626Z",
+      "title": "Progress update",
+      "detail": "The trial finished and gave me what I needed: the contour output has a numeric `level` field in inches, and the summary reports exact requested levels plus valid-cell and fragment counts. One useful wrinkle: my attempted subset did not reduce the raster extent in that source path, so I will use the full raster directly for the final run rather than rely on area narrowing."
+    },
+    {
+      "at": "2026-10-07T08:25:46.057179Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:26:20.122524Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:26:31.851672Z",
+      "title": "Progress update",
+      "detail": "The trial confirmed the contour method and fields. I’m saving the full production method now: one contour output from the supplied raster plus a raster summary for unknown pixels, then I’ll add the contour, lakes, and rivers to the map and verify the exact layer bindings."
+    },
+    {
+      "at": "2026-10-07T08:26:33.376335Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:26:40.248158Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:26:46.785323Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:26:51.366298Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:26:55.273692Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:26:59.679106Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:27:03.536337Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:27:10.378169Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:27:10.735616Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:27:20.429871Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:31.579380Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:28:45.379121Z",
+      "title": "Progress update",
+      "detail": "I have the tested method. I’m saving it as the production workflow now, with the contour layer styled into seven display classes so the map can show a units legend while keeping the exact `level` field on the lines."
+    },
+    {
+      "at": "2026-10-07T08:28:53.805068Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:29:28.148563Z",
+      "title": "Progress update",
+      "detail": "The first saved draft left the lake and river overlays outside the workflow path. I’m correcting that now by binding the exact supplied lake and river items as map outputs too, so the saved method covers the full requested map composition instead of only the contour layer."
+    },
+    {
+      "at": "2026-10-07T08:29:32.848107Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:29:43.219075Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:02.388642Z",
+      "title": "Progress update",
+      "detail": "The workflow finished in the background. I’m inspecting the exact contour, lake, and river outputs now, then I’ll add those verified items to the map and record the final result object with the requested counts and layer IDs."
+    },
+    {
+      "at": "2026-10-07T08:31:02.743453Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:46.866035Z",
+      "title": "Progress update",
+      "detail": "I have the contour layer. I still need two checks before I can finish the result cleanly: the exact lake and river map bindings, and the raster-wide unknown-pixel count for the final answer. I’m verifying those now instead of guessing from partial receipts."
+    },
+    {
+      "at": "2026-10-07T08:31:46.877398Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:31:57.868380Z",
+      "title": "Progress update",
+      "detail": "I confirmed the lake and river layers are already on the map with their original row counts and benchmark IDs. I’m running one small raster summary now to get the final unknown-pixel count from the source raster instead of inferring it indirectly."
+    },
+    {
+      "at": "2026-10-07T08:32:00.216084Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:30.857219Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:31.829282Z",
+      "title": "Progress update",
+      "detail": "The raster summary trial finished too. I now have the exact unknown-pixel count from the source raster, and I’m doing one last preview check on the final contour artifact before I record the accepted result."
+    },
+    {
+      "at": "2026-10-07T08:33:37.812368Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:33:46.627667Z",
+      "title": "Progress update",
+      "detail": "The unknown-count evidence is recorded. I’m doing the final contour preview now so the accepted result is tied to the current displayed artifact, not just the processor summaries."
+    },
+    {
+      "at": "2026-10-07T08:33:47.499635Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:34:07.119959Z",
+      "title": "Progress update",
+      "detail": "The last preview job finished. I’m reading that final contour preview receipt now and then I’ll record the accepted result with the verified contour, lake, and river artifacts already on your map."
+    },
+    {
+      "at": "2026-10-07T08:34:08.054224Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:34:15.302045Z",
+      "title": "Progress update",
+      "detail": "I have everything needed for delivery. I’m refreshing the saved brief one last time so its visible notes match the finished evidence, then I’ll record the final accepted result object and give you the concise map summary."
+    },
+    {
+      "at": "2026-10-07T08:34:15.311528Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:34:33.266249Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:34:41.804819Z",
+      "title": "Progress update",
+      "detail": "I’ve refreshed the saved notes. I’m checking the exact `assess_result` answer shape once so the accepted result includes the correct final artifact references and selected answer object, then I’ll finish."
+    },
+    {
+      "at": "2026-10-07T08:34:41.815011Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:34:55.890941Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:35:49.740540Z",
+      "title": "Progress update",
+      "detail": "I’m recording the accepted result now: the generated contour artifact on the map, the original lake and river layers, the seven nonempty levels, and the verified unknown-cell count from the source raster."
+    },
+    {
+      "at": "2026-10-07T08:36:07.880851Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T08:36:13.808801Z",
+      "title": "Progress update",
+      "detail": "Terra wants a spatial preview for the two water layers before it will accept the final result. I’m getting those previews now and then I’ll submit the same verified answer object."
+    },
+    {
+      "at": "2026-10-07T08:36:13.813365Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:36:13.821468Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:36:41.593110Z",
+      "title": "Progress update",
+      "detail": "Terra blocked final acceptance only because the lake and river layers still needed preview receipts. I’m fetching those exact previews now, then I’ll submit the finished result without changing the data."
+    },
+    {
+      "at": "2026-10-07T08:36:41.602074Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:36:41.612277Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:37:07.024230Z",
+      "title": "Progress update",
+      "detail": "I have the finished preview jobs now. I’m reading the exact lake and river preview receipts, then I’ll record the accepted result and stop."
+    },
+    {
+      "at": "2026-10-07T08:37:07.033304Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:37:07.045079Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:37:16.738598Z",
+      "title": "Progress update",
+      "detail": "I have all three current preview receipts now. I’m submitting the accepted result with the verified contour, lake, and river layers exactly as shown on your map."
+    },
+    {
+      "at": "2026-10-07T08:37:31.497652Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "US snowfall, 2024–25 frozen season",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Snow raster statistics",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Snow raster statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Snow raster statistics",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Snow accumulation contour lines",
+      "description": "Recorded raster-contours · succeeded"
+    },
+    {
+      "title": "Snow accumulation contour lines",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "North American lakes overlay",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "North American rivers context",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "North American lakes, benchmark source",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Contour display classes",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "North American rivers, benchmark source",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "US snowfall, 2024–25 frozen season",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Subset contours",
+      "description": "Recorded raster-contours · succeeded"
+    },
+    {
+      "title": "Snow subset near Tahoe",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Subset contours",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Subset contours",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "8b418f3c402abb1737aa9bca44d5030dd946ee6587df13726b4f45bb23371a5d",
+      "bytes": 6180538,
+      "finishedAt": "2026-10-07T08:24:46.384480+00:00"
+    },
+    {
+      "sha256": "67488eab1c171d09b79a50547f2f44625ca73bffb0413825e2e53e4ed2109fd4",
+      "bytes": 1480781,
+      "finishedAt": "2026-10-07T08:24:57.987293+00:00"
+    },
+    {
+      "sha256": "acdb56a19ddd4d7aafdd839def6379dbdeec2eb62e4c6c8859cb2b7fa2c6ad97",
+      "bytes": 115787112,
+      "finishedAt": "2026-10-07T08:29:58.593065+00:00"
+    },
+    {
+      "sha256": "375bd3d22950804c0b7dc826ff2b639689078659d3caf84d0ac46f7b3ec34e8a",
+      "bytes": 42374280,
+      "finishedAt": "2026-10-07T08:29:58.593065+00:00"
+    },
+    {
+      "sha256": "67488eab1c171d09b79a50547f2f44625ca73bffb0413825e2e53e4ed2109fd4",
+      "bytes": 1480781,
+      "finishedAt": "2026-10-07T08:30:26.287105+00:00"
+    },
+    {
+      "sha256": "83fdc3fa73003c13787caff186f6f135ae31a938f78638849fd159853fb055cd",
+      "bytes": 1481477,
+      "finishedAt": "2026-10-07T08:30:41.088674+00:00"
+    },
+    {
+      "sha256": "91bc1866fcf81ce8b11e04b0b821f9e80527bf9115945dd5136d2e134127db28",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T08:32:09.087273+00:00"
+    }
+  ],
+  "snapshotSha256": "0325fd95c8c8fd6d9988c5c7b3ecdbca84421843ec076a82440a40601e369a52",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:24:39.289514Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the contour method produce inspectable line features with a level field in inches while preserving the native raster mask behavior on a representative subset?"
+    },
+    {
+      "at": "2026-10-07T08:26:20.122524Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The trial established that raster-contours produces an inspectable line dataset with fields contour_id and level, and the inspected output reports level units in inches. The summary confirms the requested contour method: marching squares with linear interpolation between pixel centers, low-valued saddle connectivity, no extrapolation, and open contours at masked holes or raster edges. All seven requested contour levels appear in the resulting dataset. The attempted source-area narrowing did not reduce the raster extent in this trial path, so it was not a valid test of clipped-edge behavior. That does not block the requested final result because the user asked for the original full raster without clipping.",
+      "limitations": [
+        "This trial did not verify a clipped subset path because the source-area hint was not applied to the raster extent."
+      ],
+      "next_action": "Use the full supplied raster directly in the final workflow, pair it with raster-statistics to report unknown pixels, then add the contour result and original water layers to the map.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:32:00.216084Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "How many source pixels are masked or nonfinite in the supplied snow raster band 1?"
+    },
+    {
+      "at": "2026-10-07T08:33:37.812368Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The raster-statistics trial answered the question directly. Band 1 of the supplied 2024-09-30 to 2025-05-20 snow raster has 1,543,500 total cells, 510,624 valid cells, and 1,032,876 missing cells. Missing_count equals masked_count and nonfinite_count is zero, so the final unknown_count for the source raster is 1,032,876.",
+      "limitations": [
+        "This trial reports raster-wide missing cells only. It does not measure how much of any individual lake or river lies inside raster coverage."
+      ],
+      "next_action": "Use missing_count 1,032,876 as the final unknown_count, then assess the contour, lake, and river map outputs together.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:36:07.880851Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "Using the supplied US snowfall, 2024–25 frozen season raster (Terra-hosted immutable benchmark input; NOAA/NWS NOHRSC seasonal snowfall, edition 2024-09-30 to 2025-05-20; retrieved 2026-10-07 UTC), I added an inspectable contour layer to the map with a legend in inches while retaining the exact level field on each line. The final contour artifact has 3,396 line features, a numeric level field in inches, and all seven requested contour levels are nonempty. The original CEC North American Environmental Atlas lakes and rivers v4.0 (2023) benchmark layers (retrieved 2026-10-07 UTC) are also on the map with benchmark_row_id retained: 13,135 lake rows and 5,811 river rows. Raster coverage remains incomplete: 1,032,876 band-1 cells are masked and therefore unknown, so contours and snow comparison are limited to valid raster coverage. Water features outside raster coverage remain visible for visual comparison only; this does not establish causation or any measured proximity effect.",
+      "limitations": [
+        "Contours exist only where valid source cells cross the requested levels.",
+        "1,032,876 source raster cells are masked and therefore unknown; no contours are created there.",
+        "Lake and river features outside raster coverage remain on the map, but their snow comparison is unknown there.",
+        "This is a visual spatial comparison only and does not establish correlation or causation."
+      ],
+      "next_action": "Review the contour, lake, and river layers together on the map, or inspect the selected contour artifact for feature-level detail.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:37:31.497652Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "I used the supplied US snowfall raster for the 2024-09-30 to 2025-05-20 season and generated an inspectable contour artifact from band 1 with the requested seven contour levels in inches. The contour preview shows 3,396 line features with a numeric level field in inches and seven distinct requested levels. The contour method recorded by the processor is marching squares with linear interpolation between pixel centers and low-valued saddle connectivity, with open contours at masked holes or raster edges and no extrapolation. I also displayed the supplied benchmark lake and river layers on the same map without dropping rows: 13,135 lake features and 5,811 river features, both retaining benchmark_row_id. Raster coverage is incomplete: the source band has 1,032,876 masked unknown cells and zero nonfinite cells, so snow comparison is limited to valid raster coverage. Lake and river features outside raster coverage remain on the map for visual comparison only.",
+      "limitations": [
+        "Contours exist only where valid source cells cross the requested levels.",
+        "1,032,876 source raster cells are masked and therefore unknown; no contours are created there.",
+        "Lake and river features outside raster coverage remain on the map, but their snow comparison is unknown there.",
+        "This is a visual spatial comparison only and does not establish correlation or causation."
+      ],
+      "next_action": "Review the contour, lake, and river layers together on the map, or inspect the selected contour artifact for feature-level detail.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "9753c9f1332a4b9b8f71564cdc6c2dca2bf4bfe001c99df587ef153718932802",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

@@ -1,0 +1,889 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "170096",
+  "question": "Show population density patterns across regions.",
+  "submittedPrompt": "Show population density patterns across regions.\n\nTask conventions: Use the frozen country polygons and World Bank SP.POP.TOTL 2023 population column in people; derived map units are people/km². These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature and benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements. Count original boundary features, not deduplicated sovereign states; preserve all source rows that meet the declared geography. Country-code sentinels such as -99 remain unmatched.Derive population density as the declared year's total population divided by the complete supplied country area in km². Some countries have several original features sharing ISO_A3: sum their original polygon areas once per ISO_A3, and assign that same country density to every corresponding original feature. Do not divide a full country population by each separate fragment. Unmatched placeholder codes remain unknown. Measure WGS84 ellipsoidal area using shortest geodesic edges between original vertices, subtracting holes and summing polygon parts. Longitude roundoff up to 1e-8 degrees at ±180 is tolerated; this does not move or replace the source geometry. This is population per supplied country-geometry area, NOT an official land-only density or subnational raster. Preserve all original features. Missing population, invalid/empty geometry, nonpositive area, or polygon rings spanning more than 180 degrees after longitude unwrapping remain unknown. Do not silently repair geometry, substitute current boundaries, or drop unknown countries. Here regions means the original country-level features worldwide; no continent aggregation or unobserved within-country distribution is inferred.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SP.POP.TOTL\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — the 2023 country population density layer is on your map.\n\nIt shows 217 original country features with known values in people/km² and 34 features as No data. The legend uses five quantile classes for known values plus a separate No data class. Unmatched codes such as -99 stay in No data.\n\nKey limitation: this is 2023 total population divided by the supplied country geometry area, so it is not official land-only density and it does not show within-country population patterns.\n\nSources: supplied World Bank country boundaries (GeoBenchX harmonized names) and the frozen World Bank SP.POP.TOTL 2023 table, hosted by Terra and retrieved 2026-10-07.\n\n### Limitations\n\n- This density is based on supplied country geometry area, not official land-only density and not a within-country population surface.\n- Unmatched codes such as -99 and missing 2023 measurements remain unknown.\n- The class count may drop below five only if tied values collapse the quantile breaks.\n- Density is 2023 total population divided by the supplied country geometry area in km², not official land-only density.\n- This is a country-level indicator only. It does not infer subnational population distribution within countries.\n- Thirty-four original features remain No data because their identifiers did not match a supplied Country Code or no usable 2023 population value was available.\n- The quantile legend is based only on the 217 known values.\n- The result preserves supplied original country rows; it does not substitute current boundaries or repair invalid geometry.\n- This uses only the supplied 2023 World Bank population column and exact code matching.\n- Area is measured geodesically from the supplied original country geometry and summed once per ISO_A3.\n- Values equal to a class break enter the upper class, and class 0 remains the neutral No data category.",
+  "checks": {
+    "expectedCount": 217,
+    "actualCount": 217,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:09:23.815980Z",
+      "title": "Progress update",
+      "detail": "I’m checking the supplied boundary and population files first so I can build the country-density layer with the exact 2023 population field and keep unknown countries separate. After that I’ll test a small join-and-density method, then save the full workflow draft and add the final layer if the checks pass."
+    },
+    {
+      "at": "2026-10-07T06:09:33.819106Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:33.866698Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:36.295067Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:46.804124Z",
+      "title": "Progress update",
+      "detail": "I found the two supplied inputs and confirmed they are the fixed benchmark snapshots, not live sources. Next I’m reading their fields and sample rows so I can join ISO_A3 to Country Code exactly, keep every original country feature, and test the density calculation with the supplied 2023 population column only."
+    },
+    {
+      "at": "2026-10-07T06:09:46.870172Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:09:47.057118Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:10:09.128682Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:18.592992Z",
+      "title": "Progress update",
+      "detail": "I’ve recorded the exact goal and the must-keep rules. The next step is a private experiment to read the supplied files and verify the join, country-area aggregation, and classing method before I save the full production workflow."
+    },
+    {
+      "at": "2026-10-07T06:10:18.612584Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:18.622225Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:18.628425Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:26.591306Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:26.883370Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:10:33.870015Z",
+      "title": "Progress update",
+      "detail": "I found the likely processing chain: geodesic area measurement, group statistics by ISO_A3, exact table join, field calculation, and numeric vector classification. I’m reading the processor schemas now so I can wire the trial with the real inputs instead of guessing parameters."
+    },
+    {
+      "at": "2026-10-07T06:10:34.139182Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:34.289176Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:51.251928Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:57.976840Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:58.043255Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:04.048521Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:12:01.415179Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:12:05.153865Z",
+      "title": "Progress update",
+      "detail": "I expect the full-country trial to show three things: the exact ISO_A3→Country Code join works with the frozen 2023 field, countries with split boundary features can share one summed country area, and the merged output can classify known densities while keeping unknown countries as a separate No data class. If any of those fail, I’ll correct the method before saving the production workflow."
+    },
+    {
+      "at": "2026-10-07T06:12:10.586298Z",
+      "title": "Progress update",
+      "detail": "The first trial did not run because my brief stored the study extent as text instead of numeric coordinates. I’m correcting that now and then retrying the same method."
+    },
+    {
+      "at": "2026-10-07T06:12:14.783597Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:24:36.655297Z",
+      "title": "Progress update",
+      "detail": "The method trial finished successfully. I’m checking the actual output now to confirm the row count, unknown-country handling, and shared country density on split features before I save the full workflow and add the final layer."
+    },
+    {
+      "at": "2026-10-07T06:24:43.041256Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:24:43.051991Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:24:43.067160Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:47.953590Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the trial output exists and preserves all 251 original boundary rows. I’m pulling a few exact rows now to verify the split-country area handling and the unknown-code cases before I save the production version and bind it to the map."
+    },
+    {
+      "at": "2026-10-07T06:25:48.108347Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:48.129261Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:25:49.628184Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:55.527486Z",
+      "title": "Progress update",
+      "detail": "I’m resuming the exact finished inspections rather than rerunning analysis. Next I’m locking the row checks and schema/legend details, then I’ll save the full workflow, run the production copy, and bind the verified layer to the map."
+    },
+    {
+      "at": "2026-10-07T06:27:01.178899Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:01.197119Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:02.378029Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:38.571147Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:54.126650Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:01.873412Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:25.738816Z",
+      "title": "Progress update",
+      "detail": "The first trial proved the join and classing path, but it also showed a subtle problem: unmatched placeholder codes like -99 inherited a combined grouped area that should stay irrelevant. I’m fixing that by joining only the finished density table back to the original boundaries, so unmatched rows keep null density and No data without carrying a fake shared country area."
+    },
+    {
+      "at": "2026-10-07T06:28:49.851796Z",
+      "title": "Progress update",
+      "detail": "The correction itself was fine, but I put the trial inspection list in the wrong place. I’m resending the exact same corrected method with the proper trial schema now."
+    },
+    {
+      "at": "2026-10-07T06:28:51.042393Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:28:59.751996Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:23.661660Z",
+      "title": "Progress update",
+      "detail": "I’ve got the corrected full-world trial back. Now I’m confirming two practical points from the actual rows: placeholder codes like -99 stay null/No data, and split countries still share one country density across their original features. Then I’ll save the production workflow and publish the verified layer."
+    },
+    {
+      "at": "2026-10-07T06:33:23.712636Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:23.755937Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:23.784818Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:37.083541Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:37.162957Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:34:17.382019Z",
+      "title": "Progress update",
+      "detail": "The correction checks are done. I’m pulling the finished receipts now so I can lock in the two key facts from the corrected output: -99 stays unknown, and split matched countries still share one density value."
+    },
+    {
+      "at": "2026-10-07T06:34:21.542124Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:34:23.651356Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:34:33.040854Z",
+      "title": "Progress update",
+      "detail": "The corrected method is now verified: all seven -99 rows stay null and No data, and all four Netherlands features share the same density value. I’m recording that correction as sufficient and then saving the production workflow from this tested method."
+    },
+    {
+      "at": "2026-10-07T06:34:34.467392Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:34:51.874378Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:00.399024Z",
+      "title": "search_knowledge",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:13.918371Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:13.987155Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:15.211587Z",
+      "title": "Progress update",
+      "detail": "I’ve got the corrected evidence. I’m opening the workflow-save example now so I can submit the tested method with the right contract fields instead of guessing the proposal shape."
+    },
+    {
+      "at": "2026-10-07T06:35:20.433230Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:21.647184Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:22.835696Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:23.185701Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:29.342967Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:35.771396Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:46.787264Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:35:47.763271Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:08.952282Z",
+      "title": "Progress update",
+      "detail": "I’ve finished method development and I’m saving the tested corrected workflow now. It will carry the exact 2023 join, geodesic country-area method, and five-quantile choropleth settings into the production run."
+    },
+    {
+      "at": "2026-10-07T06:36:21.777152Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:30.203502Z",
+      "title": "Progress update",
+      "detail": "The draft itself is valid and ready to run, but Terra still needs me to tie the earlier failed draft to the corrected evidence. I’m recording that resolution now so the saved workflow becomes runnable."
+    },
+    {
+      "at": "2026-10-07T06:36:33.834797Z",
+      "title": "assess_plan",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:36:39.047656Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:15.567033Z",
+      "title": "Progress update",
+      "detail": "The production run has finished, so I’m inspecting the exact delivered output now rather than reusing the trial artifact. Next I’ll add that verified country layer to the map, confirm the layer binding, and record the final counts and selection."
+    },
+    {
+      "at": "2026-10-07T06:42:20.162457Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:42:20.724155Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:10.921341Z",
+      "title": "Progress update",
+      "detail": "The final workflow output is ready and already bound to the map as layer [resource id withheld]. I’m pulling the final artifact’s exact fields and counts now so I can return the required selection, known/unknown totals, and machine-readable answer object."
+    },
+    {
+      "at": "2026-10-07T06:43:11.084551Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:11.104065Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:12.269426Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:41.584939Z",
+      "title": "Progress update",
+      "detail": "I’ve already confirmed the final layer is on the map. I’m retrieving the final artifact receipt and one final bounded preview now so the result assessment cites the exact delivered dataset, not the earlier trial copy."
+    },
+    {
+      "at": "2026-10-07T06:43:41.622831Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:41.652007Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:42.403288Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:43:42.709367Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:19.058719Z",
+      "title": "Progress update",
+      "detail": "I have the final counts already. I’m doing one last bounded row check on the delivered artifact itself for the two special cases that mattered: placeholder -99 rows and a split matched country. Then I’ll lock the final assessment."
+    },
+    {
+      "at": "2026-10-07T06:44:19.091578Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:44:19.178941Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:11.896477Z",
+      "title": "Progress update",
+      "detail": "I’m locking the final verification on the delivered artifact itself now: one check for unmatched placeholder rows and one check for a split matched country. After that I’ll record the final result with the exact output selection and map layer binding."
+    },
+    {
+      "at": "2026-10-07T06:46:11.925692Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:46:11.934560Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:47:19.204485Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the final checks. I’m recording the accepted result now with the exact delivered artifact, counts, field names, and the map layer that is already visible."
+    },
+    {
+      "at": "2026-10-07T06:47:42.405396Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Attach grouped area",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Attach final density to original rows",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Classify density",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "2023 country population density",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Group area by ISO",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Group final density by ISO",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Join frozen population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Calculate known density",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Keep known countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Measure feature area",
+      "description": "Recorded vector-measure · succeeded"
+    },
+    {
+      "title": "Prepare completeness flag",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Attach grouped area",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Attach final density to original rows",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Classify density",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Group area by ISO",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Group final density by ISO",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Join frozen population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Calculate known density",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Keep known countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Measure feature area",
+      "description": "Recorded vector-measure · succeeded"
+    },
+    {
+      "title": "Prepare completeness flag",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Attach final density to original rows",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Classify density",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Attach country area",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Classify density",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "Group area by ISO",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "Join frozen population",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "Calculate known density",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Keep known countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Measure feature area",
+      "description": "Recorded vector-measure · succeeded"
+    },
+    {
+      "title": "Merge known and unknown rows",
+      "description": "Recorded vector-merge · succeeded"
+    },
+    {
+      "title": "Prepare completeness flag",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Classify density",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Assign unknown density",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "Keep unknown countries",
+      "description": "Recorded vector-filter · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "88594296e94fe36d2810fac2feb2672aa3b7fc3985d9617914ddbf11d4157626",
+      "bytes": 171501,
+      "finishedAt": "2026-10-07T06:13:21.343699+00:00"
+    },
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T06:13:21.343699+00:00"
+    },
+    {
+      "sha256": "3150a47f2319755504f00a9dff317f61cccc1596f191e248d58f87189ab4c112",
+      "bytes": 8415782,
+      "finishedAt": "2026-10-07T06:14:37.238747+00:00"
+    },
+    {
+      "sha256": "b0d8cf254b455e5fd0d7880ad6342220a9e7037200bda9039c8d64fa87a6d862",
+      "bytes": 5888,
+      "finishedAt": "2026-10-07T06:15:46.552278+00:00"
+    },
+    {
+      "sha256": "0ba4e849119f8242ed0dc791ac7d96fc0ddbecc4a28a1aa5b455469794d15da0",
+      "bytes": 8419853,
+      "finishedAt": "2026-10-07T06:17:29.277019+00:00"
+    },
+    {
+      "sha256": "00027948a01c70e240a755993106f06297ce320ced6f9e5bef89664d168e9327",
+      "bytes": 8423851,
+      "finishedAt": "2026-10-07T06:18:32.639309+00:00"
+    },
+    {
+      "sha256": "18d967c27e56f276537523db24a93773016aa2e57ea49e5854c332c801846e2f",
+      "bytes": 8424498,
+      "finishedAt": "2026-10-07T06:19:22.897662+00:00"
+    },
+    {
+      "sha256": "ab8b370528296f89911fcc606fcf8a5a00c480d43aad43acd6cdeeed42ced037",
+      "bytes": 8019947,
+      "finishedAt": "2026-10-07T06:19:48.496316+00:00"
+    },
+    {
+      "sha256": "249ef94a1a3044444c245f1a558a742935d76f417806cdafa8e1475415e1d8ab",
+      "bytes": 422703,
+      "finishedAt": "2026-10-07T06:19:48.496316+00:00"
+    },
+    {
+      "sha256": "284ea70b94a83c8705b9d582e79167d55b03d7e572b0dc415f440b08f220a473",
+      "bytes": 8022514,
+      "finishedAt": "2026-10-07T06:20:43.126613+00:00"
+    },
+    {
+      "sha256": "5a8c2af81f182497c525d2561b22018153c5d8c6ee522ade7bf28590afc999b7",
+      "bytes": 423238,
+      "finishedAt": "2026-10-07T06:20:43.126613+00:00"
+    },
+    {
+      "sha256": "72caf3272a98f87fe97fe3f833f23ccf5de142ffff0abe50cbf9051231afaf6c",
+      "bytes": 8416578,
+      "finishedAt": "2026-10-07T06:21:34.771161+00:00"
+    },
+    {
+      "sha256": "6b9dba1b20d6ad2850ff6481c932f87b4b4a4bfd3fb8deea27385073df30c797",
+      "bytes": 8417273,
+      "finishedAt": "2026-10-07T06:23:06.256116+00:00"
+    },
+    {
+      "sha256": "3150a47f2319755504f00a9dff317f61cccc1596f191e248d58f87189ab4c112",
+      "bytes": 8415782,
+      "finishedAt": "2026-10-07T06:29:31.820500+00:00"
+    },
+    {
+      "sha256": "b0d8cf254b455e5fd0d7880ad6342220a9e7037200bda9039c8d64fa87a6d862",
+      "bytes": 5888,
+      "finishedAt": "2026-10-07T06:29:43.886842+00:00"
+    },
+    {
+      "sha256": "0ba4e849119f8242ed0dc791ac7d96fc0ddbecc4a28a1aa5b455469794d15da0",
+      "bytes": 8419853,
+      "finishedAt": "2026-10-07T06:30:07.904862+00:00"
+    },
+    {
+      "sha256": "00027948a01c70e240a755993106f06297ce320ced6f9e5bef89664d168e9327",
+      "bytes": 8423851,
+      "finishedAt": "2026-10-07T06:30:22.659137+00:00"
+    },
+    {
+      "sha256": "18d967c27e56f276537523db24a93773016aa2e57ea49e5854c332c801846e2f",
+      "bytes": 8424498,
+      "finishedAt": "2026-10-07T06:30:35.446995+00:00"
+    },
+    {
+      "sha256": "284ea70b94a83c8705b9d582e79167d55b03d7e572b0dc415f440b08f220a473",
+      "bytes": 8022514,
+      "finishedAt": "2026-10-07T06:30:53.810427+00:00"
+    },
+    {
+      "sha256": "ab8b370528296f89911fcc606fcf8a5a00c480d43aad43acd6cdeeed42ced037",
+      "bytes": 8019947,
+      "finishedAt": "2026-10-07T06:30:43.490875+00:00"
+    },
+    {
+      "sha256": "ba255173aaf1fbbbb56d4f0b10812b51fcb37279eadb9afb923499a95bf60c05",
+      "bytes": 4320,
+      "finishedAt": "2026-10-07T06:31:07.471557+00:00"
+    },
+    {
+      "sha256": "96f3ad0e7fb46d07786b4a5e363461621483f4a3156216dd4a9a6aa6e005251d",
+      "bytes": 8415471,
+      "finishedAt": "2026-10-07T06:31:45.574530+00:00"
+    },
+    {
+      "sha256": "54cda641034aa3fa600b63bb6ec61b670a48a7f90a9c91ff1612cf9e4e205be6",
+      "bytes": 8416170,
+      "finishedAt": "2026-10-07T06:32:19.105973+00:00"
+    },
+    {
+      "sha256": "b0d8cf254b455e5fd0d7880ad6342220a9e7037200bda9039c8d64fa87a6d862",
+      "bytes": 5888,
+      "finishedAt": "2026-10-07T06:37:14.421248+00:00"
+    },
+    {
+      "sha256": "3150a47f2319755504f00a9dff317f61cccc1596f191e248d58f87189ab4c112",
+      "bytes": 8415782,
+      "finishedAt": "2026-10-07T06:37:02.808518+00:00"
+    },
+    {
+      "sha256": "0ba4e849119f8242ed0dc791ac7d96fc0ddbecc4a28a1aa5b455469794d15da0",
+      "bytes": 8419853,
+      "finishedAt": "2026-10-07T06:37:37.557339+00:00"
+    },
+    {
+      "sha256": "00027948a01c70e240a755993106f06297ce320ced6f9e5bef89664d168e9327",
+      "bytes": 8423851,
+      "finishedAt": "2026-10-07T06:38:14.142416+00:00"
+    },
+    {
+      "sha256": "ab8b370528296f89911fcc606fcf8a5a00c480d43aad43acd6cdeeed42ced037",
+      "bytes": 8019947,
+      "finishedAt": "2026-10-07T06:39:25.145660+00:00"
+    },
+    {
+      "sha256": "18d967c27e56f276537523db24a93773016aa2e57ea49e5854c332c801846e2f",
+      "bytes": 8424498,
+      "finishedAt": "2026-10-07T06:38:48.615303+00:00"
+    },
+    {
+      "sha256": "284ea70b94a83c8705b9d582e79167d55b03d7e572b0dc415f440b08f220a473",
+      "bytes": 8022514,
+      "finishedAt": "2026-10-07T06:39:44.005810+00:00"
+    },
+    {
+      "sha256": "ba255173aaf1fbbbb56d4f0b10812b51fcb37279eadb9afb923499a95bf60c05",
+      "bytes": 4320,
+      "finishedAt": "2026-10-07T06:40:16.897034+00:00"
+    },
+    {
+      "sha256": "96f3ad0e7fb46d07786b4a5e363461621483f4a3156216dd4a9a6aa6e005251d",
+      "bytes": 8415471,
+      "finishedAt": "2026-10-07T06:41:06.695205+00:00"
+    },
+    {
+      "sha256": "54cda641034aa3fa600b63bb6ec61b670a48a7f90a9c91ff1612cf9e4e205be6",
+      "bytes": 8416170,
+      "finishedAt": "2026-10-07T06:41:53.891995+00:00"
+    }
+  ],
+  "snapshotSha256": "fa1aab1208e1c9e6acc571a0a689b22c8c1671c3e1b7fdac55d65372618550dc",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:12:01.415179Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Can the supplied boundary and population inputs produce a country-level 2023 population-density choropleth that preserves every original feature, assigns one summed country area per ISO_A3, and keeps unknown countries as No data?"
+    },
+    {
+      "at": "2026-10-07T06:28:51.042393Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Can a corrected workflow keep unmatched placeholder codes such as -99 fully unknown by joining only the final known density table back to the original boundary features, while still giving split countries one shared density per ISO_A3?"
+    },
+    {
+      "at": "2026-10-07T06:28:59.751996Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "insufficient",
+      "findings": "The trial proved the fixed 2023 population join, geodesic area measurement, worldwide coverage, preservation of all 251 original boundary rows, and quantile classification with a distinct No data class. Split matched countries such as the Netherlands and New Zealand shared one grouped country area and one density value across their multiple features. However, the same grouping also assigned one combined country_area_km2 to all seven placeholder ISO_A3='-99' rows even though they remain unmatched and must stay unknown. Their pop_density_pkm2 correctly stayed null and their class stayed No data, but the intermediate grouped-area field is misleading for unmatched placeholder rows.",
+      "limitations": [
+        "The tested output still carries a combined grouped area on unmatched placeholder-code rows such as ISO_A3='-99'."
+      ],
+      "next_action": "Run a focused correction that joins only the final known density table back to the original boundary features, so unmatched placeholders keep null density and No data without inheriting a grouped country area field.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:34:34.467392Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The corrected trial preserved all 251 original country features and benchmark_row_id values. Placeholder rows with ISO_A3='-99' remained fully unknown: pop_density_pkm2 is null for all seven rows and density_class is 0 for No data. Split matched countries still share one country density after joining the grouped density table back to the original boundaries; for example, all four Netherlands features carry the same pop_density_pkm2 value of 478.090186237133. The corrected method therefore keeps unmatched placeholders unknown while still assigning one shared density per matched ISO_A3.",
+      "limitations": [
+        "This remains supplied-country-geometry density, not official land-only density or a within-country population surface."
+      ],
+      "next_action": "Save the tested corrected method as the production workflow, resolve the earlier finding, run it, inspect the final artifact and map layer, and record the final result.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:47:42.405396Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The final delivered artifact contains all 251 original country features, keeps benchmark_row_id, and is bound to the current map as layer [resource id withheld]. It has 217 features with a known numeric 2023 population-density value in people/km² and 34 unknown features shown as No data. Unmatched placeholder rows such as ISO_A3='-99' remain null and No data, while split matched countries such as the four Netherlands features share one density value and class. The delivered value field is pop_density_pkm2 and the class field is density_class.",
+      "limitations": [
+        "Density is 2023 total population divided by the supplied country geometry area in km², not official land-only density.",
+        "This is a country-level indicator only. It does not infer subnational population distribution within countries.",
+        "Thirty-four original features remain No data because their identifiers did not match a supplied Country Code or no usable 2023 population value was available.",
+        "The quantile legend is based only on the 217 known values."
+      ],
+      "next_action": "Use the new country layer to inspect global density patterns; unknown rows remain visible as a separate No data category.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "f104dfc048e32804d3a864462c6542c70d0f1275e9ded95e4d0399dbffd95337",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

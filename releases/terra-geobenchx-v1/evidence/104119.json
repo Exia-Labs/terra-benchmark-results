@@ -1,0 +1,825 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "104119",
+  "question": "How many Latin American seaports are located in regions with high population growth?",
+  "submittedPrompt": "How many Latin American seaports are located in regions with high population growth?\n\nTask conventions: High growth means 2023 total population divided by 2013 total population strictly greater than 1.1, using WDI SP.POP.TOTL. This freezes the reference's ten-year comparison and 10% growth cutoff. Count records in the supplied USGS mineral-exporting-port inventory, not all modern commercial seaports. Use original country polygons with SUBREGION in [\"Central America\", \"Caribbean\", \"South America\"]. Use exact ISO_A3/Country Code matching. A point qualifies only when strictly within a qualifying original country polygon. Count original point records once, regardless of operational status. Missing observations, nonmatching country codes, nonpositive denominators and nonfinite derived values are unknown, never zero. Points in unknown-measurement countries and points without valid geometry are unknown. Valid points outside all selected geographical polygons do not qualify and are not counted as unknown. Do not infer locations from point country-name attributes or fetch live substitutes. Maps are optional.\n\n\n\nProduce an inspectable selected-point artifact retaining original geometry and benchmark_row_id. End with one fenced JSON object: {count: selected original point records, unknown_count: points with unknown eligibility under the stated coverage rule, unlocated_count: original point records lacking valid geometry, coverage_note: string, selection: {collectionId, itemId, assetKey}}. Explain the fixed years, threshold and coverage in the final answer.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Latin American mineral-exporting seaports\",\n    \"edition\": \"USGS OFR 2017-1079 frozen benchmark compilation\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"World Bank SP.POP.TOTL\",\n    \"edition\": \"Frozen GeoBenchX World Development Indicators; use 2023\",\n    \"units\": {\n      \"2023\": \"people\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": null,
+  "checks": {
+    "expectedCount": 91,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": false,
+    "answerFulfilled": false,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": [
+      "Approval policy: explicit reduced or unavailable work is not preauthorized.",
+      "No accepted final answer was published."
+    ]
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:06:09.889262Z",
+      "title": "Progress update",
+      "detail": "I’ll check the retained analysis context and inspect the three supplied datasets so I can build a small tested method before I count the qualifying ports."
+    },
+    {
+      "at": "2026-10-07T06:06:32.688854Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:06:32.836965Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:06:32.840343Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:06:33.313212Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:06:39.776954Z",
+      "title": "Progress update",
+      "detail": "I found the three supplied inputs and their exact item IDs. Next I’m checking their field structure and sample values so I can use the fixed ISO and year rules exactly as you requested."
+    },
+    {
+      "at": "2026-10-07T06:06:44.120298Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:06:44.322177Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:06:44.517281Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:06:56.589589Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:06:56.747460Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:06:56.848966Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:06:57.002238Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:07:17.671830Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:07:17.923012Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:07:23.801709Z",
+      "title": "Progress update",
+      "detail": "I’ve identified the likely processors. I need their exact schemas next so I can avoid guessing predicates or join settings."
+    },
+    {
+      "at": "2026-10-07T06:07:24.115716Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:07:24.119871Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:07:24.123369Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:07:24.716029Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:07:29.011604Z",
+      "title": "Progress update",
+      "detail": "I have the filter, join, and calculation processors. One spatial-join schema was deferred, so I’m pulling that exact section before I build the test workflow."
+    },
+    {
+      "at": "2026-10-07T06:07:29.023297Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:07:29.026074Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:07:29.377612Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:07:37.594738Z",
+      "title": "Progress update",
+      "detail": "Before the first trial, I’m sampling a few rows from each supplied file. That will confirm the exact code fields and show whether the benchmark already carries any null geometry or blank codes."
+    },
+    {
+      "at": "2026-10-07T06:07:37.610543Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:07:37.617193Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:07:38.051643Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:07:51.786462Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:09.678406Z",
+      "title": "Progress update",
+      "detail": "I’ve built the first full-scope test. It uses only the supplied fixtures, joins WDI to country polygons by exact ISO code, applies the fixed 2013→2023 ratio rule, and then does strict point-within-country selection on the original ports."
+    },
+    {
+      "at": "2026-10-07T06:09:17.583674Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:40.012544Z",
+      "title": "Progress update",
+      "detail": "The test finished. I have a preliminary count, but I still need to verify two practical points before I call it final: whether any port records lacked valid geometry, and whether any country join cases stayed unknown."
+    },
+    {
+      "at": "2026-10-07T06:10:44.605601Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:09.654263Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:09.677295Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:10.973341Z",
+      "title": "Progress update",
+      "detail": "I have enough to see that the first method is close, but not enough yet to mark it final. I’m now inspecting the country-join output and the selected-point output directly so I can confirm unmatched ISO cases and preserve the exact qualifying point artifact."
+    },
+    {
+      "at": "2026-10-07T06:11:18.503706Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the join produced 48 Latin American country polygons, with 42 exact ISO code matches and 6 unmatched ISO cases. Next I’m checking the matched country rows and the selected point rows themselves so I can verify unknown handling and the final benchmark_row_id selection."
+    },
+    {
+      "at": "2026-10-07T06:11:18.528600Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:18.537798Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:18.547511Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:19.337070Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:12:17.155298Z",
+      "title": "Progress update",
+      "detail": "I’m reusing the finished inspection jobs now. This will tell me whether any ports fell in unmatched-code countries, whether any points were outside the Latin country polygons, and whether the selected rows keep the original benchmark IDs."
+    },
+    {
+      "at": "2026-10-07T06:12:17.282142Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:12:17.348519Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:12:18.545146Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:12:20.756468Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:13:19.665145Z",
+      "title": "Progress update",
+      "detail": "I found one real defect: the first selected-point output renamed `benchmark_row_id` because the country layer carried the same field name. I’m correcting that now with an aggregate spatial join so the final selected artifact keeps the original port geometry and original benchmark ID field."
+    },
+    {
+      "at": "2026-10-07T06:13:26.383245Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:13:33.378556Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:01.916978Z",
+      "title": "Progress update",
+      "detail": "The correction finished successfully. I now have a qualifying-point artifact that keeps the original port benchmark_row_id field, plus verified count outputs for qualifying ports, unknown ports, and all original ports."
+    },
+    {
+      "at": "2026-10-07T06:20:42.913733Z",
+      "title": "Progress update",
+      "detail": "I’m doing one last check on the corrected selected-point artifact itself. This is just to confirm the original `benchmark_row_id` field is present on the final qualifying port rows before I record the answer."
+    },
+    {
+      "at": "2026-10-07T06:20:42.944647Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:42.960522Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:21:54.779740Z",
+      "title": "Progress update",
+      "detail": "I’m reusing the completed preview now. After that I can record the final result with the corrected selected-port artifact and the verified counts."
+    },
+    {
+      "at": "2026-10-07T06:21:54.815224Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:21:54.826449Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:22:38.450325Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:22:44.667211Z",
+      "title": "Progress update",
+      "detail": "I’ve finished the checks. The corrected result keeps the original port benchmark IDs, the fixed 2023 versus 2013 rule is applied, and the unknown and unlocated counts are both zero in this benchmark."
+    },
+    {
+      "at": "2026-10-07T06:22:50.314772Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:23:19.742561Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:23:35.731243Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:23:35.884124Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:23:36.268875Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:23:50.885354Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:23:50.922051Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:23:51.365498Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:23:55.307175Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:24:01.525201Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:24:01.526508Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:24:01.585456Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:24:03.026941Z",
+      "title": "Progress update",
+      "detail": "The counts are verified, but Terra won’t accept a private trial artifact as the final selected output. I’m promoting the tested computation into a proper final workflow now so the selected point artifact can be attached to the answer."
+    },
+    {
+      "at": "2026-10-07T06:25:14.413732Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:25:25.433390Z",
+      "title": "Progress update",
+      "detail": "The proposal schema check found one binding issue, not a data problem. I’m correcting the two ambiguous requirement bindings to the qualifying-country join and resubmitting the same tested method."
+    },
+    {
+      "at": "2026-10-07T06:25:31.508045Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:26:02.730115Z",
+      "title": "Progress update",
+      "detail": "I’m keeping the final artifact and support tables, but narrowing the two country-growth requirement references to the actual qualifying branch that feeds the selected ports."
+    },
+    {
+      "at": "2026-10-07T06:26:08.212577Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:19.828717Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:31.750849Z",
+      "title": "assess_plan",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:26:35.441644Z",
+      "title": "Progress update",
+      "detail": "The workflow itself is runnable, but Terra wants the earlier adverse finding formally resolved against this saved proposal before execution. I’m recording that the corrected proposal fixes the renamed benchmark field issue."
+    },
+    {
+      "at": "2026-10-07T06:26:40.805783Z",
+      "title": "Progress update",
+      "detail": "The proposal is now supported. I’m running that exact saved workflow so the final selected-point artifact is no longer just a private trial output."
+    },
+    {
+      "at": "2026-10-07T06:26:40.974276Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "count qual ports fix",
+      "description": "Recorded table-group-statistics · skipped"
+    },
+    {
+      "title": "count total ports fix",
+      "description": "Recorded table-group-statistics · skipped"
+    },
+    {
+      "title": "count unknown ports fix",
+      "description": "Recorded table-group-statistics · skipped"
+    },
+    {
+      "title": "Ports in high-growth Latin American countries",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "Qualifying port count",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "Unknown eligibility count",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "Benchmark port total",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "All benchmark ports matched to selected Latin country polygons",
+      "description": "Recorded output · skipped"
+    },
+    {
+      "title": "latin match all fix",
+      "description": "Recorded vector-spatial-join · skipped"
+    },
+    {
+      "title": "qual countries fix",
+      "description": "Recorded vector-filter · skipped"
+    },
+    {
+      "title": "qualifying ports fix",
+      "description": "Recorded vector-spatial-join · skipped"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · skipped"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · skipped"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · skipped"
+    },
+    {
+      "title": "unknown countries fix",
+      "description": "Recorded vector-filter · skipped"
+    },
+    {
+      "title": "unknown ports fix",
+      "description": "Recorded vector-spatial-join · skipped"
+    },
+    {
+      "title": "count qual ports fix",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "count total ports fix",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "count unknown ports fix",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "latin match all fix",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "qual countries fix",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "qualifying ports fix",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "latin match all fix",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "count total ports fix",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "count qual ports fix",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "count unknown ports fix",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "unknown countries fix",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "unknown ports fix",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "count qual ports",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "countries wdi",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "count total ports",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "count unknown valid ports",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "count valid ports all",
+      "description": "Recorded table-group-statistics · succeeded"
+    },
+    {
+      "title": "growth countries",
+      "description": "Recorded vector-field-calculate · succeeded"
+    },
+    {
+      "title": "latin countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "qual countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "qualifying ports",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "count total ports",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "count qual ports",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "count unknown valid ports",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "count valid ports all",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "unknown countries",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "unknown valid ports",
+      "description": "Recorded vector-spatial-join · succeeded"
+    },
+    {
+      "title": "valid ports all",
+      "description": "Recorded vector-spatial-join · succeeded"
+    }
+  ],
+  "previews": [
+    {
+      "path": "assets/104119-workflow.png",
+      "alt": "Actual executed workflow and step outcomes",
+      "caption": "Diagram generated from the saved workflow. This is not a map or proof of correctness; see independent checks.",
+      "attribution": "Exia Labs, generated from benchmark execution metadata.",
+      "license": "Exia Labs study illustration; publication pending owner review.",
+      "sha256": "2a29115a64482f184ed71e3e1d22a89092b795e3ebba0018c565fd3530681682"
+    }
+  ],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d73b065b3afbcc6930d3f0086d5aef0aa09c657710c7c377f4dfad4f1d113fda",
+      "bytes": 1246,
+      "finishedAt": "2026-10-07T06:09:28.924994+00:00"
+    },
+    {
+      "sha256": "700cae0f0fd8a1d2e795770063192ee8389450a1e507fe6ef3e04fb990b11758",
+      "bytes": 1172063,
+      "finishedAt": "2026-10-07T06:09:28.924994+00:00"
+    },
+    {
+      "sha256": "88594296e94fe36d2810fac2feb2672aa3b7fc3985d9617914ddbf11d4157626",
+      "bytes": 171501,
+      "finishedAt": "2026-10-07T06:09:24.362592+00:00"
+    },
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T06:09:24.362592+00:00"
+    },
+    {
+      "sha256": "fb0341457a978ceabd3d797fc40afb32b14a87e03b5419c361361f6812350d9e",
+      "bytes": 38006,
+      "finishedAt": "2026-10-07T06:09:24.362592+00:00"
+    },
+    {
+      "sha256": "ade9fe22aa015cf541b53910ad10a10eb9bd0be84dc378817aa3c871b395b48f",
+      "bytes": 1175803,
+      "finishedAt": "2026-10-07T06:09:35.777431+00:00"
+    },
+    {
+      "sha256": "949f46230a745ed50ca53489573b82443db26ff087d8000f5feb0ccea831af91",
+      "bytes": 1266,
+      "finishedAt": "2026-10-07T06:09:41.848065+00:00"
+    },
+    {
+      "sha256": "868970c6e7e44e32368b4262fd392349ca8b9d186674624087118b64c25d93f3",
+      "bytes": 1176764,
+      "finishedAt": "2026-10-07T06:09:41.848065+00:00"
+    },
+    {
+      "sha256": "82fa1ff56fc4baaa653074c26f69e034e9db4a5b7205b7498ec33303c380f3bc",
+      "bytes": 659023,
+      "finishedAt": "2026-10-07T06:09:48.004171+00:00"
+    },
+    {
+      "sha256": "783d1379c987f44ab71c68d941872afeab801de9da16fbbd882cb9620799a014",
+      "bytes": 49949,
+      "finishedAt": "2026-10-07T06:09:48.004171+00:00"
+    },
+    {
+      "sha256": "083eb60cad2240a519b442f2ffe3cbb043f66d07bb71673a1d4d725149f2929b",
+      "bytes": 60442,
+      "finishedAt": "2026-10-07T06:09:35.777431+00:00"
+    },
+    {
+      "sha256": "f74d6e512b4ec136e68f6820718d52bf41f600e49ef80f662f8df3ee686a749a",
+      "bytes": 1250,
+      "finishedAt": "2026-10-07T06:10:04.814079+00:00"
+    },
+    {
+      "sha256": "b52c7e44a163a139567d2711d2c4eafd018a64fc90c0c170756813884bdfcc51",
+      "bytes": 1330,
+      "finishedAt": "2026-10-07T06:10:04.814079+00:00"
+    },
+    {
+      "sha256": "5875f6cc2be012b883a09fc2e937fbddee63940fd5654085a2e238c2349d9c29",
+      "bytes": 48643,
+      "finishedAt": "2026-10-07T06:09:59.048733+00:00"
+    },
+    {
+      "sha256": "4fa383d0855493ee40bc73b6d5bf66a6afae709c292816cc7ebe517282396f51",
+      "bytes": 29679,
+      "finishedAt": "2026-10-07T06:09:59.048733+00:00"
+    },
+    {
+      "sha256": "82fa1ff56fc4baaa653074c26f69e034e9db4a5b7205b7498ec33303c380f3bc",
+      "bytes": 659023,
+      "finishedAt": "2026-10-07T06:14:59.073223+00:00"
+    },
+    {
+      "sha256": "783d1379c987f44ab71c68d941872afeab801de9da16fbbd882cb9620799a014",
+      "bytes": 49949,
+      "finishedAt": "2026-10-07T06:14:59.073223+00:00"
+    },
+    {
+      "sha256": "d73b065b3afbcc6930d3f0086d5aef0aa09c657710c7c377f4dfad4f1d113fda",
+      "bytes": 1246,
+      "finishedAt": "2026-10-07T06:16:32.070261+00:00"
+    },
+    {
+      "sha256": "9bd60c1a94bf26f091e90c2e0853f904c544b551a59600fd71466f29b9f65f1a",
+      "bytes": 43584,
+      "finishedAt": "2026-10-07T06:16:24.314607+00:00"
+    },
+    {
+      "sha256": "5e9f429868892e756ef158e4151f9929088542aa60e2ab8b759e1a60941ebf94",
+      "bytes": 30419,
+      "finishedAt": "2026-10-07T06:17:42.963705+00:00"
+    },
+    {
+      "sha256": "17e5b3a82ddd2b628c99fc11b43f0c2c544f5fb06507912a4de3cdcc4c6c5c84",
+      "bytes": 16901,
+      "finishedAt": "2026-10-07T06:17:42.963705+00:00"
+    },
+    {
+      "sha256": "f74d6e512b4ec136e68f6820718d52bf41f600e49ef80f662f8df3ee686a749a",
+      "bytes": 1250,
+      "finishedAt": "2026-10-07T06:18:44.359617+00:00"
+    },
+    {
+      "sha256": "450b660a7abfeb19f3aea310f6f0625ddb64d1c3072d3d5490551651d837d1ef",
+      "bytes": 1282,
+      "finishedAt": "2026-10-07T06:18:44.359617+00:00"
+    }
+  ],
+  "snapshotSha256": "503935c5aad348171e7dbd6eff6f158237ae5c73c6241b4f5a227bd7d6e94d5d",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:09:17.583674Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full benchmark method correctly classify Latin American country polygons by the fixed 2023/2013 population ratio and then select qualifying and unknown original port points using strict within matching?"
+    },
+    {
+      "at": "2026-10-07T06:13:26.383245Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Can a focused correction preserve the original port geometry and benchmark_row_id field while reproducing the same qualifying, unknown, and unlocated counts under the fixed Latin America and population-growth rules?"
+    },
+    {
+      "at": "2026-10-07T06:13:33.378556Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "insufficient",
+      "findings": "The full-scope investigation established the analytical counts and coverage handling: 48 original Latin American country polygons were selected by SUBREGION, 42 matched WDI by exact ISO_A3/Country Code, and 6 remained unmatched and therefore unknown-country polygons. The fixed-population rule identified 19 qualifying country polygons with pop_ratio > 1.1. The strict within join selected 91 original port records in qualifying countries, and the unknown-country join selected 0 valid port records. The left join to all selected Latin country polygons reported inputTargetRecords 230, targetFeatures 230, targetRecordsOmittedBeforeJoin 0, matchedTargetFeatures 174, and unmatchedTargetFeatures 56, so no original records lacked usable geometry in this run and 56 valid points lay outside the selected Latin country polygons.",
+      "limitations": [
+        "The selected-point output renamed the original benchmark field to benchmark_row_id_target because the country polygons carried the same field name, so this artifact does not yet meet the requested final deliverable schema."
+      ],
+      "next_action": "Run a focused correction that preserves the original port benchmark_row_id field while reproducing the same qualifying and unknown counts.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:22:38.450325Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The focused correction preserved the original port schema while reproducing the established counts. The corrected qualifying-point artifact contains 91 original port records, keeps the original benchmark_row_id field, preserves point geometry, and reports country_match_count = 1 for every selected row. The corrected unknown-country point count is 0. The left aggregate join to all selected Latin country polygons reported inputTargetRecords 230, targetFeatures 230, targetRecordsOmittedBeforeJoin 0, matchedTargetFeatures 174, and unmatchedTargetFeatures 56, confirming unlocated_count 0 and showing that valid unmatched points are outside the selected Latin country polygons rather than unknown.",
+      "limitations": [
+        "The result remains limited to the supplied benchmark port inventory, supplied original country polygons, and frozen WDI values."
+      ],
+      "next_action": "Assess the corrected selected-point artifact and count outputs against the recorded final conditions and publish the final answer.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:23:19.742561Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "Using the supplied immutable benchmark fixtures, I filtered original World Bank country polygons to SUBREGION Central America, Caribbean, and South America, joined frozen WDI SP.POP.TOTL by exact ISO_A3/Country Code, and classified high-growth countries where 2023 population divided by 2013 population is strictly greater than 1.1. The join matched 42 selected polygons and left 6 polygons as unknown-growth. The high-growth set contains 19 polygons. The corrected selected-point artifact preserves original point geometry and the original benchmark_row_id field and contains 91 qualifying original port records. Supporting count outputs show 230 original benchmark port records total, 91 qualifying records, 0 unknown-eligibility records, and the all-port left join kept all 230 source records with targetRecordsOmittedBeforeJoin 0, so unlocated_count is 0.",
+      "limitations": [
+        "The count covers only the supplied USGS OFR 2017-1079 frozen benchmark port inventory, not all modern seaports.",
+        "Six selected Latin American polygons had no exact WDI Country Code match and therefore remained unknown-growth, but no supplied port records fell within those polygons."
+      ],
+      "next_action": null,
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "117fc18fdf90ecc4e6ae50f191c4fc6f0a9d91c87e7a7b41aa5088301360f5c2",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

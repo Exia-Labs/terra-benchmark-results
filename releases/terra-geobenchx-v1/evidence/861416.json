@@ -1,0 +1,483 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "861416",
+  "question": "Visualize regional economic patterns using GDP per capita.",
+  "submittedPrompt": "Visualize regional economic patterns using GDP per capita.\n\nTask conventions: Use the frozen country polygons and World Bank NY.GDP.PCAP.CD 2023 column, in current USD per capita. These are country-level indicators, not a subnational surface or a new regional aggregation. Join the supplied ISO_A3 to Country Code exactly. Nonmatching identifiers and missing measurements remain unknown; do not guess them or substitute another year. Retain every original country feature and benchmark_row_id, including unknowns. No data must have a distinct map category, not zero. Create a quantitative choropleth with five quantile classes (fewer only if tied values collapse breaks), a visible legend with numeric bounds and units, and a neutral No data category. Values equal to a class break enter the upper class. Preserve negative and genuine zero values. This fixed classification and year are disclosed evaluation conventions; do not retrieve live replacements.\n\n\n\nAdd the resulting quantitative country layer to the map and retain an inspectable data artifact containing the original country geometry, benchmark_row_id, numeric value and class. End with one fenced JSON object: {count: countries with a known numeric value, unknown_count: countries without one, coverage_note: string, selection: {collectionId, itemId, assetKey}, value_field: numeric_column_name, class_field: classification_column_name, map_layer_id: delivered_layer_id}. The artifact must include known AND unknown countries, not only the known subset. Explain the year, units, key limitations and legend in the final response.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"World Bank country boundaries\",\n    \"edition\": \"GeoBenchX harmonized names\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"GDP per capita\",\n    \"edition\": \"Frozen WDI; current US dollars by year\",\n    \"units\": {\n      \"2023\": \"current USD per capita\",\n      \"2020\": \"current USD per capita\",\n      \"2022\": \"current USD per capita\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Done — I added the country layer to the map.\n\nIt shows 2023 GDP per capita in current USD per capita, by country only. All 251 supplied country features are retained; 186 have known values and 65 are shown as neutral No data.\n\nLegend:\n- No data\n- 199.58 to <1,969.87\n- 1,969.87 to <5,344.21\n- 5,344.21 to <12,016.91\n- 12,016.91 to <32,163.51\n- 32,163.51 to 128,259.40  \n(current USD per capita; values on a break go into the higher class)\n\nLimits: this is not a subnational surface or a new regional aggregation. The 65 No data countries come from 34 exact code mismatches plus 31 supplied records with missing 2023 values.\n\nSources: supplied World Bank country boundaries and frozen WDI GDP per capita 2023, hosted by Terra, retrieved 2026-10-07; source revisions were not listed.\n\n### Limitations\n\n- This is a country-level map only. It does not create subnational values or any new regional aggregation.\n- Only the supplied frozen World Bank NY.GDP.PCAP.CD 2023 values in current USD per capita are used.\n- The final map keeps 65 countries as No data where the code did not match or the supplied 2023 value is missing.\n- This is a country-level indicator map only, not a subnational surface or a new regional aggregation.\n- 65 countries remain No data: 34 because the supplied country code did not match and 31 because the matched GDP record has no supplied 2023 value.\n- The five classes are quantiles of the 186 known country values, so the legend shows relative distribution bands rather than equal dollar intervals.\n- Country boundaries only; no subnational surface or new regional aggregation.\n- Only the supplied 2023 current USD per capita column is used.\n- Missing 2023 values remain unknown and no other year is substituted.\n- The tested method matched 217 country features and left 34 unmatched features as unknown.\n- An additional 31 matched rows have null 2023 values, for 65 unknown GDP values total.\n- Class 0 is No data and the known values are split into five quantile classes.\n- Values equal to a class break enter the upper class.\n- The layer legend represents country-level values only.",
+  "checks": {
+    "expectedCount": 186,
+    "actualCount": 186,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:03:51.374769Z",
+      "title": "Progress update",
+      "detail": "I’ll build the country choropleth from the two supplied frozen inputs, test the exact join and class rules first, then deliver the final map layer and inspectable artifact."
+    },
+    {
+      "at": "2026-10-07T08:04:00.498760Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:00.981916Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:01.022468Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:02.523757Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:02.714376Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:13.052862Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:13.117448Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:13.418643Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:18.529227Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:19.011686Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:21.744517Z",
+      "title": "Progress update",
+      "detail": "I found the frozen country and GDP inputs. Next I’m checking their actual fields and the available join/classify processors so I can keep every country, preserve unknowns, and match the exact 2023 GDP column."
+    },
+    {
+      "at": "2026-10-07T08:04:45.025988Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:04:45.292804Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:24.930680Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:45.466955Z",
+      "title": "Progress update",
+      "detail": "I have the exact source fields and processors. Now I’m running one full-world private test so I can verify the join counts, unknown handling, and the quantile classes before I save the final map workflow."
+    },
+    {
+      "at": "2026-10-07T08:05:45.504606Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:45.517139Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:51.034673Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:51.075856Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:52.257125Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:53.001690Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:58.846259Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:05:58.915107Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:03.931513Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:06:28.559602Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:07:59.997865Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:00.004156Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:30.770199Z",
+      "title": "Progress update",
+      "detail": "The join test already covered the full world, so I’m reusing that exact tested method for the final workflow. I’m checking the classified output details now so I can confirm the field names, class values, and unknown handling before I publish it to the map."
+    },
+    {
+      "at": "2026-10-07T08:08:30.832859Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:08:31.037163Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:06.376662Z",
+      "title": "Progress update",
+      "detail": "The global test output is ready. I’m pulling the exact field details and sample rows now, then I’ll save and run the final map workflow from this tested method instead of rebuilding it."
+    },
+    {
+      "at": "2026-10-07T08:09:06.404896Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:06.411964Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:38.151683Z",
+      "title": "Progress update",
+      "detail": "I verified the output keeps all 251 country features, with 217 exact code matches and 65 unknown GDP values after the join. I’m pulling the per-class ranges now so the final layer’s legend description matches the actual quantile output."
+    },
+    {
+      "at": "2026-10-07T08:09:38.390354Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:38.617524Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:38.674540Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:40.625609Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:43.705662Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:09:44.441341Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:37.984657Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed the tested method already preserves all countries and keeps unknown GDP values separate. Before I publish it, I’m saving that exact tested computation as the final workflow with the fixed join and quantile settings from your benchmark instructions."
+    },
+    {
+      "at": "2026-10-07T08:10:38.015431Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:38.029662Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:50.028669Z",
+      "title": "Progress update",
+      "detail": "I have the finished class inspections queued, so I’m collecting the exact value ranges for each legend class now. Then I’ll mark the test as sufficient and publish the same tested output as the final map layer."
+    },
+    {
+      "at": "2026-10-07T08:10:50.048723Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:50.054584Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:50.074559Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:50.082964Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:51.116703Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:10:51.561234Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:11:10.668767Z",
+      "title": "Progress update",
+      "detail": "The test answered the main method question: the exact join and quantile classification work on the full requested world extent. I’m recording that result now, then I’ll publish the same tested output as the final workflow."
+    },
+    {
+      "at": "2026-10-07T08:11:14.396919Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:11:51.822729Z",
+      "title": "Progress update",
+      "detail": "The publication workflow uses the same tested join and classification settings as the successful trial. After it validates, I’ll run it once, bind its output to the map, and then verify the final artifact and layer ID."
+    },
+    {
+      "at": "2026-10-07T08:12:03.404029Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:12:18.189523Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:13:36.500469Z",
+      "title": "get_workflow_run",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:13:36.598569Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:13:40.038252Z",
+      "title": "Progress update",
+      "detail": "The saved production run completed in the background. I’m inspecting its final output now, then I’ll add that verified country layer to the map and record the exact artifact and layer ID in the final result."
+    },
+    {
+      "at": "2026-10-07T08:14:28.706554Z",
+      "title": "Progress update",
+      "detail": "The map layer is already bound to the map as layer `[resource id withheld]`. I’m reading the final artifact itself now so the accepted answer uses the published output’s exact selection, counts, and legend evidence."
+    },
+    {
+      "at": "2026-10-07T08:14:28.743359Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:28.762306Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:14:29.181035Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:26.345445Z",
+      "title": "Progress update",
+      "detail": "I’ve got the final published artifact and the class-break summary. I’m doing one last preview check on the delivered layer itself so the accepted result uses the exact published selection and confirms all 251 country features are present."
+    },
+    {
+      "at": "2026-10-07T08:15:26.386477Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:15:26.401002Z",
+      "title": "list_map_layers",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:16:20.417338Z",
+      "title": "Progress update",
+      "detail": "I’ve verified the published output itself: all 251 country features are retained, 186 have known 2023 values, 65 are No data, and the layer is live on the map. I’m recording that final result now with the exact artifact selection and layer ID."
+    },
+    {
+      "at": "2026-10-07T08:16:30.195482Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "classify gdp",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "GDP per capita 2023 choropleth",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "join gdp",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "classify gdp",
+      "description": "Recorded vector-classify · succeeded"
+    },
+    {
+      "title": "join gdp",
+      "description": "Recorded table-attribute-join · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "[resource id withheld]",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "classify gdp",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "d2eba1307030ec9521b10481373aaf1bb69d0609d4d88acac074d634d97af9ad",
+      "bytes": 8404920,
+      "finishedAt": "2026-10-07T08:06:39.170515+00:00"
+    },
+    {
+      "sha256": "18ce25b448f6b5a314e9d5dd91cefdbd54b1703becb9c687208c7c02acfa1d18",
+      "bytes": 169677,
+      "finishedAt": "2026-10-07T08:06:39.170515+00:00"
+    },
+    {
+      "sha256": "7321ce72500224685d7229d9354f4a3aa63ba424d073cb14b5606d8e4e4c5876",
+      "bytes": 8443515,
+      "finishedAt": "2026-10-07T08:06:55.892372+00:00"
+    },
+    {
+      "sha256": "dc81a9cf36e07c96d8c72f5558647e7c177de1e309b42c3a32d086229fb74c2e",
+      "bytes": 8436480,
+      "finishedAt": "2026-10-07T08:07:11.269113+00:00"
+    },
+    {
+      "sha256": "7321ce72500224685d7229d9354f4a3aa63ba424d073cb14b5606d8e4e4c5876",
+      "bytes": 8443515,
+      "finishedAt": "2026-10-07T08:12:52.644095+00:00"
+    },
+    {
+      "sha256": "dc81a9cf36e07c96d8c72f5558647e7c177de1e309b42c3a32d086229fb74c2e",
+      "bytes": 8436480,
+      "finishedAt": "2026-10-07T08:13:16.322489+00:00"
+    }
+  ],
+  "snapshotSha256": "4115f9808b3a7a3830eb95fe5753e4ae05beaa997d0c206f2cbbe914a7e9f562",
+  "investigations": [
+    {
+      "at": "2026-10-07T08:06:28.559602Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does an exact global left join from ISO_A3 to Country Code preserve all 251 country features and produce a valid quantile choropleth with unknowns kept separate?"
+    },
+    {
+      "at": "2026-10-07T08:11:14.396919Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The global left join preserved all 251 supplied country polygons and benchmark_row_id values. Exact ISO_A3 to Country Code matching produced 217 joined features and 34 unmatched features; the final 2023 field has 65 unknown values in total, so 186 countries have known numeric GDP per capita. Quantile classification produced six class codes overall: class 0 for No data plus five quantitative classes over the known values, with counts 37, 37, 37, 37 and 38.",
+      "limitations": [
+        "This trial verified the data method and class structure, not the final map-layer binding on the user's map.",
+        "The output is country-level only and unknowns remain where country codes did not match or the supplied 2023 value is null."
+      ],
+      "next_action": "Save the exact tested computation as the final workflow, execute it, add the resulting choropleth layer to the map, and assess the final artifact and layer binding.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T08:16:30.195482Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "Published the final country choropleth to map layer [resource id withheld]. The final artifact retains all 251 supplied country features and benchmark_row_id values. Exact ISO_A3 to Country Code left joining produced 217 matched country features and 34 unmatched features; together with matched rows that have missing 2023 values, 65 countries remain No data and 186 countries have known 2023 GDP per capita values. The choropleth uses five quantile classes over known values with a separate No data class 0. The class breaks are 1969.86648107793, 5344.21439437871, 12016.907421906 and 32163.5114152484 current USD per capita.",
+      "limitations": [
+        "This is a country-level indicator map only, not a subnational surface or a new regional aggregation.",
+        "65 countries remain No data: 34 because the supplied country code did not match and 31 because the matched GDP record has no supplied 2023 value.",
+        "The five classes are quantiles of the 186 known country values, so the legend shows relative distribution bands rather than equal dollar intervals."
+      ],
+      "next_action": "Review the added choropleth layer on the map. The final artifact can also be reused for follow-on comparisons or export.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "5044df94c954b4baf90da0cc030ae8192c2d9ad749f706a02b806ec7e844a1b8",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}

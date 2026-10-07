@@ -1,0 +1,92 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "304935",
+  "question": "Visualize water usage patterns in Great Lakes region of Africa",
+  "submittedPrompt": "Visualize water usage patterns in Great Lakes region of Africa\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "**Delivered:** the strongest supported visualization here is a **country-level two-map view** for the African Great Lakes area:  \n- **Annual freshwater withdrawals, total**  \n- **Annual freshwater withdrawals as % of internal resources**  \nusing **Countries** as the map geography. That would compare **amount used** versus **pressure on available water**.\n\n**Not yet confirmed:** the actual regional pattern. This prompt gives only **source inventory metadata**, not the underlying values, and the listed water data are **national**, not **lake-basin, subnational, or sector-specific**.\n\n**Next step:** provide the actual indicator tables and confirm your Great Lakes boundary or country list. Then this can become a real map. **Population** and **Agriculture, value added (% of GDP)** can help explain patterns, but they are **context only**, not direct water-use measures.\n\n### Limitations\n\n- This environment provides source inventory metadata rather than the underlying observation records needed for a real map.\n- The listed water-use evidence is limited to national annual freshwater withdrawal indicators and does not provide lake-basin, subnational, or sector-specific water-use measurements.\n- Not yet confirmed because this environment includes only source inventory metadata, not the indicator records needed to draw the map.\n- **Total water use:** The actual values are not available here, so no real pattern can be confirmed.\n- **Water pressure:** The indicator is listed, but the measurements themselves are not present here.\n- **Study area:** The exact country list or basin boundary is still a user choice.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T06:36:48.496208+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "1af0156f32c253053514de51fbe06625084d7d430a910a1e600c712804653533",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "c8cbaec211e7cf3e667ae2dfbe6f83980dd5b4b2db786573270fb991153c9e25",
+      "snapshotSha256AtReview": "b94b2f7d7cd8ee895749550ddd4bf720696fbbfe95505200408d5a9c68c5c705",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies unspecified Great Lakes country/basin membership and absent local, basin or sector-specific water-use observations."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Describes national withdrawal maps as a proposed country-level comparison, and explicitly says they are not lake-basin or subnational patterns."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "States only indicator listings, not values, are available in the supplied environment."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Despite the opening 'Delivered' label, the answer explicitly says the maps would compare values and can become real only after data arrive; no map or observed pattern is claimed and no jobs exist."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests actual tables and a confirmed Great Lakes country list or basin boundary; keeps population/agriculture as context only."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:33:37.204185Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:42.870613Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:33:47.073609Z",
+      "title": "Progress update",
+      "detail": "I’m recording this as a metadata-only request and checking the retained analysis brief so the result matches what was actually possible here."
+    },
+    {
+      "at": "2026-10-07T06:33:47.794644Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:34:09.917311Z",
+      "title": "Progress update",
+      "detail": "I found no retained brief, so I’m saving one now with the real limitation: this prompt only provides source inventory metadata, not the underlying water-use records."
+    },
+    {
+      "at": "2026-10-07T06:34:13.709693Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "dd20de41f23eb65d6effb5666e560711f56d945691f6c3fd0550e7c311f95faf",
+  "investigations": []
+}

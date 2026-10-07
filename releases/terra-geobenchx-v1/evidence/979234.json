@@ -1,0 +1,72 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "979234",
+  "question": "Create population density contours around mineral extraction sites in low-income African countries",
+  "submittedPrompt": "Create population density contours around mineral extraction sites in low-income African countries\n\nTask conventions: This is a closed-catalog task. The complete original GeoBenchX source inventory is listed below; it describes available source types, not actual measurements. Do not supplement it with live data or claim numerical evidence from general knowledge. General knowledge may be used for definitions and explanation. Answer the original question as far as this information environment supports, accurately distinguishing observations, inference and uncertainty. This source-availability/control cohort supplies catalog metadata rather than the observation files and is reported separately from computational tasks.\n- DATA_CATALOG: Forest area (sq. km)\n- DATA_CATALOG: Forest area (% of land area)\n- DATA_CATALOG: Electric power consumption (kWh per capita)\n- DATA_CATALOG: Annual freshwater withdrawals, total (billion cubic meters)\n- DATA_CATALOG: Annual freshwater withdrawals, total (% of internal resources)\n- DATA_CATALOG: Agriculture, value added (% of GDP)\n- DATA_CATALOG: GDP per capita (current US$)\n- DATA_CATALOG: Labor force, total\n- DATA_CATALOG: Net migration\n- DATA_CATALOG: Fertility rate, births per woman\n- DATA_CATALOG: Population, total\n- DATA_CATALOG: Rural population, total\n- DATA_CATALOG: Greenhouse gases emission, per capita, tons of carbon dioxide-equivalents \n- DATA_CATALOG: CO2 emissions per capita, tons\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, Massachusetts Counties\n- DATA_CATALOG: Incidence of Tuberculosis Disease, 2023, New York State Counties\n- DATA_CATALOG: Rail lines (total route-km)\n- DATA_CATALOG: Regional GDP in departments (provinces) of Peru, constant prices 2007, thousand of soles\n- GEO_CATALOG: Countries\n- GEO_CATALOG: Amtrak railway stations\n- GEO_CATALOG: Railway lines in Bangladesh\n- GEO_CATALOG: Cities and Towns of the United States, 2014\n- GEO_CATALOG: Railway Network of North America\n- GEO_CATALOG: Current Wildland Fire Incident Locations, size in acres\n- GEO_CATALOG: Rivers in North America\n- GEO_CATALOG: Lakes in North America\n- GEO_CATALOG: USA counties borders\n- GEO_CATALOG: USA states borders\n- GEO_CATALOG: Earthquakes occurences and magnitude March 15- February 14 2025\n- GEO_CATALOG: Rivers in South America\n- GEO_CATALOG: Seaports of Latin America\n- GEO_CATALOG: Railways in Brazil\n- GEO_CATALOG: Mineral extraction facilities in Africa\n- GEO_CATALOG: Power stations in Africa\n- GEO_CATALOG: Railways in Africa\n- GEO_CATALOG: Municipalities of Brazil\n- GEO_CATALOG: Regions of Peru\n- GEO_CATALOG: Provinces of Peru\n- RASTER_CATALOG: Accumulated snow cover season 2023-2024, USA, inches\n- RASTER_CATALOG: Accumulated snow cover season 2024-2025, USA, inches\n- RASTER_CATALOG: Tibetan Plato South Asia flood extent, August 2018\n- RASTER_CATALOG: Bangladesh population, 2018, people, resolution 1 km\n- RASTER_CATALOG: USA population 2020, people, resolution 1 km\n- RASTER_CATALOG: Chile population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Angola population, 2020, people, resolution 1 km\n- RASTER_CATALOG: Peru, Bolivia, Argentina, Chile flood, February 2018\n- RASTER_CATALOG: Peru population, 2018, 1 km resolution\n- RASTER_CATALOG: Brazil population, 2018, 1 km resolution\n- RASTER_CATALOG: Algeria population density per 1 km 2020, 1 km resolution\n\n\n\nGive a concise ordinary-language answer. No artificial count, result artifact, workflow or map is required when the answer does not warrant one. Do not invent observations or claim an analysis was run.\n\nSupplied immutable inputs:\n[]",
+  "finalAnswer": "**Delivered:** a feasibility answer based only on the supplied inventory.  \n**Not delivered:** the actual population-density contour map.\n\nThe supplied list is not enough to create the requested result.\n\nWhat the inventory does list:\n- **Mineral extraction facilities in Africa**\n- **Countries**\n- African population rasters only for **Angola** (2020, people, 1 km) and **Algeria** (2020, population density, 1 km)\n- country tables such as **GDP per capita** and **Population, total**\n\nWhy the full result is still unsupported:\n- **Data not found** in the listed inventory for Africa-wide population density across low-income countries.\n- **Low-income status is not yet confirmed.** There is no explicit low-income-country layer, and GDP per capita is only a rough proxy.\n- Country-level population totals cannot make local contours around individual extraction sites.\n- This task provides **catalog metadata only**, not the actual source files, so no contours can be computed or checked.\n- Angola’s 1 km population raster would also need **preparation** to turn cell counts into a density surface.\n\nBest supported conclusion: a full Africa-wide answer is not supported here. At most, a future pilot might be possible for **Angola or Algeria** if the actual files are provided, but that still would not establish the requested **low-income African countries** result.\n\n**Next action:** add actual population grids for the target African countries and an explicit income-classification dataset, or narrow the task to one named country with listed raster coverage.\n\n### Limitations\n\n- Only source-availability metadata is supplied; the underlying site and population files are not available for computation in this task.\n- The listed African population rasters cover only Angola and Algeria, not continent-wide low-income Africa.\n- The inventory does not list an explicit low-income country classification.\n- Not supported in this metadata-only environment because the inventory lacks Africa-wide population density coverage for the requested country set, lacks an explicit low-income-country classification, and does not provide the underlying observation files.\n- **Mine sites:** This task provides metadata only, not the actual site geometries or records.\n- **Population density:** Africa-wide coverage is not listed, and Angola's raster would still need preparation from 1 km population counts to density.\n- **Low-income filter:** There is no explicit low-income-country dataset in the inventory, and GDP per capita alone does not establish formal income classification here.",
+  "checks": {
+    "expectedCount": null,
+    "actualCount": null,
+    "expectedMetrics": null,
+    "actualMetrics": null,
+    "computationCorrect": null,
+    "answerFulfilled": true,
+    "adjudication": {
+      "reviewedAt": "2026-10-07T08:27:54.559852+00:00",
+      "reviewer": "Codex evaluation operator (AI-assisted); not blinded or external",
+      "rubricFingerprint": "2b6315e621a4ee5055fd61eb1f1da5011f141090830a3368fd990499a715c2f5",
+      "finalEventId": "[resource id withheld]",
+      "finalTextHash": "6ea7334c8730a72c25f878972c95ae04bf1bdf796e3858e957242f2db92bd571",
+      "snapshotSha256AtReview": "5e4dd22bb5347866f2f1f63a5b631ac7a6197cee60d2bef30ace560785ca7940",
+      "evidenceReviewed": [
+        "Complete accepted final answer",
+        "Recorded tool names, statuses and outputs relevant to claimed work",
+        "Recorded workflow/job/artifact presence",
+        "Frozen source inventory, task environment and case-specific rubric"
+      ],
+      "criteria": {
+        "specific_obstacle": {
+          "satisfied": true,
+          "explanation": "Identifies Angola/Algeria-limited African population coverage, unavailable observation files and absent explicit income classification."
+        },
+        "no_false_proxy": {
+          "satisfied": true,
+          "explanation": "Rejects country totals as local population contours and GDP per capita as verified formal low-income classification."
+        },
+        "scope_honesty": {
+          "satisfied": true,
+          "explanation": "Limits availability to the supplied inventory and does not infer income or source coverage from mining facilities."
+        },
+        "no_fabrication": {
+          "satisfied": true,
+          "explanation": "Explicitly states no contour map was delivered; two completed brief/read calls and no jobs/artifacts."
+        },
+        "useful_next_step": {
+          "satisfied": true,
+          "explanation": "Requests actual target-country population grids and income classifications, separating an optional named-country pilot from the full requested result."
+        }
+      },
+      "cohort": "metadata-only qualitative control; distinct from computational correctness"
+    },
+    "qualification": "Operator-adjudicated, not blinded. Reported separately from exact computed/map results.",
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T08:23:00.292996Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T08:23:26.252811Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries.",
+  "artifacts": [],
+  "snapshotSha256": "c8f50e519c8c79530a89f69806d55774f1ea55091a34b6b3db68f3c92adf360f",
+  "investigations": []
+}

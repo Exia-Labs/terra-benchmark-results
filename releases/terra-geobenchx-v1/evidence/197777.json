@@ -1,0 +1,749 @@
+{
+  "releaseId": "terra-geobenchx-v1",
+  "taskId": "197777",
+  "question": "Calculate the percentage of Peru's population living more than 100km from seaports",
+  "submittedPrompt": "Calculate the percentage of Peru's population living more than 100km from seaports\n\nTask conventions: Use the frozen WorldPop 2018 UN-adjusted population-count raster, original band 1 and grid; values are people per cell. Use the supplied seaports records with COUNTRY exactly 'Peru'. Do not invent missing facilities or include another country. A valid population cell qualifies when its centre is strictly more than 100000 metres from its nearest selected original Point, using shortest WGS84 ellipsoid surface distance. This frozen centre-distance convention avoids overlapping-buffer double counts and projected-map scale ambiguity. It is not road travel distance or within-cell population positioning. Sum original counts in qualifying cells, divide by all original valid country-raster counts and multiply by 100. No resampling, constant-cell-area conversion or invented census denominator. Zero population stays valid; NoData is unknown. Count each cell once. The result describes the supplied facility inventory and raster coverage, not proof that every facility is recorded. Retain the full-grid distance raster and selected-population raster (original count when eligible, zero otherwise, original missing-data mask).\n\n\n\nCompute the percentage and publish both inspectable rasters. A map is optional. End with a fenced JSON object: {count: qualifying cell count, unknown_count: original masked/nonfinite cell count, coverage_note, selection:{collectionId,itemId,assetKey}, distance:{collectionId,itemId,assetKey}, metrics:{selected_people:number,total_people:number,percentage:number}}. Label selected population as people per cell and distance as metres. Report the historical year and coverage limitations. Do not round machine-readable metrics to integers.\n\nDelivery format: submit the structured answer through the final-result tool and finish with a matching concise response. [Product-specific tool arguments omitted.]\n\nSupplied immutable inputs:\n[\n  {\n    \"name\": \"Peru population count, WorldPop 2018\",\n    \"edition\": \"2018 UN-adjusted population counts, aggregated to 1 km cells\",\n    \"units\": {\n      \"band1\": \"people per cell\"\n    },\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  },\n  {\n    \"name\": \"Latin American mineral-exporting seaports\",\n    \"edition\": \"USGS OFR 2017-1079 frozen benchmark compilation\",\n    \"units\": {},\n    \"collectionId\": \"[resource id withheld]\",\n    \"itemId\": \"[resource id withheld]\",\n    \"assetKey\": \"data\"\n  }\n]",
+  "finalAnswer": "Using the supplied WorldPop 2018 Peru population raster and the supplied Peru seaport records, about **57.07%** of Peru’s covered 2018 population lives **more than 100 km** from the nearest selected seaport. I published the full distance raster and the selected-population raster. This reflects the supplied seaport inventory and valid raster coverage only; masked cells remain unknown.\n\n### Limitations\n\n- The population raster is a historical 2018 WorldPop UN-adjusted count surface for Peru, not a current population estimate.\n- The result reflects the supplied frozen Peru seaport inventory only; it does not prove every Peru seaport is recorded.\n- Distances are shortest WGS84 ellipsoid surface distances from original raster cell centres to the nearest selected original Point, not road travel distance or within-cell population positioning.\n- Original masked or nonfinite raster cells remain unknown and are excluded from the denominator and percentage.\n- Distances are to the supplied Peru seaport records only and use straight-line WGS84 ellipsoid cell-centre measurement.\n- This reflects the supplied frozen Peru seaport inventory only; it does not prove every Peru seaport is recorded.\n- This raster shows 2018 WorldPop people per cell and keeps the original missing-data mask; masked cells remain unknown.\n- The distance rule is straight-line WGS84 ellipsoid cell-centre distance, not road travel distance or within-cell population positioning.\n- The percentage uses valid cells from the supplied 2018 Peru WorldPop raster only; 1814410 masked/nonfinite cells remain unknown and are excluded.\n- Distances are straight-line WGS84 ellipsoid surface distances from original raster cell centres to the nearest selected original Point, not road travel distance or within-cell population positioning.\n- Uses the supplied 2018 WorldPop raster only.\n- Masked or nonfinite cells remain unknown and are excluded from totals and percentage.\n- All 16 supplied Peru records are kept.\n- Those records occupy 6 distinct point locations because several rows share the same original port coordinates.\n- Uses geodesic-points distance to the nearest selected original Point.\n- Qualifying cells are those with centre distance strictly greater than 100000 metres.",
+  "checks": {
+    "expectedCount": 1429151,
+    "actualCount": 1429151,
+    "expectedMetrics": {
+      "selected_people": 18254912.14775887,
+      "total_people": 31989265.010558594,
+      "percentage": 57.06574421679751
+    },
+    "actualMetrics": {
+      "percentage": 57.06573796470013,
+      "total_people": 31989265.010558594,
+      "selected_people": 18254912.14775887
+    },
+    "computationCorrect": true,
+    "answerFulfilled": true,
+    "adjudication": null,
+    "qualification": null,
+    "reasons": []
+  },
+  "activity": [
+    {
+      "at": "2026-10-07T06:09:25.348761Z",
+      "title": "Progress update",
+      "detail": "I’ll verify the supplied Peru raster and seaports schema, then test the smallest workflow that keeps the original grid and uses Peru ports only. After that I’ll scale to the full-country result and publish the two rasters."
+    },
+    {
+      "at": "2026-10-07T06:09:34.965827Z",
+      "title": "Progress update",
+      "detail": "I found the Terra geospatial tools. Next I’m saving a small analysis brief and checking the source metadata plus processor options before I run a trial."
+    },
+    {
+      "at": "2026-10-07T06:09:35.471102Z",
+      "title": "get_analysis",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:35.518119Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:38.119824Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:38.296103Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:39.433770Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:53.207513Z",
+      "title": "Progress update",
+      "detail": "I’ve confirmed there’s no existing saved work for this question. Now I’m checking the exact source metadata and finding processors that can preserve the original raster grid while measuring distance to Peru ports only."
+    },
+    {
+      "at": "2026-10-07T06:09:59.141535Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:59.323511Z",
+      "title": "get_collection",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:59.336898Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:09:59.343610Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:01.106994Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:01.373416Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:03.299548Z",
+      "title": "list_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:32.393533Z",
+      "title": "update_analysis_brief",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:37.079776Z",
+      "title": "Progress update",
+      "detail": "The metadata confirms the Peru raster extent. I’m now checking the exact item schemas and processor inputs so I can use the original band and filter the ports correctly before the trial."
+    },
+    {
+      "at": "2026-10-07T06:10:46.808666Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:46.980758Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:10:47.109734Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:10:47.310152Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:47.626417Z",
+      "title": "get_item",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:10:47.917229Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:10:47.958130Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:14.915755Z",
+      "title": "Progress update",
+      "detail": "I have the exact COUNTRY field and the raster nodata/unit metadata. I’m now checking the map-algebra syntax and the trial schema so the test preserves missing cells instead of accidentally turning them into zero."
+    },
+    {
+      "at": "2026-10-07T06:11:14.931963Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:14.936426Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:15.529856Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:15.545037Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:11:16.000480Z",
+      "title": "describe_processors",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:12:05.977734Z",
+      "title": "Progress update",
+      "detail": "I expect the Peru-port filter to return a non-empty Point set, and the geodesic distance surface to keep the population raster’s grid and mask. If the selected-population expression turns missing cells into zero, I’ll correct that before the published run."
+    },
+    {
+      "at": "2026-10-07T06:12:14.792901Z",
+      "title": "run_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:19:04.215311Z",
+      "title": "Progress update",
+      "detail": "The trial finished. I’m checking the preview images and the Peru-port rows now because the distance step reported 6 points after the filter found 16 Peru records. If those are duplicate locations, the method is still fine; if not, I need to fix that before publishing."
+    },
+    {
+      "at": "2026-10-07T06:19:08.979482Z",
+      "title": "get_trial_report",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:19:09.329950Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:19:34.444330Z",
+      "title": "Progress update",
+      "detail": "I confirmed the trial behavior looks right on the previews: the distance raster keeps the Peru grid and the qualifying mask matches a strict 100 km-from-port rule. I’m checking the Peru-port rows one more time, then I’ll save the publishable workflow from this tested method and inspect the final outputs."
+    },
+    {
+      "at": "2026-10-07T06:19:39.673801Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:19:52.887527Z",
+      "title": "Progress update",
+      "detail": "The Peru-port row check is clear: all 16 supplied Peru records were kept, and they sit at 6 distinct point locations because several commodity records share the same port coordinates. That does not change nearest-point distance, so I can use this tested full-country method as the publishable workflow."
+    },
+    {
+      "at": "2026-10-07T06:19:54.326612Z",
+      "title": "assess_trial",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:00.708128Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:00.739102Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:01.795189Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:04.749660Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:09.621837Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:42.234270Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:20:49.038649Z",
+      "title": "get_tool_help",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:21:20.016469Z",
+      "title": "Progress update",
+      "detail": "I’ve got a tested full-country method now. I’m saving it as the publishable workflow with the two rasters and the summary tables tied to the requested percentage result, then I’ll inspect the final published outputs before I deliver the number."
+    },
+    {
+      "at": "2026-10-07T06:21:30.683505Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:21:45.829895Z",
+      "title": "Progress update",
+      "detail": "The workflow is almost saved. Terra rejected it only because the three summary deliverables for the same result need the same one-line limitation. I’m correcting that argument and revalidating the exact tested workflow now."
+    },
+    {
+      "at": "2026-10-07T06:21:52.397366Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:22:01.852561Z",
+      "title": "Progress update",
+      "detail": "Terra accepted the shared limitation fix. One more exact binding was needed in the analysis contract because the distance rule feeds several summary nodes. I’m binding it to the qualifying-population summary and revalidating the same tested workflow now."
+    },
+    {
+      "at": "2026-10-07T06:22:12.212370Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:22:21.155516Z",
+      "title": "Progress update",
+      "detail": "One lineage detail needed correction: after binding the distance rule to the qualifying-population summary, Terra wants only the processors that feed that exact deliverable path. I’m trimming that reference list and saving the same workflow again."
+    },
+    {
+      "at": "2026-10-07T06:22:30.441460Z",
+      "title": "propose_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:22:36.388713Z",
+      "title": "Progress update",
+      "detail": "The publishable workflow is saved and matches the tested computation. I’m running that exact revision now, then I’ll inspect the published rasters and summaries and attach the final answer object to the accepted result."
+    },
+    {
+      "at": "2026-10-07T06:22:40.677750Z",
+      "title": "execute_workflow",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:27:16.739591Z",
+      "title": "Progress update",
+      "detail": "The exact saved workflow finished even though the earlier turn was interrupted. I’m inspecting the final published rasters and summary tables now, then I’ll attach the answer object to the verified outputs."
+    },
+    {
+      "at": "2026-10-07T06:27:22.973542Z",
+      "title": "inspect_workflow_results",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:06.544804Z",
+      "title": "Progress update",
+      "detail": "The workflow is complete. I’m collecting the final inspection receipts for the two published rasters and the three summary tables now so the accepted result can point to the exact published outputs."
+    },
+    {
+      "at": "2026-10-07T06:29:16.427625Z",
+      "title": "Progress update",
+      "detail": "I have the workflow output list. I’m now opening the exact published distance raster, selected-population raster, and the three summary tables so the final result can cite their current receipts directly."
+    },
+    {
+      "at": "2026-10-07T06:29:16.501995Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:16.547237Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:18.132533Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:18.866130Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:29:19.757301Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:14.899302Z",
+      "title": "Progress update",
+      "detail": "The inspections are still finishing in the background. I’m fetching the completed receipts for the two published rasters and the three summary tables now, then I’ll record the final answer against those exact outputs."
+    },
+    {
+      "at": "2026-10-07T06:30:20.854023Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:20.891193Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:21.903430Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:21.983521Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:30:23.332800Z",
+      "title": "inspect_artifact",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:31:50.406253Z",
+      "title": "Progress update",
+      "detail": "The final checks are complete. I’m recording sufficiency for the published distance raster, the selected-population raster, and then the percentage result with the requested answer object."
+    },
+    {
+      "at": "2026-10-07T06:31:54.190139Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:04.766257Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    },
+    {
+      "at": "2026-10-07T06:32:46.535546Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:33:08.630730Z",
+      "title": "Progress update",
+      "detail": "Terra wants the population-share assessment to repeat the brief’s three acceptance conditions exactly. I’m correcting that wording now; the numbers and selected outputs stay the same."
+    },
+    {
+      "at": "2026-10-07T06:33:13.411607Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · failed"
+    },
+    {
+      "at": "2026-10-07T06:33:30.880350Z",
+      "title": "Progress update",
+      "detail": "I’m simplifying the final percentage assessment to just the three exact acceptance conditions Terra listed. The output selections and numbers are unchanged."
+    },
+    {
+      "at": "2026-10-07T06:33:43.576233Z",
+      "title": "assess_result",
+      "detail": "Recorded tool call · completed"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Peru nearest seaport distance",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Peru population farther than 100 km from seaports",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Peru total covered population summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Peru qualifying population summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Peru qualifying cell summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Nearest seaport distance",
+      "description": "Recorded distance-surface · succeeded"
+    },
+    {
+      "title": "Filter Peru seaports",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Extract original band 1",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Peru population raster source",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Total population summary",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Supplied seaports source",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Qualifying cell mask",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Qualifying cell summary",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Population farther than 100 km",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Selected population summary",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Nearest seaport distance",
+      "description": "Recorded distance-surface · succeeded"
+    },
+    {
+      "title": "Filter Peru seaports",
+      "description": "Recorded vector-filter · succeeded"
+    },
+    {
+      "title": "Extract original band 1",
+      "description": "Recorded raster-extract-band · succeeded"
+    },
+    {
+      "title": "Peru population raster source",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Total population summary",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Supplied seaports source",
+      "description": "Recorded source · succeeded"
+    },
+    {
+      "title": "Qualifying cell mask",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Qualifying cell summary",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Population farther than 100 km",
+      "description": "Recorded raster-map-algebra · succeeded"
+    },
+    {
+      "title": "Selected population summary",
+      "description": "Recorded raster-statistics · succeeded"
+    },
+    {
+      "title": "Filter Peru seaports",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Nearest seaport distance",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Population farther than 100 km",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Qualifying cell mask",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Total population summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Selected population summary",
+      "description": "Recorded output · succeeded"
+    },
+    {
+      "title": "Qualifying cell summary",
+      "description": "Recorded output · succeeded"
+    }
+  ],
+  "previews": [],
+  "activityDisclosure": "Recorded observable actions only, not private reasoning. Raw payloads, geometry, private links and credentials are omitted; full evidence is retained privately. Activity/workflow lists bounded at 500 entries. Product naming is normalized to Terra; omitted product-specific delivery syntax is marked in the prompt.",
+  "artifacts": [
+    {
+      "sha256": "3f085a13c7ef83d72672d9909812145fe34fd4f53c653989524e50c92e20e37c",
+      "bytes": 6931939,
+      "finishedAt": "2026-10-07T06:12:57.601326+00:00"
+    },
+    {
+      "sha256": "fb0341457a978ceabd3d797fc40afb32b14a87e03b5419c361361f6812350d9e",
+      "bytes": 38006,
+      "finishedAt": "2026-10-07T06:12:57.601326+00:00"
+    },
+    {
+      "sha256": "8c9ce90047b2fde10f46ae19761e2db3fe267401574f0fbcd70fc0e5a7ca78f5",
+      "bytes": 21753,
+      "finishedAt": "2026-10-07T06:14:03.248344+00:00"
+    },
+    {
+      "sha256": "3bd5a391541e4a2e4f238ca40cde0f8ca412a9bacb557529e9b2423b4408c242",
+      "bytes": 8855489,
+      "finishedAt": "2026-10-07T06:14:03.248344+00:00"
+    },
+    {
+      "sha256": "83644322af919bd44755d1bd328ff898440c263b74060ff00a61494970643baa",
+      "bytes": 15302285,
+      "finishedAt": "2026-10-07T06:15:08.550887+00:00"
+    },
+    {
+      "sha256": "964cd2782ccec87bd53867c0ab42b38965f6c658f82a8c0b87216213b267c25a",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T06:15:08.550887+00:00"
+    },
+    {
+      "sha256": "68f691983eb983dea6085ef54c52ee3e70b4aaf74477bf4267332a74a526c3cb",
+      "bytes": 7004392,
+      "finishedAt": "2026-10-07T06:16:47.364807+00:00"
+    },
+    {
+      "sha256": "ec22d57c7de315c73804ad82e3f250c7de7024316301cfec56cd5e506df98000",
+      "bytes": 84826,
+      "finishedAt": "2026-10-07T06:16:56.513830+00:00"
+    },
+    {
+      "sha256": "afa130f4234c61e9beab2b8ddc86508902a3a2013e87b969ee1eab066b2abc1e",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T06:17:57.594693+00:00"
+    },
+    {
+      "sha256": "0c774b2f0f316102e724ed5372b923f63c43fff7d9138f2bccde2ca42084b3f3",
+      "bytes": 8733,
+      "finishedAt": "2026-10-07T06:17:57.594693+00:00"
+    },
+    {
+      "sha256": "8c9ce90047b2fde10f46ae19761e2db3fe267401574f0fbcd70fc0e5a7ca78f5",
+      "bytes": 21753,
+      "finishedAt": "2026-10-07T06:25:00.316896+00:00"
+    },
+    {
+      "sha256": "3bd5a391541e4a2e4f238ca40cde0f8ca412a9bacb557529e9b2423b4408c242",
+      "bytes": 8855489,
+      "finishedAt": "2026-10-07T06:25:00.316896+00:00"
+    },
+    {
+      "sha256": "83644322af919bd44755d1bd328ff898440c263b74060ff00a61494970643baa",
+      "bytes": 15302285,
+      "finishedAt": "2026-10-07T06:25:36.141789+00:00"
+    },
+    {
+      "sha256": "964cd2782ccec87bd53867c0ab42b38965f6c658f82a8c0b87216213b267c25a",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T06:25:36.141789+00:00"
+    },
+    {
+      "sha256": "68f691983eb983dea6085ef54c52ee3e70b4aaf74477bf4267332a74a526c3cb",
+      "bytes": 7004392,
+      "finishedAt": "2026-10-07T06:26:08.442564+00:00"
+    },
+    {
+      "sha256": "ec22d57c7de315c73804ad82e3f250c7de7024316301cfec56cd5e506df98000",
+      "bytes": 84826,
+      "finishedAt": "2026-10-07T06:26:08.442564+00:00"
+    },
+    {
+      "sha256": "0c774b2f0f316102e724ed5372b923f63c43fff7d9138f2bccde2ca42084b3f3",
+      "bytes": 8733,
+      "finishedAt": "2026-10-07T06:26:53.151650+00:00"
+    },
+    {
+      "sha256": "afa130f4234c61e9beab2b8ddc86508902a3a2013e87b969ee1eab066b2abc1e",
+      "bytes": 8638,
+      "finishedAt": "2026-10-07T06:26:53.151650+00:00"
+    }
+  ],
+  "snapshotSha256": "5b4cb8fc97f9674650e12f2c33988855fc40a50fd573f47ed2dc0afb9c14a081",
+  "investigations": [
+    {
+      "at": "2026-10-07T06:12:14.792901Z",
+      "tool": "run_trial",
+      "status": "completed",
+      "verdict": null,
+      "findings": null,
+      "limitations": null,
+      "next_action": null,
+      "question": "Does the full-country workflow preserve original band 1 and the original missing-data mask while filtering the supplied seaports to COUNTRY exactly Peru, measuring WGS84 ellipsoid nearest-point distance in metres, and producing the qualifying population/count summaries for the strict greater-than-100000-metre rule?"
+    },
+    {
+      "at": "2026-10-07T06:19:54.326612Z",
+      "tool": "assess_trial",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The trial answered the method question for the full Peru extent. The vector filter kept 16 records and every inspected row had COUNTRY='Peru'. Those 16 records occupy 6 distinct coordinate pairs across 6 FACIDs, so the distance processor reported 6 point locations while still representing the full supplied Peru record selection. The distance surface used geodesic-points, kept the original 1522x2199 EPSG:4326 raster grid and original valid/missing pattern, and reported metres. The selected-population raster preserved the original missing-data mask, kept people-per-cell values where distance > 100000 metres, and wrote zero elsewhere. The qualifying mask summed to 1429151 qualifying valid cells. Full-grid statistics reported total_people=31989265.010558594, selected_people=18254912.14775887, and unknown_count=1814410 masked/nonfinite cells.",
+      "limitations": [
+        "The result remains limited to the supplied frozen seaport inventory and 2018 WorldPop raster coverage.",
+        "The distance rule is straight-line WGS84 ellipsoid cell-centre distance, not road travel distance or within-cell population positioning."
+      ],
+      "next_action": "Save a publishable workflow from this tested full-country computation, then execute and inspect the final distance and selected-population rasters plus the final summary outputs.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:31:54.190139Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published distance raster is the requested full-grid nearest-seaport distance surface in metres. It uses the original Peru population raster grid, geodesic point distance on the WGS84 ellipsoid, and preserves the original missing-data mask.",
+      "limitations": [
+        "Distances are to the supplied Peru seaport records only and use straight-line WGS84 ellipsoid cell-centre measurement.",
+        "This reflects the supplied frozen Peru seaport inventory only; it does not prove every Peru seaport is recorded."
+      ],
+      "next_action": "Use the paired selected-population raster and summary tables to review the qualifying population share.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:32:04.766257Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The published selected-population raster is the requested full-grid people-per-cell output for valid Peru raster cells whose centres lie strictly more than 100000 metres from the nearest selected Peru seaport. It preserves the original grid and missing-data mask.",
+      "limitations": [
+        "This raster shows 2018 WorldPop people per cell and keeps the original missing-data mask; masked cells remain unknown.",
+        "This reflects the supplied frozen Peru seaport inventory only; it does not prove every Peru seaport is recorded.",
+        "The distance rule is straight-line WGS84 ellipsoid cell-centre distance, not road travel distance or within-cell population positioning."
+      ],
+      "next_action": "Use the summary tables for the final totals, qualifying cell count, and percentage.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:32:46.535546Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The current published outputs support the requested percentage and the two inspectable rasters. For the supplied Peru seaport inventory and valid 2018 WorldPop Peru raster cells, 18254912.14775887 people out of 31989265.010558594 valid covered people lie strictly more than 100000 metres from the nearest selected Peru seaport cell-centre distance, which is 57.06573796470013%. The qualifying valid-cell count is 1429151, and 1814410 original masked/nonfinite cells remain unknown and are excluded.",
+      "limitations": [
+        "The percentage uses valid cells from the supplied 2018 Peru WorldPop raster only; 1814410 masked/nonfinite cells remain unknown and are excluded.",
+        "The result reflects the supplied frozen Peru seaport inventory only; it does not prove every Peru seaport is recorded.",
+        "Distances are straight-line WGS84 ellipsoid surface distances from original raster cell centres to the nearest selected original Point, not road travel distance or within-cell population positioning."
+      ],
+      "next_action": "Review the published distance and selected-population rasters if you want to see where the qualifying cells are concentrated.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:33:13.411607Z",
+      "tool": "assess_result",
+      "status": "failed",
+      "verdict": "sufficient",
+      "findings": "The current published outputs support the requested percentage and the two inspectable rasters. For the supplied Peru seaport inventory and valid 2018 WorldPop Peru raster cells, 18254912.14775887 people out of 31989265.010558594 valid covered people lie strictly more than 100000 metres from the nearest selected Peru seaport cell-centre distance, which is 57.06573796470013%. The qualifying valid-cell count is 1429151, and 1814410 original masked/nonfinite cells remain unknown and are excluded.",
+      "limitations": [
+        "The percentage uses valid cells from the supplied 2018 Peru WorldPop raster only; 1814410 masked/nonfinite cells remain unknown and are excluded.",
+        "The result reflects the supplied frozen Peru seaport inventory only; it does not prove every Peru seaport is recorded.",
+        "Distances are straight-line WGS84 ellipsoid surface distances from original raster cell centres to the nearest selected original Point, not road travel distance or within-cell population positioning."
+      ],
+      "next_action": "Review the published distance and selected-population rasters if you want to see where the qualifying cells are concentrated.",
+      "question": null
+    },
+    {
+      "at": "2026-10-07T06:33:43.576233Z",
+      "tool": "assess_result",
+      "status": "completed",
+      "verdict": "sufficient",
+      "findings": "The current published outputs support the requested percentage and the two inspectable rasters. For the supplied Peru seaport inventory and valid 2018 WorldPop Peru raster cells, 18254912.14775887 people out of 31989265.010558594 valid covered people lie strictly more than 100000 metres from the nearest selected Peru seaport cell-centre distance, which is 57.06573796470013%. The qualifying valid-cell count is 1429151, and 1814410 original masked/nonfinite cells remain unknown and are excluded.",
+      "limitations": [
+        "The percentage uses valid cells from the supplied 2018 Peru WorldPop raster only; 1814410 masked/nonfinite cells remain unknown and are excluded.",
+        "The result reflects the supplied frozen Peru seaport inventory only; it does not prove every Peru seaport is recorded.",
+        "Distances are straight-line WGS84 ellipsoid surface distances from original raster cell centres to the nearest selected original Point, not road travel distance or within-cell population positioning."
+      ],
+      "next_action": "Review the published distance and selected-population rasters if you want to see where the qualifying cells are concentrated.",
+      "question": null
+    }
+  ],
+  "publicationEdits": {
+    "sourceEvidenceSha256": "daad30388f978d997cb9a69b2802357823eca12e20112176aa255d6f150da76e",
+    "changes": [
+      "Product-name normalization",
+      "Delivery-tool argument syntax omitted"
+    ]
+  }
+}
