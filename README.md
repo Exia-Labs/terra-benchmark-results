@@ -1,5 +1,7 @@
 # Terra: geospatial workflows, with inspectable evidence
 
+For an introduction and a worked example, read [Introducing Terra](https://blog.exialabs.com/p/introducing-terra).
+
 The evaluation began on 2026-10-07 UTC and measured one frozen version of Terra.
 The measurement policy selects the first valid
 primary attempt, with documented replacements for infrastructure interruptions.
